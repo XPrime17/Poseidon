@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated that previous guidance hasn't resolved issue",
+  "detailed_context": "Scott attempted to follow Poseidon's troubleshooting steps (gateway restart, Telegram configuration) but reports continued failure. The root cause of frustration: Poseidon provided step-by-step instructions that were either incomplete, unclear, or didn't address the actual problem. Scott's vague statement 'nothing working' suggests multiple components are still failing—likely the gateway restart didn't resolve the Telegram connection issue Poseidon was targeting. The trigger is the disconnect between Poseidon's confidence in the solution and reality. What Poseidon should have done: ask clarifying questions before providing steps (Which part failed? What error message?), or anticipated edge cases. This reveals Scott expects concrete results, not theoretical solutions—when given instructions, they should actually work on his system. The pattern shows Scott needs verification that solutions work before moving forward, not just procedural guidance.",
+  "session_id": "82bd7329-d62d-4eb4-a6ee-902ac580589d",
+  "captured_at": "2026-02-02T00:17:44.529Z",
+  "transcript_source": "82bd7329-d62d-4eb4-a6ee-902ac580589d.jsonl"
+}

@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated by incorrect parameter usage despite available references",
+  "detailed_context": "Scott was attempting to execute Skyvern workflow calls but Poseidon used incorrect parameters, specifically a malformed schedule_url. Scott had to interrupt and correct the approach mid-process. The root frustration stems from Poseidon not consulting available reference materials (previous implementation or GitHub repo) before making API calls, forcing Scott into a debugging/correction role rather than moving forward productively. Scott is explicitly asking Poseidon to analyze parameters against known-good sources and propose corrections before acting—indicating Poseidon should verify assumptions against documentation first. This reveals Scott expects Poseidon to be self-correcting by referencing available context, not blindly attempting calls. The pattern shows Scott values careful verification over rapid iteration when external APIs are involved.",
+  "session_id": "3523fb69-65cd-4899-8690-10fe04cb641c",
+  "captured_at": "2026-01-31T15:37:21.575Z",
+  "transcript_source": "3523fb69-65cd-4899-8690-10fe04cb641c.jsonl"
+}

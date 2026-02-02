@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated by rate limit blocking workflow",
+  "detailed_context": "Scott was attempting to deploy and test a worker service (moltbot-sandbox), and after asking about gateway restart requirements, encountered a rate limit error from Claude API. The root cause of frustration is that Poseidon (or the system) is hitting organization-level token limits (10K input tokens/min), which prevents Scott from continuing his development workflow. This appears to be a capacity/scaling issue rather than a Poseidon logic error. Scott needed either: (1) a warning before hitting limits, (2) request batching to stay under limits, (3) proactive rate limit management, or (4) clearer guidance on reducing token usage. The specific trigger is the 429 error interrupting active work. This reveals Scott expects Poseidon to manage API constraints intelligently and not let external rate limits block his workflow without warning or mitigation strategies.",
+  "session_id": "4c28ed64-398d-46f3-adc9-4c60d2984791",
+  "captured_at": "2026-02-02T02:47:42.983Z",
+  "transcript_source": "4c28ed64-398d-46f3-adc9-4c60d2984791.jsonl"
+}

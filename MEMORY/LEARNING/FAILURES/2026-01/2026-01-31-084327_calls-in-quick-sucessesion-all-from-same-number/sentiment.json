@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "calls in quick sucessesion, all from same number.  The previous implementation encountered similar issues, please search history to see how that was solved",
+  "detailed_context": "━━━ 📚 LEARN ━━━ 7/7\n\n**Key Learning:** When a user reports unexpected behavior that doesn't match the logged actions, gather more details before jumping to conclusions. The discrepancy between \"I created 1 call\" and \"user received 3 calls\" requires investigation into other potential sources (existing database records, external systems, phone forwarding).\n\n**Process Improvement:** Before triggering test calls, verify there are no existing pending leads in the database with the test phone number ",
+  "session_id": "3523fb69-65cd-4899-8690-10fe04cb641c",
+  "captured_at": "2026-01-31T16:43:27.443Z",
+  "transcript_source": "3523fb69-65cd-4899-8690-10fe04cb641c.jsonl"
+}

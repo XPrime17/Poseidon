@@ -17,3 +17,25 @@ USER/
 # Temporary files
 *.tmp
 .temp/
+
+# Claude Code runtime files (DO NOT TRACK)
+.credentials.json
+.update.lock
+history.jsonl
+cache/
+debug/
+file-history/
+paste-cache/
+projects/
+shell-snapshots/
+stats-cache.json
+todos/
+tasks/
+plans/
+
+# Session-specific
+MEMORY/SESSIONS/
+MEMORY/SUMMARIES/
+
+# Personal user config (tracked separately or kept private)
+settings.json
