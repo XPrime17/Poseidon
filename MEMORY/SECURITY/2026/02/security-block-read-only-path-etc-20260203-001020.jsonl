@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-03T00:10:20.718Z",
+  "session_id": "26a6a307-5cad-4b88-9d07-12f69307e4ec",
+  "event_type": "block",
+  "tool": "Edit",
+  "category": "path_access",
+  "target": "/etc/systemd/system/security-audit.service",
+  "reason": "Read-only path: /etc/**",
+  "action_taken": "Hard block - exit 2"
+}

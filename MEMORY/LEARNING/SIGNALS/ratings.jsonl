@@ -74,3 +74,8 @@
 {"timestamp":"2026-02-02T05:04:20+00:00","rating":6,"session_id":"4c28ed64-398d-46f3-adc9-4c60d2984791","source":"implicit","sentiment_summary":"Clear expectation-setting with mild directive tone","confidence":0.72}
 {"timestamp":"2026-02-02T05:07:16+00:00","rating":4,"session_id":"4c28ed64-398d-46f3-adc9-4c60d2984791","source":"implicit","sentiment_summary":"Confused and mildly frustrated by unclear response.","confidence":0.75}
 {"timestamp":"2026-02-02T05:12:08+00:00","rating":5,"session_id":"4c28ed64-398d-46f3-adc9-4c60d2984791","source":"implicit","sentiment_summary":"Technical clarification question, no sentiment toward Poseidon","confidence":0.85}
+{"timestamp":"2026-02-02T23:59:53+00:00","rating":5,"session_id":"26a6a307-5cad-4b88-9d07-12f69307e4ec","source":"implicit","sentiment_summary":"Technical request, no emotional indicators","confidence":0.95}
+{"timestamp":"2026-02-03T00:08:44+00:00","rating":4,"session_id":"26a6a307-5cad-4b88-9d07-12f69307e4ec","source":"implicit","sentiment_summary":"Mild frustration with missing email notifications","confidence":0.75}
+{"timestamp":"2026-02-03T00:18:13+00:00","rating":5,"session_id":"26a6a307-5cad-4b88-9d07-12f69307e4ec","source":"implicit","sentiment_summary":"Technical question, no sentiment directed at Poseidon","confidence":0.95}
+{"timestamp":"2026-02-03T00:25:25+00:00","rating":5,"session_id":"26a6a307-5cad-4b88-9d07-12f69307e4ec","source":"implicit","sentiment_summary":"Affirmation to proceed, no emotional content","confidence":0.95}
+{"timestamp":"2026-02-03T00:29:44+00:00","rating":5,"session_id":"26a6a307-5cad-4b88-9d07-12f69307e4ec","source":"implicit","sentiment_summary":"Neutral command sequence, no emotional indicators","confidence":0.95}

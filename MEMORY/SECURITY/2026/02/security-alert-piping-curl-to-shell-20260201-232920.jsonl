@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-01T23:29:20.350Z",
+  "session_id": "82bd7329-d62d-4eb4-a6ee-902ac580589d",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s \"https://moltbot-sandbox.scott-james1717.workers.dev/_admin/api/pairing/pending\" 2>/dev/null || echo \"Need to check admin dashboard\"",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

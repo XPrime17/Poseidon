@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-02T04:42:25.610Z",
+  "session_id": "4c28ed64-398d-46f3-adc9-4c60d2984791",
+  "event_type": "block",
+  "tool": "Edit",
+  "category": "path_access",
+  "target": "/etc/postfix/main.cf",
+  "reason": "Read-only path: /etc/**",
+  "action_taken": "Hard block - exit 2"
+}
