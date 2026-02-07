@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "retell-voice-ai": {
+      "command": "node",
+      "args": ["/root/.claude/skills/_VOICEAIAGENCY/MCP/build/index.js"],
+      "env": {
+        "RETELL_API_KEY": "${RETELL_API_KEY}"
+      }
+    }
+  }
+}

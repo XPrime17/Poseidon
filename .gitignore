@@ -37,5 +37,15 @@ plans/
 MEMORY/SESSIONS/
 MEMORY/SUMMARIES/
 
+# Node.js
+node_modules/
+
+# Build artifacts
+build/
+
+# Environment files
+.env
+.env.*
+
 # Personal user config (tracked separately or kept private)
 settings.json
