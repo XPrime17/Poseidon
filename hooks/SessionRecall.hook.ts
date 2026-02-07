@@ -380,7 +380,84 @@ function buildSessionSummary(entry: SessionIndexEntry): SessionSummary | null {
 }
 
 // ============================================================================
-// Output
+// Visual Output (stderr — printed to terminal)
+// ============================================================================
+
+// ANSI colors matching PAI banner palette
+const C = {
+  reset:     '\x1b[0m',
+  bold:      '\x1b[1m',
+  dim:       '\x1b[2m',
+  italic:    '\x1b[3m',
+  deepBlue:  '\x1b[38;2;30;58;138m',
+  blue:      '\x1b[38;2;59;130;246m',
+  lightBlue: '\x1b[38;2;147;197;253m',
+  slate:     '\x1b[38;2;51;65;85m',
+  gray:      '\x1b[38;2;100;116;139m',
+  lightGray: '\x1b[38;2;203;213;225m',
+  green:     '\x1b[38;2;34;197;94m',
+  yellow:    '\x1b[38;2;250;204;21m',
+  red:       '\x1b[38;2;239;68;68m',
+  orange:    '\x1b[38;2;251;146;60m',
+};
+
+function statusColor(status: string): string {
+  switch (status) {
+    case 'complete': return C.green;
+    case 'partial':  return C.yellow;
+    case 'failed':   return C.red;
+    default:         return C.orange;
+  }
+}
+
+function statusLabel(status: string): string {
+  switch (status) {
+    case 'complete': return 'DONE';
+    case 'partial':  return 'IN PROGRESS';
+    case 'failed':   return 'FAILED';
+    default:         return 'UNKNOWN';
+  }
+}
+
+function printVisualSummary(summaries: SessionSummary[]): void {
+  const w = process.stderr.write.bind(process.stderr);
+  const ln = (s: string) => w(s + '\n');
+
+  ln('');
+  ln(`${C.slate}┌──────────────────────────────────────────────────────────────────┐${C.reset}`);
+  ln(`${C.slate}│${C.reset}  ${C.blue}↻${C.reset}  ${C.lightBlue}${C.bold}Session Recall${C.reset}${C.gray} — Last ${summaries.length} sessions${C.reset}${' '.repeat(Math.max(0, 34 - String(summaries.length).length))}${C.slate}│${C.reset}`);
+  ln(`${C.slate}├──────────────────────────────────────────────────────────────────┤${C.reset}`);
+
+  for (let i = 0; i < summaries.length; i++) {
+    const s = summaries[i];
+    const sc = statusColor(s.completionStatus);
+    const sl = statusLabel(s.completionStatus);
+    const time = formatRelativeTime(s.modified);
+
+    // Topic line
+    const topic = s.firstPrompt.length > 48 ? s.firstPrompt.slice(0, 45) + '...' : s.firstPrompt;
+    ln(`${C.slate}│${C.reset}                                                                  ${C.slate}│${C.reset}`);
+    ln(`${C.slate}│${C.reset}  ${C.lightBlue}${i + 1}.${C.reset} ${C.bold}${topic}${C.reset}${' '.repeat(Math.max(1, 60 - topic.length - String(i + 1).length))}${C.slate}│${C.reset}`);
+
+    // Status + meta line
+    const meta = `${sl}  ${C.gray}${time} · ${s.durationMinutes}m · ${s.messageCount} msgs${C.reset}`;
+    const metaPlain = `${sl}  ${time} · ${s.durationMinutes}m · ${s.messageCount} msgs`;
+    ln(`${C.slate}│${C.reset}     ${sc}${meta}${' '.repeat(Math.max(1, 59 - metaPlain.length))}${C.slate}│${C.reset}`);
+
+    // Last response preview (truncated)
+    if (s.lastAssistantMessage) {
+      const preview = s.lastAssistantMessage.replace(/\n/g, ' ').slice(0, 52);
+      ln(`${C.slate}│${C.reset}     ${C.dim}${C.gray}${preview}${preview.length >= 52 ? '…' : ''}${C.reset}${' '.repeat(Math.max(1, 59 - Math.min(preview.length, 52) - (preview.length >= 52 ? 1 : 0)))}${C.slate}│${C.reset}`);
+    }
+  }
+
+  ln(`${C.slate}│${C.reset}                                                                  ${C.slate}│${C.reset}`);
+  ln(`${C.slate}└──────────────────────────────────────────────────────────────────┘${C.reset}`);
+  ln('');
+}
+
+// ============================================================================
+// Context Output (stdout — injected as system-reminder)
 // ============================================================================
 
 function formatRelativeTime(isoDate: string): string {
@@ -501,7 +578,10 @@ async function main() {
       process.exit(0);
     }
 
-    // Output the system-reminder
+    // Print visual summary to terminal (stderr)
+    printVisualSummary(summaries);
+
+    // Output the system-reminder context (stdout)
     console.log(buildOutput(summaries));
     console.error(`[SessionRecall] Injected ${summaries.length} session summaries`);
 
