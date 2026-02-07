@@ -11,7 +11,7 @@
  *
  * INPUT:
  * - stdin: Hook input JSON (session_id, transcript_path)
- * - Files: projects/-root--claude/sessions-index.json, session JSONL transcripts
+ * - Files: projects/{all}/sessions-index.json (optional), session JSONL transcripts
  *
  * OUTPUT:
  * - stdout: <system-reminder> with session summaries + continuation instructions
@@ -42,8 +42,8 @@
  * - Skipped for subagents: Yes
  */
 
-import { readFileSync, existsSync, statSync } from 'fs';
-import { join } from 'path';
+import { readFileSync, existsSync, statSync, readdirSync } from 'fs';
+import { join, basename } from 'path';
 import { getPaiDir } from './lib/paths';
 
 // ============================================================================
@@ -51,8 +51,7 @@ import { getPaiDir } from './lib/paths';
 // ============================================================================
 
 const CLAUDE_DIR = join(process.env.HOME!, '.claude');
-const PROJECTS_DIR = join(CLAUDE_DIR, 'projects', '-root--claude');
-const SESSIONS_INDEX = join(PROJECTS_DIR, 'sessions-index.json');
+const PROJECTS_BASE = join(CLAUDE_DIR, 'projects');
 
 const MAX_SESSIONS = 3;
 const MAX_DIRECT_READ = 512 * 1024; // 512KB threshold for direct read
@@ -127,37 +126,148 @@ interface HookInput {
 }
 
 // ============================================================================
-// Session Index
+// Session Discovery (file-based, across all project dirs)
 // ============================================================================
 
-function loadSessionsIndex(): SessionIndex | null {
-  if (!existsSync(SESSIONS_INDEX)) {
-    return null;
-  }
+const MIN_FILE_SIZE = 10_000; // Skip tiny JSONL files (<10KB = subagent/trivial sessions)
+
+/**
+ * Load all sessions-index.json files across project dirs for metadata enrichment.
+ * Returns a map of sessionId → SessionIndexEntry for fast lookup.
+ */
+function loadAllIndexEntries(): Map<string, SessionIndexEntry> {
+  const map = new Map<string, SessionIndexEntry>();
+
+  if (!existsSync(PROJECTS_BASE)) return map;
 
   try {
-    const content = readFileSync(SESSIONS_INDEX, 'utf-8');
-    return JSON.parse(content) as SessionIndex;
+    const dirs = readdirSync(PROJECTS_BASE, { withFileTypes: true });
+    for (const dir of dirs) {
+      if (!dir.isDirectory()) continue;
+      const indexPath = join(PROJECTS_BASE, dir.name, 'sessions-index.json');
+      if (!existsSync(indexPath)) continue;
+
+      try {
+        const content = readFileSync(indexPath, 'utf-8');
+        const index = JSON.parse(content) as SessionIndex;
+        for (const entry of index.entries) {
+          map.set(entry.sessionId, entry);
+        }
+      } catch {
+        // Skip malformed index files
+      }
+    }
   } catch {
-    return null;
+    // Can't read projects dir
   }
+
+  return map;
 }
 
-const MIN_MESSAGE_COUNT = 3; // Skip trivial sessions (system/empty)
-
-function getRecentSessions(
-  index: SessionIndex,
+/**
+ * Discover recent sessions by scanning JSONL files across ALL project directories.
+ * Falls back gracefully when sessions-index.json is stale or missing.
+ */
+function discoverRecentSessions(
   currentSessionId: string,
   count: number
 ): SessionIndexEntry[] {
-  return [...index.entries]
-    .filter(e =>
-      !e.isSidechain &&
-      e.sessionId !== currentSessionId &&
-      e.messageCount >= MIN_MESSAGE_COUNT
-    )
-    .sort((a, b) => new Date(b.modified).getTime() - new Date(a.modified).getTime())
+  if (!existsSync(PROJECTS_BASE)) return [];
+
+  // Load index entries for metadata enrichment
+  const indexMap = loadAllIndexEntries();
+
+  // Scan all project dirs for JSONL files
+  interface FileCandidate {
+    fullPath: string;
+    sessionId: string;
+    mtime: Date;
+    size: number;
+    projectDir: string;
+  }
+
+  const candidates: FileCandidate[] = [];
+
+  // Automated subagent sessions live in deep project dirs like -root--claude-hooks,
+  // -root--claude-skills-*, etc. Skip those — only scan main project dirs.
+  const SKIP_DIR_PATTERNS = [/-hooks$/, /-skills-/, /-Tools$/, /-MCP$/];
+
+  try {
+    const dirs = readdirSync(PROJECTS_BASE, { withFileTypes: true });
+    for (const dir of dirs) {
+      if (!dir.isDirectory()) continue;
+      if (SKIP_DIR_PATTERNS.some(p => p.test(dir.name))) continue;
+      const dirPath = join(PROJECTS_BASE, dir.name);
+
+      try {
+        const files = readdirSync(dirPath);
+        for (const file of files) {
+          if (!file.endsWith('.jsonl')) continue;
+
+          // Extract session ID from filename (UUID.jsonl)
+          const sessionId = basename(file, '.jsonl');
+          if (sessionId === currentSessionId) continue;
+
+          const fullPath = join(dirPath, file);
+          try {
+            const stats = statSync(fullPath);
+            if (stats.size < MIN_FILE_SIZE) continue; // Skip tiny files
+
+            candidates.push({
+              fullPath,
+              sessionId,
+              mtime: stats.mtime,
+              size: stats.size,
+              projectDir: dir.name,
+            });
+          } catch {
+            // Skip unreadable files
+          }
+        }
+      } catch {
+        // Skip unreadable dirs
+      }
+    }
+  } catch {
+    return [];
+  }
+
+  // Deduplicate by sessionId (same session might appear in multiple dirs — keep newest)
+  const bySession = new Map<string, FileCandidate>();
+  for (const c of candidates) {
+    const existing = bySession.get(c.sessionId);
+    if (!existing || c.mtime > existing.mtime) {
+      bySession.set(c.sessionId, c);
+    }
+  }
+
+  // Sort by mtime desc, take top N
+  const sorted = [...bySession.values()]
+    .sort((a, b) => b.mtime.getTime() - a.mtime.getTime())
     .slice(0, count);
+
+  // Convert to SessionIndexEntry, enriching from index where available
+  return sorted.map(c => {
+    const indexed = indexMap.get(c.sessionId);
+    if (indexed) {
+      // Use index metadata but update fullPath to the discovered one (may have moved)
+      return { ...indexed, fullPath: c.fullPath };
+    }
+
+    // No index entry — create a minimal one from file stats
+    return {
+      sessionId: c.sessionId,
+      fullPath: c.fullPath,
+      fileMtime: c.mtime.getTime(),
+      firstPrompt: '', // Will be extracted from JSONL
+      messageCount: 0, // Unknown — will estimate from JSONL
+      created: c.mtime.toISOString(), // Approximate
+      modified: c.mtime.toISOString(),
+      gitBranch: '',
+      projectPath: c.projectDir,
+      isSidechain: false,
+    };
+  });
 }
 
 // ============================================================================
@@ -213,9 +323,9 @@ function extractSessionMessages(sessionPath: string): ExtractedMessages {
     if (stats.size <= MAX_DIRECT_READ) {
       content = readFileSync(sessionPath, 'utf-8');
     } else {
-      // For large files, read first 50KB and last 50KB
+      // For large files, read first 128KB and last 50KB
       const fd = require('fs').openSync(sessionPath, 'r');
-      const headBuf = Buffer.alloc(50 * 1024);
+      const headBuf = Buffer.alloc(128 * 1024);
       const tailBuf = Buffer.alloc(50 * 1024);
 
       require('fs').readSync(fd, headBuf, 0, headBuf.length, 0);
@@ -342,6 +452,8 @@ function cleanFirstPrompt(indexPrompt: string, extractedPrompt: string): string 
     /^(CONTEXT|<system-reminder|<local-command|<command-name|No prompt)/i,
     /^(🤖|PAI ALGORITHM|ALGORITHM REQUIRED)/,
     /^(Completing task|Entering|hook_progress)/i,
+    /^You are analyzing/i,
+    /^(Generate|Analyze|Process|Extract)\s+(a|the)\s+/i,
   ];
 
   const isIndexDirty = !indexPrompt ||
@@ -355,23 +467,103 @@ function cleanFirstPrompt(indexPrompt: string, extractedPrompt: string): string 
   return truncate(prompt.replace(/\n/g, ' ').trim(), MAX_CONTENT_LENGTH);
 }
 
+function extractTimestamps(sessionPath: string): { created: string; modified: string; lineCount: number } {
+  const result = { created: '', modified: '', lineCount: 0 };
+
+  try {
+    const stats = statSync(sessionPath);
+
+    if (stats.size <= MAX_DIRECT_READ) {
+      const content = readFileSync(sessionPath, 'utf-8');
+      const lines = content.split('\n').filter(l => l.trim());
+      result.lineCount = lines.length;
+
+      // Get timestamp from first entry
+      for (const line of lines) {
+        try {
+          const entry = JSON.parse(line);
+          const ts = entry.timestamp || entry.snapshot?.timestamp;
+          if (ts) { result.created = ts; break; }
+        } catch { /* skip */ }
+      }
+
+      // Get timestamp from last entry
+      for (let i = lines.length - 1; i >= 0; i--) {
+        try {
+          const entry = JSON.parse(lines[i]);
+          const ts = entry.timestamp || entry.snapshot?.timestamp;
+          if (ts) { result.modified = ts; break; }
+        } catch { /* skip */ }
+      }
+    } else {
+      // Large file: read head + tail for timestamps
+      const fd = require('fs').openSync(sessionPath, 'r');
+      const headBuf = Buffer.alloc(5 * 1024);  // Timestamps are in first few lines
+      const tailBuf = Buffer.alloc(10 * 1024);
+
+      require('fs').readSync(fd, headBuf, 0, headBuf.length, 0);
+      const tailStart = Math.max(0, stats.size - tailBuf.length);
+      require('fs').readSync(fd, tailBuf, 0, tailBuf.length, tailStart);
+      require('fs').closeSync(fd);
+
+      // Estimate line count from file size (avg ~3KB per line based on observed data)
+      result.lineCount = Math.round(stats.size / 3000);
+
+      const headLines = headBuf.toString('utf-8').split('\n').filter(l => l.trim());
+      for (const line of headLines) {
+        try {
+          const entry = JSON.parse(line);
+          const ts = entry.timestamp || entry.snapshot?.timestamp;
+          if (ts) { result.created = ts; break; }
+        } catch { /* skip */ }
+      }
+
+      const tailLines = tailBuf.toString('utf-8').split('\n').filter(l => l.trim());
+      for (let i = tailLines.length - 1; i >= 0; i--) {
+        try {
+          const entry = JSON.parse(tailLines[i]);
+          const ts = entry.timestamp || entry.snapshot?.timestamp;
+          if (ts) { result.modified = ts; break; }
+        } catch { /* skip */ }
+      }
+    }
+  } catch { /* use defaults */ }
+
+  // Fallback to file mtime
+  if (!result.modified) {
+    try { result.modified = statSync(sessionPath).mtime.toISOString(); } catch {}
+  }
+  if (!result.created) result.created = result.modified;
+
+  return result;
+}
+
 function buildSessionSummary(entry: SessionIndexEntry): SessionSummary | null {
   if (!existsSync(entry.fullPath)) {
     return null;
   }
 
   const messages = extractSessionMessages(entry.fullPath);
+  const timestamps = extractTimestamps(entry.fullPath);
 
-  const created = new Date(entry.created);
-  const modified = new Date(entry.modified);
-  const durationMinutes = Math.round((modified.getTime() - created.getTime()) / 60000);
+  const created = (entry.messageCount > 0 && entry.created !== entry.modified)
+    ? entry.created  // Use index data if it has real values
+    : timestamps.created;
+  const modified = (entry.messageCount > 0 && entry.created !== entry.modified)
+    ? entry.modified
+    : timestamps.modified;
+  const messageCount = entry.messageCount > 0 ? entry.messageCount : timestamps.lineCount;
+
+  const createdDate = new Date(created);
+  const modifiedDate = new Date(modified);
+  const durationMinutes = Math.max(1, Math.round((modifiedDate.getTime() - createdDate.getTime()) / 60000));
 
   return {
     sessionId: entry.sessionId,
     firstPrompt: cleanFirstPrompt(entry.firstPrompt, messages.firstUserMessage),
-    created: entry.created,
-    modified: entry.modified,
-    messageCount: entry.messageCount,
+    created,
+    modified,
+    messageCount,
     completionStatus: messages.completionStatus,
     completionEvidence: messages.completionEvidence,
     lastAssistantMessage: messages.lastAssistantMessage,
@@ -546,31 +738,42 @@ async function main() {
       // No stdin or parse error — continue without filtering current session
     }
 
-    // Load sessions index
-    const index = loadSessionsIndex();
-    if (!index || index.entries.length === 0) {
-      console.error('[SessionRecall] No sessions index found or empty — skipping');
-      process.exit(0);
-    }
-
-    // Get recent sessions (excluding current)
-    const recentEntries = getRecentSessions(index, currentSessionId, MAX_SESSIONS);
+    // Discover recent sessions across all project directories
+    // Fetch extra candidates to account for automated sessions being filtered out
+    const recentEntries = discoverRecentSessions(currentSessionId, MAX_SESSIONS * 3);
 
     if (recentEntries.length === 0) {
       console.error('[SessionRecall] No previous sessions found — skipping');
       process.exit(0);
     }
 
-    console.error(`[SessionRecall] Processing ${recentEntries.length} recent sessions...`);
+    console.error(`[SessionRecall] Processing ${recentEntries.length} candidates...`);
 
-    // Build summaries
+    // Patterns that indicate automated/hook-spawned sessions (not human-initiated)
+    const AUTOMATED_PROMPT_PATTERNS = [
+      /^You are analyzing/i,
+      /^(Generate|Analyze|Process|Extract)\s+(a|the)\s+/i,
+      /^(CONTEXT|<system-reminder|<local-command|<command-name)/i,
+      /^(🤖|PAI ALGORITHM|ALGORITHM REQUIRED)/,
+      /^\{/,  // JSON payloads
+    ];
+
+    // Build summaries, filtering out automated sessions
     const summaries: SessionSummary[] = [];
     for (const entry of recentEntries) {
+      if (summaries.length >= MAX_SESSIONS) break;
+
       const summary = buildSessionSummary(entry);
-      if (summary) {
-        summaries.push(summary);
-        console.error(`[SessionRecall]   ${summary.completionStatus}: ${truncate(summary.firstPrompt, 60)}`);
+      if (!summary) continue;
+
+      // Skip automated sessions
+      if (AUTOMATED_PROMPT_PATTERNS.some(p => p.test(summary.firstPrompt))) {
+        console.error(`[SessionRecall]   SKIP (automated): ${truncate(summary.firstPrompt, 50)}`);
+        continue;
       }
+
+      summaries.push(summary);
+      console.error(`[SessionRecall]   ${summary.completionStatus}: ${truncate(summary.firstPrompt, 60)}`);
     }
 
     if (summaries.length === 0) {
