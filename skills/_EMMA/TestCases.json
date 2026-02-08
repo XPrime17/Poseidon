@@ -1,0 +1,225 @@
+[
+    {
+        "name": "AI disclosure - handles robot question gracefully",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-22: 3:00 PM, 4:00 PM | 2026-01-23: 11:00 AM",
+            "PHONE": "555-890-1234",
+            "knowledge_base": "<doc id=1 title=\"JR Program\" category=\"Programs\">JR is for ages 5-7.</doc>",
+            "PROGRAM_INTEREST": "JR",
+            "PREVIOUS_NOTES": "Inquired for 6-year-old.",
+            "LAST_NAME": "Garcia",
+            "first_name": "Maria",
+            "LOCATION_NAME": "East Gwillimbury",
+            "FIRST_NAME": "Maria"
+        },
+        "metrics": [
+            "Agent uses humor when asked if they're a robot/AI",
+            "Agent admits being AI - does NOT pretend to be human",
+            "Agent redirects back to tour booking after disclosure",
+            "Conversation continues naturally after AI question",
+            "Agent successfully books tour despite AI question"
+        ],
+        "user_prompt": "## Identity\n\nYou are Maria Garcia. You inquired about the JR program for your 6-year-old.\n\n## Goal\n\nYou're suspicious this might be a robot calling you. Early in the call, ask directly 'Wait, are you a robot?' If they handle it well and admit it's AI, you're fine with that - continue the conversation and book a tour.\n\n## Personality\n\nSkeptical initially but open-minded. You appreciate honesty. Once satisfied with the AI disclosure, you're friendly and cooperative.",
+        "creation_timestamp": 1768503081961,
+        "user_modified_timestamp": 1768503081961,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Wrong number scenario",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+            "PHONE": "555-789-0123",
+            "knowledge_base": "",
+            "PROGRAM_INTEREST": "CREATE",
+            "PREVIOUS_NOTES": "General inquiry.",
+            "LAST_NAME": "Brown",
+            "first_name": "Lisa",
+            "LOCATION_NAME": "Pickering",
+            "FIRST_NAME": "Lisa"
+        },
+        "metrics": [
+            "Agent asks if Lisa is available when wrong person answers",
+            "Agent does NOT pitch programs to wrong person",
+            "Agent thanks them politely and ends call promptly",
+            "outcome should be set to wrong_number",
+            "Call is brief and professional"
+        ],
+        "user_prompt": "## Identity\n\nYou are Mike, Lisa's husband. Lisa is not home right now.\n\n## Goal\n\nAnswer the phone and let them know Lisa isn't available. You don't know when she'll be back. You're not interested in taking a message or hearing about the program.\n\n## Personality\n\nNeutral, slightly busy. Give short answers. You're not rude but you clearly want to get off the phone.",
+        "creation_timestamp": 1768503081852,
+        "user_modified_timestamp": 1768503081852,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Callback request - has unanswered questions",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+            "PHONE": "555-678-9012",
+            "knowledge_base": "<doc id=1 title=\"CLUBS Program\" category=\"Programs\">CLUBS are weekly drop-in sessions. Great for kids who want flexibility.</doc>",
+            "PROGRAM_INTEREST": "CLUBS",
+            "PREVIOUS_NOTES": "Asked about flexible options for 8-year-old with unpredictable schedule.",
+            "LAST_NAME": "Williams",
+            "first_name": "Patricia",
+            "LOCATION_NAME": "Winnipeg",
+            "FIRST_NAME": "Patricia"
+        },
+        "metrics": [
+            "Agent does NOT attempt to answer detailed pricing or scholarship questions",
+            "Agent offers human callback without trying to schedule specific time",
+            "Agent does NOT say 'let me check' or pretend to look up information",
+            "outcome should be set to callback_requested",
+            "Call ends after confirming someone will reach out"
+        ],
+        "user_prompt": "## Identity\n\nYou are Patricia Williams. You inquired about the CLUBS program for your 8-year-old.\n\n## Goal\n\nYou're interested but have specific questions about scholarship programs and detailed pricing tiers that require a human to answer. Push for detailed pricing information the agent won't have.\n\n## Personality\n\nDetail-oriented and thorough. You want specific numbers before committing to even a tour. Accept the callback offer when provided.",
+        "creation_timestamp": 1768503081747,
+        "user_modified_timestamp": 1768503081747,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Email permission flow - interested but can't tour now",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+            "PHONE": "555-567-8901",
+            "knowledge_base": "<doc id=1 title=\"ACADEMIES Program\" category=\"Programs\">ACADEMIES is our advanced track for teens serious about coding careers. Covers Python, web development, and computer science fundamentals.</doc>",
+            "PROGRAM_INTEREST": "ACADEMIES",
+            "PREVIOUS_NOTES": "Interested in ACADEMIES for 14-year-old daughter interested in computer science.",
+            "LAST_NAME": "Chen",
+            "first_name": "David",
+            "LOCATION_NAME": "East Gwillimbury",
+            "FIRST_NAME": "David"
+        },
+        "metrics": [
+            "Agent does NOT push for tour after user clearly can't commit",
+            "Agent asks for email permission before confirming send",
+            "Agent references 'email on file' - does NOT ask for email address",
+            "Agent only confirms email send AFTER receiving explicit permission",
+            "email_permission should be set to true",
+            "outcome should be set to interested_email"
+        ],
+        "user_prompt": "## Identity\n\nYou are David Chen. You inquired about the ACADEMIES program for your 14-year-old daughter who wants to study computer science.\n\n## Goal\n\nYou're still interested but traveling for work the next few weeks and genuinely cannot tour right now. Decline the tour but agree to receive email information. You want to revisit this when you're back.\n\n## Personality\n\nApologetic about timing but genuine about interest. Make it clear this is a scheduling issue, not a lack of interest.",
+        "creation_timestamp": 1768503081635,
+        "user_modified_timestamp": 1768503081635,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Not interested - enrolled elsewhere",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+            "PHONE": "555-456-7890",
+            "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14.</doc>",
+            "PROGRAM_INTEREST": "CREATE",
+            "PREVIOUS_NOTES": "General inquiry about coding for 12-year-old.",
+            "LAST_NAME": "Kim",
+            "first_name": "Jennifer",
+            "LOCATION_NAME": "Pickering",
+            "FIRST_NAME": "Jennifer"
+        },
+        "metrics": [
+            "Agent asks ONE brief clarifying question about why (not multiple)",
+            "Agent accepts the answer gracefully without pushing back",
+            "Agent does NOT offer email follow-up or callback after clear rejection",
+            "Agent does NOT mention free trial to someone already enrolled elsewhere",
+            "Call ends warmly and promptly",
+            "outcome should be set to not_interested"
+        ],
+        "user_prompt": "## Identity\n\nYou are Jennifer Kim. You inquired about Code Ninjas but ended up enrolling your child at a competitor closer to home.\n\n## Goal\n\nPolitely decline. You're satisfied with your current program and not interested in switching. When asked why, mention it was about location/convenience.\n\n## Personality\n\nPolite but firm. You don't want to be rude but you also don't want a long call. Keep answers brief.",
+        "creation_timestamp": 1768503081511,
+        "user_modified_timestamp": 1768503081511,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Program interest pivot - CREATE to CAMP",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-24: 2:00 PM, 5:00 PM | 2026-01-25: 10:00 AM",
+            "PHONE": "555-345-6789",
+            "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14, focusing on JavaScript and game development.</doc><doc id=2 title=\"Summer Camps\" category=\"Programs\">Summer coding camps run weekly in July and August. Full-day and half-day options. Themes include game design, robotics, and app building.</doc>",
+            "PROGRAM_INTEREST": "CREATE",
+            "PREVIOUS_NOTES": "Inquired about CREATE for 11-year-old. Schedule conflicts with soccer.",
+            "LAST_NAME": "Rodriguez",
+            "first_name": "Carlos",
+            "LOCATION_NAME": "Winnipeg",
+            "FIRST_NAME": "Carlos"
+        },
+        "metrics": [
+            "Agent adapts when user mentions interest shifted to camps",
+            "Agent references knowledge base for camp information",
+            "Agent does not keep pushing CREATE after user clarifies interest",
+            "new_program_interest should be set to CAMP at end of call",
+            "Agent still offers tour for camp information",
+            "Agent handles program pivot naturally without confusion"
+        ],
+        "user_prompt": "## Identity\n\nYou are Carlos Rodriguez. You inquired about the CREATE program months ago but your son's soccer schedule made it impossible.\n\n## Goal\n\nYou're no longer interested in CREATE due to ongoing schedule conflicts, but you ARE interested in summer camps since those work better with your schedule. Redirect the conversation toward camps and book a tour if they can discuss camp options.\n\n## Personality\n\nDirect and practical. Quickly clarify that CREATE won't work but camps might. Ask one specific question about camp schedules.",
+        "creation_timestamp": 1768503081402,
+        "user_modified_timestamp": 1768503081402,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Trial sweetener converts hesitant lead",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-22: 3:00 PM, 4:00 PM | 2026-01-23: 11:00 AM",
+            "PHONE": "555-234-5678",
+            "knowledge_base": "<doc id=1 title=\"JR Program\" category=\"Programs\">Code Ninjas JR is for ages 5-7. Introduction to coding concepts through play-based learning. Perfect for early learners.</doc>",
+            "PROGRAM_INTEREST": "JR",
+            "PREVIOUS_NOTES": "Interested in JR program for 6-year-old daughter. Was comparing options.",
+            "LAST_NAME": "Patel",
+            "first_name": "Anita",
+            "LOCATION_NAME": "East Gwillimbury",
+            "FIRST_NAME": "Anita"
+        },
+        "metrics": [
+            "Agent does NOT mention free trial in initial tour invitation",
+            "Agent mentions free two-week trial ONLY after user expresses hesitation",
+            "Trial is positioned as 'after touring' not as standalone offer",
+            "Agent successfully converts hesitation to booking",
+            "Agent uses varied acknowledgment phrases (not repetitive 'Great!')",
+            "Agent confirms booking at end of call"
+        ],
+        "user_prompt": "## Identity\n\nYou are Anita Patel, a cautious parent who was comparing coding programs for your 6-year-old daughter months ago. You never made a decision.\n\n## Goal\n\nYou're still somewhat interested but hesitant about committing. Express uncertainty when first asked about a tour ('I'm not sure, we're pretty busy'). However, if they mention a free trial, that will convince you to book.\n\n## Personality\n\nPolite but non-committal initially. You warm up once you hear about the trial offer. Ask one question about what the trial includes before booking.",
+        "creation_timestamp": 1768503081295,
+        "user_modified_timestamp": 1768503081295,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    },
+    {
+        "name": "Successful tour booking - happy path",
+        "dynamic_variables": {
+            "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+            "PHONE": "555-123-4567",
+            "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14. Kids learn JavaScript and game development. Sessions run Tuesday and Thursday evenings.</doc>",
+            "PROGRAM_INTEREST": "CREATE",
+            "PREVIOUS_NOTES": "Inquired about CREATE program for 10-year-old son interested in Minecraft.",
+            "LAST_NAME": "Thompson",
+            "first_name": "Michelle",
+            "LOCATION_NAME": "Pickering",
+            "FIRST_NAME": "Michelle"
+        },
+        "metrics": [
+            "Agent confirms speaking with Michelle before proceeding",
+            "Agent acknowledges previous interest without being specific about timeframe",
+            "Agent asks only one question at a time",
+            "Agent presents maximum 3 time slots",
+            "Agent reads times naturally (not 'four colon zero zero')",
+            "Agent confirms booked slot by repeating it back",
+            "Agent does NOT mention free trial (user didn't hesitate)",
+            "Call ends cleanly after booking confirmation"
+        ],
+        "user_prompt": "## Identity\n\nYou are Michelle Thompson, a working mom who inquired about Code Ninjas several months ago for your 10-year-old son who loves Minecraft. You got busy with work and forgot to follow up.\n\n## Goal\n\nYou're genuinely interested in booking a tour. You want the Tuesday 4pm slot. Be cooperative and pleasant throughout the call.\n\n## Personality\n\nFriendly and straightforward. You don't need much convincing - you just need to actually schedule it this time. Give brief, direct answers.",
+        "creation_timestamp": 1768503081192,
+        "user_modified_timestamp": 1768503081192,
+        "type": "simulation",
+        "tool_mocks": [],
+        "llm_model": "gpt-4.1"
+    }
+]

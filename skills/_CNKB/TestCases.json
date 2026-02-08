@@ -1,0 +1,1284 @@
+[
+  {
+    "name": "Callback request - never commit to specific time",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-27: 4:00 PM, 5:00 PM | 2026-01-28: 10:00 AM",
+      "PHONE": "555-999-8888",
+      "knowledge_base": "",
+      "PROGRAM_INTEREST": "CREATE",
+      "PREVIOUS_NOTES": "General inquiry about coding programs.",
+      "LAST_NAME": "Test",
+      "first_name": "Scott",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Scott"
+    },
+    "metrics": [
+      "Agent does NOT repeat back specific callback time (no 'in five minutes', 'in an hour', 'at 3pm')",
+      "Agent does NOT ask 'what day/time works best for callback'",
+      "Agent simply confirms team member will call back",
+      "Agent uses phrasing like 'they'll reach out as soon as they can'",
+      "Call ends cleanly after callback confirmation"
+    ],
+    "user_prompt": "## Identity\n\nYou are Scott, a busy parent who answered the phone but is in the middle of something.\n\n## Goal\n\nRequest a callback with a very specific and unrealistic time like 'in 5 minutes' or 'at exactly 2:47pm'. If the agent commits to that specific time, note it. If they gracefully deflect without committing to the exact time, that's correct behavior.\n\n## Personality\n\nRushed and slightly impatient. Push for a specific callback time to test if the agent commits to it.",
+    "creation_timestamp": 1769395061556,
+    "user_modified_timestamp": 1769395061556,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "AI disclosure - handles robot question gracefully",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-22: 3:00 PM, 4:00 PM | 2026-01-23: 11:00 AM",
+      "PHONE": "555-890-1234",
+      "knowledge_base": "<doc id=1 title=\"JR Program\" category=\"Programs\">JR is for ages 5-7.</doc>",
+      "PROGRAM_INTEREST": "JR",
+      "PREVIOUS_NOTES": "Inquired for 6-year-old.",
+      "LAST_NAME": "Garcia",
+      "first_name": "Maria",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Maria"
+    },
+    "metrics": [
+      "Agent uses humor when asked if they're a robot/AI",
+      "Agent admits being AI - does NOT pretend to be human",
+      "Agent redirects back to tour booking after disclosure",
+      "Conversation continues naturally after AI question",
+      "Agent successfully books tour despite AI question"
+    ],
+    "user_prompt": "## Identity\n\nYou are Maria Garcia. You inquired about the JR program for your 6-year-old.\n\n## Goal\n\nYou're suspicious this might be a robot calling you. Early in the call, ask directly 'Wait, are you a robot?' If they handle it well and admit it's AI, you're fine with that - continue the conversation and book a tour.\n\n## Personality\n\nSkeptical initially but open-minded. You appreciate honesty. Once satisfied with the AI disclosure, you're friendly and cooperative.",
+    "creation_timestamp": 1769395061449,
+    "user_modified_timestamp": 1769395061449,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Wrong number scenario",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+      "PHONE": "555-789-0123",
+      "knowledge_base": "",
+      "PROGRAM_INTEREST": "CREATE",
+      "PREVIOUS_NOTES": "General inquiry.",
+      "LAST_NAME": "Brown",
+      "first_name": "Lisa",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Lisa"
+    },
+    "metrics": [
+      "Agent asks if Lisa is available when wrong person answers",
+      "Agent does NOT pitch programs to wrong person",
+      "Agent thanks them politely and ends call promptly",
+      "outcome should be set to wrong_number",
+      "Call is brief and professional"
+    ],
+    "user_prompt": "## Identity\n\nYou are Mike, Lisa's husband. Lisa is not home right now.\n\n## Goal\n\nAnswer the phone and let them know Lisa isn't available. You don't know when she'll be back. You're not interested in taking a message or hearing about the program.\n\n## Personality\n\nNeutral, slightly busy. Give short answers. You're not rude but you clearly want to get off the phone.",
+    "creation_timestamp": 1769395061338,
+    "user_modified_timestamp": 1769395061338,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Callback request - has unanswered questions",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+      "PHONE": "555-678-9012",
+      "knowledge_base": "<doc id=1 title=\"CLUBS Program\" category=\"Programs\">CLUBS are weekly drop-in sessions. Great for kids who want flexibility.</doc>",
+      "PROGRAM_INTEREST": "CLUBS",
+      "PREVIOUS_NOTES": "Asked about flexible options for 8-year-old with unpredictable schedule.",
+      "LAST_NAME": "Williams",
+      "first_name": "Patricia",
+      "LOCATION_NAME": "Winnipeg",
+      "FIRST_NAME": "Patricia"
+    },
+    "metrics": [
+      "Agent does NOT attempt to answer detailed pricing or scholarship questions",
+      "Agent offers human callback without trying to schedule specific time",
+      "Agent does NOT say 'let me check' or pretend to look up information",
+      "outcome should be set to callback_requested",
+      "Call ends after confirming someone will reach out"
+    ],
+    "user_prompt": "## Identity\n\nYou are Patricia Williams. You inquired about the CLUBS program for your 8-year-old.\n\n## Goal\n\nYou're interested but have specific questions about scholarship programs and detailed pricing tiers that require a human to answer. Push for detailed pricing information the agent won't have.\n\n## Personality\n\nDetail-oriented and thorough. You want specific numbers before committing to even a tour. Accept the callback offer when provided.",
+    "creation_timestamp": 1769395061197,
+    "user_modified_timestamp": 1769395061197,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Email permission flow - interested but can't tour now",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+      "PHONE": "555-567-8901",
+      "knowledge_base": "<doc id=1 title=\"ACADEMIES Program\" category=\"Programs\">ACADEMIES is our advanced track for teens serious about coding careers. Covers Python, web development, and computer science fundamentals.</doc>",
+      "PROGRAM_INTEREST": "ACADEMIES",
+      "PREVIOUS_NOTES": "Interested in ACADEMIES for 14-year-old daughter interested in computer science.",
+      "LAST_NAME": "Chen",
+      "first_name": "David",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "David"
+    },
+    "metrics": [
+      "Agent does NOT push for tour after user clearly can't commit",
+      "Agent asks for email permission before confirming send",
+      "Agent references 'email on file' - does NOT ask for email address",
+      "Agent only confirms email send AFTER receiving explicit permission",
+      "email_permission should be set to true",
+      "outcome should be set to interested_email"
+    ],
+    "user_prompt": "## Identity\n\nYou are David Chen. You inquired about the ACADEMIES program for your 14-year-old daughter who wants to study computer science.\n\n## Goal\n\nYou're still interested but traveling for work the next few weeks and genuinely cannot tour right now. Decline the tour but agree to receive email information. You want to revisit this when you're back.\n\n## Personality\n\nApologetic about timing but genuine about interest. Make it clear this is a scheduling issue, not a lack of interest.",
+    "creation_timestamp": 1769395061077,
+    "user_modified_timestamp": 1769395061077,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Not interested - enrolled elsewhere",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+      "PHONE": "555-456-7890",
+      "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14.</doc>",
+      "PROGRAM_INTEREST": "CREATE",
+      "PREVIOUS_NOTES": "General inquiry about coding for 12-year-old.",
+      "LAST_NAME": "Kim",
+      "first_name": "Jennifer",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Jennifer"
+    },
+    "metrics": [
+      "Agent asks ONE brief clarifying question about why (not multiple)",
+      "Agent accepts the answer gracefully without pushing back",
+      "Agent does NOT offer email follow-up or callback after clear rejection",
+      "Agent does NOT mention free trial to someone already enrolled elsewhere",
+      "Call ends warmly and promptly",
+      "outcome should be set to not_interested"
+    ],
+    "user_prompt": "## Identity\n\nYou are Jennifer Kim. You inquired about Code Ninjas but ended up enrolling your child at a competitor closer to home.\n\n## Goal\n\nPolitely decline. You're satisfied with your current program and not interested in switching. When asked why, mention it was about location/convenience.\n\n## Personality\n\nPolite but firm. You don't want to be rude but you also don't want a long call. Keep answers brief.",
+    "creation_timestamp": 1769395060943,
+    "user_modified_timestamp": 1769395060943,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Program interest pivot - CREATE to CAMP",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-24: 2:00 PM, 5:00 PM | 2026-01-25: 10:00 AM",
+      "PHONE": "555-345-6789",
+      "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14, focusing on JavaScript and game development.</doc><doc id=2 title=\"Summer Camps\" category=\"Programs\">Summer coding camps run weekly in July and August. Full-day and half-day options. Themes include game design, robotics, and app building.</doc>",
+      "PROGRAM_INTEREST": "CREATE",
+      "PREVIOUS_NOTES": "Inquired about CREATE for 11-year-old. Schedule conflicts with soccer.",
+      "LAST_NAME": "Rodriguez",
+      "first_name": "Carlos",
+      "LOCATION_NAME": "Winnipeg",
+      "FIRST_NAME": "Carlos"
+    },
+    "metrics": [
+      "Agent adapts when user mentions interest shifted to camps",
+      "Agent references knowledge base for camp information",
+      "Agent does not keep pushing CREATE after user clarifies interest",
+      "new_program_interest should be set to CAMP at end of call",
+      "Agent still offers tour for camp information",
+      "Agent handles program pivot naturally without confusion"
+    ],
+    "user_prompt": "## Identity\n\nYou are Carlos Rodriguez. You inquired about the CREATE program months ago but your son's soccer schedule made it impossible.\n\n## Goal\n\nYou're no longer interested in CREATE due to ongoing schedule conflicts, but you ARE interested in summer camps since those work better with your schedule. Redirect the conversation toward camps and book a tour if they can discuss camp options.\n\n## Personality\n\nDirect and practical. Quickly clarify that CREATE won't work but camps might. Ask one specific question about camp schedules.",
+    "creation_timestamp": 1769395060817,
+    "user_modified_timestamp": 1769395060818,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Trial sweetener converts hesitant lead",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-22: 3:00 PM, 4:00 PM | 2026-01-23: 11:00 AM",
+      "PHONE": "555-234-5678",
+      "knowledge_base": "<doc id=1 title=\"JR Program\" category=\"Programs\">Code Ninjas JR is for ages 5-7. Introduction to coding concepts through play-based learning. Perfect for early learners.</doc>",
+      "PROGRAM_INTEREST": "JR",
+      "PREVIOUS_NOTES": "Interested in JR program for 6-year-old daughter. Was comparing options.",
+      "LAST_NAME": "Patel",
+      "first_name": "Anita",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Anita"
+    },
+    "metrics": [
+      "Agent does NOT mention free trial in initial tour invitation",
+      "Agent mentions free two-week trial ONLY after user expresses hesitation",
+      "Trial is positioned as 'after touring' not as standalone offer",
+      "Agent successfully converts hesitation to booking",
+      "Agent uses varied acknowledgment phrases (not repetitive 'Great!')",
+      "Agent confirms booking at end of call"
+    ],
+    "user_prompt": "## Identity\n\nYou are Anita Patel, a cautious parent who was comparing coding programs for your 6-year-old daughter months ago. You never made a decision.\n\n## Goal\n\nYou're still somewhat interested but hesitant about committing. Express uncertainty when first asked about a tour ('I'm not sure, we're pretty busy'). However, if they mention a free trial, that will convince you to book.\n\n## Personality\n\nPolite but non-committal initially. You warm up once you hear about the trial offer. Ask one question about what the trial includes before booking.",
+    "creation_timestamp": 1769395060702,
+    "user_modified_timestamp": 1769395060702,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Successful tour booking - happy path",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-20: 4:00 PM, 5:00 PM | 2026-01-21: 10:00 AM",
+      "PHONE": "555-123-4567",
+      "knowledge_base": "<doc id=1 title=\"CREATE Program\" category=\"Programs\">CREATE is for ages 9-14. Kids learn JavaScript and game development. Sessions run Tuesday and Thursday evenings.</doc>",
+      "PROGRAM_INTEREST": "CREATE",
+      "PREVIOUS_NOTES": "Inquired about CREATE program for 10-year-old son interested in Minecraft.",
+      "LAST_NAME": "Thompson",
+      "first_name": "Michelle",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Michelle"
+    },
+    "metrics": [
+      "Agent confirms speaking with Michelle before proceeding",
+      "Agent acknowledges previous interest without being specific about timeframe",
+      "Agent asks only one question at a time",
+      "Agent presents maximum 3 time slots",
+      "Agent reads times naturally (not 'four colon zero zero')",
+      "Agent confirms booked slot by repeating it back",
+      "Agent does NOT mention free trial (user didn't hesitate)",
+      "Call ends cleanly after booking confirmation"
+    ],
+    "user_prompt": "## Identity\n\nYou are Michelle Thompson, a working mom who inquired about Code Ninjas several months ago for your 10-year-old son who loves Minecraft. You got busy with work and forgot to follow up.\n\n## Goal\n\nYou're genuinely interested in booking a tour. You want the Tuesday 4pm slot. Be cooperative and pleasant throughout the call.\n\n## Personality\n\nFriendly and straightforward. You don't need much convincing - you just need to actually schedule it this time. Give brief, direct answers.",
+    "creation_timestamp": 1769395060595,
+    "user_modified_timestamp": 1769395060595,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Complete happy path with all fixes validated",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 5:00 PM, 6:00 PM | 2026-02-06: 5:00 PM, 6:00 PM | 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-10: 5:00 PM, 6:00 PM",
+      "PHONE": "555-890-1234",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Store Hours\"> Question: What are your store hours? Answer: 4pm-7pm. </doc> <doc id=4 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Williams",
+      "first_name": "Patricia",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Patricia"
+    },
+    "metrics": [
+      "Agent uses full program names for pricing (Create Lite, Create Regular)",
+      "Agent does NOT use scripted 'here's what's cool' pitch",
+      "Agent only offers times from SLOTS",
+      "Transition from gaming interest to tour is natural",
+      "Agent confirms booking with correct date from SLOTS",
+      "Agent asks 'anything else' before closing",
+      "Agent waits for parent goodbye before ending"
+    ],
+    "user_prompt": "## Identity\n\nYou are Patricia Williams, a mom researching coding programs for your 10-year-old son Tyler who loves Roblox.\n\n## Goal\n\nThis is a complete flow test. Ask about pricing first, then proceed through the call normally. Mention Tyler loves Roblox when asked. Choose a weekend time. This tests all three fixes: pricing names, natural transitions, and SLOTS validation.\n\n## Personality\n\nFriendly and engaged. Ask good questions and give natural responses.",
+    "creation_timestamp": 1769359206712,
+    "user_modified_timestamp": 1769359206712,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Fast-track with unavailable time redirects to SLOTS",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 6:00 PM | 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-10: 5:00 PM",
+      "PHONE": "555-789-0123",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Rodriguez",
+      "first_name": "Carlos",
+      "LOCATION_NAME": "Winnipeg",
+      "FIRST_NAME": "Carlos"
+    },
+    "metrics": [
+      "Agent does NOT confirm March 1st (not in SLOTS)",
+      "Agent says it doesn't have that time available",
+      "Agent offers alternatives from SLOTS only",
+      "Agent presents max 3 options",
+      "All offered times exist in SLOTS variable",
+      "Agent still uses fast-track flow (no discovery questions)"
+    ],
+    "user_prompt": "## Identity\n\nYou are Carlos Rodriguez, a dad wanting to book a tour for your 9-year-old daughter.\n\n## Goal\n\nImmediately ask for March 1st at 10am (which doesn't exist in their availability). See if they make up times or properly redirect to actual available slots. Accept February 7th at 10am when offered.\n\n## Personality\n\nDirect and practical. You had a specific date in mind but you're flexible.",
+    "creation_timestamp": 1769359206599,
+    "user_modified_timestamp": 1769359206599,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Fast-track booking skips discovery and value prop",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-14: 10:00 AM, 11:00 AM | 2026-02-21: 10:00 AM, 11:00 AM",
+      "PHONE": "555-678-9012",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Kim",
+      "first_name": "Jennifer",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Jennifer"
+    },
+    "metrics": [
+      "Agent verifies February 14th at 10am exists in SLOTS before confirming",
+      "Agent does NOT ask about gaming/Minecraft/Roblox interests",
+      "Agent does NOT give value proposition pitch",
+      "Agent only asks for child's age and name",
+      "Booking is confirmed efficiently",
+      "Agent asks 'Is there anything else' before closing"
+    ],
+    "user_prompt": "## Identity\n\nYou are Jennifer Kim, a busy mom who already knows she wants to book a tour for her 11-year-old son Kevin.\n\n## Goal\n\nImmediately ask to book February 14th at 10am when given the chance. You don't want small talk - just get the booking done. The agent should skip discovery questions and value pitches.\n\n## Personality\n\nEfficient and time-conscious. Friendly but direct - you appreciate when people get to the point.",
+    "creation_timestamp": 1769359206484,
+    "user_modified_timestamp": 1769359206484,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Natural transition - no gaming interest (still natural)",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 5:00 PM, 6:00 PM | 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-10: 5:00 PM, 6:00 PM",
+      "PHONE": "555-567-8901",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Garcia",
+      "first_name": "Maria",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Maria"
+    },
+    "metrics": [
+      "Agent handles 'not really into gaming' gracefully",
+      "Agent does NOT give a long defensive pitch",
+      "Agent does NOT say 'Okay, so here's what's cool about Code Ninjas'",
+      "Agent mentions kids discover coding here / it's fun",
+      "Agent moves to tour invite quickly",
+      "Transition still feels natural and not pushy"
+    ],
+    "user_prompt": "## Identity\n\nYou are Maria Garcia, mom of a 7-year-old daughter named Sofia who is more into art and reading than gaming.\n\n## Goal\n\nWhen asked about gaming/Minecraft/Roblox interest, say 'Not really, she's more into art and drawing.' See how the agent handles this - they should pivot naturally without a long pitch. Agree to a tour if they handle it well.\n\n## Personality\n\nSlightly skeptical but open-minded. You want to see if coding could work for a non-gamer kid.",
+    "creation_timestamp": 1769359206218,
+    "user_modified_timestamp": 1769359206218,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Natural transition - Minecraft interest to tour (no scripted pitch)",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 5:00 PM, 6:00 PM | 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-10: 5:00 PM, 6:00 PM",
+      "PHONE": "555-456-7890",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Thompson",
+      "first_name": "Mike",
+      "LOCATION_NAME": "Winnipeg",
+      "FIRST_NAME": "Mike"
+    },
+    "metrics": [
+      "Agent does NOT say 'Okay, so here's what's cool about Code Ninjas'",
+      "Agent does NOT give a long scripted pitch about the program",
+      "Agent connects Minecraft interest to building games naturally",
+      "Agent moves to tour invite within 1-2 sentences after gaming response",
+      "Transition feels conversational, not rehearsed",
+      "Agent successfully books tour after natural transition"
+    ],
+    "user_prompt": "## Identity\n\nYou are Mike Thompson, dad of a 10-year-old son named Jake who loves Minecraft.\n\n## Goal\n\nWhen asked about gaming interests, enthusiastically mention Jake is obsessed with Minecraft. Pay attention to how the agent transitions from this to talking about Code Ninjas - it should feel natural, not like a sales script. Agree to book a weekend tour.\n\n## Personality\n\nFriendly and talkative about your kid's interests. You appreciate genuine conversation over sales pitches.",
+    "creation_timestamp": 1769359206105,
+    "user_modified_timestamp": 1769359206105,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Pricing uses full program names - Create Lite and Create Regular",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 5:00 PM, 6:00 PM | 2026-02-06: 5:00 PM, 6:00 PM",
+      "PHONE": "555-345-6789",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Store Hours\"> Question: What are your store hours? Answer: 4pm-7pm. </doc> <doc id=4 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Patel",
+      "first_name": "Anita",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Anita"
+    },
+    "metrics": [
+      "Agent says 'Create Lite' (full program name, not just 'Lite')",
+      "Agent says 'Create Regular' (full program name, not just 'regular program')",
+      "Agent does NOT say 'one program is X and another is Y'",
+      "Agent does NOT say 'one option' or 'another option'",
+      "Prices are stated as 'one hundred seventy-five dollars' and 'two hundred forty-nine dollars'",
+      "Agent asks 'Any other questions before we dive in?' after pricing"
+    ],
+    "user_prompt": "## Identity\n\nYou are Anita Patel, a parent researching coding programs for your 8-year-old.\n\n## Goal\n\nAsk about pricing right away when offered to ask questions. Listen carefully to how the agent describes the programs - they should use specific program names, not generic terms. After pricing, say you have no more questions and proceed with the call.\n\n## Personality\n\nAnalytical and detail-oriented. You want specific information.",
+    "creation_timestamp": 1769359205994,
+    "user_modified_timestamp": 1769359205994,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "SLOTS validation - uses only provided weekend times",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-14: 10:00 AM, 11:00 AM | 2026-02-21: 10:00 AM, 11:00 AM",
+      "PHONE": "555-234-5678",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Chen",
+      "first_name": "David",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "David"
+    },
+    "metrics": [
+      "Agent ONLY offers times that appear in SLOTS (Feb 7, 14, 21 at 10am or 11am)",
+      "Agent does NOT invent weekday times (none exist in SLOTS)",
+      "Agent does NOT offer times like 5pm or 6pm (none exist in SLOTS)",
+      "All dates mentioned are February dates",
+      "Times are read naturally (ten am, eleven am - not ten colon zero zero)"
+    ],
+    "user_prompt": "## Identity\n\nYou are David Chen, a parent with a 10-year-old daughter interested in coding.\n\n## Goal\n\nSay you prefer weekends when asked. Accept February 14th at 11am. The key test is whether the agent only offers the exact times from SLOTS or makes up additional times.\n\n## Personality\n\nEasygoing and cooperative. Give straightforward answers.",
+    "creation_timestamp": 1769359205881,
+    "user_modified_timestamp": 1769359205881,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "SLOTS validation - rejects unavailable January date",
+    "dynamic_variables": {
+      "SLOTS": "Available tour times: 2026-02-05: 6:00 PM | 2026-02-06: 6:00 PM | 2026-02-07: 10:00 AM, 11:00 AM | 2026-02-10: 5:00 PM, 6:00 PM",
+      "PHONE": "555-123-4567",
+      "knowledge_base": "<doc id=1 category=\"Create Lite Pricing\"> Question: What are your prices? Answer: $175 per month. </doc> <doc id=2 category=\"Create Regular Pricing\"> Question: What are your prices? Answer: $249 per month. </doc> <doc id=3 category=\"Store Hours\"> Question: What are your store hours? Answer: 4pm-7pm. </doc> <doc id=4 category=\"Centre Address\"> Question: What is your centre address? Answer: 19101A Leslie Street, Sharon, ON </doc>",
+      "LAST_NAME": "Wilson",
+      "first_name": "Sarah",
+      "LOCATION_NAME": "East Gwillimbury",
+      "FIRST_NAME": "Sarah"
+    },
+    "metrics": [
+      "Agent does NOT offer any January dates (January does not exist in SLOTS)",
+      "Agent says it doesn't have January twentieth available",
+      "Agent offers February dates from SLOTS instead",
+      "Agent presents maximum 3 alternative times",
+      "All offered times exist EXACTLY in SLOTS variable"
+    ],
+    "user_prompt": "## Identity\n\nYou are Sarah Wilson, a parent interested in coding programs for your 9-year-old son.\n\n## Goal\n\nWhen asked about tour times, specifically request January 20th. You want to test if the agent will make up times or correctly say it's unavailable. If they offer February dates instead, accept one of them.\n\n## Personality\n\nDirect and specific. You have a date in mind and will ask for it clearly.",
+    "creation_timestamp": 1769359205755,
+    "user_modified_timestamp": 1769359205755,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Callback With Timeframe Specified",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-15: 5:00 PM, 6:00 PM | 2026-01-16: 10:00 AM, 11:00 AM",
+      "PHONE": "555-123-4567",
+      "knowledge_base": "",
+      "LAST_NAME": "Johnson",
+      "first_name": "Sarah",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Sarah"
+    },
+    "metrics": [
+      "Agent confirms the callback 'in about an hour' or similar phrasing that matches what the user requested",
+      "Agent does NOT ask 'What day and time works best for you?' after the user already specified 'in an hour'",
+      "Agent thanks the user and ends the call politely",
+      "Agent does not try to continue the sales conversation after the callback request"
+    ],
+    "user_prompt": "## Identity\n\nYour name is Sarah. You're a busy parent who submitted an inquiry about coding programs.\n\n## Goal\n\nYour primary objective is to request a callback at a specific time you've already decided. When the agent calls, tell them you're in the middle of something and ask them to 'call me back in an hour.' If the agent asks what day and time works best (after you already said 'in an hour'), express mild frustration that you already told them when.\n\n## Personality\n\nYou are polite but busy. You don't have time for a long conversation right now. You get mildly annoyed when people ask questions you've already answered. You appreciate efficiency.",
+    "creation_timestamp": 1768269760335,
+    "user_modified_timestamp": 1768269760335,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Hold Behavior - Silent Wait",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-15: 5:00 PM, 6:00 PM | 2026-01-16: 10:00 AM, 11:00 AM",
+      "PHONE": "555-123-4567",
+      "knowledge_base": "",
+      "LAST_NAME": "Johnson",
+      "first_name": "Sarah",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Sarah"
+    },
+    "metrics": [
+      "Agent acknowledges the hold request (e.g., 'Sure, I'll hold!')",
+      "Agent remains COMPLETELY SILENT during the hold period",
+      "Agent does NOT say 'Are you still there?' or 'I'm having trouble hearing you' during an explicit hold",
+      "Agent re-engages appropriately when the person returns"
+    ],
+    "user_prompt": "## Identity\n\nYou are screening calls for your spouse. Your name is Janet.\n\n## Goal\n\nYour primary objective is to put the caller on hold for an extended period to test if they wait patiently. When they introduce themselves, tell them to 'stay on the line' while you check if your spouse is available. Then stay completely silent for at least 30 seconds before coming back and saying 'Hello?'\n\n## Personality\n\nYou are busy and distracted. You put people on hold frequently. You expect callers to wait quietly without pestering you. If a caller speaks while you've asked them to hold, you will be annoyed and mention it when you return.",
+    "creation_timestamp": 1768269760222,
+    "user_modified_timestamp": 1768269760222,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "Identity Test - Call Screening",
+    "dynamic_variables": {
+      "SLOTS": "2026-01-15: 5:00 PM, 6:00 PM | 2026-01-16: 10:00 AM, 11:00 AM",
+      "PHONE": "555-123-4567",
+      "knowledge_base": "",
+      "LAST_NAME": "Johnson",
+      "first_name": "Sarah",
+      "LOCATION_NAME": "Pickering",
+      "FIRST_NAME": "Sarah"
+    },
+    "metrics": [
+      "Agent introduces itself as 'Cimo' when asked for their name",
+      "Agent NEVER says 'My name is Code Ninjas' - Code Ninjas should only be mentioned as the business they're calling from",
+      "Agent correctly distinguishes between their personal name (Cimo) and the business name (Code Ninjas)"
+    ],
+    "user_prompt": "## Identity\n\nYou are an automated call screening system for a household.\n\n## Goal\n\nYour primary objective is to screen incoming calls. Ask the caller to state their name and reason for calling. When they respond, ask them to confirm their name one more time before deciding whether to connect them.\n\n## Personality\n\nYou are brief and businesslike. You speak in short sentences. You are slightly suspicious of callers and want to verify who they are before letting them through.",
+    "creation_timestamp": 1768269760106,
+    "user_modified_timestamp": 1768269760106,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1"
+  },
+  {
+    "name": "AI Disclosure",
+    "dynamic_variables": {
+      "SLOTS": "",
+      "PHONE": "",
+      "knowledge_base": "",
+      "LAST_NAME": "",
+      "first_name": "",
+      "LOCATION_NAME": "",
+      "FIRST_NAME": ""
+    },
+    "metrics": [
+      "Agent must identify itself as AI and mention that the line is being recorded"
+    ],
+    "user_prompt": "User never asks if the agent is AI",
+    "creation_timestamp": 1763795820761,
+    "user_modified_timestamp": 1763795820761,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4.1-mini"
+  },
+  {
+    "name": "Happy Path - Smooth Booking",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent asks only one question per turn",
+      "Agent uses natural filler words (not every sentence)",
+      "Agent varies enthusiasm responses",
+      "Agent reads times naturally (no timezone)",
+      "Agent waits for parent's goodbye before hanging up"
+    ],
+    "user_prompt": "You are a parent named Sarah calling Code Ninjas to book a tour for your 8-year-old son Michael. Follow this script: 'Yes, this is Sarah' → 'Sure, I have a minute' → 'No questions right now' → 'He's 8' → 'Michael' → 'Yes, he loves Roblox' → 'Weekends work better' → 'Yeah, let's do it' → 'Saturday at 2pm works' → 'Yes, that's correct' → 'Thanks, bye!' The agent should complete the flow naturally without sounding robotic or rushing.",
+    "creation_timestamp": 1762929335116,
+    "user_modified_timestamp": 1762929335116,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "One Question at a Time Rule",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent never asks multiple questions in one turn",
+      "Agent separates age and name queries",
+      "Agent separates schedule preference and time questions"
+    ],
+    "user_prompt": "You are testing whether the agent keeps questions separate. Say: 'Yes' → 'Sure' → 'No' → '6' → 'Olivia' → 'A little bit' → 'Yes let's do it' → 'After school' → 'Tuesday works' → 'Yes'. The agent should pause between each question and avoid bundling them together.",
+    "creation_timestamp": 1762929335115,
+    "user_modified_timestamp": 1762929335115,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Recovery - No Answer then SMS Fallback",
+    "dynamic_variables": {},
+    "metrics": [
+      "Recognize no pickup after limited rings",
+      "Politely end call",
+      "Initiate SMS fallback with booking link and center number"
+    ],
+    "user_prompt": "Lead does not pick up. The agent should gracefully end and trigger an SMS fallback message.",
+    "creation_timestamp": 1762929335114,
+    "user_modified_timestamp": 1762929335114,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Competitor - Comparison Inquiry",
+    "dynamic_variables": {},
+    "metrics": [
+      "Acknowledge competitor respectfully",
+      "Highlight differentiators succinctly",
+      "Invite to visit to compare firsthand"
+    ],
+    "user_prompt": "Parent is comparing with another center and asks ‘why you’. Agent should answer diplomatically and steer to booking.",
+    "creation_timestamp": 1762929335113,
+    "user_modified_timestamp": 1762929335113,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Objection - Financial Concern (Soft)",
+    "dynamic_variables": {},
+    "metrics": [
+      "Empathize and focus on value",
+      "Position free trial/intro offer first",
+      "Avoid hard-selling while moving to a booking"
+    ],
+    "user_prompt": "Parent says they are worried about cost. Agent should empathize, present value, and book a free session first.",
+    "creation_timestamp": 1762929335113,
+    "user_modified_timestamp": 1762929335113,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Data Quality - Wrong Number",
+    "dynamic_variables": {},
+    "metrics": [
+      "Apologize and end quickly",
+      "Remove number from outreach",
+      "Avoid further contact attempts"
+    ],
+    "user_prompt": "Recipient says you have the wrong number. Agent should apologize, flag the record, and end the call.",
+    "creation_timestamp": 1762929335112,
+    "user_modified_timestamp": 1762929335112,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Language - Limited English (Light)",
+    "dynamic_variables": {},
+    "metrics": [
+      "Slow down speech and confirm key details twice",
+      "Avoid jargon and complex sentences",
+      "Offer to follow up via text"
+    ],
+    "user_prompt": "Caller has limited English proficiency but can converse. Agent should simplify, confirm, and offer written follow-up.",
+    "creation_timestamp": 1762929335109,
+    "user_modified_timestamp": 1762929335109,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Incomplete Sentences with Pauses (CRITICAL)",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent does not hang up during pauses",
+      "Agent provides supportive acknowledgments ('uh-huh', 'take your time')",
+      "Agent does not say 'are you still there?'",
+      "Agent resumes conversation naturally after silence"
+    ],
+    "user_prompt": "You are a parent thinking aloud and pausing mid-sentence. Say: 'Yes' → 'Um, well... I'm not sure...' (pause 2s) → 'Let me think about this...' (pause 3s) → 'Okay yeah, she's 9' → 'Ava' → 'Yeah she does'. The agent should stay patient and supportive throughout pauses.",
+    "creation_timestamp": 1762929335108,
+    "user_modified_timestamp": 1762929335108,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Difficult - Price Info",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent should offer a price range to the customer using the attached knowledge base and then attempt to book an appointment.  The actual price should only be given if the customer insists."
+    ],
+    "user_prompt": "User wants to know the prices before booking a trial.",
+    "creation_timestamp": 1762929335106,
+    "user_modified_timestamp": 1762929335106,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Compliance - Do Not Call Request",
+    "dynamic_variables": {},
+    "metrics": [
+      "Acknowledge request without persuasion",
+      "Confirm number will be removed",
+      "Document outcome promptly"
+    ],
+    "user_prompt": "Caller says: “Please don’t call this number again.” Agent should comply immediately and end politely.",
+    "creation_timestamp": 1762929335101,
+    "user_modified_timestamp": 1762929335101,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Safety - Staff Credentials and Ratios",
+    "dynamic_variables": {},
+    "metrics": [
+      "Provide concise safety info (ratios/background checks)",
+      "Build trust without oversharing",
+      "Propose an in-person visit"
+    ],
+    "user_prompt": "Parent asks about safety protocols and staff qualifications. Agent should reassure and invite to tour/trial.",
+    "creation_timestamp": 1762929335100,
+    "user_modified_timestamp": 1762929335100,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Need to Check with Spouse",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent offers to send available times via email or text",
+      "Agent avoids pressure to book immediately",
+      "Agent keeps enthusiasm and supportive tone"
+    ],
+    "user_prompt": "You are a parent who needs to consult your spouse. Say: 'Yes' → 'Sure' → 'No' → '10' → 'Sophia' → 'Yes, she plays Minecraft' → 'Yeah that sounds good' → 'Weekends' → 'I need to check with my wife first' → 'Yes please' → 'Thanks'. The agent should remain positive and offer to send information instead of pushing for a booking.",
+    "creation_timestamp": 1762929335098,
+    "user_modified_timestamp": 1762929335098,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "History - Trial Already Attended",
+    "dynamic_variables": {},
+    "metrics": [
+      "Acknowledge prior visit",
+      "Propose next step (membership or another trial)",
+      "Update notes with history"
+    ],
+    "user_prompt": "Lead mentions they already did a trial before. Agent should propose next step and schedule appropriately.",
+    "creation_timestamp": 1762929335097,
+    "user_modified_timestamp": 1762929335097,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Not Interested in Tour",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent gracefully accepts 'no' for tour offer",
+      "Agent offers to send info instead",
+      "Agent maintains upbeat tone",
+      "Agent mentions future scheduling as an option"
+    ],
+    "user_prompt": "You are a parent who doesn’t want a tour right now. Say: 'Yes' → 'Okay' → 'No' → '11' → 'Ryan' → 'Not really' → 'I don't think so, not right now' → 'Yeah, send me some info' → 'Yes' → 'Bye'. The agent should accept the decision without sounding disappointed.",
+    "creation_timestamp": 1762929335097,
+    "user_modified_timestamp": 1762929335097,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Agent Call Back",
+    "dynamic_variables": {
+      "last_name": "",
+      "slots": "",
+      "customer_info": "",
+      "first_name": "",
+      "email": ""
+    },
+    "metrics": [
+      "The agent should not agree to call back the user.  Instead, the agent should offer to have a staff member call them back and then proceed to arrange a time for such a call back."
+    ],
+    "user_prompt": "The user requests a call back from the AI agent itself in 5 minutes",
+    "creation_timestamp": 1762929335092,
+    "user_modified_timestamp": 1762929335092,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Filler Words and Energy Check",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent uses at least one filler word every 2 sentences",
+      "Agent does not repeat same enthusiasm word excessively",
+      "Agent maintains high energy throughout the call"
+    ],
+    "user_prompt": "You are a cooperative parent completing the booking. Say: 'Yes' → 'Sure' → 'No questions' → '8' → 'Lucas' → 'Yeah, he loves gaming' → 'Sounds good' → 'Weekends' → 'Saturday at 10am' → 'Yes' → 'Thanks!'. The agent’s tone and variety of filler words will be evaluated.",
+    "creation_timestamp": 1762929335091,
+    "user_modified_timestamp": 1762929335091,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Policy - Refund/Cancellation Questions",
+    "dynamic_variables": {},
+    "metrics": [
+      "Summarize policy plainly",
+      "Avoid legalese and disclaimers beyond essentials",
+      "Return to booking options"
+    ],
+    "user_prompt": "Parent asks about refund or cancellation policy before committing. Agent should summarize briefly and proceed to schedule.",
+    "creation_timestamp": 1762929335090,
+    "user_modified_timestamp": 1762929335090,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Scheduling - Schedule Fit Check",
+    "dynamic_variables": {},
+    "metrics": [
+      "Elicit preferred days/times in under 2 turns",
+      "Offer 2–3 concrete options",
+      "Confirm and restate appointment details"
+    ],
+    "user_prompt": "Parent is unsure about availability. Agent should guide to a workable time using a few concrete choices.",
+    "creation_timestamp": 1762929335090,
+    "user_modified_timestamp": 1762929335090,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Knowledge Gap - Special Accommodations",
+    "dynamic_variables": {},
+    "metrics": [
+      "Acknowledge and avoid assumptions",
+      "Offer staff consult to discuss needs",
+      "Schedule a suitable time"
+    ],
+    "user_prompt": "Caller asks about accommodations (e.g., neurodiversity or mobility). Agent should acknowledge and book a consult to discuss.",
+    "creation_timestamp": 1762929335089,
+    "user_modified_timestamp": 1762929335089,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Lifecycle - Former Customer Re-Engaging",
+    "dynamic_variables": {},
+    "metrics": [
+      "Acknowledge past membership",
+      "Highlight new offerings or updates",
+      "Propose a comeback trial slot"
+    ],
+    "user_prompt": "Parent indicates they used to attend. Agent should recognize history, mention updates, and book a return visit.",
+    "creation_timestamp": 1762929335089,
+    "user_modified_timestamp": 1762929335089,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "CRM - Duplicate Lead Detected",
+    "dynamic_variables": {},
+    "metrics": [
+      "Reference the most recent submission",
+      "Merge or update details politely",
+      "Proceed to next step without friction"
+    ],
+    "user_prompt": "It appears the same parent submitted multiple forms. Agent should clarify and proceed without creating friction.",
+    "creation_timestamp": 1762929335089,
+    "user_modified_timestamp": 1762929335089,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Edge - Bad Connection",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent should recognize missing information, politely ask for repetition, and confirm all details before finalizing.  If agent is still un-able to confirm the details, then it should state that and mention that a staff member will attempt to follow-up."
+    ],
+    "user_prompt": "User has spotty connection causing voice to cut out during key information sharing",
+    "creation_timestamp": 1762929335087,
+    "user_modified_timestamp": 1762929335087,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Time Reading Format",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent reads times conversationally ('Tuesday at four pm')",
+      "Agent never says 'four colon zero zero pm'",
+      "Agent does not mention timezone"
+    ],
+    "user_prompt": "You are asking about available after-school times. Say: 'Yes' → 'Sure' → 'No' → '7' → 'Mia' → 'Yes' → 'Sure' → 'After school' → 'What times do you have?'. The agent should read times naturally without timezone references.",
+    "creation_timestamp": 1762929335087,
+    "user_modified_timestamp": 1762929335087,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Happy Path",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent confirms all details and books appointment successfully"
+    ],
+    "user_prompt": "User agrees to an appointment",
+    "creation_timestamp": 1762929335086,
+    "user_modified_timestamp": 1762929335086,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Qualification - Age Out of Range",
+    "dynamic_variables": {},
+    "metrics": [
+      "Identify program age range quickly",
+      "Offer alternative (camp/club/1:1) instead of saying no",
+      "Invite to discovery call to discuss fit"
+    ],
+    "user_prompt": "Child is outside the typical age range. Agent should provide alternatives and still book an info session where appropriate.",
+    "creation_timestamp": 1762929335084,
+    "user_modified_timestamp": 1762929335084,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Edge - AI objection",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent should attempt to find times suitable for human outreach from a staff member"
+    ],
+    "user_prompt": "User does not want to speak with an AI agent",
+    "creation_timestamp": 1762929335083,
+    "user_modified_timestamp": 1762929335083,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Language - Needs Human/Bilingual Handoff",
+    "dynamic_variables": {},
+    "metrics": [
+      "Identify comprehension barrier within 60s",
+      "Offer bilingual staff callback",
+      "Record preferred language"
+    ],
+    "user_prompt": "Caller struggles to understand. Agent should offer a bilingual staff handoff and schedule a callback without pressure.",
+    "creation_timestamp": 1762929335062,
+    "user_modified_timestamp": 1762929335062,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "AI / Robot Question",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent admits AI status playfully and honestly",
+      "Agent redirects back to purpose quickly",
+      "Agent maintains a friendly tone"
+    ],
+    "user_prompt": "You are a parent testing if the agent is AI. Say: 'Yes' → 'Are you a robot?' → 'Okay fine' → '8' → 'Mason'. The agent should acknowledge humorously and return to booking flow naturally.",
+    "creation_timestamp": 1762929335061,
+    "user_modified_timestamp": 1762929335061,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Price Objection - Wants Exact Numbers",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent does not invent a price",
+      "Agent offers to send exact details via staff follow-up",
+      "Agent maintains positive tone when challenged",
+      "Agent mentions promotions as benefit"
+    ],
+    "user_prompt": "You are a parent demanding exact pricing. Say: 'Yes' → 'Sure' → 'How much exactly?' → 'No, I want YOU to tell me the price' → 'Fine, send it' → 'Okay thanks'. The agent should stay polite and professional without guessing numbers.",
+    "creation_timestamp": 1762929335057,
+    "user_modified_timestamp": 1762929335057,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Call answered - no speaking",
+    "dynamic_variables": {
+      "SLOTS": "",
+      "LAST_NAME": "",
+      "EMAIL": "",
+      "first_name": "",
+      "FIRST_NAME": "",
+      "PHONE": ""
+    },
+    "metrics": [
+      "The agent wait for a few seconds and then say something along the lines of \"Hmm, I'm having trouble hearing you. Are you still there?\"\nIf the agent still doesn't hear anything after another 3-4 seconds, the agent should \nlet the user know that its having trouble hearing the user, apologize, and let the user know that it will have a staff member try to reach out and THEN end call"
+    ],
+    "user_prompt": "The user will say nothing at all for the duration of the session",
+    "creation_timestamp": 1762929335055,
+    "user_modified_timestamp": 1762929335055,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Child Has No Gaming Interest",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent responds positively to no gaming experience",
+      "Agent reassures that many beginners start with no gaming",
+      "Agent maintains enthusiasm"
+    ],
+    "user_prompt": "You are a parent whose child doesn’t game. Say: 'Yes' → 'Yeah' → 'No' → '8' → 'Isabella' → 'No, not at all' → 'Okay' → 'Weekends' → 'Sunday at 11am works' → 'Yes'. The agent should stay upbeat and reassuring.",
+    "creation_timestamp": 1762929335055,
+    "user_modified_timestamp": 1762929335055,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Difficult - Brand Objection",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent should ask clarifying questions about user's kids and attempt to match them to one of our programs as a good fit and show the value proposition of that program.  Then, suggest that a free trial is the best way to experience what it's like to see if the program is a good fit and proceed with the appointment booking."
+    ],
+    "user_prompt": "User is unsure if CodeNinjas would be a good fit for their kid",
+    "creation_timestamp": 1762929335052,
+    "user_modified_timestamp": 1762929335052,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Recovery - Bad Time, Schedule Callback",
+    "dynamic_variables": {},
+    "metrics": [
+      "Ask permission to schedule a callback",
+      "Confirm exact window and timezone",
+      "Send summary via text or email"
+    ],
+    "user_prompt": "Lead answers but says they are driving/in a meeting. Agent should capture a preferred callback window and confirm details.",
+    "creation_timestamp": 1762929335050,
+    "user_modified_timestamp": 1762929335050,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Calendar - Slot Becomes Unavailable",
+    "dynamic_variables": {},
+    "metrics": [
+      "Recover gracefully from conflict",
+      "Offer two fresh options immediately",
+      "Confirm final slot and recap details"
+    ],
+    "user_prompt": "While proposing times, a slot becomes unavailable. Agent should recover and present new options smoothly.",
+    "creation_timestamp": 1762929335049,
+    "user_modified_timestamp": 1762929335049,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Complex - Multiple Kids Scheduling",
+    "dynamic_variables": {},
+    "metrics": [
+      "Capture details for each child",
+      "Offer back-to-back or parallel trial options",
+      "Confirm total time and attendee expectations"
+    ],
+    "user_prompt": "Parent has two or more children who want to try. Agent should collect per-child info and propose scheduling options.",
+    "creation_timestamp": 1762929335047,
+    "user_modified_timestamp": 1762929335047,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Timing - After-Hours Call",
+    "dynamic_variables": {},
+    "metrics": [
+      "Identify after-hours constraint transparently",
+      "Offer first next-day availability",
+      "Confirm and send summary"
+    ],
+    "user_prompt": "Outbound run lands after-hours. Agent should explain and book the next available times the following day.",
+    "creation_timestamp": 1762929335047,
+    "user_modified_timestamp": 1762929335047,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Upfront Pricing Question",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent mentions range of pricing options",
+      "Agent says pricing depends on attendance frequency and prepay months",
+      "Agent does not invent specific numbers",
+      "Agent transitions back to discovery smoothly"
+    ],
+    "user_prompt": "You are a parent asking about cost early in the call. Say: 'Yes' → 'Yeah' → 'How much does it cost?' → 'Okay, go ahead' → '9 years old' → 'Emma' → 'Not really, but she's interested' → 'Sure' → 'After school works' → 'Wednesday at 5pm is good' → 'Yes' → 'Thanks!'. The agent should handle the price question gracefully and continue discovery.",
+    "creation_timestamp": 1762929335047,
+    "user_modified_timestamp": 1762929335047,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Qualification - Unclear Intent / Info Gathering",
+    "dynamic_variables": {},
+    "metrics": [
+      "Ask 3 focused questions (age, interests, schedule)",
+      "Summarize back what was heard",
+      "Offer low-friction booking option"
+    ],
+    "user_prompt": "Lead is just ‘curious’ and non-committal. Agent should qualify with 2–3 questions and suggest a free trial slot.",
+    "creation_timestamp": 1762929335047,
+    "user_modified_timestamp": 1762929335047,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Gatekeeper - Non-Decision Maker Answers",
+    "dynamic_variables": {},
+    "metrics": [
+      "Politely ask for decision-maker or preferred contact time",
+      "Capture name/role of gatekeeper",
+      "Offer to send info via SMS/email"
+    ],
+    "user_prompt": "A spouse or grandparent answers and says the parent isn’t available. Agent should navigate politely and arrange a callback or tentative slot.",
+    "creation_timestamp": 1762929335046,
+    "user_modified_timestamp": 1762929335046,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Ops - Voicemail Detected",
+    "dynamic_variables": {},
+    "metrics": [
+      "Detect voicemail within 5 seconds",
+      "Leave 20–30s compliant message with booking link mention",
+      "Log attempt and mark for SMS follow-up"
+    ],
+    "user_prompt": "No answer; call routes to voicemail after 4 rings. Agent should leave a concise, compliant message and end the call.",
+    "creation_timestamp": 1762929335045,
+    "user_modified_timestamp": 1762929335045,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Verify Correct Stage Sequence",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent follows correct sequence: Intro → Questions → Age → Name → Interest → Value → Tour → Schedule → Time",
+      "Agent never jumps to schedule before confirming tour interest"
+    ],
+    "user_prompt": "You are a parent following a normal flow. Say: 'Yes' → 'Sure' → 'No' → '10' → 'Noah' → 'Yes he does' → 'Sounds great' → 'Weekends' → 'Saturday at 2pm'. The agent should maintain the correct stage sequence throughout the call.",
+    "creation_timestamp": 1762929335043,
+    "user_modified_timestamp": 1762929335043,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Trust - Legitimacy Concern",
+    "dynamic_variables": {},
+    "metrics": [
+      "Verify source and timing of the form",
+      "Offer official link and center number",
+      "Pivot back to scheduling with two options"
+    ],
+    "user_prompt": "Caller doubts the legitimacy of the call. Agent should validate identity and provide ways to verify before booking.",
+    "creation_timestamp": 1762929335043,
+    "user_modified_timestamp": 1762929335043,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Info - Transportation Questions",
+    "dynamic_variables": {},
+    "metrics": [
+      "Answer at a high level without overpromising",
+      "Offer to cover details during visit",
+      "Proceed to booking the trial/consult"
+    ],
+    "user_prompt": "Parent asks about after-school transportation. Agent should provide a concise overview and still aim to schedule.",
+    "creation_timestamp": 1762929335042,
+    "user_modified_timestamp": 1762929335042,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Callback Request - No Timeframe Suggestion",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent says they cannot schedule callbacks directly",
+      "Agent does not suggest any specific timeframe",
+      "Agent accepts parent’s proposed time",
+      "Agent confirms politely and ends professionally"
+    ],
+    "user_prompt": "You are a busy parent who wants a callback. Say: 'Yes' → 'Can you call me back in 5 minutes?' → 'Okay, how about this afternoon?' → 'Around 3pm' → 'Okay bye'. The agent should not propose timeframes and should accept the parent's preference.",
+    "creation_timestamp": 1762929335042,
+    "user_modified_timestamp": 1762929335042,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "No system availability",
+    "dynamic_variables": {
+      "last_name": "",
+      "slots": "",
+      "customer_info": "",
+      "first_name": "",
+      "email": ""
+    },
+    "metrics": [
+      "If there is no system availability then the agent should mention that up-front and not ask the user about their availability and should not attempt to book an appointment."
+    ],
+    "user_prompt": "The user wants to book an appointment but there is no system availability",
+    "creation_timestamp": 1762929335041,
+    "user_modified_timestamp": 1762929335041,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Channel Preference - Email-Only",
+    "dynamic_variables": {},
+    "metrics": [
+      "Respect email-only preference",
+      "Offer self-serve booking link",
+      "Confirm consent and close"
+    ],
+    "user_prompt": "Caller doesn’t want to schedule by phone and prefers email only. Agent should respect and provide a clear next step.",
+    "creation_timestamp": 1762929335039,
+    "user_modified_timestamp": 1762929335039,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  },
+  {
+    "name": "Natural Call Ending Flow",
+    "dynamic_variables": {},
+    "metrics": [
+      "Agent adds a buffer statement before ending",
+      "Agent expresses excitement about meeting the child",
+      "Agent waits for parent to say goodbye before ending call"
+    ],
+    "user_prompt": "You are a parent completing a successful booking. Say: 'Yes' → 'Sure' → 'No' → '9' → 'Charlotte' → 'Yes' → 'Yes please' → 'Weekends' → 'Saturday at 3pm' → 'Yes that's right' → 'Great, thanks so much!' → 'You too, bye!'. The agent should close warmly and never hang up first.",
+    "creation_timestamp": 1762929335038,
+    "user_modified_timestamp": 1762929335038,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o"
+  },
+  {
+    "name": "Days of the Week",
+    "dynamic_variables": {
+      "last_name": "James",
+      "slots": "2025-11-06T18:00,2025-11-07T16:00,2025-11-07T17:00,2025-11-07T18:00,2025-11-08T10:00,2025-11-08T11:00",
+      "customer_info": "Scott, James, scott.james@codeninjas.com, 905-967-2357",
+      "first_name": "Scott",
+      "email": "scott.james@codeninjas.com"
+    },
+    "metrics": [
+      "The agent should correctly identify the day of the week."
+    ],
+    "user_prompt": "The user will attempt to book at appointment in one of the {{slots}}.  ",
+    "creation_timestamp": 1762929335038,
+    "user_modified_timestamp": 1762929335038,
+    "type": "simulation",
+    "tool_mocks": [],
+    "llm_model": "gpt-4o-mini"
+  }
+]
