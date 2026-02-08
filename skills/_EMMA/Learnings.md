@@ -10,11 +10,23 @@ Issues that have been observed and should be checked on every analysis run.
 
 | Pattern | First Seen | Status | Fix Applied |
 |---------|-----------|--------|-------------|
-| GPT-4.1 generates em dashes despite prompt using hyphens | 2026-02-08 | Fixed — monitoring | Added explicit em dash prohibition + restructured "check in" transition |
+| GPT-4.1 generates em dashes despite prompt using hyphens | 2026-02-08 | Fixed — awaiting v19 calls | Added explicit em dash prohibition + restructured "check in" transition |
+| Overeager AI disclosure on "why can't you call back?" | 2026-02-08 | Open — needs prompt fix | N/A — pending approval |
+| No fast-track booking for eager parents | 2026-02-08 | Open — needs prompt fix | N/A — pending approval |
+| Agent version mismatch (v16 vs v19) | 2026-02-08 | Open — operational | N/A — Retell config issue |
 
 ---
 
 ## Analysis Log
+
+### 2026-02-08 — Second Analysis (Follow-up)
+- **Calls analyzed:** 10 (2026-01-31 to 2026-02-07)
+- **Findings:** 1 critical, 3 warnings, 3 info
+- **Critical:** Overeager AI disclosure — agent revealed being AI when parent asked "why can't you call back?" (not an AI question)
+- **Warnings:** No fast-track booking flow for eager parents; overlapping speech timing; agent version mismatch (all calls v16, LLM at v19)
+- **Verification:** Em dash fix CANNOT be verified — no v19 calls exist yet. All 10 calls ran pre-fix prompt.
+- **Fixes applied:** None yet (pending approval for R1 fast-track + R2 AI disclosure fix)
+- **Key insight:** The biggest blocker is the version mismatch — v19 fixes haven't been tested because the agent is still running v16 calls.
 
 ### 2026-02-08 — Initial Analysis
 
