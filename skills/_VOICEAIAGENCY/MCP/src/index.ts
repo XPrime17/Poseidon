@@ -7,6 +7,7 @@ import { registerAgentTools } from "./tools/agents.js";
 import { registerCallTools } from "./tools/calls.js";
 import { registerLlmTools } from "./tools/llm.js";
 import { registerAnalysisTools } from "./tools/analysis.js";
+import { registerKnowledgeBaseTools } from "./tools/knowledge-base.js";
 
 function createMcpServer() {
   const apiKey = process.env.RETELL_API_KEY;
@@ -28,6 +29,7 @@ function createMcpServer() {
   registerCallTools(mcpServer, retellClient);
   registerLlmTools(mcpServer, retellClient);
   registerAnalysisTools(mcpServer, retellClient);
+  registerKnowledgeBaseTools(mcpServer, retellClient);
 
   return mcpServer;
 }

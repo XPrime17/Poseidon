@@ -38,6 +38,14 @@ Used by workflows to avoid manual ID lookups.
 | **Webhook** | `https://lead-reactivation.scott-james1717.workers.dev/webhook/retell` |
 | **Post-Call Analysis Model** | gpt-4.1-mini |
 
+## Knowledge Base
+
+| Field | Value |
+|-------|-------|
+| **Google Doc ID** | TBD (awaiting from Scott) |
+| **Retell KB ID** | TBD (discover via `list_knowledge_bases`) |
+| **KB Skill** | `_KB` -- use for reading/writing doc and syncing to Retell KB |
+
 ## MCP Tools Used
 
 These Retell MCP server tools are used by the Analyze workflow:

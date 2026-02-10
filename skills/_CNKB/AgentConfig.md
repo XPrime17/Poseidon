@@ -20,6 +20,14 @@ Used by workflows to avoid manual ID lookups.
 | **Voice** | 11labs-Cimo |
 | **Language** | en-US |
 
+## Knowledge Base
+
+| Field | Value |
+|-------|-------|
+| **Google Doc ID** | `1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek` |
+| **Retell KB ID** | TBD (discover via `list_knowledge_bases`) |
+| **KB Skill** | `_KB` -- use for reading/writing doc and syncing to Retell KB |
+
 ## MCP Tools Used
 
 These Retell MCP server tools are used by the Analyze workflow:

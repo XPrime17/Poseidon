@@ -1,0 +1,65 @@
+{
+  "name": "gdocs-read",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gdocs-read",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.body.doc_id }}",
+        "simple": false
+      },
+      "id": "gdocs-get-node",
+      "name": "Google Docs",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [470, 300],
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const doc = $input.first().json;\nconst body = doc.body || {};\nconst content = (body.content || []).map(el => {\n  if (el.paragraph) {\n    return (el.paragraph.elements || []).map(e => e.textRun?.content || '').join('');\n  }\n  return '';\n}).join('');\n\nreturn [{\n  json: {\n    title: doc.title || 'Untitled',\n    content: content.trim(),\n    lastModified: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "code-extract-node",
+      "name": "Extract Content",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [690, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Google Docs", "type": "main", "index": 0 }]
+      ]
+    },
+    "Google Docs": {
+      "main": [
+        [{ "node": "Extract Content", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "name": "gdocs-write",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "gdocs-write",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "mode-check",
+              "leftValue": "={{ $json.body.mode }}",
+              "rightValue": "append",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ]
+        }
+      },
+      "id": "mode-switch-node",
+      "name": "Check Mode",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.body.doc_id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "replaceAll",
+              "text": "={{ $json.body.content }}"
+            }
+          ]
+        }
+      },
+      "id": "gdocs-replace-node",
+      "name": "Replace Content",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [690, 200],
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.body.doc_id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "append",
+              "text": "={{ '\\n\\n' + $json.body.content }}"
+            }
+          ]
+        }
+      },
+      "id": "gdocs-append-node",
+      "name": "Append Content",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [690, 400],
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    success: true,\n    doc_id: $('Webhook').first().json.body.doc_id,\n    contentLength: ($('Webhook').first().json.body.content || '').length\n  }\n}];"
+      },
+      "id": "response-replace-node",
+      "name": "Response (Replace)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [910, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    success: true,\n    doc_id: $('Webhook').first().json.body.doc_id,\n    contentLength: ($('Webhook').first().json.body.content || '').length\n  }\n}];"
+      },
+      "id": "response-append-node",
+      "name": "Response (Append)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [910, 400]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Check Mode", "type": "main", "index": 0 }]
+      ]
+    },
+    "Check Mode": {
+      "main": [
+        [{ "node": "Append Content", "type": "main", "index": 0 }],
+        [{ "node": "Replace Content", "type": "main", "index": 0 }]
+      ]
+    },
+    "Replace Content": {
+      "main": [
+        [{ "node": "Response (Replace)", "type": "main", "index": 0 }]
+      ]
+    },
+    "Append Content": {
+      "main": [
+        [{ "node": "Response (Append)", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
