@@ -217,3 +217,7 @@
 {"timestamp":"2026-02-11T02:35:16+00:00","rating":5,"session_id":"30bc1dda-902f-47cb-9154-f0e7c31b7746","source":"implicit","sentiment_summary":"Neutral technical question, no sentiment toward Poseidon","confidence":0.9}
 {"timestamp":"2026-02-11T02:36:49+00:00","rating":4,"session_id":"30bc1dda-902f-47cb-9154-f0e7c31b7746","source":"implicit","sentiment_summary":"Mild frustration with diagram delivery method","confidence":0.75}
 {"timestamp":"2026-02-11T02:42:54+00:00","rating":6,"session_id":"30bc1dda-902f-47cb-9154-f0e7c31b7746","source":"implicit","sentiment_summary":"Satisfied with output; identifies next task","confidence":0.82}
+{"timestamp":"2026-02-11T04:50:54+00:00","rating":5,"session_id":"de8f8e78-4fdc-4a70-9903-2579701593db","source":"implicit","sentiment_summary":"Technical inquiry, no emotional valence","confidence":0.95}
+{"timestamp":"2026-02-11T05:29:26+00:00","rating":5,"session_id":"de8f8e78-4fdc-4a70-9903-2579701593db","source":"implicit","sentiment_summary":"Clarifying question about workflow, no sentiment","confidence":0.95}
+{"timestamp":"2026-02-11T05:42:47+00:00","rating":5,"session_id":"de8f8e78-4fdc-4a70-9903-2579701593db","source":"implicit","sentiment_summary":"Simple affirmation, no emotional content","confidence":0.95}
+{"timestamp":"2026-02-11T05:53:16+00:00","rating":5,"session_id":"de8f8e78-4fdc-4a70-9903-2579701593db","source":"implicit","sentiment_summary":"Direct command, no emotional content","confidence":0.95}
