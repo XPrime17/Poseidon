@@ -11,7 +11,7 @@ Manage knowledge base content across Google Docs (source of truth) and Supabase 
 
 ```
 Google Doc (source of truth, per centre)
-    ↓ n8n gdocs-read webhook
+    ↓ n8n gdocs-read webhook (self-hosted)
 Claude reads content
     ↓ Supabase REST API
 centres.knowledge_base column updated
@@ -22,6 +22,15 @@ Retell substitutes {{knowledge_base}} in agent prompt
 ```
 
 **Key:** KB is per-centre, not per-agent. All agents at a centre share the same KB content.
+
+### n8n Instances
+
+| Instance | URL | Purpose | KB Role |
+|----------|-----|---------|---------|
+| **Self-hosted (Docker)** | `http://138.197.171.204:5678` | _KB Google Docs read/write | Active -- gdocs-read, gdocs-write workflows |
+| **Cloud** | `https://xprime17.app.n8n.cloud` | Other automations | Not used for _KB |
+
+**_KB uses the self-hosted instance only.** Webhooks are at `localhost:5678` from the droplet's perspective.
 
 ## Centre Registry
 
@@ -38,9 +47,10 @@ See `AgentDocs.md` for the mapping of centres to Google Doc IDs and Supabase cen
 
 ## Prerequisites
 
-1. **n8n running** on `localhost:5678` with Google Docs OAuth2 credential configured
-2. **n8n workflows** imported and activated: `gdocs-read` and `gdocs-write`
+1. **n8n self-hosted** running on `localhost:5678` (Docker container `n8n` on droplet `138.197.171.204`) with Google Docs OAuth2 credential (ID: `1`)
+2. **n8n workflows** imported and activated: `gdocs-read` (`RQt8auabMaJqoOTB`) and `gdocs-write` (`titk07qAVIOFeqcI`)
 3. **Supabase** access (service key in lead-reactivation-github repo)
+4. **Note:** Do NOT use the cloud instance (`xprime17.app.n8n.cloud`) for _KB workflows
 
 ## n8n Setup
 

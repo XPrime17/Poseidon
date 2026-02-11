@@ -27,7 +27,7 @@
       "position": [470, 300],
       "credentials": {
         "googleDocsOAuth2Api": {
-          "id": "REPLACE_WITH_CREDENTIAL_ID",
+          "id": "1",
           "name": "Google Docs account"
         }
       }
