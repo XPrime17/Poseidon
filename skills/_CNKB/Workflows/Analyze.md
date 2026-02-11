@@ -42,6 +42,29 @@ PREVIOUS LEARNINGS:
   Last analysis: [date]
 ```
 
+### Step 0b: Check Centre Feedback
+
+**Pull unanalyzed feedback from the centre using FeedbackTracker.**
+
+```bash
+bun ~/.claude/skills/_VOICEAIAGENCY/Tools/FeedbackTracker.ts --list --centre canton-ma-us --unanalyzed
+```
+
+For each unanalyzed feedback entry:
+1. Note the **categories** and **what happened** — these are centre-reported issues to specifically look for in transcripts
+2. If it's a **specific call** feedback, try to match the `caller_reference` to a Retell call in Step 1
+3. Centre feedback takes **priority** over automated analysis — if a centre reports an issue, it's real regardless of what the transcript analyzer says
+
+Present a brief status:
+```
+CENTRE FEEDBACK:
+  Unanalyzed entries: [N]
+  Categories reported: [list]
+  Average rating: [X/5]
+```
+
+If no unanalyzed feedback exists, note "No new centre feedback" and continue.
+
 ### Step 1: Pull Recent Calls
 
 Use the Retell MCP `list_calls` tool:
@@ -87,7 +110,12 @@ Present:
 
 ### Step 4: Generate Recommendations
 
-Based on the transcript analysis (Step 2) and prompt review (Step 3), generate specific, actionable recommendations:
+Based on the transcript analysis (Step 2), prompt review (Step 3), **and centre feedback (Step 0b)**, generate specific, actionable recommendations:
+
+**Centre feedback gets special treatment:**
+- If a centre reported an issue AND transcripts confirm it → **Critical priority** recommendation
+- If a centre reported an issue but transcripts don't show it → still include as recommendation with note "reported by centre, not confirmed in recent transcripts — may be intermittent"
+- If transcripts show an issue the centre also flagged → stronger evidence, mention both sources
 
 For each recommendation:
 1. **What to change** — specific prompt text to add, modify, or remove
@@ -145,6 +173,21 @@ Use the Edit tool to update these sections:
 
 **This step is NOT optional. Even a clean analysis ("0 issues found") gets logged — that's valuable data.**
 
+### Step 7b: Mark Feedback as Analyzed
+
+**If there were unanalyzed feedback entries from Step 0b, mark them as analyzed now.**
+
+For each feedback entry that was reviewed during this analysis:
+
+```bash
+bun ~/.claude/skills/_VOICEAIAGENCY/Tools/FeedbackTracker.ts --mark-analyzed \
+  --id [FEEDBACK_ID] \
+  --action-taken "[what was done about this feedback]" \
+  --linked-call-id "[Retell call_id if matched]"
+```
+
+This closes the feedback loop — centres can see their feedback was received and acted on.
+
 ---
 
 ## Output Format
@@ -155,6 +198,9 @@ Use the Edit tool to update these sections:
   Code Ninjas with Knowledge Base
   Date: [today]
 ═══════════════════════════════════════════
+
+CENTRE FEEDBACK: [N unanalyzed entries, avg rating X/5]
+  [category summary if any]
 
 RECENT CALLS: [X calls analyzed, Y with transcripts]
   [summary table]
@@ -189,5 +235,8 @@ LEARNINGS UPDATED: [what was added to Learnings.md]
 
 - `AgentConfig.md` — Full agent configuration reference
 - `Learnings.md` — Running log of findings, fixes, and verification status
+- `Prompt.md` — Version-controlled snapshot of the live Retell prompt
 - `~/.claude/skills/_VOICEAIAGENCY/BuildKnowledge.md` — 14 mistakes, best practices
 - `~/.claude/skills/_VOICEAIAGENCY/Tools/AgentAudit.ts` — 14-point checklist CLI
+- `~/.claude/skills/_VOICEAIAGENCY/Tools/FeedbackTracker.ts` — Centre feedback management CLI
+- `~/.claude/skills/_VOICEAIAGENCY/Setup/FeedbackSystem.md` — Google Form + Supabase setup guide

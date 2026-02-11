@@ -1,0 +1,151 @@
+{
+  "name": "centre-feedback-webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "centre-feedback",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.first().json.body || $input.first().json;\n\n// Map centre names to IDs\nconst centreNameMap = {\n  'Canton': 'canton-ma-us',\n  'Pickering': 'pickering-on-ca'\n};\n\n// Map feedback type to snake_case\nconst feedbackTypeMap = {\n  'About a specific call': 'specific_call',\n  'General observation': 'general_observation'\n};\n\n// Transform the data\nconst transformed = {\n  centre_id: centreNameMap[data.centre_name] || data.centre_name.toLowerCase().replace(/\\s+/g, '-'),\n  feedback_type: feedbackTypeMap[data.feedback_type] || data.feedback_type.toLowerCase().replace(/\\s+/g, '_'),\n  caller_reference: data.caller_reference || null,\n  categories: data.categories ? data.categories.split(',').map(c => c.trim()) : [],\n  severity: data.severity ? data.severity.toLowerCase() : 'low',\n  what_happened: data.what_happened || '',\n  what_should_have_happened: data.what_should_have_happened || null,\n  agent_rating: parseInt(data.agent_rating) || null,\n  submitted_by: data.submitted_by || null,\n  submitted_at: new Date().toISOString()\n};\n\nreturn [{ json: transformed }];"
+      },
+      "id": "transform-node",
+      "name": "Transform Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [470, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centre_feedback",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "={{$env.SUPABASE_SERVICE_KEY}}"
+            },
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{$env.SUPABASE_SERVICE_KEY}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Prefer",
+              "value": "return=representation"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": []
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "supabase-insert-node",
+      "name": "Insert to Supabase",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [690, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.statusCode }}",
+              "rightValue": 201,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check-success-node",
+      "name": "Check Success",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [910, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    success: true,\n    message: 'Feedback submitted successfully',\n    data: $input.first().json\n  }\n}];"
+      },
+      "id": "success-response-node",
+      "name": "Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1130, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "const error = $input.first().json;\nreturn [{\n  json: {\n    success: false,\n    message: 'Failed to submit feedback',\n    error: error.message || error.error || 'Unknown error',\n    statusCode: error.statusCode || 500\n  }\n}];"
+      },
+      "id": "error-response-node",
+      "name": "Error Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1130, 400]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [{ "node": "Transform Data", "type": "main", "index": 0 }]
+      ]
+    },
+    "Transform Data": {
+      "main": [
+        [{ "node": "Insert to Supabase", "type": "main", "index": 0 }]
+      ]
+    },
+    "Insert to Supabase": {
+      "main": [
+        [{ "node": "Check Success", "type": "main", "index": 0 }]
+      ]
+    },
+    "Check Success": {
+      "main": [
+        [{ "node": "Success Response", "type": "main", "index": 0 }],
+        [{ "node": "Error Response", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
