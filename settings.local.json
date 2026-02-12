@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__cekura__personalities_list",
+      "mcp__cekura__metrics_list",
+      "mcp__cekura__aiagents_create",
+      "mcp__cekura__metrics_create",
+      "mcp__cekura__phone_numbers_inbound_list",
+      "mcp__cekura__scenarios_run_scenarios_create"
+    ]
+  }
+}
