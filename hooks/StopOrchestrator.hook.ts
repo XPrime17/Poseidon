@@ -76,8 +76,8 @@ async function readStdin(): Promise<HookInput | null> {
     const reader = Bun.stdin.stream().getReader();
     let input = '';
 
-    const timeoutPromise = new Promise<void>((resolve) => {
-      setTimeout(() => resolve(), 500);
+    const timeoutPromise = new Promise<'timeout'>((resolve) => {
+      setTimeout(() => resolve('timeout'), 500);
     });
 
     const readPromise = (async () => {
@@ -86,9 +86,15 @@ async function readStdin(): Promise<HookInput | null> {
         if (done) break;
         input += decoder.decode(value, { stream: true });
       }
+      return 'done' as const;
     })();
 
-    await Promise.race([readPromise, timeoutPromise]);
+    const result = await Promise.race([readPromise, timeoutPromise]);
+
+    // Cancel the reader to prevent dangling promises keeping the process alive
+    if (result === 'timeout') {
+      reader.cancel().catch(() => {});
+    }
 
     if (input.trim()) {
       return JSON.parse(input) as HookInput;
@@ -98,6 +104,14 @@ async function readStdin(): Promise<HookInput | null> {
   }
   return null;
 }
+
+// HARD SAFETY TIMEOUT: Force-exit after 30 seconds no matter what.
+// Prevents hooks from blocking Claude Code indefinitely.
+const HARD_TIMEOUT_MS = 30_000;
+setTimeout(() => {
+  console.error(`[StopOrchestrator] HARD TIMEOUT after ${HARD_TIMEOUT_MS / 1000}s — force exiting`);
+  process.exit(0);
+}, HARD_TIMEOUT_MS).unref();
 
 async function main() {
   const hookInput = await readStdin();

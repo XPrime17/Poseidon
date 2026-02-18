@@ -20,7 +20,7 @@ Used by workflows to avoid manual ID lookups.
 |-------|-------|
 | **Voice** | 11labs-Hailey |
 | **Voice Temperature** | 1.3 |
-| **Voice Speed** | 1.14 |
+| **Voice Speed** | 1.07 |
 | **Language** | en-US |
 
 ## Behavior Settings
