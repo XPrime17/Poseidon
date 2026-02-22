@@ -75,6 +75,24 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | 213667 | Sibling Discount Question | tier1, edge, sibling-discount |
 | 213668 | Off-Topic Manipulation | tier1, redteam, off-topic |
 
+### Cekura Outbound Calling Config
+
+Cekura must have `outbound_auto_call: true` to trigger Retell calls automatically.
+Each agent's `contact_number` must use a Retell phone number with a working SIP outbound credential.
+
+**Known issue:** The `XPrime17` SIP credential gets `telephony_provider_permission_denied` on Twilio.
+Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
+
+| Centre | Cekura Agent | Contact Number | SIP Auth | Status |
+|--------|-------------|----------------|----------|--------|
+| East Gwillimbury | 13260 | `+12494492726` (Emma fallback) | `xprime` | Working |
+| Canton | 13779 | `+17744062037` | `agent` | Working |
+| StoneOak | 13780 | `+12107969951` | `agent` | Working |
+| RoundRock | 13781 | `+15128170652` | `agent` | Working |
+| Rayford | 13782 | `+18326395862` | `agent` | Working |
+| Burlington | 13783 | `+12494492726` (Emma fallback) | `xprime` | Working |
+| Pickering | 13784 | `+12494492726` (Emma fallback) | `xprime` | Working |
+
 ### Tier 2 — Clone Smoke Tests (2 per clone)
 - **Agents:** 6 Cekura agents (Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784)
 - **Scenarios per clone:** Location Verification + Happy Path Smoke (12 total)

@@ -96,15 +96,19 @@
 
 ### Cekura Agent Mappings (Cekura ID → agent name only)
 - **Emma/bob** (Cekura ID 13253): `assistant_provider: retell` — **WORKING**
-- **CNKB/Cimo** (Cekura ID 13260): `assistant_provider: retell` — **UNTESTED** (subscription expired before validation)
-- Duplicate "bob (Copy)" (Cekura ID 13254) exists — should be deleted
-- Duplicate "CNKB - Cimo" (Cekura ID 13259) — broken config (no retell_api_key), should be deleted
-- **6 clone agents CREATED** — Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784
+- **CNKB/Cimo** (Cekura ID 13260): `assistant_provider: retell` — **WORKING** (validated 2026-02-22)
+- Duplicates 13254, 13259 deleted
+- **6 clone agents:** Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784
 
 ### Cekura Config Notes
 - MUST set `assistant_provider: "retell"`, `retell_api_key`, AND `chat_assistant_id`
 - MUST include `inbound: false` when creating agents (required field, not optional)
-- `contact_number` must match a phone registered to that agent — mismatches cause silent timeout
+- **MUST set `outbound_auto_call: true`** — without this, Cekura creates runs but never triggers Retell calls (timeout)
+- `contact_number` must be a Retell phone number with a WORKING SIP outbound credential
+- **`XPrime17` SIP credential is BROKEN** — gets `telephony_provider_permission_denied` from Twilio
+- Working credentials: `xprime` (on xprime trunk), `agent` (on centre-specific trunks)
+- CNKB source + Burlington + Pickering use Emma's number (`+12494492726`) as fallback for Cekura
+- Cekura passes `override_agent_id` to Retell, so from_number doesn't need to match the agent
 - Batch runs (multiple scenarios at once) ALL timeout — run scenarios ONE AT A TIME
 - Results take 5-7 minutes to process (pending → in_progress → evaluating → completed)
 - MCP `scenarios_partial_update` BUG: sends array params as query params, use `curl -X PATCH` instead
@@ -127,9 +131,10 @@
 - Tour Booking Success, One Question Per Turn, Slot Validation Accuracy, AI Disclosure Handling, Graceful Rejection Handling, Natural Conversation Flow, Wrong Location Handling, Location Name Accuracy
 
 ### Cekura Known Issues
-- **Subscription renewed 2026-02-22** — all tiers provisioned
+- **Subscription active** — Developer plan, 680/750 credits remaining, expires 2026-03-22
 - Template variables (`{{LOCATION_NAME}}`, `{{FIRST_NAME}}`) appear raw in transcripts — Cekura doesn't pass dynamic vars
 - `One Question Per Turn` metric scored 0/5 on Emma happy path — may need prompt tuning
+- `XPrime17` SIP credential broken on Twilio — see Config Notes above
 
 ---
 
