@@ -99,7 +99,7 @@
 - **CNKB/Cimo** (Cekura ID 13260): `assistant_provider: retell` — **UNTESTED** (subscription expired before validation)
 - Duplicate "bob (Copy)" (Cekura ID 13254) exists — should be deleted
 - Duplicate "CNKB - Cimo" (Cekura ID 13259) — broken config (no retell_api_key), should be deleted
-- **6 clone agents PENDING** — creation blocked by expired subscription
+- **6 clone agents CREATED** — Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784
 
 ### Cekura Config Notes
 - MUST set `assistant_provider: "retell"`, `retell_api_key`, AND `chat_assistant_id`
@@ -111,22 +111,23 @@
 
 ### Cekura Two-Tier Testing Architecture (2026-02-22)
 - **Tier 1** (source agent 13260): 14 scenarios tagged `tier1` — full regression
-- **Tier 2** (6 clones): 2 scenarios each tagged `tier2` — smoke tests for template var resolution
+- **Tier 2** (6 clones): 12 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
 - **Tier 1 cron:** ID 427, Monday 6AM ET, tag-based (`tier1`)
-- **Tier 2 cron:** PENDING — needs clone agent IDs
+- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 12 IDs)
 - **Location Name Accuracy metric:** ID 119652 (org-level)
+- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784
 - Full details in `AgentConfig.md` Cekura Testing Architecture section
 
 ### Cekura Scenarios
 - **Emma** (5): 139026-139030
 - **CNKB Tier 1** (14): 139031-139035, 141951, 213661-213668
-- **CNKB Tier 2** (12): PENDING — 2 per clone once agents created
+- **CNKB Tier 2** (12): 213685-213696 — 2 per clone (Location Verification + Happy Path Smoke)
 
 ### Cekura Metrics (IDs 118268-118273, 119187, 119652)
 - Tour Booking Success, One Question Per Turn, Slot Validation Accuracy, AI Disclosure Handling, Graceful Rejection Handling, Natural Conversation Flow, Wrong Location Handling, Location Name Accuracy
 
 ### Cekura Known Issues
-- **SUBSCRIPTION EXPIRED (2026-02-22)** — blocks running scenarios AND creating agents
+- **Subscription renewed 2026-02-22** — all tiers provisioned
 - Template variables (`{{LOCATION_NAME}}`, `{{FIRST_NAME}}`) appear raw in transcripts — Cekura doesn't pass dynamic vars
 - `One Question Per Turn` metric scored 0/5 on Emma happy path — may need prompt tuning
 

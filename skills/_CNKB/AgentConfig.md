@@ -36,12 +36,12 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | Centre | Agent ID | LLM ID | Cekura Agent ID |
 |--------|----------|--------|-----------------|
 | East Gwillimbury (source) | `agent_0c6c32b61cb506fefb6ac247f4` | `llm_44111168b1a2a469f50891b26e34` | `13260` |
-| Canton | `agent_f10e56ab67fddf22bd60def599` | `llm_d25bbc493b20eb095ab92bceb116` | PENDING |
-| StoneOak | `agent_cd531f218c39d6125098cf7abc` | `llm_c26de057ffe1ff9a71366e95c447` | PENDING |
-| RoundRock | `agent_d06452d16a225cfbf207890350` | `llm_7b795d82b19f42562ef0abaf857f` | PENDING |
-| Rayford | `agent_9c1c8996e054e87f6b76aa8a0a` | `llm_118c93e692e7255083a56043c3e9` | PENDING |
-| Burlington | `agent_2f5419fc0c45a24a02bb820cce` | `llm_97ac9c35e7387a448b927ce509b6` | PENDING |
-| Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | PENDING |
+| Canton | `agent_f10e56ab67fddf22bd60def599` | `llm_d25bbc493b20eb095ab92bceb116` | `13779` |
+| StoneOak | `agent_cd531f218c39d6125098cf7abc` | `llm_c26de057ffe1ff9a71366e95c447` | `13780` |
+| RoundRock | `agent_d06452d16a225cfbf207890350` | `llm_7b795d82b19f42562ef0abaf857f` | `13781` |
+| Rayford | `agent_9c1c8996e054e87f6b76aa8a0a` | `llm_118c93e692e7255083a56043c3e9` | `13782` |
+| Burlington | `agent_2f5419fc0c45a24a02bb820cce` | `llm_97ac9c35e7387a448b927ce509b6` | `13783` |
+| Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | `13784` |
 
 ## Prompt Sync Workflow
 
@@ -76,10 +76,10 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | 213668 | Off-Topic Manipulation | tier1, redteam, off-topic |
 
 ### Tier 2 — Clone Smoke Tests (2 per clone)
-- **Agents:** 6 Cekura agents (one per clone) — PENDING creation (subscription expired)
-- **Scenarios per clone:** Location Verification + Happy Path Smoke
+- **Agents:** 6 Cekura agents (Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784)
+- **Scenarios per clone:** Location Verification + Happy Path Smoke (12 total)
 - **Metric:** Location Name Accuracy (ID 119652)
-- **Cron:** PENDING — Wednesday 6AM ET sweep, tag `tier2`
+- **Cron:** ID 429 — Wednesday 6AM ET, scenario-based (all 12 IDs)
 - **Tag filter:** `tier2`
 
 ### Cekura Metrics Registry
@@ -95,12 +95,16 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | 119187 | Wrong Location Handling | llm_judge | org |
 | 119652 | Location Name Accuracy | llm_judge | org |
 
-### BLOCKED — Subscription Expired (2026-02-22)
-- Cannot create 6 clone Cekura agents
-- Cannot create 12 smoke scenarios (need agent IDs)
-- Cannot create Tier 2 cron (needs agent IDs)
-- Cannot run any validation scenarios
-- **Action required:** Renew Cekura subscription, then re-run setup
+### Tier 2 Scenario IDs
+
+| Centre | Location Verification | Happy Path Smoke |
+|--------|----------------------|-----------------|
+| Canton | 213691 | 213685 |
+| Stone Oak | 213692 | 213686 |
+| Round Rock | 213693 | 213687 |
+| Rayford | 213694 | 213688 |
+| Burlington | 213695 | 213689 |
+| Pickering | 213696 | 213690 |
 
 ## MCP Tools Used
 
