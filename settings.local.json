@@ -6,7 +6,27 @@
       "mcp__cekura__aiagents_create",
       "mcp__cekura__metrics_create",
       "mcp__cekura__phone_numbers_inbound_list",
-      "mcp__cekura__scenarios_run_scenarios_create"
+      "mcp__cekura__scenarios_run_scenarios_create",
+      "mcp__cekura__scenarios_list",
+      "mcp__cekura__list_available_tools",
+      "mcp__cekura__aiagents_list",
+      "mcp__cekura__test_framework_billing_info_retrieve",
+      "mcp__cekura__test_simple_tool",
+      "mcp__cekura__scenarios_partial_update",
+      "mcp__cekura__scenarios_create",
+      "mcp__cekura__cron_jobs_create",
+      "mcp__cekura__cron_jobs_list",
+      "mcp__cekura__aiagents_destroy",
+      "mcp__cekura__cron_jobs_destroy",
+      "mcp__cekura__results_retrieve",
+      "mcp__cekura__aiagents_retrieve",
+      "mcp__cekura__results_list",
+      "mcp__cekura__SearchCekura",
+      "mcp__cekura__test_profiles_list",
+      "mcp__cekura__cron_jobs_retrieve",
+      "mcp__cekura__cron_jobs_partial_update",
+      "mcp__cekura__scenarios_retrieve",
+      "mcp__cekura__runs_bulk_retrieve"
     ]
   }
 }

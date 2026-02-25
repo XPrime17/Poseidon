@@ -23,6 +23,15 @@
 - Retell prompts live on the LLM object, not the agent — resolve via `agent.response_engine.llm_id`
 - MCP config at `~/.claude/MCPs/` with `{name}-MCP.json` naming
 
+## Google Sheets Write Pattern (via n8n)
+- Google Sheets API NOT enabled on Google Cloud project 271696928151 — can't use API key
+- **Read-only access**: CSV export via `https://docs.google.com/spreadsheets/d/{ID}/gviz/tq?tqx=out:csv` (no auth needed if sheet is public)
+- **Write access**: Create temp webhook workflow on n8n cloud → activate → trigger via curl → delete
+- **Write credential**: `yjVHcEWrpyDmxkvv` ("Google Sheets account 3") — has write access
+- **Read credential**: `ybuxqM8F2NkyCA7e` ("Google Sheets account") — read-only for Centre Lookup
+- **Schema rule**: `appendOrUpdate` requires ALL sheet columns in schema (unused = `removed: true`). n8n validates by position.
+- **n8n API**: `active` is read-only on PUT. Use `/activate` and `/deactivate` endpoints. Webhook triggers required (manualTrigger can't be activated).
+
 ## Email Delivery
 - ALWAYS use Resend HTTP API — never sendmail/SMTP (SMTP relay to smtp.resend.com:587 times out)
 - API key in `/etc/postfix/sasl_passwd`: `re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj`
@@ -59,28 +68,51 @@
 | CNKB-Rayford | (see clone list) | — | `llm_118c93e692e7255083a56043c3e9` | WORKING |
 | CNKB-Burlington | (see clone list) | — | `llm_97ac9c35e7387a448b927ce509b6` | WORKING |
 | CNKB-Pickering | (see clone list) | — | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | WORKING |
+| CNKB-Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `+16475841523` | `llm_4cfa990bea7bfcbf67060e8c8f72` | WORKING |
 
-### Retell Clone Process (UPDATED 2026-02-21)
+### Retell Clone Process (UPDATED 2026-02-23)
 - GET agent → strip `agent_id`, `version`, `is_published`, `last_modification_timestamp` → POST create-agent
 - **CRITICAL: Do NOT strip `response_engine.version`** — Retell defaults to version 0 (first LLM version ever)
 - Instead, **create a NEW LLM copy** for each clone so version 0 = current prompt
 - Retell API blocks version changes on existing agents
 - **Each clone gets its OWN LLM copy.** Prompt changes must be applied to ALL LLM copies individually.
-- **Bug fixed 2026-02-21:** All 6 clones were pinned to LLM v0 (original East Gwillimbury prompt). Calls said wrong location. Fixed by creating new LLM copies with correct `{{LOCATION_NAME}}` prompt.
+- **Bug fixed 2026-02-21:** All 6 clones were pinned to LLM v0 (original East Gwillimbury prompt). Fixed by creating new LLM copies.
+- **Location names hardcoded 2026-02-23:** Replaced `{{LOCATION_NAME}}` with actual location name in all 6 clone LLMs. Source CNKB (East Gwillimbury) still uses `{{LOCATION_NAME}}` template variable. Clones no longer depend on dynamic vars at call time — works with both n8n and Cekura.
 
 ### Retell + Prompt Hash
-- Last prompt update: hash `e220cd32b067` across all 7 LLMs (source + 6 clones)
-- New section added: "Non-Create Program Interest (Any Stage)" (+1,145 chars)
+- Last prompt update (2026-02-25): hash `ee73db1be8ca` (source) / `61e661110039` (clones) across all 8 LLMs
+- 4 fixes applied: Loop Detection (call screening), Stage 2 One Question, Em Dash Ban (stronger), Multi-Question Handling
+- Source prompt: 27,953 chars | Clones: 27,898-27,918 chars
+- Previous hash: `e220cd32b067`
 
 ### Twilio Infrastructure
+- **Main account:** See Twilio dashboard (credentials stored locally, not in repo)
 - Only 2 SIP trunks in this account: `xprime.pstn.twilio.com` (working) and `cneg-retell-ai-agent.pstn.twilio.com`
-- Emma uses `+12494492726` on xprime trunk
-- CNKB uses `+12899030611` on xprime trunk
-- Canton/Rayford/RoundRock/StoneOak trunks are in DIFFERENT Twilio accounts — don't use those numbers here
+- Emma uses `+12494492726` on xprime trunk (main account)
+- CNKB uses `+12899030611` on xprime trunk (main account)
+- **Sub-account pattern:** Each centre gets a sub-account named by location + its own SIP trunk + phone number transferred
+- **Sub-accounts:** Brampton SW, Burlington, Canton, Leaside, Pickering, Rayford, Round Rock, Stone Oak
+- **Full sub-account setup chain:** (1) Create sub-account → (2) Transfer phone number → (3) Create SIP credential list + credential → (4) Create SIP trunk with domain → (5) Add origination URI `sip:sip.retellai.com` → (6) Associate cred list with trunk → (7) Link phone to trunk → (8) Update Retell phone `termination_uri` to new domain
+- **Leaside trunk:** `leaside-cnkb.pstn.twilio.com`, trunk SID `TK7676520f3426ec5d5b7f0a57389e2021`, cred: `xprime`/`Twiliopass!7`
+- **Retell `termination_uri` must match the sub-account's trunk domain**, not the parent's
+- `onboard-centre.ts` does NOT automate sub-account or SIP trunk creation — must be added
 
-### ChatDash Integration (2026-02-20)
+### ChatDash Integration (2026-02-22 — Canton Validated)
 - **Architecture:** One Retell agent clone per centre → one ChatDash agent per client
-- **Canton test:** CNKB-Canton → ChatDash webhook `6998716d34ff0eb25cde47fe`
+- **Canton VALIDATED** (2026-02-22): Cekura result #326258, 100% pass, 5/5 all metrics, call visible in ChatDash with recording + transcript
+- **Canton ChatDash agent:** `6998716d34ff0eb25cde47fe` — webhook configured on Retell agent
+- **Canton n8n forwarding:** ✅ Configured (2026-02-22)
+- **4 clones fully onboarded** (2026-02-22): agents + clients created + assigned via API
+- **ChatDash API key:** `CD.1c0708fa4744841e82e9a0253be0ef0c` (agency profile)
+- **Client IDs:** StoneOak=`699b95470ba4ecf14090cc5a`, RoundRock=`699b95620ba4ecf14090cd0c`, Rayford=`699b95670ba4ecf14090cd4a`, Pickering=`699b956d0ba4ecf14090cd9a`
+- **Client logins:** {centre-director-name}.{lastname} format, passwords: CN{CentreName}2026
+- **Burlington NOT onboarded** — still shares source ChatDash ID, not yet a client
+- **Leaside ChatDash agent:** `699bd4f622a7590562b0428f` — onboarded 2026-02-23 (client ID unknown, ChatDash API blocked)
+- **ChatDash agent ID auto-discovery:** ChatDash automatically sets the Retell agent webhook when connecting. Extract the agent ID from the webhook URL pattern: `https://api.chat-dash.com/v1/private/agents/{AGENT_ID}/import/webhook`
+- **ChatDash API notes:** POST /clients needs member email unique globally; used plus-addressing for RoundRock (scott.james+roundrock@codeninjas.com)
+- **Onboarding checklist:** `docs/CHATDASH-ONBOARDING.md` in lead-reactivation repo + ChatDash section in CNKB AgentConfig.md
+- **Issue #25 updated** with Option C (ChatDash) validation results
+- **Issue #14 commented** — ChatDash partially addresses transcript delivery (dashboard access, not email push)
 - **Agent-per-client rule:** Since Sept 2025, one agent = one client (no sharing)
 - **Partner discount:** 40% off annual Premium/Growth via retellai.com/app-partner/chatdash
 
@@ -98,7 +130,7 @@
 - **Emma/bob** (Cekura ID 13253): `assistant_provider: retell` — **WORKING**
 - **CNKB/Cimo** (Cekura ID 13260): `assistant_provider: retell` — **WORKING** (validated 2026-02-22)
 - Duplicates 13254, 13259 deleted
-- **6 clone agents:** Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784
+- **7 clone agents:** Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784, Leaside 13788
 
 ### Cekura Config Notes
 - MUST set `assistant_provider: "retell"`, `retell_api_key`, AND `chat_assistant_id`
@@ -115,24 +147,35 @@
 
 ### Cekura Two-Tier Testing Architecture (2026-02-22)
 - **Tier 1** (source agent 13260): 14 scenarios tagged `tier1` — full regression
-- **Tier 2** (6 clones): 12 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
+- **Tier 2** (7 clones): 14 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
 - **Tier 1 cron:** ID 427, Monday 6AM ET, tag-based (`tier1`)
-- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 12 IDs)
+- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 14 IDs)
 - **Location Name Accuracy metric:** ID 119652 (org-level)
-- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784
+- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784, Leaside=13788
 - Full details in `AgentConfig.md` Cekura Testing Architecture section
+
+### Cekura Email Digest (2026-02-23)
+- **Script:** `/root/scripts/cekura-digest.ts` (also committed to `lead-reactivation-github/scripts/`)
+- **Droplet cron:** Mon 7:30 AM ET (Tier 1), Wed 7:30 AM ET (Tier 2) — 90 min after Cekura crons fire
+- **Sends to:** scott.james@codeninjas.com via Resend API
+- **Subject format:** `[Cekura Tier X] ALL PASS` or `FAILURES DETECTED` + date
+- **HTML email:** green/red header, per-scenario pass/fail table, custom metric scores (5-point scale)
+- **Log:** `/var/log/cekura-digest.log`
+- **DST note:** Crontab uses UTC (12:30 = 7:30 AM EST). During EDT (Mar–Nov), emails arrive at 8:30 AM ET — adjust crontab to `30 11` if needed
 
 ### Cekura Scenarios
 - **Emma** (5): 139026-139030
 - **CNKB Tier 1** (14): 139031-139035, 141951, 213661-213668
-- **CNKB Tier 2** (12): 213685-213696 — 2 per clone (Location Verification + Happy Path Smoke)
+- **CNKB Tier 2** (14): 213685-213696, 213711-213712 — 2 per clone (Location Verification + Happy Path Smoke)
+- **Metric config fixes (2026-02-25):** Removed Tour Booking Success from #139035 (Callback), #141951 (Wrong Location), #213665 (Frustrated Repeat). Removed Natural Conversation Flow from #213665.
 
 ### Cekura Metrics (IDs 118268-118273, 119187, 119652)
 - Tour Booking Success, One Question Per Turn, Slot Validation Accuracy, AI Disclosure Handling, Graceful Rejection Handling, Natural Conversation Flow, Wrong Location Handling, Location Name Accuracy
 
 ### Cekura Known Issues
 - **Subscription active** — Developer plan, 680/750 credits remaining, expires 2026-03-22
-- Template variables (`{{LOCATION_NAME}}`, `{{FIRST_NAME}}`) appear raw in transcripts — Cekura doesn't pass dynamic vars
+- `{{LOCATION_NAME}}` FIXED 2026-02-23 — hardcoded in all 6 clone LLMs. All 5 ChatDash clones pass Location Verification at 5/5.
+- `{{first_name}}` FIXED 2026-02-24 — added test profiles (IDs 8486-8499) to all 14 Tier 2 scenarios. Profiles pass FIRST_NAME, LAST_NAME, PHONE, SLOTS, LOCATION_NAME, retell_agent_id via trigger worker. Tier 1 already had profiles.
 - `One Question Per Turn` metric scored 0/5 on Emma happy path — may need prompt tuning
 - `XPrime17` SIP credential broken on Twilio — see Config Notes above
 

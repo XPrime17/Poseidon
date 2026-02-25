@@ -42,6 +42,7 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | Rayford | `agent_9c1c8996e054e87f6b76aa8a0a` | `llm_118c93e692e7255083a56043c3e9` | `13782` |
 | Burlington | `agent_2f5419fc0c45a24a02bb820cce` | `llm_97ac9c35e7387a448b927ce509b6` | `13783` |
 | Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | `13784` |
+| Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `llm_4cfa990bea7bfcbf67060e8c8f72` | `13788` |
 
 ## Prompt Sync Workflow
 
@@ -92,10 +93,11 @@ Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
 | Rayford | 13782 | `+18326395862` | `agent` | Working |
 | Burlington | 13783 | `+12494492726` (Emma fallback) | `xprime` | Working |
 | Pickering | 13784 | `+12494492726` (Emma fallback) | `xprime` | Working |
+| Leaside | 13788 | `+16475841523` | `xprime` | Working |
 
 ### Tier 2 — Clone Smoke Tests (2 per clone)
-- **Agents:** 6 Cekura agents (Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784)
-- **Scenarios per clone:** Location Verification + Happy Path Smoke (12 total)
+- **Agents:** 7 Cekura agents (Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784, Leaside 13788)
+- **Scenarios per clone:** Location Verification + Happy Path Smoke (14 total)
 - **Metric:** Location Name Accuracy (ID 119652)
 - **Cron:** ID 429 — Wednesday 6AM ET, scenario-based (all 12 IDs)
 - **Tag filter:** `tier2`
@@ -123,6 +125,39 @@ Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
 | Rayford | 213694 | 213688 |
 | Burlington | 213695 | 213689 |
 | Pickering | 213696 | 213690 |
+| Leaside | 213711 | 213712 |
+
+## ChatDash Integration
+
+Each centre clone should have its own ChatDash agent for per-centre dashboard isolation.
+Centres access call recordings, transcripts, and analytics via ChatDash without developer intervention.
+
+| Centre | ChatDash Agent ID | ChatDash Client ID | Webhook | Forwarding | Status |
+|--------|-------------------|--------------------|---------|------------|--------|
+| East Gwillimbury (source) | `69968aa1e415e60f02fd1b8a` | `69968848e415e60f02fd1297` | ✅ | ✅ | Working |
+| Canton | `6998716d34ff0eb25cde47fe` | `69987c4934ff0eb25cdf8528` | ✅ | ✅ | Validated 2026-02-22 |
+| StoneOak | `699b899222a7590562ae8c48` | `699b95470ba4ecf14090cc5a` | ✅ | ✅ | Onboarded 2026-02-22 |
+| RoundRock | `699b897f0ba4ecf140906781` | `699b95620ba4ecf14090cd0c` | ✅ | ✅ | Onboarded 2026-02-22 |
+| Rayford | `699b897022a7590562ae8b18` | `699b95670ba4ecf14090cd4a` | ✅ | ✅ | Onboarded 2026-02-22 |
+| Burlington | `69968aa1e415e60f02fd1b8a` (shared) | — | ✅ | — | Not onboarded yet |
+| Pickering | `699b89550ba4ecf1409066cd` | `699b956d0ba4ecf14090cd9a` | ✅ | ✅ | Onboarded 2026-02-22 |
+| Leaside | `699bd4f622a7590562b0428f` | — | ✅ | ❌ | Onboarded 2026-02-23 |
+
+### ChatDash Onboarding Checklist (per centre)
+
+Based on Canton reference implementation (validated 2026-02-22):
+
+1. **Create Retell agent clone** — already done for all 6 centres
+2. **Create ChatDash agent** — unique agent per centre in ChatDash dashboard
+3. **Set ChatDash webhook** on the Retell clone agent → ChatDash agent ID
+4. **Configure n8n forwarding** in ChatDash → cloud n8n webhook endpoint
+5. **Run Cekura smoke test** — scenario from Tier 2 to generate a real call
+6. **Verify in ChatDash** — confirm call appears with recording + transcript
+7. **Verify n8n received** — check cloud n8n execution log for forwarded webhook
+
+### Known Issues
+- **Template variables raw in Cekura transcripts** — `{{LOCATION_NAME}}`, `{{FIRST_NAME}}` appear unresolved because Cekura doesn't pass Retell dynamic variables. This is cosmetic; real calls from n8n populate variables correctly.
+- **5 clones share source ChatDash ID** — StoneOak through Pickering all point to the source agent's ChatDash ID. Each needs its own ChatDash agent for per-centre isolation.
 
 ## MCP Tools Used
 
