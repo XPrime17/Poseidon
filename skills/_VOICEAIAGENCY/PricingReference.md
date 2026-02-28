@@ -1,142 +1,156 @@
 # Pricing Reference
 
-Tier pricing, COGS breakdown, margins, and ROI calculation logic.
+Code Ninjas pricing, real COGS breakdown, margins, and ROI framing.
 
 ---
 
-## Tier Pricing Model
+## Code Ninjas Pricing (Active)
 
-### Starter ($500 setup / $297-497/mo)
+### Plans
 
-**Included:**
-- 1 AI agent (inbound only)
-- Up to 200 calls/month
-- Basic FAQ + booking
-- Single calendar integration
-- Weekly performance email
-- Standard business hours coverage
+| | **Standard** | **Premium** |
+|---|---|---|
+| **Monthly** | **$199/month** | **$249/month** |
+| Setup Fee | $0 | $0 |
+| Voice AI Agent ("Cimo") | ✓ | ✓ |
+| 24/7 call answering | ✓ | ✓ |
+| Tour booking | ✓ | ✓ |
+| Knowledge base | ✓ | ✓ |
+| Call recording & transcripts | ✓ | ✓ |
+| Dedicated phone number | ✓ | ✓ |
+| Prompt updates & optimization | ✓ | ✓ |
+| Automated QA (Cekura) | ✓ | ✓ |
+| Support (M-F 9am-6pm ET) | ✓ | ✓ |
+| **ChatDash Dashboard** | — | ✓ |
+| **Reporting & analytics** | — | ✓ |
+| **Centre Director login** | — | ✓ |
 
-**COGS at 200 calls/mo (~$30-50)** → Margin: 87-93%
+### Multi-Location Discount
 
-**Best for:** Low-volume businesses, gyms, small shops, proof-of-concept
+| Centres | Discount | Premium | Standard |
+|---------|----------|---------|----------|
+| 1 centre | List price | $249/mo | $199/mo |
+| Each additional | 15% off | $212/mo | $169/mo |
 
-### Professional ($1,500-2,500 setup / $697-997/mo)
+### Sales Framing
 
-**Included:**
-- 1-2 AI agents (inbound + optional outbound reminders)
-- Up to 500 calls/month
-- Full FAQ + booking + transfer logic
-- CRM integration (GHL, Calendly, etc.)
-- Call recording + transcription
-- Monthly review call
-- 24/7 coverage (after-hours handling)
+**The one-liner:** "One enrollment pays for the whole service. Everything after that is profit."
 
-**COGS at 500 calls/mo (~$60-115)** → Margin: 84-91%
+**The pitch:**
+> "Cimo answers every call your centre gets — instantly, 24/7. Parents calling at 8pm after the kids are in bed? Cimo books the tour. Staff busy during a session? Cimo handles it. No voicemails, no missed opportunities.
+>
+> It's $249 a month. Your average membership is about $250. So if Cimo books one tour that converts to an enrollment — it's paid for itself that month. And at 92% retention, that one student pays you $3,000 over the next year. That's a 10x return on one month of Cimo."
 
-**Best for:** Dental, HVAC, med spa, most service businesses
+**Annual frame:** "Under $3,000 a year. If Cimo helps you enroll one extra student per month, that's $30,000+ in membership revenue on a $3,000 investment."
 
-### Enterprise ($3,000-5,000 setup / $1,497-1,997/mo)
-
-**Included:**
-- Multi-agent system (3+ agents for different departments/locations)
-- Unlimited calls
-- Complex routing + IVR replacement
-- Multi-location support
-- Custom integrations (EHR, PMS, proprietary systems)
-- Dedicated account manager (you)
-- SLA: 99.9% uptime, < 1s response time
-
-**COGS at 1000+ calls/mo (~$120-230)** → Margin: 85-92%
-
-**Best for:** Multi-location practices, legal firms, large service companies
+**Objection handling:**
+- "I can't afford $249" → "We have Standard at $199 — same agent, same coverage, you can upgrade anytime."
+- "How do I know it works?" → "14-day pilot, full refund if it doesn't meet performance criteria."
+- "How do I know Cimo generated that enrollment?" → "That's what the Premium dashboard shows — every call, booking, and conversion." (upsell to $249)
+- "We barely get calls" → "You're also capturing after-hours — parents browsing at 8pm who currently get voicemail."
 
 ---
 
-## COGS Breakdown
+## COGS Breakdown (Actual Stack — Retell)
 
 ### Per-Minute Costs (2-minute average call)
 
-| Component | Low Estimate | High Estimate |
-|-----------|-------------|---------------|
-| Voice AI Platform (Vapi) | $0.05/min | $0.10/min |
-| STT (Deepgram) | $0.0043/min | $0.0065/min |
-| LLM (GPT-4o-mini) | $0.005/min | $0.015/min |
-| TTS (ElevenLabs) | $0.015/min | $0.030/min |
-| Telephony (Twilio) | $0.01/min | $0.014/min |
-| **Per-minute total** | **$0.08/min** | **$0.17/min** |
-| **Per 2-min call** | **$0.16** | **$0.34** |
+| Component | Cost/min | Notes |
+|-----------|----------|-------|
+| Retell Voice Infrastructure | $0.055 | Platform base rate |
+| TTS (Platform voices / Cartesia) | $0.015 | Retell bundled voices |
+| LLM (GPT-4.1) | $0.025 | Current model on all agents |
+| Telephony (Retell Twilio) | $0.015 | SIP trunking |
+| Knowledge Base | $0.005 | Retell add-on |
+| **Per-minute total** | **$0.115** | |
+| **Per 2-min call** | **$0.23** | |
 
-### Monthly COGS by Volume
+### Monthly COGS Per Centre
 
-| Calls/Month | Low COGS | High COGS | At $697/mo retainer |
-|-------------|----------|-----------|---------------------|
-| 100 | $16 | $34 | 95-98% margin |
-| 200 | $32 | $68 | 90-95% margin |
-| 500 | $80 | $170 | 76-89% margin |
-| 1,000 | $160 | $340 | 51-77% margin |
-| 2,000 | $320 | $680 | 2-54% margin |
+| Calls/Month | Variable COGS | Fixed Costs | Total COGS | At $249/mo | At $199/mo |
+|-------------|--------------|-------------|------------|------------|------------|
+| 50 | $11.50 | $32 | $43 | 83% margin | 78% margin |
+| 100 | $23.00 | $32 | $55 | 78% margin | 72% margin |
+| 200 | $46.00 | $32 | $78 | 69% margin | 61% margin |
+| 300 | $69.00 | $32 | $101 | 59% margin | 49% margin |
 
-**Key insight:** Margin compresses at high volume on lower tiers. Enterprise pricing protects margins for 1000+ call clients.
+**Fixed costs per centre:** Retell phone ($2/mo) + ChatDash (~$20/mo with partner discount) + Cekura allocation (~$10/mo) = ~$32/mo
+
+**Fair use:** 300 calls/month included. Typical CN centre does 50-150 calls/month.
+
+### Onboarding Labor Cost (Absorbed — $0 Setup Fee)
+
+| Step | Time | Notes |
+|------|------|-------|
+| Clone agent + create LLM copy | 15 min | Scripted |
+| Twilio sub-account + SIP trunk | 30 min | Semi-automated |
+| ChatDash agent + client setup | 15 min | API calls |
+| Cekura test scenarios | 15 min | Templated |
+| KB population from centre info | 45 min | Manual |
+| QA testing | 30 min | Semi-automated |
+| **Total** | **~2.5 hours** | ~$375 labor cost, recouped by month 3 |
 
 ---
 
-## ROI Calculator Logic
+## Volume Projections
+
+| Centres | Premium MRR | Standard MRR | Annual (Premium) |
+|---------|-------------|-------------|-----------------|
+| 5 | $1,245 | $995 | $14,940 |
+| 10 | $2,490 | $1,990 | $29,880 |
+| 20 | $4,980 | $3,980 | $59,760 |
+| 50 | $12,450 | $9,950 | $149,400 |
+
+**With 15% multi-location discount (all additional centres):**
+
+| Scenario | MRR | Annual |
+|----------|-----|--------|
+| 1 owner × 5 centres (Premium) | $249 + 4×$212 = $1,097 | $13,164 |
+| 3 owners × 3 centres each (Premium) | 3×($249 + 2×$212) = $2,019 | $24,228 |
+| 10 single-centre owners (Premium) | 10×$249 = $2,490 | $29,880 |
+
+---
+
+## ROI Calculator (Code Ninjas Specific)
 
 ### Input Variables
 ```
-missed_calls_per_day     # How many calls go unanswered
-business_days_per_month  # Usually 22
-booking_conversion_rate  # % of calls that become appointments (default: 40%)
-avg_ticket_value         # Average revenue per appointment
-monthly_retainer         # What client pays you
+avg_membership           # $200-300/month
+student_retention        # 92%
+avg_student_tenure       # ~12 months
+student_ltv              # $2,400-$3,600
+missed_calls_per_day     # Estimated 30% of inbound
+tour_conversion_rate     # 40-60% of tours → enrollment
 ```
 
-### Calculation
+### The Math
 ```
-monthly_missed_calls = missed_calls_per_day × business_days_per_month
-recovered_bookings = monthly_missed_calls × booking_conversion_rate
-recovered_revenue = recovered_bookings × avg_ticket_value
-roi_ratio = recovered_revenue / monthly_retainer
-payback_days = monthly_retainer / (recovered_revenue / business_days_per_month)
+monthly_cost             = $249 (Premium) or $199 (Standard)
+annual_cost              = $2,988 or $2,388
+one_enrollment_value     = $250/month × 12 months = $3,000
+break_even               = 1 enrollment/month (Premium) or <1 enrollment/month (Standard)
+at_4_enrollments/month   = $12,000/year new revenue vs $2,988 cost = 4:1 ROI
 ```
 
-### Example by Niche
+### Competitive Anchoring
 
-| Niche | Missed/Day | Conv Rate | Avg Ticket | Monthly Recovery | At $697/mo | ROI |
-|-------|-----------|-----------|------------|-----------------|------------|-----|
-| Dental | 12 | 40% | $350 | $36,960 | $697 | 53:1 |
-| HVAC | 8 | 35% | $250 | $15,400 | $697 | 22:1 |
-| Med Spa | 6 | 45% | $500 | $29,700 | $997 | 30:1 |
-| Gym | 10 | 50% | $50 | $5,500 | $397 | 14:1 |
-| Legal | 5 | 30% | $400 | $13,200 | $997 | 13:1 |
-| Real Estate | 8 | 25% | $300 | $13,200 | $697 | 19:1 |
-
----
-
-## Setup Fee Justification
-
-| Component | Hours | Rate | Cost |
-|-----------|-------|------|------|
-| Discovery + intake | 1-2 | $150/hr | $150-300 |
-| Prompt engineering | 2-4 | $150/hr | $300-600 |
-| Platform configuration | 1-2 | $150/hr | $150-300 |
-| CRM/calendar integration | 1-3 | $150/hr | $150-450 |
-| Testing + QA | 1-2 | $150/hr | $150-300 |
-| Soft launch monitoring | 2-3 | $100/hr | $200-300 |
-| **Total effort** | **8-16 hrs** | | **$1,100-2,250** |
-
-Setup fee covers your real labor. NOT a profit center — it's cost recovery + commitment signal.
+| Alternative | Monthly Cost | Coverage |
+|-------------|-------------|----------|
+| Ruby Receptionists (human) | $705/mo for 200 min | Business hours only |
+| Smith.ai (human) | $810/mo for 90 calls | Business hours |
+| Smith.ai (AI) | $270-500/mo | 24/7 but generic |
+| Goodcall (AI product) | $99-199/mo | 24/7 but template, no customization |
+| **Cimo (Sub-Zero)** | **$199-249/mo** | **24/7, custom-trained, CN-specific** |
 
 ---
 
 ## Discount & Negotiation Rules
 
-| Scenario | Offer | Never Go Below |
-|----------|-------|----------------|
+| Scenario | Offer | Floor |
+|----------|-------|-------|
+| Multi-location | 15% off each additional centre | 15% (no stacking) |
 | Annual prepay | 2 months free (17% off) | 10% off |
-| Multi-location | -10% per additional location | -15% |
-| Referral deal | Waive setup fee | Half setup |
-| Pilot/trial | 14 days, setup fee credited if they sign | 7 days |
-| "Too expensive" | Drop a tier, not the price | Keep margins > 80% |
+| "Too expensive" | Offer Standard ($199) instead of discounting Premium | $169 (multi-location Standard) |
+| Pilot/trial | 14 days, full refund if criteria not met | 7 days |
 
-**The golden rule:** Never compete on price. Compete on results. Show the ROI math and the price becomes irrelevant.
+**Principle:** Never discount the price — offer the lower tier instead. Premium is $249, Standard is $199. Multi-location earns 15% off. That's it.

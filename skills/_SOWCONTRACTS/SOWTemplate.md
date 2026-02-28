@@ -176,38 +176,39 @@ Any out-of-scope work requested during the engagement will be quoted separately.
 
 ## 7. Pricing
 
-### Per-Centre Investment
+> **One enrollment pays for the whole service.** At an average membership of $250/month, a single additional enrollment from Cimo covers the monthly cost. Over 12 months at 92% student retention, that one student generates $3,000 in membership revenue — a 10:1 annual return.
 
-| Item | Amount |
-|------|--------|
-| **Setup Fee** (one-time) | $[SETUP_FEE] |
-| **Monthly Retainer** | $[MONTHLY_FEE]/month |
+### Plans
 
-**What's included in the monthly retainer:**
-- Dedicated Voice AI agent ("Cimo") for [Centre Name]
-- Dedicated phone number with 24/7 call handling
-- Call recording and transcript storage
-- ChatDash analytics dashboard access
-- Automated Cekura QA testing
-- Knowledge base maintenance
-- Prompt updates and optimization
-- Performance review reports
-- Technical support (M-F 9am-6pm ET)
+| | **Standard** | **Premium** |
+|---|---|---|
+| **Monthly** | **$199/month** | **$249/month** |
+| Setup Fee | $0 | $0 |
+| Voice AI Agent ("Cimo") | ✓ | ✓ |
+| 24/7 call answering | ✓ | ✓ |
+| Tour booking with real-time availability | ✓ | ✓ |
+| Centre-specific knowledge base | ✓ | ✓ |
+| Call recording & transcripts | ✓ | ✓ |
+| Dedicated phone number | ✓ | ✓ |
+| Prompt updates & optimization | ✓ | ✓ |
+| Automated QA testing (Cekura) | ✓ | ✓ |
+| Technical support (M-F 9am-6pm ET) | ✓ | ✓ |
+| **ChatDash Analytics Dashboard** | — | ✓ |
+| **Call volume & conversion reporting** | — | ✓ |
+| **Centre Director login** | — | ✓ |
 
 ### Multi-Location Discount
 
-| Centres | Discount |
-|---------|----------|
-| 1 centre | Standard pricing |
-| 2-4 centres | [X]% off monthly retainer per centre |
-| 5-9 centres | [X]% off monthly retainer per centre |
-| 10+ centres | Custom pricing — contact for quote |
+| Centres | Discount | Premium Price | Standard Price |
+|---------|----------|--------------|----------------|
+| 1 centre | List price | $249/month | $199/month |
+| Each additional centre | 15% off | $212/month | $169/month |
 
 ### Payment Terms
-- Setup fee due upon SOW acceptance
+- No setup fee
 - Monthly retainer billed on the 1st of each month
 - Net 15 payment terms
-- 14-day pilot period — setup fee refunded if performance criteria not met
+- 14-day pilot period — full refund if performance criteria not met
 
 ---
 

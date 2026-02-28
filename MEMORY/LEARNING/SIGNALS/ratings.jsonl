@@ -426,3 +426,16 @@
 {"timestamp":"2026-02-27T22:23:23+00:00","rating":5,"session_id":"35d65a65-232b-41bd-a166-3cfb3ef17f3d","source":"implicit","sentiment_summary":"Simple greeting, no sentiment toward Poseidon","confidence":0.95}
 {"timestamp":"2026-02-27T22:43:03+00:00","rating":5,"session_id":"3f9a8b23-d454-4c21-b7dd-b19464c7bacb","source":"implicit","sentiment_summary":"Neutral greeting, no sentiment","confidence":0.95}
 {"timestamp":"2026-02-28T03:14:59+00:00","rating":5,"session_id":"b0c04731-0229-42fb-b322-9083b32ef3bb","source":"implicit","sentiment_summary":"Git workflow command, no performance feedback","confidence":0.95}
+{"timestamp":"2026-02-28T03:37:37+00:00","rating":5,"session_id":"40d90664-7060-473a-b2d6-ae78cd2b8947","source":"implicit","sentiment_summary":"Directive to refocus on SOW and contract skill","confidence":0.95}
+{"timestamp":"2026-02-28T11:00:22+00:00","rating":5,"session_id":"40d90664-7060-473a-b2d6-ae78cd2b8947","source":"implicit","sentiment_summary":"Neutral request for document copy","confidence":0.95}
+{"timestamp":"2026-02-28T11:05:39+00:00","rating":5,"session_id":"40d90664-7060-473a-b2d6-ae78cd2b8947","source":"implicit","sentiment_summary":"Neutral command, no sentiment","confidence":0.95}
+{"timestamp":"2026-02-28T11:59:47+00:00","rating":5,"session_id":"b34a08f0-f099-4275-bf54-d4b73223b279","source":"implicit","sentiment_summary":"Business decision sharing, no sentiment toward Poseidon","confidence":0.95}
+{"timestamp":"2026-02-28T12:26:01+00:00","rating":5,"session_id":"b34a08f0-f099-4275-bf54-d4b73223b279","source":"implicit","sentiment_summary":"Simple affirmation, no sentiment toward Poseidon","confidence":0.95}
+{"timestamp":"2026-02-28T12:53:15+00:00","rating":5,"session_id":"b34a08f0-f099-4275-bf54-d4b73223b279","source":"implicit","sentiment_summary":"Direct command, no emotional content","confidence":0.95}
+{"timestamp":"2026-02-28T13:19:56+00:00","rating":5,"session_id":"1234523f-d5f4-41ac-93ff-1df2b8f1de81","source":"implicit","sentiment_summary":"Simple follow-up command, no sentiment","confidence":0.9}
+{"timestamp":"2026-02-28T17:36:17+00:00","rating":7,"session_id":"1234523f-d5f4-41ac-93ff-1df2b8f1de81","source":"implicit","sentiment_summary":"Satisfied with email delivery, requesting Office format conversions.","confidence":0.95}
+{"timestamp":"2026-02-28T18:06:46+00:00","rating":5,"session_id":"a422e604-6a89-420c-8217-4e447c28b126","source":"implicit","sentiment_summary":"Topic transition, no sentiment indicator","confidence":0.95}
+{"timestamp":"2026-02-28T18:26:28+00:00","rating":5,"session_id":"a422e604-6a89-420c-8217-4e447c28b126","source":"implicit","sentiment_summary":"Simple file reference directive, no sentiment","confidence":0.95}
+{"timestamp":"2026-02-28T18:54:32+00:00","rating":5,"session_id":"a422e604-6a89-420c-8217-4e447c28b126","source":"implicit","sentiment_summary":"Simple command, no emotional indicators present","confidence":0.95}
+{"timestamp":"2026-02-28T19:08:53+00:00","rating":5,"session_id":"a422e604-6a89-420c-8217-4e447c28b126","source":"implicit","sentiment_summary":"Instruction to rephrase email tone and approach","confidence":0.95}
+{"timestamp":"2026-02-28T19:18:58+00:00","rating":8,"session_id":"a422e604-6a89-420c-8217-4e447c28b126","source":"implicit","sentiment_summary":"Satisfied with result, approves approach","confidence":0.85}
