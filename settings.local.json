@@ -26,7 +26,13 @@
       "mcp__cekura__cron_jobs_retrieve",
       "mcp__cekura__cron_jobs_partial_update",
       "mcp__cekura__scenarios_retrieve",
-      "mcp__cekura__runs_bulk_retrieve"
+      "mcp__cekura__runs_bulk_retrieve",
+      "mcp__retell-voice-ai__get_transcript",
+      "mcp__retell-voice-ai__get_retell_llm",
+      "mcp__retell-voice-ai__get_agent",
+      "mcp__retell-voice-ai__list_calls",
+      "mcp__retell-voice-ai__analyze_transcripts",
+      "mcp__retell-voice-ai__get_agent_prompt"
     ]
   }
 }

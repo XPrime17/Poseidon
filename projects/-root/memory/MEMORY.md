@@ -194,6 +194,13 @@
 - Stone Oak is 64.7% Hispanic — Spanish is revenue capture
 - GitHub issue: XPrime17/lead-reactivation#19
 
+## Claude Code Remote Setup — LEFT OFF (2026-02-27)
+- Setting up headless mode + Agent SDK + Remote Control (new Feb 25 feature)
+- Remote Control NOT YET available (gradual rollout despite Max plan)
+- Headless mode can't be tested from within a Claude Code session (silently exits)
+- SDK language not yet chosen (TypeScript recommended for PAI stack)
+- See `claude-code-remote.md` for full details
+
 ## Voice AI Agency Skill
 - Built 2026-02-06: 30 files (27 internal + 3 external)
 - 12 workflows across BUILD/SELL/DELIVER pillars
