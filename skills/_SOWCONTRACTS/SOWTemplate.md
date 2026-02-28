@@ -1,6 +1,7 @@
-# Statement of Work Template
+# Statement of Work — Code Ninjas Speed-to-Lead
 
-Full SOW structure for Voice AI agent engagements. Customize per client.
+SOW for Code Ninjas franchise centres. Describes the actual deployed system:
+Retell voice agent, Twilio telephony, ChatDash dashboards, Cekura automated QA.
 
 ---
 
@@ -10,7 +11,7 @@ Full SOW structure for Voice AI agent engagements. Customize per client.
 ═══════════════════════════════════════════════════════════════
   STATEMENT OF WORK
 
-  Client:         [Client Company Name]
+  Client:         Code Ninjas [Centre Name]
   Provider:       Sub-Zero Automations
   Date:           [Date]
   SOW Reference:  SZA-SOW-[YYYY]-[NNN]
@@ -22,96 +23,117 @@ Full SOW structure for Voice AI agent engagements. Customize per client.
 
 ## 1. Project Overview
 
-[2-3 paragraphs describing:]
-- Client's business context and industry
-- Current challenges (missed calls, staff burden, after-hours gaps)
-- How the Voice AI solution addresses these challenges
-- Expected business impact (quantified where possible)
+Code Ninjas [Centre Name] is a children's coding education franchise in [City, Province/State]. The centre receives approximately [X] inbound calls per month from parents inquiring about programs, pricing, and tours.
 
-**Example:**
-> [Client Company Name] is a [industry] practice serving [location/market].
-> Currently, the business receives approximately [X] calls per day, with an
-> estimated [Y]% going unanswered — resulting in approximately [Z] missed
-> opportunities per month and an estimated $[amount] in unrealized revenue.
->
-> Sub-Zero Automations will design, build, and deploy a custom Voice AI agent
-> that answers every call instantly, handles routine inquiries, books
-> appointments directly into [Client]'s calendar system, and transfers
-> complex calls to the appropriate team member. The solution operates 24/7,
-> ensuring no call goes unanswered regardless of business hours.
+Based on industry data for education franchises, an estimated 30% of inbound calls go unanswered — particularly during peak instruction hours when staff are occupied with students. At a [X]% conversion rate, this represents approximately [X] missed tour bookings per month and an estimated $[X] in unrealized enrollment revenue.
+
+Sub-Zero Automations will deploy a dedicated Voice AI agent ("Cimo") for [Centre Name] that answers every call instantly, handles parent inquiries using the centre's knowledge base, books tours directly into the scheduling system, and transfers calls to staff when needed. The agent operates 24/7, capturing after-hours leads that currently go to voicemail.
 
 ---
 
 ## 2. Project Objectives
 
-- Reduce unanswered calls from ~[X]% to near 0%
-- Capture after-hours leads that currently go to voicemail
-- Automate appointment booking for [specific service types]
-- Reduce front-desk phone burden by [X]% to free staff for in-person service
-- Provide real-time call analytics and performance visibility
-- Achieve a minimum [X]:1 ROI within the first 90 days
+- Eliminate unanswered calls — every inbound call answered within 1 second
+- Capture after-hours and weekend leads from parents browsing outside business hours
+- Automate tour booking with real-time slot availability
+- Free front-desk staff to focus on in-centre student experience
+- Provide call analytics and performance dashboards to the Centre Director
+- Deliver measurable ROI within the first 90 days
 
 ---
 
 ## 3. Scope of Work and Deliverables
 
-### 3.1 Voice AI Agent Design & Development
-- Custom prompt engineering tailored to [Client]'s brand voice, services, and workflows
-- FAQ knowledge base covering [list key topics: hours, services, pricing, location, insurance, etc.]
-- Conversation flow design for [specific use cases: booking, inquiry, transfer, etc.]
-- Agent personality and tone calibration matching [Client]'s brand
+### 3.1 Voice AI Agent — "Cimo"
 
-### 3.2 Appointment Scheduling Integration
-- Integration with [CRM/Calendar system] for real-time availability checking
-- Automated appointment booking for [specific appointment types]
-- Confirmation and details collection (name, phone, service type, preferred time)
-- [If applicable] Automated appointment reminder calls
+A dedicated AI voice agent cloned from the proven Code Ninjas source agent and customized for [Centre Name]:
 
-### 3.3 Call Routing & Escalation
-- Smart transfer logic for calls requiring human intervention
-- Escalation triggers: [emergencies, complaints, complex inquiries, specific requests]
-- Fallback handling when staff is unavailable
-- After-hours vs. business-hours routing rules
+- Agent identity: "Cimo" — a warm, energetic persona designed for parent conversations
+- Custom prompt engineering with [Centre Name]-specific details (location, hours, programs, pricing)
+- Knowledge base populated from centre-specific content (programs offered, age ranges, policies, FAQs)
+- Conversation capabilities:
+  - Answer parent questions about programs (JR, CREATE, RANK)
+  - Explain pricing, schedules, and age requirements
+  - Book tours with real-time slot validation
+  - Handle objections and address common parent concerns
+  - Transfer to staff for complex or sensitive inquiries
+  - Gracefully handle wrong-number and non-parent callers
 
-### 3.4 Telephony Setup
-- Dedicated phone number provisioning (or porting of existing number)
-- SIP trunk configuration for reliable call delivery
-- Call recording and transcript storage
-- [If multi-location] Per-location number and routing setup
+### 3.2 Tour Booking Integration
 
-### 3.5 Testing & Quality Assurance
-- Internal testing across [X] scenario types (happy path, edge cases, adversarial)
-- Latency and response quality benchmarking
-- Soft launch with monitored live calls ([X]-day pilot period)
-- Issue identification and prompt refinement
+- Real-time slot availability via scheduling API
+- Automated tour booking with parent details collection (name, phone, child's age, preferred time)
+- Booking confirmation delivered to parent during the call
+- Centre staff notified of new bookings
 
-### 3.6 Launch & Go-Live
-- Full production deployment
-- Staff training on dashboard access and call review
-- Documentation of agent capabilities and limitations
-- Go-live monitoring for first [X] business days
+### 3.3 Knowledge Base
 
-### 3.7 Ongoing Management (Monthly)
-- Performance monitoring and reporting ([weekly/monthly] cadence)
-- Prompt optimization based on call transcript analysis
-- Knowledge base updates as [Client]'s services/hours/pricing change
-- Monthly review call to discuss performance and adjustments
-- Platform maintenance and uptime monitoring
+- Centre-specific knowledge base document created and maintained
+- Content covers: programs, pricing, hours, location, policies, FAQs, staff info
+- Knowledge base synced to the voice agent for accurate, up-to-date responses
+- Centre Director can request updates as information changes
+
+### 3.4 Telephony Infrastructure
+
+- Dedicated phone number provisioned for [Centre Name]
+- Twilio sub-account created for isolated call management
+- SIP trunk configured with secure credentials
+- Call recording and full transcript storage for every call
+- Inbound call routing to the AI agent with fallback to staff transfer
+
+### 3.5 Analytics Dashboard (ChatDash)
+
+- Dedicated ChatDash agent created for [Centre Name]
+- Centre Director login with access to:
+  - Call recordings and transcripts
+  - Call volume and duration analytics
+  - Tour booking conversion tracking
+  - Real-time call activity
+
+### 3.6 Automated Quality Assurance (Cekura)
+
+- Centre registered in the Cekura testing platform
+- Two automated test scenarios deployed:
+  - **Location Verification** — confirms agent correctly identifies as [Centre Name]
+  - **Happy Path Smoke Test** — validates tour booking flow end-to-end
+- Automated test runs on a recurring schedule
+- Performance metrics tracked:
+  - Tour Booking Success
+  - Slot Validation Accuracy
+  - AI Disclosure Handling
+  - Natural Conversation Flow
+  - Location Name Accuracy
+
+### 3.7 Testing & Go-Live
+
+- Internal QA across 10+ scenario types before go-live
+- 14-day pilot period with monitored live calls
+- Go-live monitoring for the first 5 business days
+- Issue resolution and prompt refinement as needed
+
+### 3.8 Ongoing Management
+
+**Included in the monthly retainer:**
+
+- **Automated monitoring:** Recurring QA test runs via Cekura with email digest reports
+- **Prompt maintenance:** Updates to the voice agent when programs, pricing, hours, or policies change
+- **Knowledge base updates:** Centre-specific content kept current as the business evolves
+- **Prompt sync:** When improvements are made to the core agent, updates are propagated to [Centre Name]'s agent
+- **Dashboard access:** Continued ChatDash access for the Centre Director
+- **Performance reviews:** Regular review of call analytics, booking rates, and agent performance
+- **Technical support:** Support during business hours (M-F 9am-6pm ET) for any agent issues
 
 ---
 
 ## 4. Out of Scope
 
-The following are explicitly NOT included in this engagement:
-
 - Website development or modification
-- CRM implementation or migration (integration with existing CRM only)
-- Marketing, advertising, or lead generation services
-- Hardware procurement or office phone system changes
-- Outbound sales campaigns (unless specified in scope above)
-- Multi-language support beyond English (unless specified above)
+- CRM implementation or migration
+- Marketing, advertising, or lead generation campaigns
+- Outbound cold-calling campaigns
+- Multi-language support beyond English (available as a separate add-on)
 - Custom mobile app development
-- [Add client-specific exclusions]
+- Hardware or office phone system changes
 
 Any out-of-scope work requested during the engagement will be quoted separately.
 
@@ -119,20 +141,19 @@ Any out-of-scope work requested during the engagement will be quoted separately.
 
 ## 5. Project Assumptions
 
-### Client Will Provide:
-- Access to CRM/calendar system with API or integration capability
-- Current FAQ content (hours, services, pricing, policies)
-- Brand guidelines or tone preferences
-- Designated point of contact available for questions during build (response within 24 hours)
-- Timely feedback during review periods (within 48 hours)
-- Access to existing phone system for number porting (if applicable)
+### Code Ninjas [Centre Name] Will Provide:
+- Current centre information (programs, pricing, hours, policies, address)
+- Brand tone preferences or approval of the standard "Cimo" persona
+- Designated point of contact (response within 24 hours during setup)
+- Feedback during the pilot period (within 48 hours)
+- Notification within 24 hours of any changes to business information
 
 ### Sub-Zero Automations Will Provide:
-- All Voice AI platform licensing and infrastructure
-- Prompt engineering and agent development
-- Telephony setup and number provisioning
-- Testing infrastructure and QA methodology
-- Ongoing monitoring tools and dashboards
+- All voice AI platform licensing and infrastructure (Retell, Twilio, ChatDash, Cekura)
+- Agent development, prompt engineering, and knowledge base creation
+- Telephony setup and phone number provisioning
+- Automated testing infrastructure and QA methodology
+- Dashboard setup and access management
 - Technical support during business hours (M-F 9am-6pm ET)
 
 ---
@@ -141,40 +162,52 @@ Any out-of-scope work requested during the engagement will be quoted separately.
 
 | Phase | Duration | Deliverables |
 |-------|----------|-------------|
-| **Discovery & Design** | Week 1 | Requirements document, conversation flow design, prompt draft |
-| **Build & Integrate** | Week 2 | Agent built, CRM/calendar integrated, telephony configured |
-| **Test & Refine** | Week 3 | QA complete, soft launch with monitored calls |
-| **Go-Live & Monitor** | Week 4 | Full production, staff trained, monitoring active |
-| **Optimization** | Ongoing | Monthly reviews, prompt refinement, knowledge updates |
+| **Setup & Configure** | Day 1-2 | Agent clone created, telephony configured, knowledge base populated |
+| **Integration & Dashboard** | Day 2-3 | ChatDash agent created, Cekura testing configured, booking integration verified |
+| **Test & Validate** | Day 3-5 | QA scenarios passed, pilot calls monitored, prompt refined |
+| **Go-Live** | Day 5+ | Full production, Centre Director trained on dashboard |
+| **Ongoing** | Monthly | Automated QA, prompt updates, performance reviews |
 
-**Total deployment timeline: [3-4] weeks from signed SOW.**
+**Total deployment: 3-5 business days from signed SOW.**
 
-*Timeline assumes timely client feedback. Delays in client-side approvals or access provisioning may extend the timeline proportionally.*
+*Timeline assumes timely provision of centre information. Delays in client-side responses may extend the timeline proportionally.*
 
 ---
 
 ## 7. Pricing
 
-### Selected Package: [TIER NAME]
+### Per-Centre Investment
 
 | Item | Amount |
 |------|--------|
-| **Setup Fee** (one-time) | $[amount] |
-| **Monthly Retainer** | $[amount]/month |
-| **Per-Minute Usage** (if applicable) | $[amount]/minute above [X] minutes |
+| **Setup Fee** (one-time) | $[SETUP_FEE] |
+| **Monthly Retainer** | $[MONTHLY_FEE]/month |
 
 **What's included in the monthly retainer:**
-- [Feature list from selected tier — pull from PricingReference.md]
-- Up to [X] calls/month
-- [X] hours of prompt optimization per month
-- Dashboard access with real-time call analytics
-- Monthly performance review call
+- Dedicated Voice AI agent ("Cimo") for [Centre Name]
+- Dedicated phone number with 24/7 call handling
+- Call recording and transcript storage
+- ChatDash analytics dashboard access
+- Automated Cekura QA testing
+- Knowledge base maintenance
+- Prompt updates and optimization
+- Performance review reports
+- Technical support (M-F 9am-6pm ET)
+
+### Multi-Location Discount
+
+| Centres | Discount |
+|---------|----------|
+| 1 centre | Standard pricing |
+| 2-4 centres | [X]% off monthly retainer per centre |
+| 5-9 centres | [X]% off monthly retainer per centre |
+| 10+ centres | Custom pricing — contact for quote |
 
 ### Payment Terms
 - Setup fee due upon SOW acceptance
-- Monthly retainer billed on the [1st/15th] of each month
+- Monthly retainer billed on the 1st of each month
 - Net 15 payment terms
-- [If applicable] 14-day pilot period — setup fee refunded if performance criteria not met
+- 14-day pilot period — setup fee refunded if performance criteria not met
 
 ---
 
@@ -184,7 +217,7 @@ This Statement of Work is accepted by both parties:
 
 | | Client | Provider |
 |---|--------|----------|
-| **Company** | [Client Company Name] | Sub-Zero Automations |
+| **Company** | Code Ninjas [Centre Name] | Sub-Zero Automations |
 | **Name** | _________________________ | _________________________ |
 | **Title** | _________________________ | _________________________ |
 | **Date** | _________________________ | _________________________ |

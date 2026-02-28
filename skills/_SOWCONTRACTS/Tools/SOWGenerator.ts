@@ -1,9 +1,10 @@
 #!/usr/bin/env bun
 /**
- * SOWGenerator — Generate a Statement of Work from parameters
+ * SOWGenerator — Generate a Code Ninjas Speed-to-Lead Statement of Work
  *
  * Usage:
- *   bun run SOWGenerator.ts --client "Smile Dental" --niche dental --tier professional
+ *   bun run SOWGenerator.ts --centre "East Gwillimbury" --city "East Gwillimbury, ON"
+ *   bun run SOWGenerator.ts --centre "Canton" --city "Canton, MI" --calls 350 --phone "+17744062037"
  *   bun run SOWGenerator.ts --help
  */
 
@@ -12,15 +13,15 @@ import { parseArgs } from "util";
 const { values } = parseArgs({
   args: Bun.argv.slice(2),
   options: {
-    client: { type: "string", short: "c" },
-    niche: { type: "string", short: "n" },
-    tier: { type: "string", short: "t" },
+    centre: { type: "string", short: "c" },
+    city: { type: "string" },
     calls: { type: "string" },
     ticket: { type: "string" },
-    hours: { type: "string" },
-    crm: { type: "string" },
-    compliance: { type: "string" },
+    phone: { type: "string" },
     contact: { type: "string" },
+    setup: { type: "string" },
+    monthly: { type: "string" },
+    discount: { type: "string" },
     help: { type: "boolean", short: "h" },
   },
   strict: true,
@@ -28,135 +29,48 @@ const { values } = parseArgs({
 
 if (values.help) {
   console.log(`
-SOWGenerator — Generate a Statement of Work for a Voice AI engagement
+SOWGenerator — Generate a Code Ninjas Speed-to-Lead SOW
 
 USAGE:
-  bun run SOWGenerator.ts --client <name> --niche <niche> --tier <tier> [options]
+  bun run SOWGenerator.ts --centre <name> --city <location> [options]
 
 REQUIRED:
-  --client, -c    Client company name
-  --niche, -n     Industry niche (dental, hvac, medspa, gym, legal, realestate)
-  --tier, -t      Package tier (starter, professional, enterprise)
+  --centre, -c    Centre name (e.g., "East Gwillimbury", "Canton")
+  --city          City and province/state (e.g., "East Gwillimbury, ON", "Canton, MI")
 
 OPTIONAL:
-  --calls         Expected monthly call volume (default: tier-based estimate)
-  --ticket        Average ticket value in dollars (default: niche-based estimate)
-  --hours         Business hours (default: "M-F 9am-5pm")
-  --crm           CRM/calendar system (default: "TBD")
-  --compliance    Compliance requirements (e.g., "HIPAA", "PCI-DSS")
-  --contact       Client contact name and title
+  --calls         Expected monthly call volume (default: 300)
+  --ticket        Average enrollment value in dollars (default: 2400)
+  --phone         Dedicated phone number (default: "To be provisioned")
+  --contact       Centre Director name and title
+  --setup         Setup fee amount (default: "[TBD]")
+  --monthly       Monthly retainer amount (default: "[TBD]")
+  --discount      Multi-location discount percentage (default: none shown)
   --help, -h      Show this help
 
 EXAMPLES:
-  bun run SOWGenerator.ts --client "Smile Dental" --niche dental --tier professional --calls 500 --ticket 350
-  bun run SOWGenerator.ts --client "Riverside HVAC" --niche hvac --tier starter --hours "M-S 7a-7p"
-  bun run SOWGenerator.ts --client "Metro Legal" --niche legal --tier enterprise --compliance HIPAA
+  bun run SOWGenerator.ts --centre "East Gwillimbury" --city "East Gwillimbury, ON"
+  bun run SOWGenerator.ts --centre "Canton" --city "Canton, MI" --calls 350 --contact "Jane Smith, Centre Director"
+  bun run SOWGenerator.ts --centre "Stone Oak" --city "San Antonio, TX" --setup 1500 --monthly 697
 `);
   process.exit(0);
 }
 
-// Validate required args
-if (!values.client || !values.niche || !values.tier) {
+if (!values.centre || !values.city) {
   console.error(
-    "Error: --client, --niche, and --tier are required. Use --help for usage."
+    "Error: --centre and --city are required. Use --help for usage."
   );
   process.exit(1);
 }
 
-// Tier configuration
-const tierConfig: Record<
-  string,
-  {
-    name: string;
-    setup: string;
-    monthly: string;
-    callLimit: string;
-    timeline: string;
-    features: string[];
-  }
-> = {
-  starter: {
-    name: "Starter",
-    setup: "$500 - $1,000",
-    monthly: "$297 - $497",
-    callLimit: "200",
-    timeline: "2 weeks",
-    features: [
-      "1 AI agent (inbound only)",
-      "Up to 200 calls/month",
-      "Basic FAQ + appointment booking",
-      "Single calendar integration",
-      "Weekly performance email",
-      "Standard business hours coverage",
-    ],
-  },
-  professional: {
-    name: "Professional",
-    setup: "$1,500 - $2,500",
-    monthly: "$697 - $997",
-    callLimit: "500",
-    timeline: "3-4 weeks",
-    features: [
-      "1-2 AI agents (inbound + optional outbound reminders)",
-      "Up to 500 calls/month",
-      "Full FAQ + booking + transfer logic",
-      "CRM integration",
-      "Call recording + transcription",
-      "Monthly review call",
-      "24/7 coverage (after-hours handling)",
-    ],
-  },
-  enterprise: {
-    name: "Enterprise",
-    setup: "$3,000 - $5,000",
-    monthly: "$1,497 - $1,997",
-    callLimit: "Unlimited",
-    timeline: "4-6 weeks",
-    features: [
-      "Multi-agent system (3+ agents for different departments/locations)",
-      "Unlimited calls",
-      "Complex routing + IVR replacement",
-      "Multi-location support",
-      "Custom integrations (EHR, PMS, proprietary systems)",
-      "Dedicated account manager",
-      "SLA: 99.9% uptime, < 1s response time",
-    ],
-  },
-};
-
-// Niche defaults
-const nicheDefaults: Record<
-  string,
-  { ticket: number; calls: number; label: string }
-> = {
-  dental: { ticket: 350, calls: 300, label: "Dental Practice" },
-  hvac: { ticket: 250, calls: 200, label: "HVAC Service Company" },
-  medspa: { ticket: 500, calls: 250, label: "Medical Spa" },
-  gym: { ticket: 50, calls: 150, label: "Fitness Center" },
-  legal: { ticket: 400, calls: 200, label: "Law Firm" },
-  realestate: { ticket: 300, calls: 250, label: "Real Estate Agency" },
-};
-
-const tier = tierConfig[values.tier.toLowerCase()];
-if (!tier) {
-  console.error(
-    `Error: Unknown tier "${values.tier}". Use: starter, professional, enterprise`
-  );
-  process.exit(1);
-}
-
-const niche = nicheDefaults[values.niche.toLowerCase()] || {
-  ticket: 200,
-  calls: 200,
-  label: values.niche,
-};
-
-const callVolume = values.calls ? parseInt(values.calls) : niche.calls;
-const ticketValue = values.ticket ? parseInt(values.ticket) : niche.ticket;
-const businessHours = values.hours || "M-F 9am-5pm";
-const crmSystem = values.crm || "TBD";
-const compliance = values.compliance || "None specified";
-const contact = values.contact || "[Contact Name / Title]";
+const centreName = values.centre;
+const city = values.city;
+const callVolume = values.calls ? parseInt(values.calls) : 300;
+const ticketValue = values.ticket ? parseInt(values.ticket) : 2400;
+const phone = values.phone || "To be provisioned";
+const contact = values.contact || "[Centre Director Name / Title]";
+const setupFee = values.setup ? `$${parseInt(values.setup).toLocaleString()}` : "$[TBD]";
+const monthlyFee = values.monthly ? `$${parseInt(values.monthly).toLocaleString()}` : "$[TBD]";
 
 const today = new Date();
 const dateStr = today.toLocaleDateString("en-US", {
@@ -165,7 +79,9 @@ const dateStr = today.toLocaleDateString("en-US", {
   day: "numeric",
 });
 const year = today.getFullYear();
-const refNum = `SZA-SOW-${year}-${String(Math.floor(Math.random() * 999) + 1).padStart(3, "0")}`;
+const refNum = `SZA-SOW-${year}-${String(
+  Math.floor(Math.random() * 999) + 1
+).padStart(3, "0")}`;
 const validThrough = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
 const validStr = validThrough.toLocaleDateString("en-US", {
   year: "numeric",
@@ -173,19 +89,30 @@ const validStr = validThrough.toLocaleDateString("en-US", {
   day: "numeric",
 });
 
-// Calculate ROI
-const missedPerDay = Math.round(callVolume / 22 * 0.3); // ~30% missed estimate
-const recoveredMonthly = Math.round(
-  missedPerDay * 22 * 0.4 * ticketValue
-);
-const monthlyRetainer = values.tier.toLowerCase() === "starter" ? 397 : values.tier.toLowerCase() === "enterprise" ? 1747 : 847;
-const roiRatio = Math.round(recoveredMonthly / monthlyRetainer);
+// ROI calculation
+const missedMonthly = Math.round(callVolume * 0.3);
+const conversionRate = 0.4;
+const missedOpportunities = Math.round(missedMonthly * conversionRate);
+const recoveredMonthly = missedOpportunities * ticketValue;
 
-// Generate SOW
+// Discount section
+const discountSection = values.discount
+  ? `
+### Multi-Location Discount
+
+| Centres | Discount |
+|---------|----------|
+| 1 centre | Standard pricing |
+| 2-4 centres | ${values.discount}% off monthly retainer per centre |
+| 5-9 centres | ${Math.round(parseInt(values.discount) * 1.5)}% off monthly retainer per centre |
+| 10+ centres | Custom pricing — contact for quote |
+`
+  : "";
+
 const sow = `═══════════════════════════════════════════════════════════════
   STATEMENT OF WORK
 
-  Client:         ${values.client}
+  Client:         Code Ninjas ${centreName}
   Provider:       Sub-Zero Automations
   Date:           ${dateStr}
   SOW Reference:  ${refNum}
@@ -194,130 +121,184 @@ const sow = `══════════════════════�
 
 ## 1. Project Overview
 
-${values.client} is a ${niche.label} that receives approximately ${callVolume} calls per month. Based on industry data, an estimated ${Math.round(callVolume * 0.3)} calls per month go unanswered — resulting in approximately ${missedPerDay * 22} missed opportunities per month and an estimated $${recoveredMonthly.toLocaleString()} in unrealized monthly revenue.
+Code Ninjas ${centreName} is a children's coding education franchise in ${city}. The centre receives approximately ${callVolume} inbound calls per month from parents inquiring about programs, pricing, and tours.
 
-Sub-Zero Automations will design, build, and deploy a custom Voice AI agent that answers every call instantly, handles routine inquiries, books appointments directly into ${values.client}'s calendar system, and transfers complex calls to the appropriate team member. The solution operates 24/7, ensuring no call goes unanswered regardless of business hours.
+Based on industry data for education franchises, an estimated ${missedMonthly} calls per month go unanswered — particularly during peak instruction hours when staff are occupied with students. At a ${Math.round(conversionRate * 100)}% conversion rate, this represents approximately ${missedOpportunities} missed tour bookings per month. With an average annual enrollment value of $${ticketValue.toLocaleString()}, this translates to an estimated $${recoveredMonthly.toLocaleString()} in unrealized annual enrollment revenue.
+
+Sub-Zero Automations will deploy a dedicated Voice AI agent ("Cimo") for ${centreName} that answers every call instantly, handles parent inquiries using the centre's knowledge base, books tours directly into the scheduling system, and transfers calls to staff when needed. The agent operates 24/7, capturing after-hours leads that currently go to voicemail.
 
 ## 2. Project Objectives
 
-- Reduce unanswered calls from ~30% to near 0%
-- Capture after-hours leads currently going to voicemail
-- Automate appointment booking for standard service types
-- Reduce front-desk phone burden to free staff for in-person service
-- Provide real-time call analytics and performance visibility
-- Achieve a minimum ${roiRatio}:1 ROI within the first 90 days
+- Eliminate unanswered calls — every inbound call answered within 1 second
+- Capture after-hours and weekend leads from parents browsing outside business hours
+- Automate tour booking with real-time slot availability
+- Free front-desk staff to focus on in-centre student experience
+- Provide call analytics and performance dashboards to the Centre Director
+- Deliver measurable ROI within the first 90 days
 
 ## 3. Scope of Work and Deliverables
 
-### 3.1 Voice AI Agent Design & Development
-- Custom prompt engineering tailored to ${values.client}'s brand voice, services, and workflows
-- FAQ knowledge base covering business hours, services, pricing, location, and policies
-- Conversation flow design for booking, inquiry, transfer, and escalation
-- Agent personality and tone calibration matching ${values.client}'s brand
+### 3.1 Voice AI Agent — "Cimo"
 
-### 3.2 Appointment Scheduling Integration
-- Integration with ${crmSystem} for real-time availability checking
-- Automated appointment booking with confirmation details collection
-- Name, phone, service type, and preferred time capture
+A dedicated AI voice agent cloned from the proven Code Ninjas source agent and customized for ${centreName}:
 
-### 3.3 Call Routing & Escalation
-- Smart transfer logic for calls requiring human intervention
-- Escalation triggers for emergencies, complaints, and complex inquiries
-- After-hours vs. business-hours routing rules
+- Agent identity: "Cimo" — a warm, energetic persona designed for parent conversations
+- Custom prompt engineering with ${centreName}-specific details (location, hours, programs, pricing)
+- Knowledge base populated from centre-specific content (programs offered, age ranges, policies, FAQs)
+- Conversation capabilities:
+  - Answer parent questions about programs (JR, CREATE, RANK)
+  - Explain pricing, schedules, and age requirements
+  - Book tours with real-time slot validation
+  - Handle objections and address common parent concerns
+  - Transfer to staff for complex or sensitive inquiries
+  - Gracefully handle wrong-number and non-parent callers
 
-### 3.4 Telephony Setup
-- Dedicated phone number provisioning
-- SIP trunk configuration for reliable call delivery
-- Call recording and transcript storage
+### 3.2 Tour Booking Integration
 
-### 3.5 Testing & Quality Assurance
-- Internal testing across 10+ scenario types
-- Latency and response quality benchmarking
-- Soft launch with monitored live calls (14-day pilot period)
+- Real-time slot availability via scheduling API
+- Automated tour booking with parent details collection (name, phone, child's age, preferred time)
+- Booking confirmation delivered to parent during the call
+- Centre staff notified of new bookings
 
-### 3.6 Launch & Go-Live
-- Full production deployment
-- Staff training on dashboard access and call review
-- Documentation of agent capabilities and limitations
-- Go-live monitoring for first 5 business days
+### 3.3 Knowledge Base
 
-### 3.7 Ongoing Management (Monthly)
-- Performance monitoring and reporting
-- Prompt optimization based on call transcript analysis
-- Knowledge base updates as services/hours/pricing change
-- Monthly review call
-- Platform maintenance and uptime monitoring
+- Centre-specific knowledge base document created and maintained
+- Content covers: programs, pricing, hours, location, policies, FAQs, staff info
+- Knowledge base synced to the voice agent for accurate, up-to-date responses
+- Centre Director can request updates as information changes
+
+### 3.4 Telephony Infrastructure
+
+- Dedicated phone number: ${phone}
+- Twilio sub-account created for Code Ninjas ${centreName}
+- SIP trunk configured with secure credentials
+- Call recording and full transcript storage for every call
+- Inbound call routing to the AI agent with fallback to staff transfer
+
+### 3.5 Analytics Dashboard
+
+- Dedicated analytics dashboard for ${centreName}
+- Centre Director login with access to:
+  - Call recordings and transcripts
+  - Call volume and duration analytics
+  - Tour booking conversion tracking
+  - Real-time call activity
+
+### 3.6 Automated Quality Assurance
+
+- Centre registered in the automated testing platform
+- Two test scenarios deployed:
+  - **Location Verification** — confirms agent correctly identifies as Code Ninjas ${centreName}
+  - **Happy Path Smoke Test** — validates tour booking flow end-to-end
+- Automated test runs on a recurring schedule
+- Performance metrics tracked:
+  - Tour Booking Success
+  - Slot Validation Accuracy
+  - AI Disclosure Handling
+  - Natural Conversation Flow
+  - Location Name Accuracy
+
+### 3.7 Testing & Go-Live
+
+- Internal QA across 10+ scenario types before go-live
+- 14-day pilot period with monitored live calls
+- Go-live monitoring for the first 5 business days
+- Issue resolution and prompt refinement as needed
+
+### 3.8 Ongoing Management
+
+**Included in the monthly retainer:**
+
+- **Automated monitoring:** Recurring QA test runs with email digest reports
+- **Prompt maintenance:** Updates to the voice agent when programs, pricing, hours, or policies change
+- **Knowledge base updates:** Centre-specific content kept current as the business evolves
+- **Agent improvements:** When improvements are made to the core agent, updates are automatically propagated to ${centreName}'s agent
+- **Dashboard access:** Continued analytics dashboard access for the Centre Director
+- **Performance reviews:** Regular review of call analytics, booking rates, and agent performance
+- **Technical support:** Support during business hours (M-F 9am-6pm ET) for any agent issues
 
 ## 4. Out of Scope
 
 - Website development or modification
 - CRM implementation or migration
-- Marketing, advertising, or lead generation services
-- Hardware procurement or office phone system changes
-- Outbound sales campaigns (unless specified above)
-- Multi-language support beyond English
+- Marketing, advertising, or lead generation campaigns
+- Outbound cold-calling campaigns
+- Multi-language support beyond English (available as a separate add-on)
 - Custom mobile app development
+- Hardware or office phone system changes
+
+Any out-of-scope work requested during the engagement will be quoted separately.
 
 ## 5. Project Assumptions
 
-### ${values.client} Will Provide:
-- Access to ${crmSystem} with API or integration capability
-- Current FAQ content (hours, services, pricing, policies)
-- Brand guidelines or tone preferences
-- Designated point of contact (response within 24 hours)
-- Timely feedback during review periods (within 48 hours)
+### Code Ninjas ${centreName} Will Provide:
+- Current centre information (programs, pricing, hours, policies, address)
+- Brand tone preferences or approval of the standard "Cimo" persona
+- Designated point of contact (response within 24 hours during setup)
+- Feedback during the pilot period (within 48 hours)
+- Notification within 24 hours of any changes to business information
 
 ### Sub-Zero Automations Will Provide:
-- All Voice AI platform licensing and infrastructure
-- Prompt engineering and agent development
-- Telephony setup and number provisioning
-- Testing infrastructure and QA methodology
-- Ongoing monitoring tools and dashboards
+- All voice AI platform licensing and infrastructure
+- Agent development, prompt engineering, and knowledge base creation
+- Telephony setup and phone number provisioning
+- Automated testing infrastructure and QA methodology
+- Dashboard setup and access management
 - Technical support during business hours (M-F 9am-6pm ET)
 
 ## 6. Timeline
 
 | Phase | Duration | Deliverables |
 |-------|----------|-------------|
-| Discovery & Design | Week 1 | Requirements document, conversation flow, prompt draft |
-| Build & Integrate | Week 2 | Agent built, CRM integrated, telephony configured |
-| Test & Refine | Week 3 | QA complete, soft launch with monitored calls |
-| Go-Live & Monitor | Week 4 | Full production, staff trained, monitoring active |
-| Optimization | Ongoing | Monthly reviews, prompt refinement, knowledge updates |
+| **Setup & Configure** | Day 1-2 | Agent clone created, telephony configured, knowledge base populated |
+| **Integration & Dashboard** | Day 2-3 | Dashboard created, automated testing configured, booking integration verified |
+| **Test & Validate** | Day 3-5 | QA scenarios passed, pilot calls monitored, prompt refined |
+| **Go-Live** | Day 5+ | Full production, Centre Director trained on dashboard |
+| **Ongoing** | Monthly | Automated QA, prompt updates, performance reviews |
 
-Total deployment timeline: ${tier.timeline} from signed SOW.
+**Total deployment: 3-5 business days from signed SOW.**
+
+*Timeline assumes timely provision of centre information. Delays in client-side responses may extend the timeline proportionally.*
 
 ## 7. Pricing
 
-### Selected Package: ${tier.name}
+### Per-Centre Investment
 
 | Item | Amount |
 |------|--------|
-| Setup Fee (one-time) | ${tier.setup} |
-| Monthly Retainer | ${tier.monthly}/month |
+| **Setup Fee** (one-time) | ${setupFee} |
+| **Monthly Retainer** | ${monthlyFee}/month |
 
-**Included in monthly retainer:**
-${tier.features.map((f) => `- ${f}`).join("\n")}
-
+**What's included in the monthly retainer:**
+- Dedicated Voice AI agent ("Cimo") for Code Ninjas ${centreName}
+- Dedicated phone number with 24/7 call handling
+- Call recording and transcript storage
+- Analytics dashboard access for Centre Director
+- Automated QA testing and performance monitoring
+- Knowledge base maintenance
+- Prompt updates and optimization
+- Performance review reports
+- Technical support (M-F 9am-6pm ET)
+${discountSection}
 ### Payment Terms
 - Setup fee due upon SOW acceptance
 - Monthly retainer billed on the 1st of each month
 - Net 15 payment terms
 - 14-day pilot period — setup fee refunded if performance criteria not met
 
-${compliance !== "None specified" ? `## 8. Compliance Requirements\n\n- ${compliance} compliance measures will be implemented as part of this engagement\n- Additional compliance documentation provided as separate exhibit\n` : ""}
-## ${compliance !== "None specified" ? "9" : "8"}. Acceptance
+## 8. Acceptance
+
+This Statement of Work is accepted by both parties:
 
 | | Client | Provider |
 |---|--------|----------|
-| **Company** | ${values.client} | Sub-Zero Automations |
+| **Company** | Code Ninjas ${centreName} | Sub-Zero Automations |
 | **Name** | ${contact} | _________________________ |
 | **Title** | _________________________ | _________________________ |
 | **Date** | _________________________ | _________________________ |
 | **Signature** | _________________________ | _________________________ |
 
-*This SOW is governed by the terms of the Service Provider Agreement between the parties.*`;
+*This SOW is governed by the terms of the Service Provider Agreement between the parties. In the event of conflict, the Service Provider Agreement takes precedence.*`;
 
 console.log(sow);
-
 process.exit(0);
