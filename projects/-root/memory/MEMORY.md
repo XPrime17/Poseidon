@@ -41,6 +41,7 @@
 
 ## Scott's Preferences
 - Architecture diagrams ALWAYS use Art skill to produce PNG — never ASCII/markdown substitutes
+- ALWAYS provide the full absolute path to generated diagrams/images in the response
 - n8n has TWO instances: self-hosted Docker (`138.197.171.204:5678`) and cloud (`xprime17.app.n8n.cloud`)
 
 ## _KB Skill Setup — LEFT OFF (2026-02-10)
@@ -69,6 +70,7 @@
 | CNKB-Burlington | (see clone list) | — | `llm_97ac9c35e7387a448b927ce509b6` | WORKING |
 | CNKB-Pickering | (see clone list) | — | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | WORKING |
 | CNKB-Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `+16475841523` | `llm_4cfa990bea7bfcbf67060e8c8f72` | WORKING |
+| CNKB-Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | `+12036484197` | `llm_512d93c0c71e0ef00e318b3e9fc0` | WORKING |
 
 ### Retell Clone Process (UPDATED 2026-02-23)
 - GET agent → strip `agent_id`, `version`, `is_published`, `last_modification_timestamp` → POST create-agent
@@ -93,9 +95,19 @@
 - **Sub-account pattern:** Each centre gets a sub-account named by location + its own SIP trunk + phone number transferred
 - **Sub-accounts:** Brampton SW, Burlington, Canton, Leaside, Pickering, Rayford, Round Rock, Stone Oak
 - **Full sub-account setup chain:** (1) Create sub-account → (2) Transfer phone number → (3) Create SIP credential list + credential → (4) Create SIP trunk with domain → (5) Add origination URI `sip:sip.retellai.com` → (6) Associate cred list with trunk → (7) Link phone to trunk → (8) Update Retell phone `termination_uri` to new domain
-- **Leaside trunk:** `leaside-cnkb.pstn.twilio.com`, trunk SID `TK7676520f3426ec5d5b7f0a57389e2021`, cred: `xprime`/`Twiliopass!7`
+- **Leaside trunk:** `leaside-cnkb.pstn.twilio.com`, trunk SID `TK7676520f3426ec5d5b7f0a57389e2021`, cred: `leaside`/`Twiliopass!7`
+- **SIP credential naming RULE:** Sub-account trunks MUST use unique usernames (e.g., `leaside`, `agent`), NOT `xprime`. The `xprime` username on a sub-account trunk conflicts with `xprime` on the main account's trunk, causing SIP auth failures and call timeouts.
 - **Retell `termination_uri` must match the sub-account's trunk domain**, not the parent's
-- `onboard-centre.ts` does NOT automate sub-account or SIP trunk creation — must be added
+- `onboard-centre.ts` NOW automates full sub-account chain (Step 1): create sub-account → buy number → SIP cred list → SIP trunk → origination URI → associate cred → link phone
+- **Riverside** was onboarded before this automation — still on shared xprime trunk, phone `+12036484197`
+
+### Onboarding Script Enhancement (2026-02-28)
+- `onboard-centre.ts` now has Step 0: auto-discovery from codeninjas.com
+- **Flow:** Fetch sitemap → match centre name → extract slug → hit services API → derive area code, country, city
+- `--area-code` and `--country` are now optional (auto-discovered)
+- **Services API:** `https://services.codeninjas.com/api/v1/facility/profile/slug/{cnSlug}`
+- Returns: city, state, country, phone, address, postal code, email
+- Centre code (e.g., `ct-riverside`) output for spreadsheet population
 
 ### ChatDash Integration (2026-02-22 — Canton Validated)
 - **Architecture:** One Retell agent clone per centre → one ChatDash agent per client
@@ -147,11 +159,11 @@
 
 ### Cekura Two-Tier Testing Architecture (2026-02-22)
 - **Tier 1** (source agent 13260): 14 scenarios tagged `tier1` — full regression
-- **Tier 2** (7 clones): 14 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
+- **Tier 2** (8 clones): 16 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
 - **Tier 1 cron:** ID 427, Monday 6AM ET, tag-based (`tier1`)
-- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 14 IDs)
+- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 16 IDs)
 - **Location Name Accuracy metric:** ID 119652 (org-level)
-- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784, Leaside=13788
+- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784, Leaside=13788, Riverside=14125
 - Full details in `AgentConfig.md` Cekura Testing Architecture section
 
 ### Cekura Email Digest (2026-02-23)
@@ -193,6 +205,25 @@
 - Recommendation: Dedicated Spanish agent over multi mode
 - Stone Oak is 64.7% Hispanic — Spanish is revenue capture
 - GitHub issue: XPrime17/lead-reactivation#19
+
+## Riverside Onboarding — Manual Steps Remaining (2026-02-28)
+- **ChatDash:** Create ChatDash agent + client for Riverside, configure webhook on Retell agent, set up n8n forwarding. Follow `docs/CHATDASH-ONBOARDING.md` checklist.
+- **Hiya:** Register `+12036484197` as "Code Ninjas Riverside" at hiya.com/branded-caller-id
+- **Twilio sub-account:** Riverside was onboarded before sub-account automation — still on shared xprime trunk. Consider migrating.
+- **Burlington also pending:** ChatDash not onboarded yet (shares source ChatDash ID)
+
+## Voice AI Agency — TourForce (DECIDED 2026-03-02)
+- **Name:** TourForce | **Domain:** tourforce.ai (AVAILABLE — register ASAP)
+- **Tagline:** "Every call, a tour de force."
+- **Brand identity:** Calm authority. Effortless competence. "Like having an extra team member."
+- **55+ names evaluated** across 4 directions (wordplay, effortless blend, military, invented). TourForce won on availability + resonance + double meaning.
+- **Logo concepts:** 3 directions generated (Force Arrow, Shield, Wave) — see `/root/tourforce-logo-concept-{a,b,c}.png`
+- **Full branding bible:** See `tourforce-branding.md`
+- **Old brainstorm:** See `agency-naming.md` (superseded)
+- **Formation status:** PENDING — awaiting accountant + lawyer feedback before incorporating
+- **Structure:** Ontario numbered corp + operating name (Option C: simple now, holdco later via s.85)
+- **Key constraints:** CN franchise agreement Sections 8.9, 8.13, 14.8; 50/50 CN co-ownership with wife
+- **Formation details:** See `subzero-formation.md`
 
 ## Claude Code Remote Setup — LEFT OFF (2026-02-27)
 - Setting up headless mode + Agent SDK + Remote Control (new Feb 25 feature)
