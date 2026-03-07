@@ -43,6 +43,7 @@ Prompt updates must be pushed to all clones using `SyncPrompt.ts`.
 | Burlington | `agent_2f5419fc0c45a24a02bb820cce` | `llm_97ac9c35e7387a448b927ce509b6` | `13783` |
 | Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | `13784` |
 | Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `llm_4cfa990bea7bfcbf67060e8c8f72` | `13788` |
+| Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | `llm_512d93c0c71e0ef00e318b3e9fc0` | `14125` |
 
 ## Prompt Sync Workflow
 
@@ -82,7 +83,8 @@ Cekura must have `outbound_auto_call: true` to trigger Retell calls automaticall
 Each agent's `contact_number` must use a Retell phone number with a working SIP outbound credential.
 
 **Known issue:** The `XPrime17` SIP credential gets `telephony_provider_permission_denied` on Twilio.
-Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
+Working credentials: `xprime` (xprime trunk), `agent` (centre-specific sub-account trunks).
+**New centres** get dedicated Twilio sub-accounts with their own SIP trunks (automated by `onboard-centre.ts`).
 
 | Centre | Cekura Agent | Contact Number | SIP Auth | Status |
 |--------|-------------|----------------|----------|--------|
@@ -93,7 +95,8 @@ Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
 | Rayford | 13782 | `+18326395862` | `agent` | Working |
 | Burlington | 13783 | `+12494492726` (Emma fallback) | `xprime` | Working |
 | Pickering | 13784 | `+12494492726` (Emma fallback) | `xprime` | Working |
-| Leaside | 13788 | `+16475841523` | `xprime` | Working |
+| Leaside | 13788 | `+16475841523` | `leaside` | Working (fixed 2026-03-01) |
+| Riverside | 14125 | `+12036484197` | `xprime` | Working |
 
 ### Tier 2 — Clone Smoke Tests (2 per clone)
 - **Agents:** 7 Cekura agents (Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784, Leaside 13788)
@@ -126,6 +129,7 @@ Working credentials: `xprime` (xprime trunk), `agent` (centre-specific trunks).
 | Burlington | 213695 | 213689 |
 | Pickering | 213696 | 213690 |
 | Leaside | 213711 | 213712 |
+| Riverside | 218096 | 218097 |
 
 ## ChatDash Integration
 
@@ -142,6 +146,7 @@ Centres access call recordings, transcripts, and analytics via ChatDash without 
 | Burlington | `69968aa1e415e60f02fd1b8a` (shared) | — | ✅ | — | Not onboarded yet |
 | Pickering | `699b89550ba4ecf1409066cd` | `699b956d0ba4ecf14090cd9a` | ✅ | ✅ | Onboarded 2026-02-22 |
 | Leaside | `699bd4f622a7590562b0428f` | — | ✅ | ❌ | Onboarded 2026-02-23 |
+| Riverside | — | — | ❌ | ❌ | Not onboarded yet |
 
 ### ChatDash Onboarding Checklist (per centre)
 

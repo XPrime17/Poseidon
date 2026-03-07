@@ -1,241 +1,129 @@
 # PAI Memory
 
 ## Context Isolation Rules (CRITICAL)
-- **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). This is the OPERATIONAL system.
-- **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). This is a QA TOOL.
-- When Scott asks about Retell agents, calls, prompts, or clones → use Retell section. Do NOT load Cekura context.
-- When Scott asks about testing, scenarios, metrics, or evaluation → use Cekura section.
+- **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
+- **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
+- When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
+- When Scott asks about testing, scenarios, metrics → Cekura section.
 - Only cross-reference when Scott explicitly asks to test a Retell agent via Cekura.
 
+## Architecture — Lead System (UPDATED 2026-03-06)
+- **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
+- **Active n8n workflows** on `xprime17.app.n8n.cloud`:
+  - `Outbound Call Flow - Multicentre` (6sPwo7ngPyTWfmwM) — initial calls + retry pickup
+  - `[TEST] End Of Call - Retry System` (4p1V0wESn3kZySt6) — post-call routing, retry scheduling
+- **State store:** Google Sheets (Leads MasterSheet), NOT Supabase
+- **Do NOT check Worker health or Supabase for retry state**
+- See `lead-reactivation.md` for full architecture details
+
 ## Skill Creation Pattern
-- Private skills use `_ALLCAPS` naming (e.g., `_VOICEAIAGENCY`)
-- SKILL.md needs YAML frontmatter with `name` and `description` (description triggers auto-detection)
-- Workflows follow pattern: voice notification → when-to-use → prerequisite knowledge → workflow steps → quality gates → agent delegation → related workflows
-- Tools are TypeScript/Bun with `parseArgs`, `--help`, and `.help.md` companions
-- Custom traits go in `~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Agents/Traits.yaml` — ComposeAgent.ts deep-merges base + user
-- Named agents go in `~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Agents/NamedAgents.md`
-- EXTEND.yaml is the manifest for skill customizations
+- Private skills: `_ALLCAPS` naming. SKILL.md needs YAML frontmatter with `name` + `description`
+- Tools: TypeScript/Bun with `parseArgs`, `--help`, `.help.md` companions
+- Custom traits: `~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Agents/Traits.yaml`
+- Named agents: `~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Agents/NamedAgents.md`
 
 ## MCP Server Pattern
-- MCP SDK v1.11+ requires Zod schemas (`.shape`) for tool params, not plain objects
+- MCP SDK v1.11+: Zod schemas (`.shape`) for tool params, not plain objects
 - `McpServer` constructor: just `name` + `version`, no `capabilities`
-- Tool pattern: `server.tool(name, description, ZodSchema.shape, handler(async (data) => {}))`
-- Retell prompts live on the LLM object, not the agent — resolve via `agent.response_engine.llm_id`
+- Retell prompts live on the LLM object — resolve via `agent.response_engine.llm_id`
 - MCP config at `~/.claude/MCPs/` with `{name}-MCP.json` naming
 
 ## Google Sheets Write Pattern (via n8n)
-- Google Sheets API NOT enabled on Google Cloud project 271696928151 — can't use API key
-- **Read-only access**: CSV export via `https://docs.google.com/spreadsheets/d/{ID}/gviz/tq?tqx=out:csv` (no auth needed if sheet is public)
-- **Write access**: Create temp webhook workflow on n8n cloud → activate → trigger via curl → delete
-- **Write credential**: `yjVHcEWrpyDmxkvv` ("Google Sheets account 3") — has write access
-- **Read credential**: `ybuxqM8F2NkyCA7e` ("Google Sheets account") — read-only for Centre Lookup
-- **Schema rule**: `appendOrUpdate` requires ALL sheet columns in schema (unused = `removed: true`). n8n validates by position.
-- **n8n API**: `active` is read-only on PUT. Use `/activate` and `/deactivate` endpoints. Webhook triggers required (manualTrigger can't be activated).
+- Google Sheets API NOT enabled — can't use API key
+- **Read-only**: CSV export via `https://docs.google.com/spreadsheets/d/{ID}/gviz/tq?tqx=out:csv`
+- **Write**: Temp webhook workflow on n8n cloud → activate → trigger → delete
+- **Write credential**: `yjVHcEWrpyDmxkvv` | **Read credential**: `ybuxqM8F2NkyCA7e`
+- **Schema rule**: `appendOrUpdate` requires ALL sheet columns (unused = `removed: true`)
+- **n8n API**: `active` is read-only on PUT. Use `/activate` and `/deactivate` endpoints.
 
 ## Email Delivery
-- ALWAYS use Resend HTTP API — never sendmail/SMTP (SMTP relay to smtp.resend.com:587 times out)
-- API key in `/etc/postfix/sasl_passwd`: `re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj`
-- Pattern: `curl -s -X POST 'https://api.resend.com/emails' -H 'Authorization: Bearer KEY' -H 'Content-Type: application/json' -d '{"from":"Poseidon <onboarding@resend.dev>","to":["EMAIL"],"subject":"SUBJECT","text":"BODY"}'`
-- Sender: `onboarding@resend.dev` (Resend default domain)
-- Scott's email: scott.james@codeninjas.com
+- ALWAYS use Resend HTTP API — never sendmail/SMTP
+- API key: `re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj`
+- Sender: `onboarding@resend.dev` | Scott's email: `scott.james@codeninjas.com`
 
 ## Scott's Preferences
-- Architecture diagrams ALWAYS use Art skill to produce PNG — never ASCII/markdown substitutes
-- ALWAYS provide the full absolute path to generated diagrams/images in the response
+- Architecture diagrams ALWAYS use Art skill → PNG (never ASCII/markdown)
+- ALWAYS provide full absolute path to generated images
 - n8n has TWO instances: self-hosted Docker (`138.197.171.204:5678`) and cloud (`xprime17.app.n8n.cloud`)
+- **n8n self-hosted API key is EXPIRED** — only cloud instance works with current key
 
-## _KB Skill Setup — LEFT OFF (2026-02-10)
-- n8n self-hosted: workflows imported (gdocs-read: RQt8auabMaJqoOTB, gdocs-write: titk07qAVIOFeqcI) + credential shell (ID: 1)
-- Google Cloud project created with OAuth client ID for "Poseidon KB Manager"
-- BLOCKER: scott.james1717@gmail.com needs to be added as test user in Google Cloud Console → OAuth consent screen → Test users
-- After that: re-try OAuth URL, get auth code, exchange for tokens via curl on droplet, inject into n8n credential
-- OAuth authorization URL is ready (uses localhost:5678 redirect)
-- Architecture diagram PNG created and saved
+## n8n API
+- **Cloud API key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMzE0ODRiZS1mNjg1LTQ3M2EtYmUxNC0xOTZkOTdlZDE0YTEiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY4NjY3MDI5fQ.Ky5Z-77U6ldB6STvg7JJ4ULXb58Htdt7L-QUCwhI0Yk`
+- **Cloud URL**: `https://xprime17.app.n8n.cloud/api/v1/`
 
 ---
 
-## Retell Platform (OPERATIONAL — agents, prompts, calls, clones)
+## Retell Platform (OPERATIONAL)
 - **API key:** `key_eb01765f71b0a93b347d324af573`
-- Prompts live on the LLM object, not the agent — resolve via `agent.response_engine.llm_id`
+- Prompts live on the LLM object — resolve via `agent.response_engine.llm_id`
 
 ### Retell Agents
 | Name | Agent ID | Phone | LLM ID | Status |
 |------|----------|-------|--------|--------|
 | Emma | `agent_552e57364711f0eec51afa512a` | `+12494492726` | (original) | WORKING |
 | CNKB (East Gwillimbury) | `agent_0c6c32b61cb506fefb6ac247f4` | `+12899030611` | `llm_44111168b1a2a469f50891b26e34` (v39) | WORKING |
-| CNKB-Canton | `agent_f10e56ab67fddf22bd60def599` | `+17744062037` (outbound) | `llm_d25bbc493b20eb095ab92bceb116` | WORKING |
-| CNKB-StoneOak | (see clone list) | — | `llm_c26de057ffe1ff9a71366e95c447` | WORKING |
-| CNKB-RoundRock | (see clone list) | — | `llm_7b795d82b19f42562ef0abaf857f` | WORKING |
-| CNKB-Rayford | (see clone list) | — | `llm_118c93e692e7255083a56043c3e9` | WORKING |
-| CNKB-Burlington | (see clone list) | — | `llm_97ac9c35e7387a448b927ce509b6` | WORKING |
-| CNKB-Pickering | (see clone list) | — | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | WORKING |
+| CNKB-Canton | `agent_f10e56ab67fddf22bd60def599` | `+17744062037` | `llm_d25bbc493b20eb095ab92bceb116` | WORKING |
+| CNKB-StoneOak | (clone) | — | `llm_c26de057ffe1ff9a71366e95c447` | WORKING |
+| CNKB-RoundRock | (clone) | — | `llm_7b795d82b19f42562ef0abaf857f` | WORKING |
+| CNKB-Rayford | (clone) | — | `llm_118c93e692e7255083a56043c3e9` | WORKING |
+| CNKB-Burlington | (clone) | — | `llm_97ac9c35e7387a448b927ce509b6` | WORKING |
+| CNKB-Pickering | (clone) | — | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` | WORKING |
 | CNKB-Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `+16475841523` | `llm_4cfa990bea7bfcbf67060e8c8f72` | WORKING |
 | CNKB-Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | `+12036484197` | `llm_512d93c0c71e0ef00e318b3e9fc0` | WORKING |
+| CNKB-Sudbury | `agent_ccad25c0d5aab5eac8ce8c2354` | `+19786627576` | `llm_247d6d98f7073c6d31d54f26f53d` | WORKING |
 
-### Retell Clone Process (UPDATED 2026-02-23)
-- GET agent → strip `agent_id`, `version`, `is_published`, `last_modification_timestamp` → POST create-agent
-- **CRITICAL: Do NOT strip `response_engine.version`** — Retell defaults to version 0 (first LLM version ever)
-- Instead, **create a NEW LLM copy** for each clone so version 0 = current prompt
-- Retell API blocks version changes on existing agents
-- **Each clone gets its OWN LLM copy.** Prompt changes must be applied to ALL LLM copies individually.
-- **Bug fixed 2026-02-21:** All 6 clones were pinned to LLM v0 (original East Gwillimbury prompt). Fixed by creating new LLM copies.
-- **Location names hardcoded 2026-02-23:** Replaced `{{LOCATION_NAME}}` with actual location name in all 6 clone LLMs. Source CNKB (East Gwillimbury) still uses `{{LOCATION_NAME}}` template variable. Clones no longer depend on dynamic vars at call time — works with both n8n and Cekura.
+### Retell Prompt Hash
+- Last update (2026-03-07): hash `df15579d6021` (source) / `03824faa85ba` (Sudbury clone)
+- Fix: Pricing Anti-Hallucination — removed hardcoded $175/$249, replaced with KB-defer
+- Source prompt: 27,858 chars
 
-### Retell + Prompt Hash
-- Last prompt update (2026-02-25): hash `ee73db1be8ca` (source) / `61e661110039` (clones) across all 8 LLMs
-- 4 fixes applied: Loop Detection (call screening), Stage 2 One Question, Em Dash Ban (stronger), Multi-Question Handling
-- Source prompt: 27,953 chars | Clones: 27,898-27,918 chars
-- Previous hash: `e220cd32b067`
+### Clone Process
+- Each clone gets OWN LLM copy. Prompt changes must be applied to ALL LLM copies individually.
+- Location names hardcoded in clone LLMs (not dynamic vars). Source uses `{{LOCATION_NAME}}`.
 
 ### Twilio Infrastructure
-- **Main account:** See Twilio dashboard (credentials stored locally, not in repo)
-- Only 2 SIP trunks in this account: `xprime.pstn.twilio.com` (working) and `cneg-retell-ai-agent.pstn.twilio.com`
-- Emma uses `+12494492726` on xprime trunk (main account)
-- CNKB uses `+12899030611` on xprime trunk (main account)
-- **Sub-account pattern:** Each centre gets a sub-account named by location + its own SIP trunk + phone number transferred
-- **Sub-accounts:** Brampton SW, Burlington, Canton, Leaside, Pickering, Rayford, Round Rock, Stone Oak
-- **Full sub-account setup chain:** (1) Create sub-account → (2) Transfer phone number → (3) Create SIP credential list + credential → (4) Create SIP trunk with domain → (5) Add origination URI `sip:sip.retellai.com` → (6) Associate cred list with trunk → (7) Link phone to trunk → (8) Update Retell phone `termination_uri` to new domain
-- **Leaside trunk:** `leaside-cnkb.pstn.twilio.com`, trunk SID `TK7676520f3426ec5d5b7f0a57389e2021`, cred: `leaside`/`Twiliopass!7`
-- **SIP credential naming RULE:** Sub-account trunks MUST use unique usernames (e.g., `leaside`, `agent`), NOT `xprime`. The `xprime` username on a sub-account trunk conflicts with `xprime` on the main account's trunk, causing SIP auth failures and call timeouts.
-- **Retell `termination_uri` must match the sub-account's trunk domain**, not the parent's
-- `onboard-centre.ts` NOW automates full sub-account chain (Step 1): create sub-account → buy number → SIP cred list → SIP trunk → origination URI → associate cred → link phone
-- **Riverside** was onboarded before this automation — still on shared xprime trunk, phone `+12036484197`
+- **Sub-account pattern:** Each centre gets sub-account + SIP trunk + phone number
+- **Sub-accounts:** Brampton SW, Burlington, Canton, Leaside, Pickering, Rayford, Round Rock, Stone Oak, Sudbury
+- **SIP credential RULE:** MUST use unique usernames per centre (e.g., `sudbury`, `leaside`), NOT `xprime`
+- **Debug `telephony_provider_permission_denied`:** Check Retell `auth_username` matches Twilio cred username, verify uniqueness
+- `onboard-centre.ts` automates full chain: sub-account → buy number → SIP creds → trunk → Retell import
+- **Riverside** still on shared xprime trunk (pre-automation)
 
-### Onboarding Script Enhancement (2026-02-28)
-- `onboard-centre.ts` now has Step 0: auto-discovery from codeninjas.com
-- **Flow:** Fetch sitemap → match centre name → extract slug → hit services API → derive area code, country, city
-- `--area-code` and `--country` are now optional (auto-discovered)
-- **Services API:** `https://services.codeninjas.com/api/v1/facility/profile/slug/{cnSlug}`
-- Returns: city, state, country, phone, address, postal code, email
-- Centre code (e.g., `ct-riverside`) output for spreadsheet population
-
-### ChatDash Integration (2026-02-22 — Canton Validated)
-- **Architecture:** One Retell agent clone per centre → one ChatDash agent per client
-- **Canton VALIDATED** (2026-02-22): Cekura result #326258, 100% pass, 5/5 all metrics, call visible in ChatDash with recording + transcript
-- **Canton ChatDash agent:** `6998716d34ff0eb25cde47fe` — webhook configured on Retell agent
-- **Canton n8n forwarding:** ✅ Configured (2026-02-22)
-- **4 clones fully onboarded** (2026-02-22): agents + clients created + assigned via API
-- **ChatDash API key:** `CD.1c0708fa4744841e82e9a0253be0ef0c` (agency profile)
-- **Client IDs:** StoneOak=`699b95470ba4ecf14090cc5a`, RoundRock=`699b95620ba4ecf14090cd0c`, Rayford=`699b95670ba4ecf14090cd4a`, Pickering=`699b956d0ba4ecf14090cd9a`
-- **Client logins:** {centre-director-name}.{lastname} format, passwords: CN{CentreName}2026
-- **Burlington NOT onboarded** — still shares source ChatDash ID, not yet a client
-- **Leaside ChatDash agent:** `699bd4f622a7590562b0428f` — onboarded 2026-02-23 (client ID unknown, ChatDash API blocked)
-- **ChatDash agent ID auto-discovery:** ChatDash automatically sets the Retell agent webhook when connecting. Extract the agent ID from the webhook URL pattern: `https://api.chat-dash.com/v1/private/agents/{AGENT_ID}/import/webhook`
-- **ChatDash API notes:** POST /clients needs member email unique globally; used plus-addressing for RoundRock (scott.james+roundrock@codeninjas.com)
-- **Onboarding checklist:** `docs/CHATDASH-ONBOARDING.md` in lead-reactivation repo + ChatDash section in CNKB AgentConfig.md
-- **Issue #25 updated** with Option C (ChatDash) validation results
-- **Issue #14 commented** — ChatDash partially addresses transcript delivery (dashboard access, not email push)
-- **Agent-per-client rule:** Since Sept 2025, one agent = one client (no sharing)
-- **Partner discount:** 40% off annual Premium/Growth via retellai.com/app-partner/chatdash
+### Onboarding Script
+- Step 0: Auto-discovery from codeninjas.com (sitemap → slug → services API)
+- **(2026-03-06 fix)** Sub-account creation URL was nested incorrectly
+- **(2026-03-07 fix)** SIP credential username was hardcoded to `xprime` — now uses per-centre `slugName`
 
 ---
 
-## Cekura Testing Platform (QA TOOL — scenarios, metrics, evaluation)
-- **MCP Server**: Added to Claude Code — `https://api.cekura.ai/mcp` with `X-CEKURA-API-KEY` header
-- **REST API**: `https://api.cekura.ai` — 70+ endpoints
-- **API Key**: `c1d54ef4f8e8ed6e5e94033d78b4765060a5a116030e7281a03ed926efb1e2fc`
-- **Scott's org**: Sub-Zero Automations (org ID: 3101) | Project: Scott Frederick James Project (ID: 3782)
-- **Key endpoints**: `POST /test_framework/v1/scenarios/run_scenarios/` (run tests), `GET /test_framework/v1/results/` (get results)
-- **GitHub Action**: `cekura-ai/cekura-github-actions@v1.0.0`
-
-### Cekura Agent Mappings (Cekura ID → agent name only)
-- **Emma/bob** (Cekura ID 13253): `assistant_provider: retell` — **WORKING**
-- **CNKB/Cimo** (Cekura ID 13260): `assistant_provider: retell` — **WORKING** (validated 2026-02-22)
-- Duplicates 13254, 13259 deleted
-- **7 clone agents:** Canton 13779, StoneOak 13780, RoundRock 13781, Rayford 13782, Burlington 13783, Pickering 13784, Leaside 13788
-
-### Cekura Config Notes
-- MUST set `assistant_provider: "retell"`, `retell_api_key`, AND `chat_assistant_id`
-- MUST include `inbound: false` when creating agents (required field, not optional)
-- **MUST set `outbound_auto_call: true`** — without this, Cekura creates runs but never triggers Retell calls (timeout)
-- `contact_number` must be a Retell phone number with a WORKING SIP outbound credential
-- **`XPrime17` SIP credential is BROKEN** — gets `telephony_provider_permission_denied` from Twilio
-- Working credentials: `xprime` (on xprime trunk), `agent` (on centre-specific trunks)
-- CNKB source + Burlington + Pickering use Emma's number (`+12494492726`) as fallback for Cekura
-- Cekura passes `override_agent_id` to Retell, so from_number doesn't need to match the agent
-- Batch runs (multiple scenarios at once) ALL timeout — run scenarios ONE AT A TIME
-- Results take 5-7 minutes to process (pending → in_progress → evaluating → completed)
-- MCP `scenarios_partial_update` BUG: sends array params as query params, use `curl -X PATCH` instead
-
-### Cekura Two-Tier Testing Architecture (2026-02-22)
-- **Tier 1** (source agent 13260): 14 scenarios tagged `tier1` — full regression
-- **Tier 2** (8 clones): 16 scenarios (2 each) tagged `tier2` — smoke tests for template var resolution
-- **Tier 1 cron:** ID 427, Monday 6AM ET, tag-based (`tier1`)
-- **Tier 2 cron:** ID 429, Wednesday 6AM ET, scenario-based (all 16 IDs)
-- **Location Name Accuracy metric:** ID 119652 (org-level)
-- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784, Leaside=13788, Riverside=14125
-- Full details in `AgentConfig.md` Cekura Testing Architecture section
-
-### Cekura Email Digest (2026-02-23)
-- **Script:** `/root/scripts/cekura-digest.ts` (also committed to `lead-reactivation-github/scripts/`)
-- **Droplet cron:** Mon 7:30 AM ET (Tier 1), Wed 7:30 AM ET (Tier 2) — 90 min after Cekura crons fire
-- **Sends to:** scott.james@codeninjas.com via Resend API
-- **Subject format:** `[Cekura Tier X] ALL PASS` or `FAILURES DETECTED` + date
-- **HTML email:** green/red header, per-scenario pass/fail table, custom metric scores (5-point scale)
-- **Log:** `/var/log/cekura-digest.log`
-- **DST note:** Crontab uses UTC (12:30 = 7:30 AM EST). During EDT (Mar–Nov), emails arrive at 8:30 AM ET — adjust crontab to `30 11` if needed
-
-### Cekura Scenarios
-- **Emma** (5): 139026-139030
-- **CNKB Tier 1** (14): 139031-139035, 141951, 213661-213668
-- **CNKB Tier 2** (14): 213685-213696, 213711-213712 — 2 per clone (Location Verification + Happy Path Smoke)
-- **Metric config fixes (2026-02-25):** Removed Tour Booking Success from #139035 (Callback), #141951 (Wrong Location), #213665 (Frustrated Repeat). Removed Natural Conversation Flow from #213665.
-
-### Cekura Metrics (IDs 118268-118273, 119187, 119652)
-- Tour Booking Success, One Question Per Turn, Slot Validation Accuracy, AI Disclosure Handling, Graceful Rejection Handling, Natural Conversation Flow, Wrong Location Handling, Location Name Accuracy
-
-### Cekura Known Issues
-- **Subscription active** — Developer plan, 680/750 credits remaining, expires 2026-03-22
-- `{{LOCATION_NAME}}` FIXED 2026-02-23 — hardcoded in all 6 clone LLMs. All 5 ChatDash clones pass Location Verification at 5/5.
-- `{{first_name}}` FIXED 2026-02-24 — added test profiles (IDs 8486-8499) to all 14 Tier 2 scenarios. Profiles pass FIRST_NAME, LAST_NAME, PHONE, SLOTS, LOCATION_NAME, retell_agent_id via trigger worker. Tier 1 already had profiles.
-- `One Question Per Turn` metric scored 0/5 on Emma happy path — may need prompt tuning
-- `XPrime17` SIP credential broken on Twilio — see Config Notes above
+## Cekura Testing Platform (QA TOOL)
+- See `cekura-testing.md` for full details (config, scenarios, metrics, crons, known issues)
+- **Subscription:** Balance at -3.39 as of 2026-03-06 — needs top-up
+- **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=13783, Pickering=13784, Leaside=13788, Riverside=14125, Sudbury=14388
 
 ---
 
-## Workflow Separation (CRITICAL)
-- **Speed-to-lead (CNKB)** → cloud n8n (`xprime17.app.n8n.cloud`) — Scott updates manually
-- **Lead reactivation (Emma)** → Cloudflare Worker + repo n8n (`/root/lead-reactivation-github`)
-- These are DIFFERENT systems — don't conflate them
-- **TODO (lead-reactivation):** Add `retell_agent_id` to `centres` table, update Worker + n8n to use per-centre agent IDs (currently hardcoded to Emma)
-
-## Spanish Voice AI Research (2026-02-17)
-- See `spanish-voice-ai.md` for full details
-- Key finding: Do NOT use multi mode on working English agents — degrades performance
-- Recommendation: Dedicated Spanish agent over multi mode
-- Stone Oak is 64.7% Hispanic — Spanish is revenue capture
-- GitHub issue: XPrime17/lead-reactivation#19
-
-## Riverside Onboarding — Manual Steps Remaining (2026-02-28)
-- **ChatDash:** Create ChatDash agent + client for Riverside, configure webhook on Retell agent, set up n8n forwarding. Follow `docs/CHATDASH-ONBOARDING.md` checklist.
-- **Hiya:** Register `+12036484197` as "Code Ninjas Riverside" at hiya.com/branded-caller-id
-- **Twilio sub-account:** Riverside was onboarded before sub-account automation — still on shared xprime trunk. Consider migrating.
-- **Burlington also pending:** ChatDash not onboarded yet (shares source ChatDash ID)
+## _KB Skill Setup — LEFT OFF (2026-02-10)
+- BLOCKER: scott.james1717@gmail.com needs to be added as test user in Google Cloud Console
+- See previous memory for full details
 
 ## Voice AI Agency — TourForce (DECIDED 2026-03-02)
-- **Name:** TourForce | **Domain:** tourforce.ai (AVAILABLE — register ASAP)
-- **Tagline:** "Every call, a tour de force."
-- **Brand identity:** Calm authority. Effortless competence. "Like having an extra team member."
-- **55+ names evaluated** across 4 directions (wordplay, effortless blend, military, invented). TourForce won on availability + resonance + double meaning.
-- **Logo concepts:** 3 directions generated (Force Arrow, Shield, Wave) — see `/root/tourforce-logo-concept-{a,b,c}.png`
-- **Full branding bible:** See `tourforce-branding.md`
-- **Old brainstorm:** See `agency-naming.md` (superseded)
-- **Formation status:** PENDING — awaiting accountant + lawyer feedback before incorporating
-- **Structure:** Ontario numbered corp + operating name (Option C: simple now, holdco later via s.85)
-- **Key constraints:** CN franchise agreement Sections 8.9, 8.13, 14.8; 50/50 CN co-ownership with wife
-- **Formation details:** See `subzero-formation.md`
+- **Name:** TourForce | **Domain:** tourforce.ai (AVAILABLE)
+- **Formation status:** PENDING — awaiting accountant + lawyer feedback
+- See `tourforce-branding.md`, `subzero-formation.md`
 
-## Claude Code Remote Setup — LEFT OFF (2026-02-27)
-- Setting up headless mode + Agent SDK + Remote Control (new Feb 25 feature)
-- Remote Control NOT YET available (gradual rollout despite Max plan)
-- Headless mode can't be tested from within a Claude Code session (silently exits)
-- SDK language not yet chosen (TypeScript recommended for PAI stack)
-- See `claude-code-remote.md` for full details
+## Spanish Voice AI Research (2026-02-17)
+- Do NOT use multi mode on working English agents — degrades performance
+- Recommendation: Dedicated Spanish agent. GitHub issue: XPrime17/lead-reactivation#19
+- See `spanish-voice-ai.md`
 
-## Voice AI Agency Skill
-- Built 2026-02-06: 30 files (27 internal + 3 external)
-- 12 workflows across BUILD/SELL/DELIVER pillars
-- 4 CLI tools: PricingCalculator, AgentAudit, ClientTracker, PromptBuilder
-- 5 named agents: Paige Mercer, Devin Cross, Riley Nakamura, Morgan Reeves, Kai Holbrook
-- 11 custom traits: 4 expertise + 4 personality + 3 approach
-- Client data stored in `Data/clients.json` (JSON-backed, no external deps)
+## Topic Files Index
+| File | Contents |
+|------|----------|
+| `lead-reactivation.md` | Full architecture, retry cadence, ChatDash, pending steps |
+| `cekura-testing.md` | Cekura config, scenarios, metrics, crons, email digest |
+| `tourforce-branding.md` | Agency branding bible |
+| `subzero-formation.md` | Corporate formation details |
+| `spanish-voice-ai.md` | Spanish voice AI research |
+| `claude-code-remote.md` | Claude Code remote setup notes |
+| `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |

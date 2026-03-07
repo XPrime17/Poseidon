@@ -42,6 +42,8 @@ const CLONES: CloneEntry[] = [
   { name: "Rayford",    agent_id: "agent_9c1c8996e054e87f6b76aa8a0a", llm_id: "llm_118c93e692e7255083a56043c3e9" },
   { name: "Burlington", agent_id: "agent_2f5419fc0c45a24a02bb820cce", llm_id: "llm_97ac9c35e7387a448b927ce509b6" },
   { name: "Pickering",  agent_id: "agent_9d24e87943bc3b8105261bf308", llm_id: "llm_9b4bcc9bd77a2bd3c3c04ed579b1" },
+  { name: "Leaside",    agent_id: "agent_1f8c2799630cd6524fa8176e6d", llm_id: "llm_4cfa990bea7bfcbf67060e8c8f72" },
+  { name: "Riverside",  agent_id: "agent_ee11bcfc9222c37df4de8bfe95", llm_id: "llm_512d93c0c71e0ef00e318b3e9fc0" },
 ];
 
 // ── CLI ──────────────────────────────────────────────────────────
