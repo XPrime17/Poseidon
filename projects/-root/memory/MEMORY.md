@@ -87,6 +87,29 @@
 - **Cloud URL**: `https://xprime17.app.n8n.cloud/api/v1/`
 - **n8n API PUT cleanup**: strip `updatedAt`, `createdAt`, `id`, `description`, `isArchived`, `meta`, `pinData`, `versionId`, `activeVersionId`, `versionCounter`, `triggerCount`, `shared`, `activeVersion`, `active`, `tags` from GET response before PUT
 
+## ClickUp Integration (2026-03-20)
+- **Workspace:** Codeninjas | ID: `9011711565`
+- **API Token:** `pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV`
+- **MCP:** Added to project config (HTTP), needs session restart + OAuth
+- **Voice AI Space:** ID `90114119602`
+- **EG Folder:** ID `90117795474`
+- **EG Inbound Tasks List:** ID `901113422190`
+- **Task format:** `[Call Type] Name - Summary` in name, structured markdown in description, tags for call_type
+- **No Custom Fields** — using tags + description to avoid 60-use limit and API creation limitation
+
+## Inbound Voice AI (2026-03-20)
+- **Architecture:** Call forwarding from centre landline → Retell Twilio number → inbound agent answers
+- **EG Inbound Agent:** `agent_17d623c8a8f95fc674288d0e00` (CNKB-EG-Inbound)
+- **EG Inbound LLM:** `llm_6d77f36696f6fbfad97d03fa5ef8` (gpt-4.1)
+- **Phone:** `+12899030611` — inbound: EG inbound agent, outbound: original EG agent (unchanged)
+- **SIP Origination:** Added `sip:sip.retellai.com` to xprime trunk (`OU078ecfd1664cf4d66106517ce5720e45`)
+- **Inbound telephony confirmed working** — test call succeeded
+- **Post-call analysis:** 12 fields including call_type, handled_by_agent, task_summary, caller_name, urgency
+- **Prompt source file:** `/root/inbound-prompt-eg.md`
+- **Pilot plan:** EG test → Leaside (Sharmilla) → Pickering
+- **Client comms:** Google Form → GitHub Issues + weekly email digest for Sharmilla
+- **Call forwarding cost:** $0 for local on Canadian business landlines (Bell/Rogers/Telus)
+
 ---
 
 ## Retell Platform (OPERATIONAL)
