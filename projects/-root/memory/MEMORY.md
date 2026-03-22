@@ -73,7 +73,7 @@
 - **Plan:** Pro (€60/month, 10,000 executions) — upgraded 2026-03-12 after hitting Starter limit
 - **Execution hog:** `PAI - Telegram Bot` (cfe5UmEvegyLhp8F) had 1-min schedule trigger = 1,440/day. DEACTIVATED.
 - **Migration plan:** 6 non-essential workflows to move to self-hosted (Error Logger, Centre Feedback, My workflow 5, PAI Email→ClickUp, PAI Email→Jarvis, PAI Homebase Export). 6 essential stay on cloud.
-- **Essential cloud workflows:** Outbound Call Flow, Retry Scheduler, End Of Call, Orphan Sweep, Listen360, Booking Verification, Centre Directory
+- **Essential cloud workflows:** Outbound Call Flow, Retry Scheduler, End Of Call, Orphan Sweep, Listen360, Booking Verification, Centre Directory, Inbound End Of Call - EG
 - **Self-hosted status:** UP at `138.197.171.204:5678`, needs new API key from Settings → API
 
 ## Scott's Preferences
@@ -97,18 +97,28 @@
 - **Task format:** `[Call Type] Name - Summary` in name, structured markdown in description, tags for call_type
 - **No Custom Fields** — using tags + description to avoid 60-use limit and API creation limitation
 
-## Inbound Voice AI (2026-03-20)
-- **Architecture:** Call forwarding from centre landline → Retell Twilio number → inbound agent answers
+## Inbound Voice AI (UPDATED 2026-03-22)
+- **Architecture:** Call forwarding from centre landline → Retell Twilio number → inbound agent answers → post-call → n8n → ClickUp task
 - **EG Inbound Agent:** `agent_17d623c8a8f95fc674288d0e00` (CNKB-EG-Inbound)
 - **EG Inbound LLM:** `llm_6d77f36696f6fbfad97d03fa5ef8` (gpt-4.1)
 - **Phone:** `+12899030611` — inbound: EG inbound agent, outbound: original EG agent (unchanged)
 - **SIP Origination:** Added `sip:sip.retellai.com` to xprime trunk (`OU078ecfd1664cf4d66106517ce5720e45`)
-- **Inbound telephony confirmed working** — test call succeeded
-- **Post-call analysis:** 12 fields including call_type, handled_by_agent, task_summary, caller_name, urgency
+- **Inbound telephony confirmed working** — test call succeeded (2026-03-22)
+- **Post-call analysis:** 12 fields under `call_analysis.custom_analysis_data` (NOT directly under `call_analysis`)
+- **Post-call pipeline:** Retell webhook → n8n `Inbound End Of Call - EG` (3oV7SpPKWmr3xJlQ) → ClickUp task in EG Inbound list
+- **n8n webhook URL:** `https://xprime17.app.n8n.cloud/webhook/inbound-end-of-call`
+- **ClickUp tags created:** new_lead, schedule_change, billing_question, general_inquiry, complaint, other
+- **KB attached:** `knowledge_base_5144c616b2046679` (12 EG website pages, auto-refresh enabled)
+- **Location hardcoded:** "East Gwillimbury" in both prompt and begin_message (not template var)
+- **`{{SLOTS}}`:** Currently empty — agent defers tour booking to staff. Needs data source for live booking.
 - **Prompt source file:** `/root/inbound-prompt-eg.md`
+- **Prompt fix (2026-03-22):** Added explicit gates — 2E fast-track skips 2C discovery/pitch, 2C guard prevents entry if tour already booked
+- **Agent status:** NOT published yet (is_published: false). Works for testing.
+- **Urgent calls:** n8n sends email via Resend to scott.james@codeninjas.com
 - **Pilot plan:** EG test → Leaside (Sharmilla) → Pickering
-- **Client comms:** Google Form → GitHub Issues + weekly email digest for Sharmilla
+- **Client comms:** Google Form → GitHub Issues + weekly email digest for Sharmilla (NOT BUILT YET)
 - **Call forwarding cost:** $0 for local on Canadian business landlines (Bell/Rogers/Telus)
+- **Retell API gotcha:** GET agent = `/get-agent/{id}`, update agent = PATCH `/update-agent/{id}`, GET LLM = `/get-retell-llm/{id}`, update LLM = PATCH `/update-retell-llm/{id}`. The `/v2/` prefix does NOT work for these.
 
 ---
 
