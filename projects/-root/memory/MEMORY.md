@@ -193,12 +193,20 @@
 - Recommendation: Dedicated Spanish agent. GitHub issue: XPrime17/lead-reactivation#19
 - See `spanish-voice-ai.md`
 
+## TourForce Portal (STARTED 2026-03-22)
+- Custom ChatDash replacement — saves $300/month
+- **Location:** `/root/tourforce-portal/`
+- **Stack:** Bun + Hono + Supabase Auth + Stripe + Retell API + Tailwind
+- **Port:** 4000 | **Status:** Phase 1 code complete, needs manual Supabase + Stripe setup
+- See `tourforce-portal.md` for full details and remaining manual steps
+
 ## Topic Files Index
 | File | Contents |
 |------|----------|
 | `lead-reactivation.md` | Full architecture, retry cadence, ChatDash, pending steps |
 | `cekura-testing.md` | Cekura config, scenarios, metrics, crons, email digest |
 | `tourforce-branding.md` | Agency branding bible |
+| `tourforce-portal.md` | Client portal — ChatDash replacement (auth, calls, billing) |
 | `subzero-formation.md` | Corporate formation details |
 | `spanish-voice-ai.md` | Spanish voice AI research |
 | `claude-code-remote.md` | Claude Code remote setup notes |
