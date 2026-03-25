@@ -174,7 +174,7 @@
 
 ## Cekura Testing Platform (QA TOOL)
 - See `cekura-testing.md` for full details (config, scenarios, metrics, crons, known issues)
-- **Subscription:** Balance at -3.39 as of 2026-03-06 — needs top-up
+- **Subscription:** Developer plan, 751 credits remaining (as of 2026-03-25). Expires 2026-04-22.
 - **Clone Cekura IDs:** Canton=13779, StoneOak=13780, RoundRock=13781, Rayford=13782, Burlington=14706, Pickering=13784, Leaside=13788, Riverside=14125, Sudbury=14388, StCatharines=14707
 
 ---
