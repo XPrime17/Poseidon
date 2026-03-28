@@ -73,7 +73,7 @@
 - **Plan:** Pro (€60/month, 10,000 executions) — upgraded 2026-03-12 after hitting Starter limit
 - **Execution hog:** `PAI - Telegram Bot` (cfe5UmEvegyLhp8F) had 1-min schedule trigger = 1,440/day. DEACTIVATED.
 - **Migration plan:** 6 non-essential workflows to move to self-hosted (Error Logger, Centre Feedback, My workflow 5, PAI Email→ClickUp, PAI Email→Jarvis, PAI Homebase Export). 6 essential stay on cloud.
-- **Essential cloud workflows:** Outbound Call Flow, Retry Scheduler, End Of Call, Orphan Sweep, Listen360, Booking Verification, Centre Directory, Inbound End Of Call - EG
+- **Essential cloud workflows:** Outbound Call Flow, Retry Scheduler, End Of Call, Orphan Sweep, Listen360, Booking Verification, Centre Directory, Inbound End Of Call - EG, Session Tracker Sync
 - **Self-hosted status:** UP at `138.197.171.204:5678`, needs new API key from Settings → API
 
 ## Scott's Preferences
@@ -184,7 +184,8 @@
 - See previous memory for full details
 
 ## Voice AI Agency — TourForce (DECIDED 2026-03-02)
-- **Name:** TourForce | **Domain:** tourforce.ai (AVAILABLE)
+- **Name:** TourForce | **Domain:** tourforce.ca (REGISTERED on Cloudflare, 2026-03-28)
+- **tourforce.ai:** Available but not purchased ($80/yr, 2yr minimum)
 - **Formation status:** PENDING — awaiting accountant + lawyer feedback
 - See `tourforce-branding.md`, `subzero-formation.md`
 
@@ -198,7 +199,16 @@
 - **Location:** `/root/tourforce-portal/`
 - **Stack:** Bun + Hono + Supabase Auth + Stripe + Retell API + Tailwind
 - **Port:** 4000 | **Status:** Phase 1 code complete, needs manual Supabase + Stripe setup
+- **Decision (2026-03-28):** Using ChatDash for now. Build custom portal in background when time allows.
+- **Priority improvement:** Client onboarding UX — magic link auth instead of manual credential sharing (ChatDash's biggest gap)
 - See `tourforce-portal.md` for full details and remaining manual steps
+
+## ChatDash Client Portal (ACTIVE 2026-03-28)
+- **Portal domain:** `portal.tourforce.ca` (Cloudflare DNS → ChatDash)
+- **Email whitelabeling:** Configured with SendGrid DNS records on tourforce.ca
+- **Client login URL:** `portal.tourforce.ca/client/login`
+- **Client onboarding:** Manual — agency creates loginId + password, shares with client (no auto-invite)
+- **Plan:** Using while building custom TourForce Portal as replacement
 
 ## Topic Files Index
 | File | Contents |
@@ -210,4 +220,5 @@
 | `subzero-formation.md` | Corporate formation details |
 | `spanish-voice-ai.md` | Spanish voice AI research |
 | `claude-code-remote.md` | Claude Code remote setup notes |
+| `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |
 | `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |
