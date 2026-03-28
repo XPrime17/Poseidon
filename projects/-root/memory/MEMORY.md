@@ -7,7 +7,7 @@
 - When Scott asks about testing, scenarios, metrics → Cekura section.
 - Only cross-reference when Scott explicitly asks to test a Retell agent via Cekura.
 
-## Architecture — Lead System (UPDATED 2026-03-12)
+## Architecture — Lead System (UPDATED 2026-03-28)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
 - **Active n8n workflows** on `xprime17.app.n8n.cloud`:
   - `Outbound Call Flow - Multicentre` (6sPwo7ngPyTWfmwM) — initial calls (attempt 1)
@@ -39,6 +39,8 @@
 - **Retry Scheduler Attempt Cap (2026-03-19):** Added `attempt_count >= 4` guard to Filter Eligible code. Previously had NO attempt cap — leads could retry indefinitely if End Of Call failed to update status. This caused Scott-9059672357 to reach 9 attempts under EG.
 - **EG Agent ID Fix (2026-03-19):** East Gwillimbury row in Centre Lookup Sheet had empty agent_id. Retry Scheduler fallback `|| 'agent_0c6c32b61cb506fefb6ac247f4'` was being used. Now agent_id is explicitly set.
 - **Retry Bugs Fixed (2026-03-12):** (1) `String()` cast on `test_number` in Retry Scheduler voicemail expression, (2) Format Slots rewritten to use `$input.all()` loop instead of `$input.item`
+- **Fallback Routing Fix (2026-03-28):** Switch fallback (output 3: `user_hangup`, errors, etc.) was sending email but NOT updating Google Sheets — leads stuck as `calling`. Fix: connected `Outcome unsuccessfull` → `Lookup Centre for Retry` to feed into existing retry pipeline. Status=`retry_pending` (not `completed`) because fallback includes accidental hangups/errors.
+- **Replay Technique (2026-03-28):** To re-process stuck leads, replay original `call_analyzed` payload to End Of Call webhook (`POST /webhook/ac45848d-559c-4b66-9058-5d76b8476531`). n8n cloud doesn't register webhook URLs for API-created workflows.
 - See `lead-reactivation.md` for full architecture details
 
 ## Skill Creation Pattern
@@ -209,6 +211,9 @@
 - **Client login URL:** `portal.tourforce.ca/client/login`
 - **Client onboarding:** Manual — agency creates loginId + password, shares with client (no auto-invite)
 - **Plan:** Using while building custom TourForce Portal as replacement
+
+## Feedback
+- [Retry over completed](feedback_retry_over_completed.md) — For ambiguous call disconnections, default to retry not completed
 
 ## Topic Files Index
 | File | Contents |

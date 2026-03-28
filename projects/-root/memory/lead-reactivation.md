@@ -4,7 +4,7 @@
 
 **The Cloudflare Worker has been ABANDONED.** All retry logic now lives in n8n workflows on `xprime17.app.n8n.cloud`, using Google Sheets as the state store.
 
-### Active Flow (UPDATED 2026-03-12)
+### Active Flow (UPDATED 2026-03-28)
 ```
 CN Form → n8n "Outbound Call Flow - Multicentre" → CNKB (1st call)
     ↓ call ends
@@ -20,10 +20,18 @@ Retell webhook → n8n "[TEST] End Of Call - Retry System"
             ├─ agent_hangup → Decline Reason Check:
             │     ├─ decline_reason="busy" → Retry (lead couldn't talk)
             │     └─ decline_reason="not_interested" → Update Lead - Completed (no retry)
-            └─ fallback → Outcome Unsuccessful email (no retry, no sheet update!)
+            └─ fallback (user_hangup, errors, etc.) → Outcome Unsuccessful email
+                  → Lookup Centre for Retry → Calculate Next Call → Retry
     ↓
 n8n "Retry Scheduler" picks up retry_pending leads every 15 min
 ```
+
+### Fallback Routing Fix (2026-03-28)
+- **Bug:** Switch fallback (output 3) only sent email via `Outcome unsuccessfull` node — no Google Sheets update. Leads with `user_hangup`, `error_*`, `machine_detected`, etc. stayed stuck as `calling` forever.
+- **Fix:** Connected `Outcome unsuccessfull` → `Lookup Centre for Retry`, feeding fallback cases into the existing retry pipeline. Email still fires first, then retry scheduling.
+- **Status choice:** `retry_pending` (NOT `completed`) because fallback includes accidental hangups, errors, system issues — all deserve another attempt. The attempt cap (>=4) handles exhaustion.
+- **Replay technique:** To re-process stuck leads after a workflow fix, replay the original `call_analyzed` payload through the live End Of Call webhook (`POST /webhook/ac45848d-559c-4b66-9058-5d76b8476531`). This avoids needing temp workflows (n8n cloud doesn't register webhook URLs for API-created workflows).
+- **First case fixed:** Muhammed Adam (Leaside) — answered, said "Yep" to the pitch, call dropped mid-conversation. Was stuck as `calling` for 2+ hours. Replayed through fixed pipeline → now `retry_pending`.
 
 ### Key n8n Workflows (on xprime17.app.n8n.cloud)
 | Workflow | ID | Status | Purpose |
