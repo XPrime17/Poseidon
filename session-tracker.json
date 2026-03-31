@@ -6,20 +6,20 @@
       "description": "For now, I'm still using chat-dash while I try and build ...",
       "first_prompt": "For now, I'm still using chat-dash while I try and build my own version.  I'm trying to setup the client portal, but I think I need a custom domain (see screenshot).",
       "started_at": "2026-03-25T03:04:44+00:00",
-      "ended_at": "2026-03-28T17:14:16+00:00",
+      "ended_at": "2026-03-28T18:47:02+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "3ca30e6b-5821-48b2-8cbd-c8b3a5cc924a",
       "description": "check retry system status",
       "first_prompt": "check retry system status",
       "started_at": "2026-03-28T17:14:16+00:00",
-      "ended_at": null,
-      "status": "active",
+      "ended_at": "2026-03-28T19:36:18+00:00",
+      "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "c21e8b3d-f8bd-4e38-bba4-a9ccab379d0c",
@@ -30,6 +30,46 @@
       "status": "completed",
       "message_count": 0,
       "synced": true
+    },
+    {
+      "session_id": "e209895f-42cf-4723-8f15-0a376643114b",
+      "description": "analyze n8n cloud executions",
+      "first_prompt": "analyze n8n cloud executions",
+      "started_at": "2026-03-28T21:50:10+00:00",
+      "ended_at": "2026-03-28T23:03:22+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "60a28bb3-53db-48f4-9d85-1cd935e0d217",
+      "description": "[Image #1] [Image #2] [Image #3]",
+      "first_prompt": "[Image #1] [Image #2] [Image #3]",
+      "started_at": "2026-03-29T03:19:06+00:00",
+      "ended_at": "2026-03-29T17:28:39+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "16df981f-f118-4c21-9f0c-ef0fe46360b3",
+      "description": "I want to revisit TourForce pricing.",
+      "first_prompt": "I want to revisit TourForce pricing.",
+      "started_at": "2026-03-30T02:20:53+00:00",
+      "ended_at": "2026-03-30T05:05:37+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "11624dae-69ae-4286-b4f5-41cefa3df6da",
+      "description": "looks like Sudbury filled out a test lead today?",
+      "first_prompt": "looks like Sudbury filled out a test lead today?",
+      "started_at": "2026-03-30T23:56:30+00:00",
+      "ended_at": null,
+      "status": "active",
+      "message_count": 0,
+      "synced": false
     }
   ]
 }

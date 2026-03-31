@@ -11,7 +11,7 @@
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
 - **Active n8n workflows** on `xprime17.app.n8n.cloud`:
   - `Outbound Call Flow - Multicentre` (6sPwo7ngPyTWfmwM) — initial calls (attempt 1)
-  - `Retry Scheduler - Multicentre` (rt0aEuDnFv3ZCl1y) — polls every 15min, makes retry calls (attempts 2-4)
+  - `Retry Scheduler - Multicentre` (rt0aEuDnFv3ZCl1y) — polls every 90min (changed from 15min on 2026-03-28), makes retry calls (attempts 2-4)
   - `[TEST] End Of Call - Retry System` (4p1V0wESn3kZySt6) — post-call routing, retry scheduling
   - `Orphan Sweep - Multicentre` (H7sxzNFsME4wkeJp) — every 2hrs, catches leads stuck at `calling` >2hrs, routes to exhausted (≥4 attempts) or retry_pending (<4)
 - **State store:** Google Sheets (Leads MasterSheet ID: `1ExfXo3eVDcMMgsifXZdMTAcJI4WJ0OzcrKO24ptiJ5A`), NOT Supabase
@@ -34,7 +34,8 @@
 - **Column Population Fix (2026-03-12):** Outbound Append node now writes `testing`, `status=calling`, `attempt_count=1`, `last_call_at`. EndOfCall Retry/Completed nodes now write `attempt_count`. Set Tour True/False nodes had `CRM Confirm` silently exposed (risked blanking) — marked `removed: true`.
 - **Leads MasterSheet Column Layout (2026-03-12):** A:centre_id, B:testing, C:lead_id, D:First, E:Last, F:Phone, G:Email, H:Tour, I:Date, J:Time, K:CRM Confirm, L:status, M:attempt_count, N:next_call_after, O:last_outcome, P:last_call_at, Q:(empty), R-Y:attempt_1-4 at/outcome, Z:testing(old duplicate)
 - **Schema Update Rule:** When adding ANY column to Leads MasterSheet, update schema in ALL 9 write nodes: Outbound(2: Append row, Update Lead - Off Hours), EndOfCall(4: Set Tour True/False, Update Lead Retry/Completed), Retry(2: Update Lead Pre-Call, Reset Lead on Error), OrphanSweep(1: Fix Orphaned Leads)
-- **Off Hours Fix (2026-03-18):** Outbound Call Flow appends lead BEFORE After Hours? check. Added "Update Lead - Off Hours" node after Off Hours email — sets status=retry_pending + next_call_after=9AM next day. Retry Scheduler picks it up during business hours.
+- **Off Hours Fix (2026-03-18):** Outbound Call Flow appends lead BEFORE After Hours? check. Added "Update Lead - Off Hours" node after Off Hours email — sets status=retry_pending + next_call_after. Retry Scheduler picks it up during business hours.
+- **Off Hours next_call_after Fix (2026-03-31):** Expression was `.plus({ days: 1 }).set({ hour: 9 })` — always added a day. Early-morning leads (before 9 AM) got pushed to next day instead of same-day 9 AM. Fixed: conditional `.plus({ days: hour >= 9 ? 1 : 0 })`. Triggered by Sudbury test lead at 4 AM.
 - **Orphan Sweep Root Cause (2026-03-18):** End Of Call webhook runs successfully (writes last_outcome) but Google Sheets appendOrUpdate intermittently fails to persist status column. Orphan Sweep catches these.
 - **Retry Scheduler Attempt Cap (2026-03-19):** Added `attempt_count >= 4` guard to Filter Eligible code. Previously had NO attempt cap — leads could retry indefinitely if End Of Call failed to update status. This caused Scott-9059672357 to reach 9 attempts under EG.
 - **EG Agent ID Fix (2026-03-19):** East Gwillimbury row in Centre Lookup Sheet had empty agent_id. Retry Scheduler fallback `|| 'agent_0c6c32b61cb506fefb6ac247f4'` was being used. Now agent_id is explicitly set.
@@ -72,8 +73,9 @@
 - Sender: `onboarding@resend.dev` | Scott's email: `scott.james@codeninjas.com`
 
 ## n8n Cloud Subscription
-- **Plan:** Pro (€60/month, 10,000 executions) — upgraded 2026-03-12 after hitting Starter limit
-- **Execution hog:** `PAI - Telegram Bot` (cfe5UmEvegyLhp8F) had 1-min schedule trigger = 1,440/day. DEACTIVATED.
+- **Plan:** Pro (€60/month, 10,000 executions) — DOWNGRADE TO STARTER APPROVED (2026-03-28). Projected ~1,341/month after optimizations.
+- **Optimizations (2026-03-28):** Retry Scheduler 15min→90min (saves ~1,612/mo), Inbound Pre-Call schedule trigger disabled → webhook-only (saves ~295/mo)
+- **Execution hog (resolved):** `PAI - Telegram Bot` (cfe5UmEvegyLhp8F) had 1-min schedule trigger = 1,440/day. DEACTIVATED.
 - **Migration plan:** 6 non-essential workflows to move to self-hosted (Error Logger, Centre Feedback, My workflow 5, PAI Email→ClickUp, PAI Email→Jarvis, PAI Homebase Export). 6 essential stay on cloud.
 - **Essential cloud workflows:** Outbound Call Flow, Retry Scheduler, End Of Call, Orphan Sweep, Listen360, Booking Verification, Centre Directory, Inbound End Of Call - EG, Session Tracker Sync
 - **Self-hosted status:** UP at `138.197.171.204:5678`, needs new API key from Settings → API
@@ -112,7 +114,7 @@
 - **ClickUp tags created:** new_lead, schedule_change, billing_question, general_inquiry, complaint, other
 - **KB attached:** `knowledge_base_5144c616b2046679` (12 EG website pages, auto-refresh enabled)
 - **Location hardcoded:** "East Gwillimbury" in both prompt and begin_message (not template var)
-- **`{{SLOTS}}`:** Currently empty — agent defers tour booking to staff. Needs data source for live booking.
+- **`{{SLOTS}}`:** Served live via `Inbound Pre-Call - EG` webhook (scrapes calendar on-demand, no schedule cache). Schedule trigger disabled 2026-03-28.
 - **Prompt source file:** `/root/inbound-prompt-eg.md`
 - **Prompt fix (2026-03-22):** Added explicit gates — 2E fast-track skips 2C discovery/pitch, 2C guard prevents entry if tour already booked
 - **Agent status:** NOT published yet (is_published: false). Works for testing.
@@ -197,20 +199,24 @@
 - See `spanish-voice-ai.md`
 
 ## TourForce Portal (STARTED 2026-03-22)
-- Custom ChatDash replacement — saves $300/month
+- Custom ChatDash replacement — saves $300/month + eliminates platform restrictions
 - **Location:** `/root/tourforce-portal/`
 - **Stack:** Bun + Hono + Supabase Auth + Stripe + Retell API + Tailwind
 - **Port:** 4000 | **Status:** Phase 1 code complete, needs manual Supabase + Stripe setup
 - **Decision (2026-03-28):** Using ChatDash for now. Build custom portal in background when time allows.
-- **Priority improvement:** Client onboarding UX — magic link auth instead of manual credential sharing (ChatDash's biggest gap)
-- See `tourforce-portal.md` for full details and remaining manual steps
+- **Decision reinforced (2026-03-29):** ChatDash billing blocked by platform restriction. Custom portal eliminates Stripe Connect intermediary. Direct Stripe integration = no gatekeeper.
+- **Priority improvement:** Client onboarding UX — magic link auth + billing address collection upfront
+- **Chat-Dash learnings (2026-03-29):** 7 competitive advantages documented in `tourforce-portal.md`
+- See `tourforce-portal.md` for full details, Chat-Dash learnings, and remaining manual steps
 
-## ChatDash Client Portal (ACTIVE 2026-03-28)
+## ChatDash Client Portal (ACTIVE 2026-03-28, BILLING BLOCKED)
 - **Portal domain:** `portal.tourforce.ca` (Cloudflare DNS → ChatDash)
 - **Email whitelabeling:** Configured with SendGrid DNS records on tourforce.ca
 - **Client login URL:** `portal.tourforce.ca/client/login`
 - **Client onboarding:** Manual — agency creates loginId + password, shares with client (no auto-invite)
-- **Plan:** Using while building custom TourForce Portal as replacement
+- **Billing status:** BLOCKED — "cannot make live charges" error despite verified Stripe account. Support ticket sent 2026-03-29. Likely trial/platform restriction.
+- **Plan:** Using for agent management while building custom TourForce Portal as replacement
+- **Stripe connected:** `acct_1T3SS88QdbWckC7C` via Stripe Connect OAuth
 
 ## Feedback
 - [Retry over completed](feedback_retry_over_completed.md) — For ambiguous call disconnections, default to retry not completed
@@ -227,3 +233,5 @@
 | `claude-code-remote.md` | Claude Code remote setup notes |
 | `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |
 | `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |
+| `stripe-billing.md` | Stripe API keys, account ID, products, Chat-Dash integration |
+| `tourforce-pricing.md` | 3-tier pricing model (Starter $99/Pro $249/Premium $499), feature matrix, cost data |
