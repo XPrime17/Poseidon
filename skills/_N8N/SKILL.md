@@ -46,6 +46,39 @@ Deploy and test n8n workflow changes via the n8n cloud API.
 3. **Test workflows stay inactive** until Scott manually activates them.
 4. **After deploying**, provide the n8n cloud URL so Scott can visually review.
 
+## n8n API Gotchas (Learned April 2026)
+
+### PUT Workflow
+- `active` is **read-only** on PUT. Use `/activate` and `/deactivate` endpoints instead.
+- **Strip these fields before PUT** or you'll get 400: `updatedAt`, `createdAt`, `id`, `description`, `isArchived`, `meta`, `pinData`, `versionId`, `activeVersionId`, `versionCounter`, `triggerCount`, `shared`, `activeVersion`, `active`, `tags`
+- Also strip from `settings`: `availableInMCP`, `timeSavedMode`
+
+### Node Rename = Connection Break
+- n8n connections map uses **node names as keys**. If you rename a node via API (e.g., "Every 15 Minutes" → "Every 90 Minutes"), you MUST update the connection key too.
+- The n8n **UI** does this automatically. The **API** does NOT.
+- **Symptom:** Trigger fires but nothing downstream executes (0.0s duration).
+
+### Google Sheets appendOrUpdate
+- `matchingColumns` only works with **real sheet column names**. `row_number` is n8n metadata — matching on it silently APPENDS instead of updating.
+- If duplicate values exist in the matching column, you get "Multiple matches found" error.
+- **Safe approach for targeted updates:** Use HTTP Request node with Google Sheets API `values:batchUpdate` to update specific cells by A1 range (e.g., `'All Centres'!L290`).
+
+### Gmail Trigger
+- `after:` date search is **inclusive** (`after:2026/04/03` includes April 3)
+- On re-auth, the trigger's internal "last seen" pointer **jumps to current time** — skipping all backlog emails
+- After n8n cloud downtime, Gmail triggers get stuck. Fix: deactivate → reactivate.
+
+### Temp Webhook Workflows
+- Pattern: POST /workflows (create) → POST /activate → GET webhook URL → DELETE
+- `responseMode: "onReceived"` returns HTTP 200 immediately; workflow runs in background
+- `responseMode: "lastNode"` waits for workflow to complete (subject to timeout)
+- Workflow `executionTimeout` is inherited from cloned workflows — set to `-1` or remove for long-running operations
+
+### Code Node Modes
+- Default mode is `runOnceForAllItems` — runs ONCE regardless of input item count
+- For batch processing, set `mode: "runOnceForEachItem"` to process each item independently
+- **Never clone production workflows for batch processing** without changing Code node modes
+
 ## Examples
 
 **Example 1: Deploy new nodes to test**

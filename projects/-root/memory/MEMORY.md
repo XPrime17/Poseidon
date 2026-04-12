@@ -7,7 +7,13 @@
 - When Scott asks about testing, scenarios, metrics → Cekura section.
 - Only cross-reference when Scott explicitly asks to test a Retell agent via Cekura.
 
-## Architecture — Lead System (UPDATED 2026-03-28)
+## _SYSTEMCHECK Skill (UPDATED 2026-04-12)
+- [SystemCheck & Recovery Runbook](systemcheck-skill.md) — health checks + outage recovery playbook (updated after Apr 2026 incident)
+- Daily automated check: scheduled agent `trig_01C22DnX7QHRaxXQbCi6xGiL` (9 AM EDT, emails on FAIL)
+- n8n Heartbeat Monitor: workflow `tjV2GzfUksyS4t4m` (every 12h, emails if Outbound inactive >24h)
+- Scraper: `calendar-api.service` on this machine (138.197.171.204:5001), uses threading.Lock for concurrency
+
+## Architecture — Lead System (UPDATED 2026-04-10)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
 - **Active n8n workflows** on `xprime17.app.n8n.cloud`:
   - `Outbound Call Flow - Multicentre` (6sPwo7ngPyTWfmwM) — initial calls (attempt 1)
@@ -24,11 +30,12 @@
   - Attempts 3-4: hangup on voicemail (default)
   - Retell API: `voicemail_option` presence enables detection (no separate `enable_voicemail_detection` needed)
   - End Of Call: `voicemail_reached` → `voicemail_left` (attempt 2) or `voicemail_hangup` (other)
-- **Decline Reason Feature (2026-03-12):**
+- **Decline Reason Feature (2026-03-12, UPDATED 2026-04-04):**
   - All 11 agents have `decline_reason` post-call analysis field: `"busy"` | `"not_interested"` | `""`
   - Prompt updated on all 10 CNKB LLMs: "Can't Talk" → retry, "Not Interested" → no retry
   - End Of Call Switch: `agent_hangup` → `Decline Reason Check` IF node → busy=retry, else=completed
-  - Fixes Ashley Lang bug: leads who answer but decline were falling through with no retry
+  - **(2026-04-04 fix)** Added "Decline Check (Successful)" IF node on `call_successful=true` branch. Previously, Retell `call_successful=true` bypassed ALL decline_reason checks — leads who politely said "not today" (e.g., Fredson Fredson) got marked completed instead of retried. Now: `call_successful=true` → check decline_reason → busy=retry, else=completed.
+  - **Root cause:** Retell's `call_successful` measures conversation quality, NOT business outcome. A polite decline gets `call_successful=true`. Never use it as sole routing decision.
 - **Gmail Trigger Gotcha:** After n8n cloud workspace downtime, Gmail triggers get stuck. Fix: deactivate/reactivate the workflow.
 - **Testing Column (2026-03-12):** Added `testing` column to Leads MasterSheet (column B). TRUE for test centres (Round Rock, Leaside, Riverside, Sudbury), FALSE for live.
 - **Column Population Fix (2026-03-12):** Outbound Append node now writes `testing`, `status=calling`, `attempt_count=1`, `last_call_at`. EndOfCall Retry/Completed nodes now write `attempt_count`. Set Tour True/False nodes had `CRM Confirm` silently exposed (risked blanking) — marked `removed: true`.
@@ -42,6 +49,10 @@
 - **Retry Bugs Fixed (2026-03-12):** (1) `String()` cast on `test_number` in Retry Scheduler voicemail expression, (2) Format Slots rewritten to use `$input.all()` loop instead of `$input.item`
 - **Fallback Routing Fix (2026-03-28):** Switch fallback (output 3: `user_hangup`, errors, etc.) was sending email but NOT updating Google Sheets — leads stuck as `calling`. Fix: connected `Outcome unsuccessfull` → `Lookup Centre for Retry` to feed into existing retry pipeline. Status=`retry_pending` (not `completed`) because fallback includes accidental hangups/errors.
 - **Replay Technique (2026-03-28):** To re-process stuck leads, replay original `call_analyzed` payload to End Of Call webhook (`POST /webhook/ac45848d-559c-4b66-9058-5d76b8476531`). n8n cloud doesn't register webhook URLs for API-created workflows.
+- **Outbound Lookup Centre Retry (2026-04-04):** Added `retryOnFail: true, maxTries: 3, waitBetweenTries: 1000` to Lookup Centre node. Prevents transient Google Sheets "Service unavailable" errors from dropping leads (Francisca Agoha incident).
+- **Cekura Test Filter (2026-04-04):** Added "Skip Cekura Tests" IF node in End Of Call workflow between `Set lead_id` and `Fetch Lead Details`. Filters out leads with `CEKURA_TEST` in lead_id — prevents false "Semaphore Not Found" emails from Cekura test calls.
+- **Gmail Trigger Inbox (2026-04-04):** Outbound Call Flow Gmail trigger watches `scott.james1717@gmail.com` with plus-addressing for centre routing (e.g., `+ma-canton@`). Subject filter: `New CORE Inquiry`.
+- **Resend Sandbox Limitation:** Resend API can only send TO `scott.james@codeninjas.com` in sandbox mode. Cannot send to `scott.james1717@gmail.com`. Use temp n8n webhook for sheet writes instead.
 - See `lead-reactivation.md` for full architecture details
 
 ## Skill Creation Pattern
