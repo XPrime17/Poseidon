@@ -13,6 +13,9 @@
 - n8n Heartbeat Monitor: workflow `tjV2GzfUksyS4t4m` (every 12h, emails if Outbound inactive >24h)
 - Scraper: `calendar-api.service` on this machine (138.197.171.204:5001), uses threading.Lock for concurrency
 
+## Lead Pipeline Gotchas
+- [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
+
 ## Architecture — Lead System (UPDATED 2026-04-10)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
 - **Active n8n workflows** on `xprime17.app.n8n.cloud`:
