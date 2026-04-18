@@ -2,6 +2,7 @@
 
 ## Context Isolation Rules (CRITICAL)
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
+- [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
@@ -13,8 +14,20 @@
 - n8n Heartbeat Monitor: workflow `tjV2GzfUksyS4t4m` (every 12h, emails if Outbound inactive >24h)
 - Scraper: `calendar-api.service` on this machine (138.197.171.204:5001), uses threading.Lock for concurrency
 
+## _DAILYCALLAUDIT Skill (CREATED 2026-04-16)
+- Scheduled agent `trig_01DTTBcgns1s4nGDD3EvhPkG` (9 PM EDT / 01:00 UTC, daily)
+- Runs as remote agent (Anthropic cloud) using Retell REST API + Resend email
+- No MCP — uses curl directly since remote env has no local MCP access
+- Emails report to scott.james@codeninjas.com
+- Manage at: https://claude.ai/code/scheduled/trig_01DTTBcgns1s4nGDD3EvhPkG
+- NOTE: DST shift — when clocks fall back to EST in Nov, this runs at 8 PM EST. Update cron to `0 2 * * *` at that time.
+
+## EG Inbound Pilot (LIVE 2026-04-16)
+- [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
+
 ## Lead Pipeline Gotchas
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
+- [KB Dynamic Injection (Outbound)](kb-dynamic-injection.md) — CNKB outbound agents have empty `knowledge_base_ids`; KB content is injected at call time via n8n Get KB (Google Docs) → `retell_llm_dynamic_variables`. Do NOT claim hallucination without checking the centre's Google Doc KB first.
 
 ## Architecture — Lead System (UPDATED 2026-04-10)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.

@@ -66,6 +66,96 @@
       "description": "looks like Sudbury filled out a test lead today?",
       "first_prompt": "looks like Sudbury filled out a test lead today?",
       "started_at": "2026-03-30T23:56:30+00:00",
+      "ended_at": "2026-03-31T05:10:49+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "d1a30d7d-995b-46ae-981a-d1c605f91827",
+      "description": "analyze last 10 calls",
+      "first_prompt": "analyze last 10 calls",
+      "started_at": "2026-04-04T02:16:09+00:00",
+      "ended_at": "2026-04-04T04:59:45+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "a8052975-f175-4d3d-95d2-5d25064df986",
+      "description": "contiue working on Tourforce version of chatdash",
+      "first_prompt": "contiue working on Tourforce version of chatdash",
+      "started_at": "2026-04-06T02:42:51+00:00",
+      "ended_at": "2026-04-10T01:57:44+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "c40f6161-bd47-49c6-bb0a-166668dada8b",
+      "description": "where did we leave off on TourForce pricing?",
+      "first_prompt": "where did we leave off on TourForce pricing?",
+      "started_at": "2026-04-06T02:44:37+00:00",
+      "ended_at": "2026-04-10T01:57:44+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "27476f17-a806-4bd6-87a9-e345b77df934",
+      "description": "analyze last 5 calls",
+      "first_prompt": "analyze last 5 calls",
+      "started_at": "2026-04-10T01:57:44+00:00",
+      "ended_at": "2026-04-12T18:00:31+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "38444d3b-958f-405a-a6c9-4ff22053f50e",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-04-12T18:00:31+00:00",
+      "ended_at": "2026-04-12T18:00:55+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "242ca7bf-6798-48ba-9c6d-f6afcc42ba90",
+      "description": "EG Inbound Pilot — Call Forwarding Setup Instructions",
+      "first_prompt": "EG Inbound Pilot — Call Forwarding Setup Instructions",
+      "started_at": "2026-04-13T07:26:38+00:00",
+      "ended_at": "2026-04-16T02:38:39+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "9c353dfb-ec8d-4776-bb48-f722080f769c",
+      "description": "analyze today's calls",
+      "first_prompt": "analyze today's calls",
+      "started_at": "2026-04-13T21:54:34+00:00",
+      "ended_at": "2026-04-13T23:52:43+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "f6e70775-c6c4-4dd9-b988-f6e377f4f0b5",
+      "description": "analyze today's calls",
+      "first_prompt": "analyze today's calls",
+      "started_at": "2026-04-16T02:38:39+00:00",
+      "ended_at": "2026-04-17T22:33:16+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "edef68f2-e6fa-4699-815f-d8b6cca2ebbb",
+      "description": "investigate [Image #1]",
+      "first_prompt": "investigate [Image #1]",
+      "started_at": "2026-04-17T22:33:16+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,
