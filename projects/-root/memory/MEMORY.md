@@ -21,9 +21,11 @@
 - Emails report to scott.james@codeninjas.com
 - Manage at: https://claude.ai/code/scheduled/trig_01DTTBcgns1s4nGDD3EvhPkG
 - NOTE: DST shift — when clocks fall back to EST in Nov, this runs at 8 PM EST. Update cron to `0 2 * * *` at that time.
+- [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
+- [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
 
 ## Lead Pipeline Gotchas
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
