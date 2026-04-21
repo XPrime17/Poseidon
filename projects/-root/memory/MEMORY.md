@@ -26,6 +26,11 @@
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
+- [Inbound auto-booking is the goal](feedback-inbound-autobook.md) — Skyvern is wired; "no booking" = bug, not design choice
+- [Voice AI issue tracker](voice-ai-issue-tracker.md) — all pipeline bugs go to `XPrime17/lead-reactivation` (despite the name)
+- [Inbound KB injection via pre-call webhook](inbound-kb-injection.md) — LIVE for EG. Google Doc → n8n → Retell phone-number inbound_webhook_url → agent prompt. RAG disabled.
+- [ClickUp multicentre architecture](clickup-multicentre.md) — folder-per-centre, guest-per-director. CRITICAL: guest email MUST be non-codeninjas.com.
+- [Outbound Junior-program deflection bug](outbound-junior-deflection.md) — agent hands off Junior inquiries instead of booking. Regression from Apr 6. Likely affects all 10 clones. HIGH priority.
 
 ## Lead Pipeline Gotchas
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)

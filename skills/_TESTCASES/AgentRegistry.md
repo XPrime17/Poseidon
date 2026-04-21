@@ -97,6 +97,34 @@ Maps agent names to their skill paths, IDs, and default dynamic variables for te
 
 ---
 
+## CNKB-EG-Inbound — Code Ninjas East Gwillimbury Inbound
+
+| Field | Value |
+|-------|-------|
+| **Skill Path** | `~/.claude/skills/_EGINBOUND` |
+| **Agent ID** | `agent_17d623c8a8f95fc674288d0e00` |
+| **LLM ID** | `llm_6d77f36696f6fbfad97d03fa5ef8` |
+| **LLM Model** | `gpt-4.1` |
+| **KB ID** | `knowledge_base_5144c616b2046679` (12 EG website pages) |
+| **Phone** | `+12899030611` (direct) / `+12898038797` (Bell forward target) |
+| **TestCases File** | `~/.claude/skills/_EGINBOUND/TestCases.json` |
+
+**Default Dynamic Variables:**
+```json
+{
+  "FIRST_NAME": "Caller",
+  "first_name": "Caller",
+  "LAST_NAME": "Unknown",
+  "LOCATION_NAME": "East Gwillimbury",
+  "PHONE": "905-555-0100"
+}
+```
+
+**Test Suite:** 10 test cases — 5 call-type coverage (new_lead, schedule_change, billing, general, complaint) + fast-track gate + multi-child + 2 edge cases + **KB-BOUNDARY (CRITICAL)** anti-hallucination test.
+**Agent Context:** Inbound voice AI — answers calls forwarded from EG centre landline. Uses `get_tour_slots` custom function for availability. Post-call analysis routes to ClickUp list `901113422190` + urgent emails for complaints.
+
+---
+
 ## Adding New Agents
 
 When a new Retell agent gets a PAI skill, add it here with:
