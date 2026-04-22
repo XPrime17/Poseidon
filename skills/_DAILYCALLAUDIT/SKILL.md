@@ -41,7 +41,19 @@ For each agent, fetch up to 50 calls with `list_calls`. Filter to calls where `s
 
 Remove calls where `transcript_preview` contains `CEKURA_TEST` or `lead_id` contains `CEKURA_TEST`. These are automated QA runs, not real leads.
 
-### Step 3: Categorize Calls
+### Step 3: Group Retry Chains by `to_number`
+
+**CRITICAL:** Before categorising or counting "X calls to Y", group calls by `to_number` — NOT by name mentioned in transcript. Two different leads can share a first name (e.g., two "Ashleys"). Conflating them produces false retry-cap-breach reports.
+
+For each `to_number` with multiple calls in the window:
+- Sort by `start_time` ascending
+- Read each call's `metadata.retry_attempt` — this is the canonical attempt counter
+- Expected cadence: 90 min between attempts (Retry Scheduler as of 2026-03-28)
+- Flag if attempt > 4 (cap breach) OR gap > 3h between attempts (scheduler lag) OR gap < 60min (premature fire)
+
+When writing the report, NEVER say "X dialled [Name] N times" — say "X dialled [to_number] N times (lead name: [First])". If two different `to_number`s share the same First name, list them as separate chains.
+
+### Step 4: Categorize Calls
 
 For each remaining real call, categorize:
 
@@ -56,7 +68,7 @@ For each remaining real call, categorize:
 | **Conversation (No Book)** | call_successful but no booking |
 | **User Hangup** | `disconnection_reason: "user_hangup"` with duration < 15s |
 
-### Step 4: Issue Detection
+### Step 5: Issue Detection
 
 For each real call, run these checks. Pull full transcript (`get_transcript`) for any call flagged by preliminary checks.
 
@@ -119,7 +131,7 @@ NOTE: CNKB outbound agents get KB injected dynamically via n8n at call time (`re
 
 **Suggest:** Reminder in prompt — voice AI principle: collect but don't echo free-text fields that pass through ASR.
 
-### Step 5: Compile Report
+### Step 6: Compile Report
 
 Structure the report:
 
@@ -156,7 +168,7 @@ X calls had no issues detected.
  new centres with first calls, etc.]
 ```
 
-### Step 6: Email Results
+### Step 7: Email Results
 
 Send via Resend HTTP API:
 - **To:** `scott.james@codeninjas.com`
@@ -177,7 +189,7 @@ curl -X POST 'https://api.resend.com/emails' \
   }'
 ```
 
-### Step 7: Report Completion
+### Step 8: Report Completion
 
 After sending email, output a brief summary to the conversation (if interactive) confirming:
 - Email sent successfully (include Resend ID)

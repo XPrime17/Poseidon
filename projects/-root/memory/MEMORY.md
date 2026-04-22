@@ -23,6 +23,13 @@
 - NOTE: DST shift — when clocks fall back to EST in Nov, this runs at 8 PM EST. Update cron to `0 2 * * *` at that time.
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
+## CNKB Prompt + Workflow Rev (2026-04-21)
+- [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (5-6 Junior, 7-14 Create), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each).
+- [Outbound Sanitization Fix 2026-04-21](sanitization-fix-2026-04-21.md) — removed Simple Memory1 (poisoned AI extractor via constant sessionKey), added Regex Extract as primary / AI as fallback in workflow `6sPwo7ngPyTWfmwM`.
+- [n8n API gotchas](n8n-api-gotchas.md) — retry-blocked-on-reject-branch, PUT whitelist, Sheets v4.7 requires columns.schema, Simple Memory sessionKey footgun
+- `appointment_booked` post-call schema sharpened on 12 agents (65 → 390 chars) — now correctly classifies soft-hold/tentative bookings
+- Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
+
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
@@ -181,7 +188,8 @@
 | CNKB-StCatharines | `agent_c02bfb40888bba2275ea3a9f3a` | `+12895140137` | `llm_5b4dbab1bf6dcc5007c61c2726ff` | WORKING |
 
 ### Retell Prompt Hash
-- Last update (2026-03-13): Removed child name reuse — agent collects name for CRM but uses "your kiddo" instead of repeating it. Prevents ASR transcription errors compounding.
+- **Last update (2026-04-21)**: Fleet rev. See [prompt-v2026-04-21.md](prompt-v2026-04-21.md). Age-gate + name-optional + SLOTS-deferred dates + Booking Autonomy + Stage 6 soft-hold. All 11 CNKB LLMs at ~18.9K chars. Also sharpened `appointment_booked` post-call description on 12 agents (65 → 390 chars).
+- Previous (2026-03-13): Removed child name reuse — agent collects name for CRM but uses "your kiddo" instead of repeating it. Prevents ASR transcription errors compounding.
 - Previous (2026-03-12): Added "Handling Leads Who Can't Talk" + "Handling Leads Who Are Not Interested" sections
 - Source prompt: ~15,800 chars (East Gwillimbury LLM)
 - **Voice AI principle:** Collect but don't echo free-text fields that pass through ASR (names especially)
