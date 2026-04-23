@@ -23,9 +23,11 @@
 - NOTE: DST shift — when clocks fall back to EST in Nov, this runs at 8 PM EST. Update cron to `0 2 * * *` at that time.
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
-## CNKB Prompt + Workflow Rev (2026-04-21)
+## CNKB Prompt + Workflow Rev (2026-04-21/22)
 - [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (5-6 Junior, 7-14 Create), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each).
 - [Outbound Sanitization Fix 2026-04-21](sanitization-fix-2026-04-21.md) — removed Simple Memory1 (poisoned AI extractor via constant sessionKey), added Regex Extract as primary / AI as fallback in workflow `6sPwo7ngPyTWfmwM`.
+- [End-Of-Call Tentative Tour fix 2026-04-22](eoc-tentative-tour-fix.md) — new IF + Gmail branch in workflow `4p1V0wESn3kZySt6`: when appointment_booked=false BUT tour_date+tour_time populated, emits "TENTATIVE TOUR — needs booking confirmation" to centre (was silently routing to "No Booking Requested")
+- [Cekura regression inventory](cekura-regression-inventory.md) — 7 scenarios (248224-6 + 248701-4) on agent 13260 guarding the prompt rev. Baseline all-green.
 - [n8n API gotchas](n8n-api-gotchas.md) — retry-blocked-on-reject-branch, PUT whitelist, Sheets v4.7 requires columns.schema, Simple Memory sessionKey footgun
 - `appointment_booked` post-call schema sharpened on 12 agents (65 → 390 chars) — now correctly classifies soft-hold/tentative bookings
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
