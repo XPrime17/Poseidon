@@ -66,6 +66,22 @@ When you need to write to a production resource without modifying an existing wo
 
 Temp workflows don't appear in history once deleted. Clean pattern for one-off data writes.
 
+## PUT requires non-null `description` (added 2026-04-25)
+The PUT endpoint validates `description` as a string — passing `null` (which GET sometimes returns) yields HTTP 400 `"request/body/description must be string"`. Coerce to `""` before PUT:
+```js
+if (wf.description == null) wf.description = '';
+```
+This is in addition to the standard whitelist scrub. Easy to miss because `description` is whitelisted as allowed but the schema enforces non-null.
+
+## `$input.first()` breaks when nodes are inserted upstream (added 2026-04-25)
+A Code node that reads `$input.first().json.body.call` works fine when wired directly after the webhook, but throws `Cannot read properties of undefined (reading 'call')` once HTTP or other transformation nodes are inserted between the webhook and the Code node — `$input` then refers to the immediate predecessor's output, not the original payload.
+
+**Fix:** reach back to the original webhook by name:
+```js
+const call = $('Inbound Webhook').item.json.body.call;
+```
+Use `$('<Node Name>').item.json` whenever a Code node needs data from a specific upstream node rather than the immediate predecessor. Common when adding gates/dedup logic mid-flow.
+
 ## Inspection pattern — finding which branch fired
 Since n8n marks executions `status: success` even for "failure branch" paths, to tell if a specific alert/email node actually fired:
 ```

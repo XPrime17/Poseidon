@@ -3,6 +3,9 @@
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
 
+## Communication Style
+- [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
+
 ## Context Isolation Rules (CRITICAL)
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
 - [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
@@ -47,6 +50,7 @@
 
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
+- [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 5 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, ClickUp cleanup. Workflow now 23 nodes.
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
 - [Inbound auto-booking is the goal](feedback-inbound-autobook.md) — Skyvern is wired; "no booking" = bug, not design choice
 - [Voice AI issue tracker](voice-ai-issue-tracker.md) — all pipeline bugs go to `XPrime17/lead-reactivation` (despite the name)
