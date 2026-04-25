@@ -14,6 +14,13 @@
 - n8n Heartbeat Monitor: workflow `tjV2GzfUksyS4t4m` (every 12h, emails if Outbound inactive >24h)
 - Scraper: `calendar-api.service` on this machine (138.197.171.204:5001), uses threading.Lock for concurrency
 
+## _KBCRAWLER Skill (CREATED 2026-04-24)
+- [KB Crawler architecture](kbcrawler-skill.md) — nightly crawl of services.codeninjas.com API → Google Doc KBs for voice agents
+- Script: `/root/kb-crawler/crawl.ts` | Timer: `kb-crawler.timer` (2 AM ET)
+- n8n cloud: GDocs Read `NZddHLft1gzuUrRL`, GDocs Write `hTsOcQ3CNsZ5e1xQ`
+- **Leaside doc needs editor share** — write fails (read-only). Riverside needs doc created.
+- Self-hosted n8n API key: `n8n_api_3ea467a2fe66c115258e6770158a69f2c5144335`
+
 ## _DAILYCALLAUDIT Skill (CREATED 2026-04-16)
 - Scheduled agent `trig_01DTTBcgns1s4nGDD3EvhPkG` (9 PM EDT / 01:00 UTC, daily)
 - Runs as remote agent (Anthropic cloud) using Retell REST API + Resend email
@@ -31,6 +38,9 @@
 - [n8n API gotchas](n8n-api-gotchas.md) — retry-blocked-on-reject-branch, PUT whitelist, Sheets v4.7 requires columns.schema, Simple Memory sessionKey footgun
 - `appointment_booked` post-call schema sharpened on 12 agents (65 → 390 chars) — now correctly classifies soft-hold/tentative bookings
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
+
+## Leaside Inbound (PROVISIONED 2026-04-23)
+- [Leaside Inbound](leaside-inbound.md) — agent + Twilio provisioned. Activation BLOCKED 2026-04-25: Sharmilla busy-signals on multiple Rogers star codes → Call Forwarding likely not on her plan. Action: call Rogers Business 1-888-764-3771 to enable "Call Forwarding (Variable)", then dial `*72` + `6474963276` (NOT `*92` — that was a Bell code). KB + ClickUp + post-call workflow still needed.
 
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
