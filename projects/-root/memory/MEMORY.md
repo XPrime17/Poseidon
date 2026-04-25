@@ -50,7 +50,7 @@
 
 ## EG Inbound Pilot (LIVE 2026-04-16)
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
-- [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 5 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, ClickUp cleanup. Workflow now 23 nodes.
+- [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 6 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, cancel-task safety net for stray test bookings, ClickUp cleanup + 5 backfill cancel tasks. Workflow now 25 nodes.
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
 - [Inbound auto-booking is the goal](feedback-inbound-autobook.md) — Skyvern is wired; "no booking" = bug, not design choice
 - [Voice AI issue tracker](voice-ai-issue-tracker.md) — all pipeline bugs go to `XPrime17/lead-reactivation` (despite the name)

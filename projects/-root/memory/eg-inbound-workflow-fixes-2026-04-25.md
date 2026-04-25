@@ -19,7 +19,7 @@ Staff (Kris/Cassandra) reported (a) "tasks for centres that aren't us" (Canton, 
 3. **LineLeader unreliability** = (a) Skyvern fired for test calls too, (b) booking-failure alerts went to Scott not staff, (c) `appointment_booked=true` set on soft-holds.
 4. **`Detect Test Call` node existed but was incomplete:** computed `_test_label` but `Format ClickUp Task` never used it; routed `_clickup_list_id` correctly but Skyvern branch ignored test detection.
 
-## What got built (workflow `3oV7SpPKWmr3xJlQ`, 18 → 23 nodes)
+## What got built (workflow `3oV7SpPKWmr3xJlQ`, 18 → 25 nodes)
 
 ### Detect Test Call — patched
 Added two new classification signals:
@@ -56,14 +56,39 @@ Detect Test Call → Drop Junk?
 - **Test pollution sink:** `901113648956` — Cekura test runs route here automatically
 - **Bulk cleanup done 2026-04-25:** 13 polluting tasks marked complete + relabeled with `[CEKURA TEST]` prefix
 
+## Fix #6 — Test Booking → CRM Cancel Task safety net (added later same day)
+
+If a Cekura test slips past the test-detection gate AND sets `appointment_booked=true`, a high-priority ClickUp task is auto-created in the **live** EG list (`901113422190`) so staff can manually delete the bogus CRM entry. CRM-agnostic naming so it survives the LineLeader → HubSpot migration.
+
+**New nodes (2):**
+| Node | Type | Purpose |
+|---|---|---|
+| `Test Booking?` | IF | `_is_test=true AND appointment_booked=true` |
+| `Create Cancel Task` | HTTP POST | Title `[CANCEL CRM TOUR] {name} — {date} {time}`, priority urgent, tags `cancel_required` + `cekura_test_leak`, assigned to Alex + Jenn |
+
+**Wiring:** Skyvern Test Gate's previously-empty FALSE branch now routes to `Test Booking?`. So defense in depth: gate stops Skyvern from firing, AND if the agent itself reported a booking the cancel task fires anyway.
+
+**Backfill 2026-04-25 (one-time cleanup):** 5 cancel tasks created for the 6 historical EG inbound test bookings found via 60-day audit (2 Helena calls deduped to one entry):
+- `868jd7zmf` Helena Ivanov May 1 5 PM
+- `868jd7zmg` David Chen May 1 5 PM
+- `868jd7zmj` David Chen May 2 10 AM
+- `868jd7zmk` Jennifer Park May 2 11 AM
+- `868jd7zmm` Alpha (Scott's number) May 2 10 AM
+
+Backfill tasks tagged `backfill_2026_04_25` to distinguish from organic future cancels. Body says "if not found in CRM, mark complete + comment 'not found'" so staff can close cleanly even if the booking never landed.
+
+**Outbound CNKB clones (Tier 2 smokes) had 42 `appointment_booked=true` test calls in same 60d window — no LineLeader risk because outbound has no Skyvern wiring.** Only inbound + Skyvern-gated agents need cancel-task pathway.
+
 ## Smoke tests (all passed)
 1. Priya Menon (persona) → routed to test list `901113648956` with `[CEKURA TEST]` prefix
 2. Same call_id fired twice → 2nd fire skipped Create (Duplicate? returned true, `_existing_count=10`)
 3. 7-second empty call → dropped at Drop Junk?, no Format/Create
+4. Helena Ivanov persona + appointment_booked=true → Skyvern blocked, Cancel Task created in EG live list with urgent priority + correct CRM-cancellation body
 
 ## Still pending (queued for tomorrow)
 - Booking-failure alert to Sharmilla (CC her on Email: Booking Failed + create high-priority `booking_failed` ClickUp task)
 - Tighten `appointment_booked` post-call schema on LLM `llm_6d77f36696f6fbfad97d03fa5ef8` so soft-holds report `false` and emit `tentative_tour=true`
+- Replicate full safety-net pattern (Detect Test → Drop Junk → Dedup → Skyvern Gate → Cancel Safety Net) into the Leaside inbound EOC workflow once Sharmilla activates forwarding
 
 ## Cekura regression cadence (current state)
 - **Tier 1 outbound CNKB Full** (agent 13260): monthly, 1st Mon 6 AM ET
