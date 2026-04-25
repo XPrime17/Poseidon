@@ -27,7 +27,7 @@ originSessionId: b5fcb027-435b-4546-8504-e4b02472207a
 - Created via direct SQLite insert. Self-hosted webhooks have a registration bug — gdocs workflows hosted on cloud instead.
 
 ## Known Issues
-- **Leaside doc:** `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` — OAuth account has read-only access. Needs editor share.
+- **Leaside doc:** Replaced with `1iiC7zTyE190wesxXevNwOGV8gRE3PoJLO-1YWF3hi2Y` (Scott's copy, write access confirmed 2026-04-25). Old doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` was owned by Sharmilla (read-only).
 - **Riverside:** No Google Doc ID. Needs doc created + ID added to `centres.json`.
 - **Leaside slug:** Corrected to `leaside-on-ca` (not `on-leaside` which the calendar API uses)
 - **Self-hosted n8n webhook bug:** Webhooks show "activated" in logs but never register. All KB workflows moved to cloud.

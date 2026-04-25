@@ -1,41 +1,35 @@
 # Centre-to-Document Registry
 
-Maps each centre to its Google Doc (content source) and Supabase record (sync target).
+Maps each centre to its Google Doc (content source). KB content is dynamically injected into voice agent prompts via `retell_llm_dynamic_variables.knowledge_base`.
 
-The KB content flows: **Google Doc → Supabase `centres.knowledge_base` → Worker → `{{knowledge_base}}` in prompt**
+The KB content flows: **Google Doc → n8n reads at call time → `{{knowledge_base}}` in prompt**
 
 ## Registry
 
-| Centre ID | Location | Google Doc ID | Agent(s) | KB Status |
-|-----------|----------|---------------|----------|-----------|
-| `east-gwillimbury-on-ca` | East Gwillimbury | `1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek` | CNEG, CNKB, Emma | Has 346 chars |
-| `ma-canton` | Canton | TBD | Emma | Empty |
-| `test-centre-e2e` | Test Centre E2E | N/A | Test only | N/A |
+| Centre ID | Location | Google Doc ID | Agents | KB Status |
+|-----------|----------|---------------|--------|-----------|
+| `east-gwillimbury-on-ca` | East Gwillimbury | `1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek` | CNEG, CNKB-EG, Emma, Inbound-EG | Auto-crawled |
+| `pickering-on-ca` | Pickering | `1j3AX1R61Tz4-R_zTrCyGL--XBq2GMS9afuqFjrprmDY` | CNKB-Pickering | Auto-crawled |
+| `leaside-on-ca` | Leaside | `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` | CNKB-Leaside, Inbound-Leaside | Read-only (needs editor share) |
+| `ma-canton` | Canton | `1FcDoohcYF9ebcevauiDcB45gwPEgpNptbg0eqNmx-1k` | CNKB-Canton | Auto-crawled |
+| `tx-san-antonio-stone-oak-1` | Stone Oak | `1J8RRlubaPakeybPeeTlauUbm2v8Uj56H1H60GajpCyo` | CNKB-StoneOak | Auto-crawled |
+| `tx-round-rock-ryans-crossing` | Round Rock | `1xDuBS9UIJwvQpt6U6lU0gnLsukTKz5QGu4YG5lt_ajY` | CNKB-RoundRock | Auto-crawled |
+| `tx-spring-rayford` | Rayford | `1Mj68G0eoO8f4cgJG8IkojhHd_Msrwndc8YDK-6TvGZ4` | CNKB-Rayford | Auto-crawled |
+| `sudbury-on-ca` | Sudbury | `1iNj4XgFsH2RGPxFSMY-ytDii-7Tl9qTSqTDVpfLgH4I` | CNKB-Sudbury | Auto-crawled |
+| `st-catharines-on-ca` | St. Catharines | `1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek` | CNKB-StCatharines | Shares EG doc |
+| `burlington-on-ca` | Burlington | `1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek` | CNKB-Burlington | Shares EG doc |
+| `ct-riverside` | Riverside | — | CNKB-Riverside | Needs doc created |
 
-## How It Works
+## Auto-Crawl (via _KBCRAWLER)
 
-1. Each **centre** has a `knowledge_base` column in Supabase
-2. Each centre has a corresponding **Google Doc** as its source of truth
-3. When syncing: read the Google Doc → write content to `centres.knowledge_base`
-4. The **Cloudflare Worker** reads `centre.knowledge_base` at call creation time
-5. It passes the content as `retell_llm_dynamic_variables.knowledge_base`
-6. **Retell** substitutes `{{knowledge_base}}` in the agent's prompt
+The nightly KB crawler (`/root/kb-crawler/crawl.ts`) runs at 2 AM ET via systemd timer. It:
+1. Fetches structured data from `services.codeninjas.com` API
+2. Transforms it into `<doc>` tags (10K char cap)
+3. Writes to the Google Doc (auto-generated section)
+4. Preserves the manual notes section
+
+See `_KBCRAWLER` skill for details.
 
 ## Key Insight
 
-The KB is **per-centre, not per-agent**. Emma (lead reactivation) and CNEG/CNKB (inbound) all use the same centre's KB when calling leads from that centre. Update the centre's Google Doc to update knowledge for ALL agents at that location.
-
-## Supabase Connection
-
-```
-Project: uajdbjotlqvyursytlph
-URL: https://uajdbjotlqvyursytlph.supabase.co
-Table: centres
-Column: knowledge_base (text, nullable)
-```
-
-## Google Doc URLs
-
-Construct the edit URL: `https://docs.google.com/document/d/{DOC_ID}/edit`
-
-East Gwillimbury: `https://docs.google.com/document/d/1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek/edit`
+The KB is **per-centre, not per-agent**. All agents at a centre share the same KB content via the Google Doc. Update the centre's Google Doc to update knowledge for ALL agents at that location.
