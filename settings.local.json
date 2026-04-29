@@ -36,7 +36,9 @@
       "mcp__cekura__test_profiles_partial_update",
       "mcp__retell-voice-ai__list_agents",
       "mcp__retell-voice-ai__update_agent_prompt",
-      "mcp__cekura__projects_list"
+      "mcp__cekura__projects_list",
+      "mcp__retell-voice-ai__list_knowledge_bases",
+      "mcp__retell-voice-ai__get_knowledge_base"
     ]
   }
 }

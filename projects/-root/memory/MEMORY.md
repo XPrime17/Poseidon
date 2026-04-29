@@ -27,13 +27,9 @@
 - **Leaside doc needs editor share** — write fails (read-only). Riverside needs doc created.
 - Self-hosted n8n API key: `n8n_api_3ea467a2fe66c115258e6770158a69f2c5144335`
 
-## _DAILYCALLAUDIT Skill (CREATED 2026-04-16)
-- Scheduled agent `trig_01DTTBcgns1s4nGDD3EvhPkG` (9 PM EDT / 01:00 UTC, daily)
-- Runs as remote agent (Anthropic cloud) using Retell REST API + Resend email
-- No MCP — uses curl directly since remote env has no local MCP access
-- Emails report to scott.james@codeninjas.com
-- Manage at: https://claude.ai/code/scheduled/trig_01DTTBcgns1s4nGDD3EvhPkG
-- NOTE: DST shift — when clocks fall back to EST in Nov, this runs at 8 PM EST. Update cron to `0 2 * * *` at that time.
+## _DAILYCALLAUDIT Skill (MIGRATED 2026-04-29)
+- [Daily Call Audit on droplet](daily-call-audit-droplet.md) — moved from Anthropic cloud → systemd timer on n8n-production droplet after silent Cloudflare-1010 failures. Script: `/root/daily-call-audit/audit.py`, timer: `daily-call-audit.timer` (01:00 UTC). Cloud routine `trig_01DTTBcgns1s4nGDD3EvhPkG` is RETIRED (enabled=false).
+- **api.resend.com behind Cloudflare** — any HTTP POST MUST set `User-Agent: Mozilla/5.0` or it 403s with error 1010 (default `curl`/`python-urllib` UA blocked)
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)

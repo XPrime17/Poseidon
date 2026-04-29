@@ -86,20 +86,20 @@
       "description": "contiue working on Tourforce version of chatdash",
       "first_prompt": "contiue working on Tourforce version of chatdash",
       "started_at": "2026-04-06T02:42:51+00:00",
-      "ended_at": "2026-04-10T01:57:44+00:00",
+      "ended_at": "2026-04-26T23:59:16+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "c40f6161-bd47-49c6-bb0a-166668dada8b",
       "description": "where did we leave off on TourForce pricing?",
       "first_prompt": "where did we leave off on TourForce pricing?",
       "started_at": "2026-04-06T02:44:37+00:00",
-      "ended_at": "2026-04-10T01:57:44+00:00",
+      "ended_at": "2026-04-28T01:05:48+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "27476f17-a806-4bd6-87a9-e345b77df934",
@@ -146,16 +146,136 @@
       "description": "analyze today's calls",
       "first_prompt": "analyze today's calls",
       "started_at": "2026-04-16T02:38:39+00:00",
-      "ended_at": "2026-04-17T22:33:16+00:00",
+      "ended_at": "2026-04-18T05:33:11+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "edef68f2-e6fa-4699-815f-d8b6cca2ebbb",
       "description": "investigate [Image #1]",
       "first_prompt": "investigate [Image #1]",
       "started_at": "2026-04-17T22:33:16+00:00",
+      "ended_at": "2026-04-18T05:33:05+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "d6b5ab44-7a3a-4f8f-9d31-dab3a6089bda",
+      "description": "what other testing do we need to do on the EG inbound pil...",
+      "first_prompt": "what other testing do we need to do on the EG inbound pilot?  should we add some Cekura tests?",
+      "started_at": "2026-04-18T14:59:54+00:00",
+      "ended_at": "2026-04-21T00:31:47+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "e7b0ead3-1878-4cf3-aca1-c91a26cb0061",
+      "description": "analyze today's calls",
+      "first_prompt": "analyze today's calls",
+      "started_at": "2026-04-19T01:17:25+00:00",
+      "ended_at": "2026-04-19T17:53:34+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "fb1283ef-1d84-48b4-865b-263821fdbd91",
+      "description": "analyze today's calls.  did the system process fire yet?",
+      "first_prompt": "analyze today's calls.  did the system process fire yet?",
+      "started_at": "2026-04-21T00:31:47+00:00",
+      "ended_at": "2026-04-24T03:56:02+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "ea3efbea-d055-4337-9ac6-e953b3826a10",
+      "description": "find lead Mike Henvey history",
+      "first_prompt": "find lead Mike Henvey history",
+      "started_at": "2026-04-23T22:33:55+00:00",
+      "ended_at": "2026-04-24T04:04:37+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "b5fcb027-435b-4546-8504-e4b02472207a",
+      "description": "let's work on a knowledge base skill for the inbound and ...",
+      "first_prompt": "let's work on a knowledge base skill for the inbound and outbound voice agents.  let's enter plan mode to figure it out.  I was thinking a nightly cron job that crawls the website for each enrolled...",
+      "started_at": "2026-04-24T01:21:14+00:00",
+      "ended_at": "2026-04-26T23:41:15+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "98503b1c-3232-43c6-8835-5536553e83e7",
+      "description": "Tourforce competitive analysis.  Analyze this facebook po...",
+      "first_prompt": "Tourforce competitive analysis.  Analyze this facebook post from another Code ninjas centre:  Lots of exciting updates with the move to HubSpot and the continued push toward AI and automation.\rI wa...",
+      "started_at": "2026-04-24T04:04:38+00:00",
+      "ended_at": "2026-04-25T16:16:07+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "a1d4090d-9041-46db-b8be-d9a7c18eafa5",
+      "description": "regarding in-bound voice ai agent setup in Leaside, I got...",
+      "first_prompt": "regarding in-bound voice ai agent setup in Leaside, I got this message from Sharmila:  [1:41 PM, 4/24/2026] Sharmila CN: I tried both of the forwarding options on my line here. and can't get it to ...",
+      "started_at": "2026-04-25T16:16:07+00:00",
+      "ended_at": "2026-04-25T17:16:08+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "3e3105b9-2896-43a9-8f0e-8c6fd1bb8315",
+      "description": "For the inbound agent, we need to take a look at the clic...",
+      "first_prompt": "For the inbound agent, we need to take a look at the clickup tasks being fired.  I got this report from staff:  I think the AI agent is getting a lot of false information for our ClickUp tasks. I'm...",
+      "started_at": "2026-04-25T17:16:10+00:00",
+      "ended_at": "2026-04-25T19:42:48+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "57776f27-7d2c-4ab4-8fd3-f3f9c23a465a",
+      "description": "give me the URL for tourforce portal",
+      "first_prompt": "give me the URL for tourforce portal",
+      "started_at": "2026-04-26T23:59:19+00:00",
+      "ended_at": "2026-04-28T01:05:50+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "74b362ec-28f6-47f0-b64b-bb22e9640385",
+      "description": "I want to get the other outbound centers to try the inbou...",
+      "first_prompt": "I want to get the other outbound centers to try the inbound agent.  Need to prepare instructions for them.  Note that all of them are in the U.S. so different carriers.",
+      "started_at": "2026-04-28T01:05:50+00:00",
+      "ended_at": null,
+      "status": "active",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "46a6a10a-203d-485f-b391-cd2271be6cdd",
+      "description": "why is the daily call analyzer not running?",
+      "first_prompt": "why is the daily call analyzer not running?",
+      "started_at": "2026-04-28T01:45:44+00:00",
+      "ended_at": null,
+      "status": "active",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "0becf12a-c36f-4fec-9f8b-af66cf13d63c",
+      "description": "how many tours have been booked for Sudbury?",
+      "first_prompt": "how many tours have been booked for Sudbury?",
+      "started_at": "2026-04-28T02:04:45+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,
