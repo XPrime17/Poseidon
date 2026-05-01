@@ -8,6 +8,7 @@
 
 ## NV Pilot Wrap-Up (2026-05-01)
 - [NV Pilot Archive](nv-pilot-archive.md) — full deliverables at `/root/nv-pilot-archive/` (deck, report, source calls). Reframed as catalyst for inbound + $199 Standard tier; 4-centre multi-discount $706/mo.
+- [Testimonial capture playbook](playbook-testimonial-capture-at-exit.md) — async LinkedIn-rec ask with pre-drafted text at client exit; tracked in XPrime17/lead-reactivation#51, nudge fires 2026-05-15
 
 ## Context Isolation Rules (CRITICAL)
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
