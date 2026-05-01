@@ -6,9 +6,13 @@
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
 
+## NV Pilot Wrap-Up (2026-05-01)
+- [NV Pilot Archive](nv-pilot-archive.md) — full deliverables at `/root/nv-pilot-archive/` (deck, report, source calls). Reframed as catalyst for inbound + $199 Standard tier; 4-centre multi-discount $706/mo.
+
 ## Context Isolation Rules (CRITICAL)
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
 - [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
+- [Retell call_type enum two-side gotcha](retell-enum-two-side-gotcha.md) — adding new call_type values requires BOTH prompt AND post_call_analysis_data description updates; skipping either silently coerces to "other"
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
