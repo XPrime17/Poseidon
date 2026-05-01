@@ -6,6 +6,13 @@
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
 
+## CN HubSpot Migration (ANNOUNCED 2026-04-23)
+- [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide. Pilot end-of-May, full rollout June/July 2026. Invalidates CORE Gmail-trigger; ship HubSpot↔n8n bridge before pilot. Partner: SonaMation.
+- [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
+
+## Vinsi.ai Competitive Threat (2026-04-24)
+- [Vinsi competitive analysis](vinsi-competitive-analysis.md) — generalist voice-AI SaaS funnel for Matt Reeser's 2K-person LatAm BPO. Insider-owner sales channel inside CN franchise. CN-native depth + 11 live centres is TourForce's moat.
+
 ## NV Pilot Wrap-Up (2026-05-01)
 - [NV Pilot Archive](nv-pilot-archive.md) — full deliverables at `/root/nv-pilot-archive/` (deck, report, source calls). Reframed as catalyst for inbound + $199 Standard tier; 4-centre multi-discount $706/mo.
 - [Testimonial capture playbook](playbook-testimonial-capture-at-exit.md) — async LinkedIn-rec ask with pre-drafted text at client exit; tracked in XPrime17/lead-reactivation#51, nudge fires 2026-05-15
