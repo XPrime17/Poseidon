@@ -21,6 +21,8 @@
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
 - [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
 - [Retell call_type enum two-side gotcha](retell-enum-two-side-gotcha.md) — adding new call_type values requires BOTH prompt AND post_call_analysis_data description updates; skipping either silently coerces to "other"
+- [TTS reads `\!` as "Hush"](tts-backslash-pronounced.md) — never escape punctuation in begin_message / prompt; Retell TTS pronounces backslashes literally (EG inbound, 2026-05-02)
+- [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
