@@ -6,6 +6,12 @@
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
 
+## Verification Skills (CREATED 2026-05-03)
+- [_CLICKAUDIT skill](clickaudit-skill.md) — click-through claim verification for dashboards. Catches "UI claims X, drill-down shows Y" semantic-drift bugs that smoke tests miss. Use for any new TourForce dashboard surface. Found 3 real bugs on first run.
+
+## Power Automate Bridge (centre tenants — CRM Lead Forwarding)
+- ["Id is malformed" debug playbook](power-automate-shared-mailbox.md) — Forward (V2) on shared mailbox = 400 "Id is malformed". Fix: swap to Send (V2). Live-call triage order included. Older onboarding emails caused drift; current script (onboard-centre.ts:1061) is correct. Riverside/Leo 2026-05-03.
+
 ## CN HubSpot Migration (ANNOUNCED 2026-04-23)
 - [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide. Pilot end-of-May, full rollout June/July 2026. Invalidates CORE Gmail-trigger; ship HubSpot↔n8n bridge before pilot. Partner: SonaMation.
 - [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
