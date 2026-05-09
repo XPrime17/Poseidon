@@ -12,6 +12,24 @@
 ## Power Automate Bridge (centre tenants — CRM Lead Forwarding)
 - ["Id is malformed" debug playbook](power-automate-shared-mailbox.md) — Forward (V2) on shared mailbox = 400 "Id is malformed". Fix: swap to Send (V2). Live-call triage order included. Older onboarding emails caused drift; current script (onboard-centre.ts:1061) is correct. Riverside/Leo 2026-05-03.
 
+## KB Ownership (NEW PROCEDURE 2026-05-08)
+- [KB ownership stays on our side](feedback-kb-ownership-flow.md) — WE create + own + share editor access to centre; centre never copies. onboard-centre.ts now requires `--kb-doc-id` flag and uses the new email pattern (fixed 2026-05-08).
+- [n8n googleDocs credential has Drive scope](n8n-google-docs-credential-has-drive-scope.md) — credential ID `58qerrOCaSjZ51WF` works for Drive API permissions:create. Pattern verified by silently sharing St. Catharines KB to shauna.chan@codeninjas.com 2026-05-08. Earlier memory's `hTsOcQ3CNsZ5e1xQ` was a workflow ID, not credential.
+
+## Skyvern Auto-Booker (Pickering trace, 2026-05-08)
+- [Switch1 dead-branch fix](skyvern-deadbranch-fix.md) — EOC Switch1 had unwired terminated/timed_out outputs, dropping Sandra Truong's Pickering booking silently. Wired both to new "Send Manual Booking Needed" Gmail node. Fixed 2026-05-08.
+- [Pickering outbound IS Skyvern-wired](pickering-skyvern-wired.md) — Skyvern runs on every centre's booked outbound calls, not just EG-Inbound. Earlier memory was wrong.
+- [Skyvern vs scrape-API disagreement](skyvern-calendar-disagreement.md) — when Skyvern terminates with "slot not found" right after a fresh scrape said it was open, it's two-source disagreement, NOT staleness. Don't ship a refresh-slots fix; refresh is already wired.
+- [Staff-followup promise drops silently](staff-followup-promise-dropped.md) — AI tells parents "a staff member will reach out" for Junior-program siblings; no workflow node honors it. Surfaced 2026-05-08 via Viji Ruban's 6yo dropped handoff.
+- [Staff Follow-Up Pickering pilot](staff-followup-pickering-pilot.md) — fix shipped 2026-05-08: 3 new schema fields + EOC parallel branch send centre an email when AI promises team outreach. Pickering only; roll to 9 other agents once validated.
+- [EOC centre_email not plumbed](eoc-centre-email-not-plumbed.md) — all 4 notification email nodes either hardcode Scott or reference undefined `centre_email`. Pre-req fix before cross-centre rollout: add Lookup Centre node + update all 4 sendTo expressions.
+- [ClickUp assignees must be centre director, not Scott](feedback-clickup-assignee-per-centre.md) — for non-EG centres, task `assignees` should be the director's ClickUp guest user_id (keyed off non-codeninjas personal email). Add `director_personal_email`, `clickup_user_id`, `clickup_list_id` columns to Centre Lookup before cross-centre rollout.
+
+## Synthetic Lead Testing (HARDENED 2026-05-03)
+- [Gmail-to-self skips Delivered-To](feedback-gmail-self-send-no-delivered-to.md) — Extract Centre node now falls back delivered-to → to. Synthetic lead test pattern documented (temp webhook + Gmail Send via creds x1W7EpNhmEdx8cOR).
+- [Onboard centre = write KB URL to BOTH stores](feedback-onboarding-kb-url-checklist.md) — kb-crawler/centres.json AND Centre Lookup `knowledge_base` column. Riverside hit this gap; Get KB errors with "Bad request" when column is empty.
+- [Centre launch has two registration surfaces](centre-launch-two-surfaces.md) — lead-reactivation Centre Lookup (sheet) AND TourForce portal Postgres (centres + centre_agents + portal_users). Different centre_id namespaces (`ct-riverside` vs `riverside-ct-us`). Riverside flagged 2026-05-03.
+
 ## CN HubSpot Migration (ANNOUNCED 2026-04-23)
 - [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide. Pilot end-of-May, full rollout June/July 2026. Invalidates CORE Gmail-trigger; ship HubSpot↔n8n bridge before pilot. Partner: SonaMation.
 - [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
