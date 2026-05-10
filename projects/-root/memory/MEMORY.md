@@ -82,6 +82,9 @@
 - `appointment_booked` post-call schema sharpened on 12 agents (65 → 390 chars) — now correctly classifies soft-hold/tentative bookings
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
 
+## St. Catharines (LIVE 2026-05-09)
+- [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
+
 ## Leaside Inbound (PROVISIONED 2026-04-23)
 - [Leaside Inbound](leaside-inbound.md) — agent + Twilio provisioned. Activation BLOCKED 2026-04-25: Sharmilla busy-signals on multiple Rogers star codes → Call Forwarding likely not on her plan. Action: call Rogers Business 1-888-764-3771 to enable "Call Forwarding (Variable)", then dial `*72` + `6474963276` (NOT `*92` — that was a Bell code). KB + ClickUp + post-call workflow still needed.
 
@@ -140,6 +143,9 @@
 - **Gmail Trigger Inbox (2026-04-04):** Outbound Call Flow Gmail trigger watches `scott.james1717@gmail.com` with plus-addressing for centre routing (e.g., `+ma-canton@`). Subject filter: `New CORE Inquiry`.
 - **Resend Sandbox Limitation:** Resend API can only send TO `scott.james@codeninjas.com` in sandbox mode. Cannot send to `scott.james1717@gmail.com`. Use temp n8n webhook for sheet writes instead.
 - See `lead-reactivation.md` for full architecture details
+
+## Onboarding Gates (HARDENED 2026-05-10)
+- [Probe ChatDash forwarding before declaring onboard done](feedback-onboarding-chatdash-probe.md) — ChatDash returns 200 even when forwarding is unwired. Only honest signal is a new n8n EOC execution from a synthetic call_started POST. Caught 2026-05-10 after Stanley test lead retried 8x.
 
 ## Skill Creation Pattern
 - Private skills: `_ALLCAPS` naming. SKILL.md needs YAML frontmatter with `name` + `description`
