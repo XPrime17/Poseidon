@@ -73,6 +73,7 @@
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)
 - [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (5-6 Junior, 7-14 Create), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each).
 - [CNKB Prompt Rev 2026-05-09 — Fast-Track + Silence-Resume + EG-Inbound No-Pause](cnkb-prompt-rev-2026-05-09-fasttrack.md) — three "context-collapse" fixes shipped 2026-05-09: outbound (stop re-pitching after book intent + re-ask pending Q after silence-recovery) + inbound EG (wait for weekday/weekend before fetching slots).
+- [CNKB Prompt Rev 2026-05-10 — Scheduling-Anchor](cnkb-prompt-rev-2026-05-10-scheduling-anchor.md) — Stage 4/2D scheduling-preference Q now leads with "For timing,..." anchor on all 10 CNKB clones. Fixes location-vs-timing ambiguity surfaced by Stanley/Roger St.Catharines test.
 - [ChatDash wired to EG-Inbound](chatdash-eg-inbound-wired.md) — first centre with ChatDash on inbound. Documents Retell→ChatDash→n8n proxy chain, per-direction forwarding URL gotcha, synthetic-test pattern.
 - [Buried "skip" instructions fail](feedback-prompt-buried-instructions-fail.md) — top-level commitments beat buried "skip X" sub-bullets when writing voice-agent prompts
 - [Outbound Sanitization Fix 2026-04-21](sanitization-fix-2026-04-21.md) — removed Simple Memory1 (poisoned AI extractor via constant sessionKey), added Regex Extract as primary / AI as fallback in workflow `6sPwo7ngPyTWfmwM`.
