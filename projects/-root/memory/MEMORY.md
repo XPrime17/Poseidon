@@ -5,6 +5,7 @@
 
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
+- [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.
 
 ## Verification Skills (CREATED 2026-05-03)
 - [_CLICKAUDIT skill](clickaudit-skill.md) — click-through claim verification for dashboards. Catches "UI claims X, drill-down shows Y" semantic-drift bugs that smoke tests miss. Use for any new TourForce dashboard surface. Found 3 real bugs on first run.
