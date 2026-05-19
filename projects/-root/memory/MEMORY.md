@@ -6,6 +6,12 @@
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
 - [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.
+- [Announce before test-sending](feedback-announce-before-sending.md) — don't add dry-run flags to send-capable scripts; just say "I'm about to send X" before running. Scott prefers real sends with a heads-up over synthetic dry-runs.
+
+## Voice Agent Rubric
+- [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — "team will reach out" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits.
+- [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory.
+- [LLM severity caps](feedback-llm-severity-caps.md) — NAME_ECHO always LOW (style issue, never HIGH). Audit clamps post-hoc via LLM_SEVERITY_CAP dict.
 
 ## Verification Skills (CREATED 2026-05-03)
 - [_CLICKAUDIT skill](clickaudit-skill.md) — click-through claim verification for dashboards. Catches "UI claims X, drill-down shows Y" semantic-drift bugs that smoke tests miss. Use for any new TourForce dashboard surface. Found 3 real bugs on first run.
@@ -44,10 +50,12 @@
 
 ## Context Isolation Rules (CRITICAL)
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
+- [Retell dashboard call URL format](retell-dashboard-url-format.md) — single-call deep link is `/call-history?history={call_id}`. `/calls/{id}` silently redirects to agents page.
 - [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
 - [Retell call_type enum two-side gotcha](retell-enum-two-side-gotcha.md) — adding new call_type values requires BOTH prompt AND post_call_analysis_data description updates; skipping either silently coerces to "other"
 - [TTS reads `\!` as "Hush"](tts-backslash-pronounced.md) — never escape punctuation in begin_message / prompt; Retell TTS pronounces backslashes literally (EG inbound, 2026-05-02)
 - [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.
+- [press_digit rollout 2026-05-13](retell-press-digit-rollout.md) — DTMF tool wired to 7 of 8 outbound CNKB LLMs; bypasses call-control "press 9 to get through" gates. Triggered by Pickering call_f2fbc5c0 lost lead.
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
@@ -72,7 +80,7 @@
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)
-- [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (5-6 Junior, 7-14 Create), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each).
+- [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (Junior 5-7, Create 7-14; overlap at 7), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each). **Age ranges corrected from earlier "5-6 Junior" note — true range is 5-7 per Scott 2026-05-13.**
 - [CNKB Prompt Rev 2026-05-09 — Fast-Track + Silence-Resume + EG-Inbound No-Pause](cnkb-prompt-rev-2026-05-09-fasttrack.md) — three "context-collapse" fixes shipped 2026-05-09: outbound (stop re-pitching after book intent + re-ask pending Q after silence-recovery) + inbound EG (wait for weekday/weekend before fetching slots).
 - [CNKB Prompt Rev 2026-05-10 — Scheduling-Anchor](cnkb-prompt-rev-2026-05-10-scheduling-anchor.md) — Stage 4/2D scheduling-preference Q now leads with "For timing,..." anchor on all 10 CNKB clones. Fixes location-vs-timing ambiguity surfaced by Stanley/Roger St.Catharines test.
 - [ChatDash wired to EG-Inbound](chatdash-eg-inbound-wired.md) — first centre with ChatDash on inbound. Documents Retell→ChatDash→n8n proxy chain, per-direction forwarding URL gotcha, synthetic-test pattern.
@@ -103,6 +111,7 @@
 ## Lead Pipeline Gotchas
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
 - [KB Dynamic Injection (Outbound)](kb-dynamic-injection.md) — CNKB outbound agents have empty `knowledge_base_ids`; KB content is injected at call time via n8n Get KB (Google Docs) → `retell_llm_dynamic_variables`. Do NOT claim hallucination without checking the centre's Google Doc KB first.
+- [Call Failed leaves orphan rows](callfailed-orphan-rows.md) — Outbound appends MasterSheet row before the Retell call; rejections leave orphans. Fix = delete row on Call Failed branch (don't move the append). Issue #53.
 
 ## Architecture — Lead System (UPDATED 2026-04-10)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
