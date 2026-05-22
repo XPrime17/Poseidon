@@ -1,21 +1,23 @@
 ---
-name: TourForce Pricing Model
-description: Pricing strategy for TourForce voice AI agency — 3-tier model (Base/Pro/Pro+) with $100 increments, minute cap TBD, competitive intel vs Vinsi.AI
-type: project
+name: tourforce-pricing-model
+description: "Pricing strategy for TourForce voice AI agency — 2-tier model (Base $99 / Pro $299), tour-booking is the divider, minute cap + overage still open, competitive intel vs Vinsi.AI"
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 43587625-6707-4d02-a454-a9473895db58
 ---
 
-TourForce pricing is a 3-tier model (Base / Pro / Pro+) priced in USD with $0 setup and cancel-anytime. Tiers gate **capabilities** (booking, dashboard), not volume.
+TourForce pricing is a 2-tier model (Base $99 / Pro $299) priced in USD with $0 setup and cancel-anytime. **Tour booking is the divider** — Base = answering + outreach, Pro = full funnel + visibility.
 
-**Why:** Evolved through 5 iterations. Key insight (2026-04-16): inbound captures active buying intent and replaces a $1,200-1,600/mo receptionist — it deserves premium positioning. Final structure (2026-04-27): both services in every tier, $100 increments, tour booking at Pro, dashboard at Pro+.
+**Why:** Evolved through 7 iterations, oscillating between 2 and 3 tiers four times. Key insight (2026-04-16): inbound captures active buying intent and replaces a $1,200-1,600/mo receptionist. Collapsed back to 2 tiers (2026-05-22) after the 3-tier middle ("Pro" at $199) kept failing to justify its existence — there's no natural middle, only one clean fault line: **tour booking**. Decision rationale: a tier that's hard to differentiate is a signal it shouldn't exist; ship the simplest defensible model and let real customers reveal whether a 3rd tier is needed. No live pricing data yet (Leaside inbound not active, NV outbound weak), so the structure can't be finalized from theory — the market arbitrates. See [[feedback-ship-simple-when-decisions-oscillate]].
 
 **How to apply:** When Scott says "pricing", "tiers", "feature matrix", "sales deck pricing" — this is the active model. Resume from open questions below.
 
-## Decided (2026-04-27) — "3-Tier Capability Ladder"
+## Decided — "2-Tier, Booking as Divider" (2026-05-22)
 
-- **Structure:** 3-tier (Base / Pro / Pro+), $100 increments
-- **Base $99/mo:** Inbound + outbound, AI calls and answers, daily email summaries
-- **Pro $199/mo:** + Tour booking, KB Q&A
-- **Pro+ $299/mo:** + Dashboard (recordings, transcripts, analytics), monthly optimization, priority support
+- **Structure:** 2-tier (Base / Pro)
+- **Base $99/mo — "AI Answering & Outreach":** Outbound lead reactivation (calls + 4-attempt retry + voicemail), 24/7 inbound receptionist, message-taking, KB Q&A, daily email summaries. **No tour booking.**
+- **Pro $299/mo — "Full Voice AI":** Everything in Base **+ tour booking, owner dashboard (recordings, transcripts, analytics), CRM write-back, custom agent configuration.**
 - **Currency:** All USD (Stripe auto-converts CAD)
 - **Setup fee:** $0
 - **Contracts:** Cancel anytime, month-to-month
@@ -24,31 +26,33 @@ TourForce pricing is a 3-tier model (Base / Pro / Pro+) priced in USD with $0 se
 - **Minute cap:** OPEN — need real inbound production data before setting (see Open Questions)
 - **Overage rate:** OPEN — Vinsi charges $0.30/min, Retell costs $0.135/min, range is $0.20-0.30
 
+**Tradeoff accepted:** dropping the 3rd tier removes the $299-anchor that made a $199 middle look reasonable (decoy effect) and forgoes some willingness-to-pay capture. Bought in exchange for a dead-simple yes/no sales conversation. Revisit if a cluster of prospects asks "is there something between $99 and $299?"
+
 ## Feature Matrix (FINAL except cap/overage)
 
-| Feature | Base ($99) | Pro ($199) | Pro+ ($299) |
-|---------|:---:|:---:|:---:|
-| **OUTBOUND** | | | |
-| AI calls new leads | ✓ | ✓ | ✓ |
-| 4-attempt retry system | ✓ | ✓ | ✓ |
-| Voicemail (attempt 2) | ✓ | ✓ | ✓ |
-| **INBOUND** | | | |
-| 24/7 AI receptionist | ✓ | ✓ | ✓ |
-| Message-taking | ✓ | ✓ | ✓ |
-| Knowledge base Q&A | — | ✓ | ✓ |
-| Tour booking | — | ✓ | ✓ |
-| **VISIBILITY** | | | |
-| Daily email summaries | ✓ | ✓ | ✓ |
-| Call recordings | — | — | ✓ |
-| Transcripts | — | — | ✓ |
-| Owner dashboard | — | — | ✓ |
-| **SERVICE** | | | |
-| Monthly optimization | — | — | ✓ |
-| Email support | ✓ | ✓ | — |
-| Priority support | — | — | ✓ |
+| Feature | Base ($99) | Pro ($299) |
+|---------|:---:|:---:|
+| **OUTBOUND** | | |
+| AI calls new leads | ✓ | ✓ |
+| 4-attempt retry system | ✓ | ✓ |
+| Voicemail (attempt 2) | ✓ | ✓ |
+| **INBOUND** | | |
+| 24/7 AI receptionist | ✓ | ✓ |
+| Message-taking | ✓ | ✓ |
+| Knowledge base Q&A | ✓ | ✓ |
+| Tour booking | — | ✓ |
+| **VISIBILITY** | | |
+| Daily email summaries | ✓ | ✓ |
+| Transcripts | — | ✓ |
+| Call recordings | — | ✓ |
+| Owner dashboard | — | ✓ |
+| **INTEGRATIONS** | | |
+| CRM write-back | — | ✓ |
+| **CUSTOMIZATION** | | |
+| Custom agent configuration | — | ✓ |
 
-**Removed:** CRM integration (not available until HubSpot integration built)
-**Merged:** Dashboard & analytics combined into single "Owner dashboard" line
+**Note on CRM write-back:** depends on HubSpot integration being built (HQ migration pilot end-of-May). Honor as a Pro feature but flag it as "coming" until the bridge is live.
+**Removed (2026-05-22):** SERVICE section (monthly optimization, email/priority support) — dropped from the matrix.
 
 ## Retell Cost Data (actual, 2026-04-27)
 
@@ -82,13 +86,13 @@ TourForce pricing is a 3-tier model (Base / Pro / Pro+) priced in USD with $0 se
 
 ## Margin Analysis (at various usage levels, excluding cap/overage)
 
-| Usage | COGS | Base margin | Pro margin | Pro+ margin |
-|---|---|---|---|---|
-| 200 min (outbound only) | ~$37 | $62 (63%) | $162 (81%) | $262 (88%) |
-| 400 min (both, quiet) | ~$64 | $35 (35%) | $135 (68%) | $235 (79%) |
-| 600 min (both, busy) | ~$91 | $8 (8%) | $108 (54%) | $208 (70%) |
+| Usage | COGS | Base ($99) margin | Pro ($299) margin |
+|---|---|---|---|
+| 200 min (outbound only) | ~$37 | $62 (63%) | $262 (88%) |
+| 400 min (both, quiet) | ~$64 | $35 (35%) | $235 (79%) |
+| 600 min (both, busy) | ~$91 | $8 (8%) | $208 (70%) |
 
-**Key insight:** Base ($99) is margin-thin if inbound drives 400+ min. Cap/overage design is critical to protect Base margin. Pro and Pro+ are healthy at all usage levels.
+**Key insight:** Base ($99) is margin-thin if inbound drives 400+ min. Cap/overage design is critical to protect Base margin. Pro ($299) is healthy at all usage levels.
 
 ## Competitive Intelligence — Vinsi.AI (pulled 2026-04-27)
 
@@ -112,14 +116,18 @@ TourForce pricing is a 3-tier model (Base / Pro / Pro+) priced in USD with $0 se
 - **v2 (2026-03-29):** Starter $99 / Pro $249 / Premium $499 three-tier
 - **v3 (2026-04-16):** Essentials $99 / Pro $199 two-tier — Pro margin too thin (44%)
 - **v4 (2026-04-16):** "Flip the Anchor" — Essentials $99 / Pro $299 two-tier, inbound as premium
-- **v5 (2026-04-27):** CURRENT — Base $99 / Pro $199 / Pro+ $299 three-tier capability ladder
+- **v5 (2026-04-27):** Base $99 / Pro $199 / Pro+ $299 three-tier capability ladder
+- **v6 (2026-05-20):** tier names locked. Base / Pro / **Ultra** three-tier. Pro+ retired (categorical upgrade signal, sidesteps Vinsi vocabulary).
+- **v7 (2026-05-22):** CURRENT — **collapsed to 2-tier. Base $99 (Answering & Outreach) / Pro $299 (Full Voice AI). Tour booking is the divider.** Ultra dropped. KB Q&A moved to Base (universal, not a differentiator). SERVICE section removed. Transcripts/recordings/dashboard/CRM write-back/custom config all consolidated into Pro. Rationale: the 3-tier middle never justified itself — no natural middle exists, only the booking fault line. "Lock for now" — explicitly provisional pending real customer signups. 4th oscillation between 2 and 3 tiers; see [[feedback-ship-simple-when-decisions-oscillate]].
 
 ## Open Questions (Resume Here)
 
 1. **Minute cap** — Need real inbound production data from EG before setting. Options discussed: 300 min (aggressive, $0.30 overage), 500 min (middle), 600 min (generous). Single cap across all tiers (tiers gate features, not volume).
 2. **Overage rate** — Range: $0.20-0.30/min. Retell cost is $0.135/min. Vinsi charges $0.30. Need to balance margin protection vs customer bill predictability.
 3. **Get EG inbound live** — Critical blocker for cap/overage decisions. Run 1 month of production inbound to get real usage data.
-4. **Tier naming** — Base/Pro/Pro+ is placeholder
+4. ~~**Tier naming** — Base/Pro/Pro+ is placeholder~~ **RESOLVED 2026-05-20:** Base / Pro / Ultra
 5. **Founding member rate** — Locked-in discount for first clients?
-6. **Sales deck rebrand** — TourForce branding + new 3-tier pricing + receptionist-replacement narrative
+6. **Sales deck rebrand** — TourForce branding + 2-tier pricing + receptionist-replacement narrative
 7. **Daily email summary build** — Base tier visibility depends on this (n8n End Of Call → enriched email)
+8. **CRM write-back delivery** — listed as a Pro feature but depends on HubSpot integration (HQ pilot end-of-May). "Coming" until bridge is live.
+9. **Re-evaluate 2 vs 3 tiers** — provisional lock. Trigger to add a 3rd tier: prospects repeatedly asking for something between $99 and $299, OR a cluster wanting visibility without booking.

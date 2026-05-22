@@ -349,4 +349,5 @@
 | `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |
 | `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |
 | `stripe-billing.md` | Stripe API keys, account ID, products, Chat-Dash integration |
-| `tourforce-pricing.md` | 3-tier pricing model (Starter $99/Pro $249/Premium $499), feature matrix, cost data |
+| `tourforce-pricing.md` | 2-tier pricing model (Base $99 / Pro $299, booking is divider), feature matrix, cost data, Vinsi intel — v7 2026-05-22 |
+| `feedback-ship-simple-when-decisions-oscillate.md` | When a decision keeps reversing, the gap is data not analysis — ship simplest defensible version |
