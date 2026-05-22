@@ -72,7 +72,7 @@
 - Script: `/root/kb-crawler/crawl.ts` | Timer: `kb-crawler.timer` (2 AM ET)
 - n8n cloud: GDocs Read `NZddHLft1gzuUrRL`, GDocs Write `hTsOcQ3CNsZ5e1xQ`
 - **Leaside doc needs editor share** — write fails (read-only). Riverside needs doc created.
-- Self-hosted n8n API key: `n8n_api_3ea467a2fe66c115258e6770158a69f2c5144335`
+- Self-hosted n8n API key: `op://Private/n8n self-hosted/api-key` (ROTATE — literal was committed to public repo)
 
 ## _DAILYCALLAUDIT Skill (MIGRATED 2026-04-29)
 - [Daily Call Audit on droplet](daily-call-audit-droplet.md) — moved from Anthropic cloud → systemd timer on n8n-production droplet after silent Cloudflare-1010 failures. Script: `/root/daily-call-audit/audit.py`, timer: `daily-call-audit.timer` (01:00 UTC). Cloud routine `trig_01DTTBcgns1s4nGDD3EvhPkG` is RETIRED (enabled=false).
@@ -183,7 +183,7 @@
 
 ## Email Delivery
 - ALWAYS use Resend HTTP API — never sendmail/SMTP
-- API key: `re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj`
+- API key: `op://Private/Resend/api-key` (ROTATE — literal was committed to public repo)
 - Sender: `onboarding@resend.dev` | Scott's email: `scott.james@codeninjas.com`
 
 ## n8n Cloud Subscription
@@ -201,13 +201,13 @@
 - **n8n self-hosted API key is EXPIRED** — Scott to generate new one from UI
 
 ## n8n API
-- **Cloud API key**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzMzE0ODRiZS1mNjg1LTQ3M2EtYmUxNC0xOTZkOTdlZDE0YTEiLCJpc3MiOiJuOG4iLCJhdWQiOiJwdWJsaWMtYXBpIiwiaWF0IjoxNzY4NjY3MDI5fQ.Ky5Z-77U6ldB6STvg7JJ4ULXb58Htdt7L-QUCwhI0Yk`
+- **Cloud API key**: `op://Private/n8n cloud/api-key` (ROTATE — JWT literal was committed to public repo)
 - **Cloud URL**: `https://xprime17.app.n8n.cloud/api/v1/`
 - **n8n API PUT cleanup**: strip `updatedAt`, `createdAt`, `id`, `description`, `isArchived`, `meta`, `pinData`, `versionId`, `activeVersionId`, `versionCounter`, `triggerCount`, `shared`, `activeVersion`, `active`, `tags` from GET response before PUT
 
 ## ClickUp Integration (2026-03-20)
 - **Workspace:** Codeninjas | ID: `9011711565`
-- **API Token:** `pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV`
+- **API Token:** `op://Private/ClickUp/api-token` (ROTATE — literal was committed to public repo)
 - **MCP:** Added to project config (HTTP), needs session restart + OAuth
 - **Voice AI Space:** ID `90114119602`
 - **EG Folder:** ID `90117795474`
@@ -241,7 +241,7 @@
 ---
 
 ## Retell Platform (OPERATIONAL)
-- **API key:** `key_eb01765f71b0a93b347d324af573`
+- **API key:** `op://Private/Retell/api-key` (ROTATE — literal was committed to public repo)
 - Prompts live on the LLM object — resolve via `agent.response_engine.llm_id`
 
 ### Retell Agents
