@@ -216,10 +216,10 @@
       "description": "Tourforce competitive analysis.  Analyze this facebook po...",
       "first_prompt": "Tourforce competitive analysis.  Analyze this facebook post from another Code ninjas centre:  Lots of exciting updates with the move to HubSpot and the continued push toward AI and automation.\rI wa...",
       "started_at": "2026-04-24T04:04:38+00:00",
-      "ended_at": "2026-04-25T16:16:07+00:00",
+      "ended_at": "2026-05-01T22:56:05+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "a1d4090d-9041-46db-b8be-d9a7c18eafa5",
@@ -246,36 +246,266 @@
       "description": "give me the URL for tourforce portal",
       "first_prompt": "give me the URL for tourforce portal",
       "started_at": "2026-04-26T23:59:19+00:00",
-      "ended_at": "2026-04-28T01:05:50+00:00",
+      "ended_at": "2026-04-29T23:09:05+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "74b362ec-28f6-47f0-b64b-bb22e9640385",
       "description": "I want to get the other outbound centers to try the inbou...",
       "first_prompt": "I want to get the other outbound centers to try the inbound agent.  Need to prepare instructions for them.  Note that all of them are in the U.S. so different carriers.",
       "started_at": "2026-04-28T01:05:50+00:00",
-      "ended_at": null,
-      "status": "active",
+      "ended_at": "2026-04-29T23:09:08+00:00",
+      "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "46a6a10a-203d-485f-b391-cd2271be6cdd",
       "description": "why is the daily call analyzer not running?",
       "first_prompt": "why is the daily call analyzer not running?",
       "started_at": "2026-04-28T01:45:44+00:00",
-      "ended_at": null,
-      "status": "active",
+      "ended_at": "2026-05-02T17:44:09+00:00",
+      "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "0becf12a-c36f-4fec-9f8b-af66cf13d63c",
       "description": "how many tours have been booked for Sudbury?",
       "first_prompt": "how many tours have been booked for Sudbury?",
       "started_at": "2026-04-28T02:04:45+00:00",
+      "ended_at": "2026-05-01T02:17:11+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "96f09386-df92-4b98-a638-2863141dd13c",
+      "description": "I see there was a Cekura regression today?",
+      "first_prompt": "I see there was a Cekura regression today?",
+      "started_at": "2026-04-29T23:09:11+00:00",
+      "ended_at": "2026-05-01T23:00:48+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "3838a861-26c1-43bf-8082-a16b0cd27871",
+      "description": "NV centers are offboarding.  We need to write a skill to ...",
+      "first_prompt": "NV centers are offboarding.  We need to write a skill to offboard centers (deactivate their agents, unallocate resources, etc.)",
+      "started_at": "2026-05-01T02:17:13+00:00",
+      "ended_at": "2026-05-01T04:27:33+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "2b7a02f0-c6a4-4734-932b-cf8da25e5e20",
+      "description": "Compare inbound agent against Handshake.  I got this ques...",
+      "first_prompt": "Compare inbound agent against Handshake.  I got this question from one of the venture center directors:  I did also want to talk about CIMO’s new AI receptionist feature and if you know how similar...",
+      "started_at": "2026-05-01T02:58:46+00:00",
+      "ended_at": "2026-05-01T19:45:31+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "76f0cb5e-c734-44b0-9f19-20c1715ba9ca",
+      "description": "now that the ninja venture centres are offboarding, I'd l...",
+      "first_prompt": "now that the ninja venture centres are offboarding, I'd like to capture testimonials from them. where's the best place to capture these for tourforce?  Website section?  Or maybe a Google review?",
+      "started_at": "2026-05-01T19:45:32+00:00",
+      "ended_at": "2026-05-01T21:20:46+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "f7fbf7f0-f803-41f5-9e61-1667d1ad9cd8",
+      "description": "Listen to this recording I just got from Shauna Chan (co-...",
+      "first_prompt": "Listen to this recording I just got from Shauna Chan (co-owner of Burlington and St.Catherines).  She's asking if we should wait for Hubspot rollout to onboard:  \"/root/WhatsApp Ptt 2026-05-01 at 3...",
+      "started_at": "2026-05-01T21:21:29+00:00",
+      "ended_at": "2026-05-01T21:55:28+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "79010521-0744-4501-a3f5-55d230c115c7",
+      "description": "let's create a KB for riverside that we have write permis...",
+      "first_prompt": "let's create a KB for riverside that we have write permissions for",
+      "started_at": "2026-05-02T16:59:17+00:00",
+      "ended_at": "2026-05-02T20:16:52+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "3fd62b81-08d8-4d4d-87c6-9a8ea5d4b2e1",
+      "description": "call_id = call_8183ff0a02d48c32b3773a18ec7.  Agent says k...",
+      "first_prompt": "call_id = call_8183ff0a02d48c32b3773a18ec7.  Agent says kids start with Minecraft and Roblox.  That's not true.  It should says something like \"kids who like Minecraft and Roblox usually have a bla...",
+      "started_at": "2026-05-02T20:16:54+00:00",
+      "ended_at": "2026-05-02T20:38:08+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "a90d282e-326b-4650-a035-86b23df65325",
+      "description": "let's analyze calld_id = call_47c3f2f7ef40c81bd7cdd07d0f8...",
+      "first_prompt": "let's analyze calld_id = call_47c3f2f7ef40c81bd7cdd07d0f8.  the first sentence had \\! which the agent pronounced as \"Hush\"",
+      "started_at": "2026-05-02T20:38:09+00:00",
+      "ended_at": "2026-05-02T22:02:27+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "204eb314-22d6-468f-98e4-fd5fa8beb9e9",
+      "description": "Severity    Kind    Centre    Lead (to_number)    Call ID...",
+      "first_prompt": "Severity    Kind    Centre    Lead (to_number)    Call ID    Evidence\rHIGH    LLM: AGE_GATE_ERROR    EG-Inbound    ?    call_76d7315…    Agent told caller about Create program: 'designed for ages s...",
+      "started_at": "2026-05-02T22:02:28+00:00",
+      "ended_at": "2026-05-02T22:42:00+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "0f387d2b-4917-47b1-b06a-169b9f1328cd",
+      "description": "let's continue to work on tourforce portal mimicking Chat...",
+      "first_prompt": "let's continue to work on tourforce portal mimicking Chatdash",
+      "started_at": "2026-05-02T22:42:01+00:00",
+      "ended_at": "2026-05-08T15:06:35+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "aea232e4-82d0-4a4a-baf7-9f3482568a4e",
+      "description": "[Image #1]",
+      "first_prompt": "[Image #1]",
+      "started_at": "2026-05-03T16:18:08+00:00",
+      "ended_at": "2026-05-03T17:26:21+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "dfcce36f-cdf2-4142-82a5-a8d73d8d6185",
+      "description": "now that we have a nightly KB crawler, I want to revisit ...",
+      "first_prompt": "now that we have a nightly KB crawler, I want to revisit the outbound agent prompt.  It currently deflects to staff if any other program besides Create is desired.  However, now it can perhaps try ...",
+      "started_at": "2026-05-03T17:12:44+00:00",
+      "ended_at": "2026-05-08T15:06:35+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "f1073f82-dcec-4c11-b3d1-1bc8f78e3502",
+      "description": "let's continue onboarding Riverside into test mode",
+      "first_prompt": "let's continue onboarding Riverside into test mode",
+      "started_at": "2026-05-03T17:26:51+00:00",
+      "ended_at": "2026-05-08T15:06:35+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "d29cfbb1-96b5-46a9-911c-1cfb225d76c2",
+      "description": "Sharmila is reporting that a tour was booked by her Picke...",
+      "first_prompt": "Sharmila is reporting that a tour was booked by her Pickering voice AI agent but it was not on her tour calendar.  The tour showed up on Wednesday, May 6.  Mom's name was Sandra.  Please investigate.",
+      "started_at": "2026-05-08T15:06:35+00:00",
+      "ended_at": "2026-05-09T17:36:19+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "fcc00af7-f5c1-4f29-b013-0bc736a23de5",
+      "description": "I'm going to be meeting with Shauna and Ian Chan soon, ow...",
+      "first_prompt": "I'm going to be meeting with Shauna and Ian Chan soon, owners of Burlington and St.Catherine's.  Please email me onboarding instructions for both inbound and outbound for both centres.",
+      "started_at": "2026-05-08T19:52:38+00:00",
+      "ended_at": "2026-05-11T05:16:47+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "2c97f9cb-4cdb-4e97-bcba-8723ce37c09d",
+      "description": "pull transcript for last call (call to me from St.Cathari...",
+      "first_prompt": "pull transcript for last call (call to me from St.Catharines agent)",
+      "started_at": "2026-05-09T17:36:21+00:00",
+      "ended_at": "2026-05-09T23:02:58+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "3b916646-31d6-4d97-8ef2-e79c6279b12b",
+      "description": "Something seems wrong with the St. Catharines retry syste...",
+      "first_prompt": "Something seems wrong with the St. Catharines retry system.  I've received way too many retry attempts on my test lead.  I just got another one a minute ago",
+      "started_at": "2026-05-09T23:03:00+00:00",
+      "ended_at": "2026-05-10T21:22:16+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "71bb173f-0fcb-4956-b043-2f998dcc182d",
+      "description": "filling out a test lead form for St. Catharines.  testing...",
+      "first_prompt": "filling out a test lead form for St. Catharines.  testing end-to-end",
+      "started_at": "2026-05-10T21:22:18+00:00",
+      "ended_at": "2026-05-11T02:16:04+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "9bbce18a-4923-46d2-9b2b-08b9388b4399",
+      "description": "I want to update the flow so that I get BCC'd on all emai...",
+      "first_prompt": "I want to update the flow so that I get BCC'd on all emails sent to client centers",
+      "started_at": "2026-05-11T02:16:06+00:00",
+      "ended_at": "2026-05-11T04:00:30+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "4bb62092-eb24-47e7-8dc5-e4936c81436f",
+      "description": "review the daily call audits for the last few days.  Any ...",
+      "first_prompt": "review the daily call audits for the last few days.  Any issues we need to address?",
+      "started_at": "2026-05-12T22:52:58+00:00",
+      "ended_at": "2026-05-13T03:45:43+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "b71eef49-9bc3-4b66-87da-b2564cd13727",
+      "description": "Lead to NOT enabled centre email received",
+      "first_prompt": "Lead to NOT enabled centre email received",
+      "started_at": "2026-05-16T15:36:57+00:00",
+      "ended_at": "2026-05-19T23:12:09+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "43587625-6707-4d02-a454-a9473895db58",
+      "description": "recall discussion surrounding tourforce pricing.  I want ...",
+      "first_prompt": "recall discussion surrounding tourforce pricing.  I want the latest we decided.",
+      "started_at": "2026-05-19T23:12:12+00:00",
+      "ended_at": "2026-05-22T00:16:12+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "34fff532-bdec-4318-900b-d2f69a8f86ec",
+      "description": "offboard Sudbury",
+      "first_prompt": "offboard Sudbury",
+      "started_at": "2026-05-22T00:16:12+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,

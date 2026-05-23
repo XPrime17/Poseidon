@@ -71,7 +71,7 @@ Both use Google Docs OAuth credential `58qerrOCaSjZ51WF` on n8n cloud.
 
 See `/root/kb-crawler/centres.json` for the full mapping.
 
-**Note:** St. Catharines + Burlington share EG's doc. Riverside needs a doc created.
+**Note:** All 11 centres now have their own dedicated docs. Riverside, Burlington, and St. Catharines docs are owned by the n8n OAuth account (write works without external editor share).
 
 ## Google Doc Structure
 
@@ -94,6 +94,5 @@ After each run, a summary email is sent via Resend to `scott.james@codeninjas.co
 
 ## Known Issues
 
-- **Leaside doc:** Google Doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` needs editor access shared with the n8n OAuth account. Currently read-only → write fails.
-- **Riverside:** No Google Doc configured. Needs doc created and ID added to `centres.json`.
+- **Leaside doc:** Google Doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` needs editor access shared with the n8n OAuth account. Currently read-only → write fails. (Fix pattern: re-create owned by the OAuth account, like Riverside.)
 - **EST/EDT:** Timer uses UTC (06:00). When clocks fall back to EST in November, update to `07:00 UTC` to keep 2 AM local.
