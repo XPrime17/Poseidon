@@ -339,11 +339,16 @@ async function buildInventory(centreId: string): Promise<Inventory> {
 
   log(`fetching Retell phone numbers…`);
   const phones: any[] = await retellGet(`/list-phone-numbers`);
-  const phoneRow = phones.find(p => p.outbound_agent_id === centre.agent_id || p.inbound_agent_id === centre.agent_id);
+  // Retell deprecated singular *_agent_id (removal after 2026-03-31) for weighted
+  // *_agents arrays. Read from the array, falling back to legacy fields, and resolve
+  // to a single agent_id so the inventory snapshot schema stays unchanged.
+  const outAgent = (p: any) => p.outbound_agents?.[0]?.agent_id ?? p.outbound_agent_id ?? null;
+  const inAgent = (p: any) => p.inbound_agents?.[0]?.agent_id ?? p.inbound_agent_id ?? null;
+  const phoneRow = phones.find(p => outAgent(p) === centre.agent_id || inAgent(p) === centre.agent_id);
   const phone = phoneRow ? {
     phone_number: phoneRow.phone_number,
-    outbound_agent_id: phoneRow.outbound_agent_id ?? null,
-    inbound_agent_id: phoneRow.inbound_agent_id ?? null,
+    outbound_agent_id: outAgent(phoneRow),
+    inbound_agent_id: inAgent(phoneRow),
     nickname: phoneRow.nickname ?? "",
   } : { phone_number: "", outbound_agent_id: null, inbound_agent_id: null, nickname: "" };
 
@@ -485,8 +490,9 @@ async function renameAgent(inv: Inventory, prefix: boolean): Promise<string> {
 async function unbindPhone(inv: Inventory): Promise<void> {
   if (!inv.phone.phone_number) { ok(`phone: nothing to unbind`); return; }
   await retellPatch(`/update-phone-number/${inv.phone.phone_number}`, {
-    outbound_agent_id: null,
-    inbound_agent_id: null,
+    // Empty weighted arrays unbind all agents (replaces deprecated *_agent_id: null).
+    outbound_agents: [],
+    inbound_agents: [],
   });
   ok(`phone ${inv.phone.phone_number}: unbound`);
 }
@@ -494,8 +500,9 @@ async function unbindPhone(inv: Inventory): Promise<void> {
 async function rebindPhone(inv: Inventory, snapshot: any): Promise<void> {
   if (!inv.phone.phone_number) return;
   await retellPatch(`/update-phone-number/${inv.phone.phone_number}`, {
-    outbound_agent_id: snapshot.phone.outbound_agent_id,
-    inbound_agent_id: snapshot.phone.inbound_agent_id,
+    // Rebuild weighted arrays from snapshotted agent ids (empty = was unbound).
+    outbound_agents: snapshot.phone.outbound_agent_id ? [{ agent_id: snapshot.phone.outbound_agent_id, weight: 1 }] : [],
+    inbound_agents: snapshot.phone.inbound_agent_id ? [{ agent_id: snapshot.phone.inbound_agent_id, weight: 1 }] : [],
   });
   ok(`phone ${inv.phone.phone_number}: re-bound to original agent`);
 }
