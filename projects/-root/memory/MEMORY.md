@@ -28,7 +28,9 @@
 - [Pickering outbound IS Skyvern-wired](pickering-skyvern-wired.md) — Skyvern runs on every centre's booked outbound calls, not just EG-Inbound. Earlier memory was wrong.
 - [Skyvern vs scrape-API disagreement](skyvern-calendar-disagreement.md) — when Skyvern terminates with "slot not found" right after a fresh scrape said it was open, it's two-source disagreement, NOT staleness. Don't ship a refresh-slots fix; refresh is already wired.
 - [Staff-followup promise drops silently](staff-followup-promise-dropped.md) — AI tells parents "a staff member will reach out" for Junior-program siblings; no workflow node honors it. Surfaced 2026-05-08 via Viji Ruban's 6yo dropped handoff.
-- [Staff Follow-Up Pickering pilot](staff-followup-pickering-pilot.md) — fix shipped 2026-05-08: 3 new schema fields + EOC parallel branch send centre an email when AI promises team outreach. Pickering only; roll to 9 other agents once validated.
+- [Staff Follow-Up notification — generic 2026-05-31](staff-followup-pickering-pilot.md) — schema baselined across all 6 outbound CNKB agents; EOC branch fires Gmail always + ClickUp task gated on Centre Lookup `clickup_list_id`+`clickup_user_ids` (only StCath today). Pilot framing obsolete.
+- [Email Info Request rev 2026-05-31](email-info-request-rev-2026-05-31.md) — agents now honor "can you email me this?" via Staff Follow-Up branch with reason=email_info_request (was deflected to booking pre-rev). Shipped to all 6 outbound CNKB clones.
+- [Audit rubric patches 2026-05-26→31](audit-rubric-patches-2026-05-26-31.md) — 4 false-positive classes squashed: junk-call filter, Create=8-14 sync, TOURS-only deflection scope, DECLINE_MISSED email-channel tolerance.
 - [EOC centre_email not plumbed](eoc-centre-email-not-plumbed.md) — all 4 notification email nodes either hardcode Scott or reference undefined `centre_email`. Pre-req fix before cross-centre rollout: add Lookup Centre node + update all 4 sendTo expressions.
 - [ClickUp assignees must be centre director, not Scott](feedback-clickup-assignee-per-centre.md) — for non-EG centres, task `assignees` should be the director's ClickUp guest user_id (keyed off non-codeninjas personal email). Add `director_personal_email`, `clickup_user_id`, `clickup_list_id` columns to Centre Lookup before cross-centre rollout.
 
@@ -56,6 +58,7 @@
 - [TTS reads `\!` as "Hush"](tts-backslash-pronounced.md) — never escape punctuation in begin_message / prompt; Retell TTS pronounces backslashes literally (EG inbound, 2026-05-02)
 - [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.
 - [press_digit rollout 2026-05-13](retell-press-digit-rollout.md) — DTMF tool wired to 7 of 8 outbound CNKB LLMs; bypasses call-control "press 9 to get through" gates. Triggered by Pickering call_f2fbc5c0 lost lead.
+- [Phone-number weighted *_agents API](retell-phone-weighted-agents-api.md) — Retell deprecated singular `*_agent_id` (2026-03-31) for `*_agents` arrays `[{agent_id,weight}]`; unbind=`[]`. Migrated provision-inbound/onboard-centre/Offboard 2026-05-31. `inbound_webhook_url` + call-level `override_agent_id` unaffected.
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
@@ -73,6 +76,7 @@
 - n8n cloud: GDocs Read `NZddHLft1gzuUrRL`, GDocs Write `hTsOcQ3CNsZ5e1xQ`
 - **Leaside doc needs editor share** — write fails (read-only). Riverside needs doc created.
 - Self-hosted n8n API key: `op://Private/n8n self-hosted/api-key` (ROTATE — literal was committed to public repo)
+- [Summer-camp flag (Jan-Jun)](kbcrawler-summer-camp-flag.md) — banners centres missing Jun/Jul/Aug camps in nightly email; silent Jul-Dec. Sudbury flagged in 2026-05-26 baseline.
 
 ## _DAILYCALLAUDIT Skill (MIGRATED 2026-04-29)
 - [Daily Call Audit on droplet](daily-call-audit-droplet.md) — moved from Anthropic cloud → systemd timer on n8n-production droplet after silent Cloudflare-1010 failures. Script: `/root/daily-call-audit/audit.py`, timer: `daily-call-audit.timer` (01:00 UTC). Cloud routine `trig_01DTTBcgns1s4nGDD3EvhPkG` is RETIRED (enabled=false).
@@ -81,6 +85,12 @@
 
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)
 - [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (Junior 5-7, Create 7-14; overlap at 7), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each). **Age ranges corrected from earlier "5-6 Junior" note — true range is 5-7 per Scott 2026-05-13.**
+- [Create program age range = 8-14 (global)](create-age-range.md) — Scott 2026-05-23 corrected the overlap: Create 8-14, Junior 5-7. All 7-year-olds now flow through Junior path. Pending prompt rev blocked on St. Catharines Junior-scope feedback.
+- [CNKB Prompt Rev 2026-05-23](cnkb-prompt-rev-2026-05-23.md) — shipped 4 edits to 9 LLMs: MANUAL>AUTO precedence, JR→Junior pronunciation, Booking Autonomy ages 5-7, Stage 3 age gate now KB-driven (enables centre-defined Create Prep). Crawler also patched to substitute JR→Junior in autoContent.
+- [St. Catharines ClickUp folder+list](clickup-stcath.md) — folder `90117996306`, list `901113834370`. Pending Shauna's user_id to wire up Centre Lookup `clickup_user_ids` field; outbound deflection tasks will start firing once populated.
+- [Q&A Loop Rev 2026-05-23 #2](cnkb-qaloop-rev-2026-05-23.md) — non-Create programs now get multi-turn KB Q&A loop before staff deflection. 4 outbound edits + 2 inbound edits across 9 LLMs. KB-gap rule prevents hallucination. Tour booking stays Create-only.
+- [Onboarding Gap Fix 2026-05-23](onboarding-gap-fix-2026-05-23.md) — `provision-inbound.ts` automates the 5 manual inbound-provisioning steps; `cnkb-list-agents.ts` discovers all CNKB agents (auto-excludes offboarded). Closes the fan-out blind spot that missed StCath-Inbound earlier today.
+- [StCath custom AI intro 2026-05-25](stcath-custom-intro-2026-05-25.md) — First per-centre customization of the AI disclosure. Wording option C (Shauna's pick): "...since AI is part of what we teach, we figured we'd put it to good use. Real people are right behind me if I can't get you what you need." Shipped to StCath outbound Stage 1 + inbound begin_message only. Burlington pending Scott decision.
 - [CNKB Prompt Rev 2026-05-09 — Fast-Track + Silence-Resume + EG-Inbound No-Pause](cnkb-prompt-rev-2026-05-09-fasttrack.md) — three "context-collapse" fixes shipped 2026-05-09: outbound (stop re-pitching after book intent + re-ask pending Q after silence-recovery) + inbound EG (wait for weekday/weekend before fetching slots).
 - [CNKB Prompt Rev 2026-05-10 — Scheduling-Anchor](cnkb-prompt-rev-2026-05-10-scheduling-anchor.md) — Stage 4/2D scheduling-preference Q now leads with "For timing,..." anchor on all 10 CNKB clones. Fixes location-vs-timing ambiguity surfaced by Stanley/Roger St.Catharines test.
 - [ChatDash wired to EG-Inbound](chatdash-eg-inbound-wired.md) — first centre with ChatDash on inbound. Documents Retell→ChatDash→n8n proxy chain, per-direction forwarding URL gotcha, synthetic-test pattern.
@@ -349,5 +359,6 @@
 | `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |
 | `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |
 | `stripe-billing.md` | Stripe API keys, account ID, products, Chat-Dash integration |
-| `tourforce-pricing.md` | 2-tier pricing model (Base $99 / Pro $299, booking is divider), feature matrix, cost data, Vinsi intel — v7 2026-05-22 |
+| `tourforce-pricing.md` | 2-tier CAD-only (Base $99 / Pro $299), founding rate $199 Pro for first 5 centres, Vinsi intel — v9 2026-05-23 |
+| `customer-leaside-pickering-first-paying.md` | First paying customer — Sharmilla, Leaside + Pickering, $368.15 MRR, signed 2026-05-23 |
 | `feedback-ship-simple-when-decisions-oscillate.md` | When a decision keeps reversing, the gap is data not analysis — ship simplest defensible version |
