@@ -20,7 +20,7 @@ originSessionId: fb1283ef-1d84-48b4-865b-263821fdbd91
 | **248226** | Relative Date + Name Optional Booking | `date-handling`, `name-optional`, `fix-2026-04-20` | "next Tuesday" → agent defers to SLOTS (no date guess); name withheld → books with "the guest" |
 | **248701** | Booking Autonomy - No Staff Deflection | `booking-autonomy`, `fix-2026-04-21` | Clean booking → agent confirms directly, no "team will confirm" |
 | **248702** | Stage 6 Soft-Hold on Check Calendar | `soft-hold`, `fix-2026-04-21` | "let me check calendar" → agent pencils in a slot, not staff callback |
-| **248703** | Age 7 Boundary - Create Path | `age-gate`, `fix-2026-04-21` | 7yo → Create flow (not Junior despite Junior covering 5-7) |
+| **248703** | Age 7 Boundary - Create Path | `age-gate`, `fix-2026-04-21` | ⚠️ STALE — expects 7yo→Create, but per the 2026-05-23 age correction ([[create-age-range]]) all 7yos now route to Junior. This scenario scores EO=0 on BOTH the current live prompt and any trim (confirmed 2026-06-01, run 594624). Update its expected_outcome_prompt to expect Junior before trusting it as a guard. |
 | **248704** | Name Placeholder Wording - "the guest" | `name-optional`, `fix-2026-04-21` | Name withheld → exact "lock you in under 'the guest'" language + booking completes |
 
 ## Baseline (all passed on prompt v-Apr21)

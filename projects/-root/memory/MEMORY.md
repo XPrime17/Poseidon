@@ -39,6 +39,9 @@
 - [Onboard centre = write KB URL to BOTH stores](feedback-onboarding-kb-url-checklist.md) — kb-crawler/centres.json AND Centre Lookup `knowledge_base` column. Riverside hit this gap; Get KB errors with "Bad request" when column is empty.
 - [Centre launch has two registration surfaces](centre-launch-two-surfaces.md) — lead-reactivation Centre Lookup (sheet) AND TourForce portal Postgres (centres + centre_agents + portal_users). Different centre_id namespaces (`ct-riverside` vs `riverside-ct-us`). Riverside flagged 2026-05-03.
 
+## Retell Billing
+- [LLM Token Surcharge = prompt-size scaling](retell-llm-token-surcharge.md) — 3,500-tok limit; surcharge scales billed duration by prompt_tokens/3500. Static CNKB prompt ~6.6K tok (1.9× limit) is the driver, NOT KB injection (~1.4K). Was 56% of the May receipt. Trim prompt, not KB; validate vs Cekura 13260 first.
+
 ## CN HubSpot Migration (ANNOUNCED 2026-04-23)
 - [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide. Pilot end-of-May, full rollout June/July 2026. Invalidates CORE Gmail-trigger; ship HubSpot↔n8n bridge before pilot. Partner: SonaMation.
 - [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
