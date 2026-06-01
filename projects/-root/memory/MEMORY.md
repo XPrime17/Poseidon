@@ -62,6 +62,7 @@
 - [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.
 - [press_digit rollout 2026-05-13](retell-press-digit-rollout.md) — DTMF tool wired to 7 of 8 outbound CNKB LLMs; bypasses call-control "press 9 to get through" gates. Triggered by Pickering call_f2fbc5c0 lost lead.
 - [Phone-number weighted *_agents API](retell-phone-weighted-agents-api.md) — Retell deprecated singular `*_agent_id` (2026-03-31) for `*_agents` arrays `[{agent_id,weight}]`; unbind=`[]`. Migrated provision-inbound/onboard-centre/Offboard 2026-05-31. `inbound_webhook_url` + call-level `override_agent_id` unaffected.
+- [v2→v3 list-calls migration](retell-v3-list-calls-migration.md) — DIFFERENT deprecation than phone-fields; `/v2/list-calls`→`/v3/list-calls` (cutoff 2026-06-15). v3 returns `{items,pagination_key,has_more}` not a bare array; get-call stays v2. All 5 sites migrated 2026-06-01; audit.py + portal need redeploy.
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
