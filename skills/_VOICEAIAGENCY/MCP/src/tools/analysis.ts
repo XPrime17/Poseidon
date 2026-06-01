@@ -409,14 +409,26 @@ export const registerAnalysisTools = (server: McpServer, client: Retell) => {
     handler(async (data: z.infer<typeof AnalyzeTranscriptsSchema>) => {
       const numCalls = Math.min(data.num_calls ?? 10, 50);
 
-      // Fetch recent calls
-      const calls = await client.call.list({
-        filter_criteria: {
-          agent_id: [data.agent_id],
+      // Fetch recent calls via /v3/list-calls directly — the installed SDK (4.x)
+      // still targets the deprecated POST /v2/list-calls.
+      const res = await fetch("https://api.retellai.com/v3/list-calls", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
+          "Content-Type": "application/json",
         },
-        limit: numCalls,
-        sort_order: "descending",
+        body: JSON.stringify({
+          filter_criteria: { agent_id: [data.agent_id] },
+          limit: numCalls,
+          sort_order: "descending",
+        }),
       });
+      if (!res.ok) {
+        throw new Error(`list-calls v3 failed: ${res.status} ${await res.text()}`);
+      }
+      const listJson = await res.json();
+      // v3 wraps results in { items, pagination_key, has_more }.
+      const calls: any[] = Array.isArray(listJson) ? listJson : (listJson.items ?? []);
 
       if (calls.length === 0) {
         return {

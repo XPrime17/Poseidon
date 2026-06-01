@@ -22,13 +22,27 @@ export const registerCallTools = (server: McpServer, client: Retell) => {
     "Use agent_id to filter by agent. Results ordered by most recent first.",
     ListCallsSchema.shape,
     handler(async (data: z.infer<typeof ListCallsSchema>) => {
-      const calls = await client.call.list({
-        filter_criteria: {
-          agent_id: [data.agent_id],
+      // Call /v3/list-calls directly instead of client.call.list — the installed
+      // SDK (4.x) still targets the deprecated POST /v2/list-calls. A direct fetch
+      // moves us off v2 without a risky 4→5 major SDK bump across the whole server.
+      const res = await fetch("https://api.retellai.com/v3/list-calls", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RETELL_API_KEY}`,
+          "Content-Type": "application/json",
         },
-        limit: data.limit ?? 20,
-        sort_order: (data.sort_order as any) ?? "descending",
+        body: JSON.stringify({
+          filter_criteria: { agent_id: [data.agent_id] },
+          limit: data.limit ?? 20,
+          sort_order: data.sort_order ?? "descending",
+        }),
       });
+      if (!res.ok) {
+        throw new Error(`list-calls v3 failed: ${res.status} ${await res.text()}`);
+      }
+      const json = await res.json();
+      // v3 wraps results in { items, pagination_key, has_more }.
+      const calls: any[] = Array.isArray(json) ? json : (json.items ?? []);
       return calls.map((c: any) => ({
         call_id: c.call_id,
         call_type: c.call_type,
