@@ -128,6 +128,7 @@
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
 - [KB Dynamic Injection (Outbound)](kb-dynamic-injection.md) — CNKB outbound agents have empty `knowledge_base_ids`; KB content is injected at call time via n8n Get KB (Google Docs) → `retell_llm_dynamic_variables`. Do NOT claim hallucination without checking the centre's Google Doc KB first.
 - [Call Failed leaves orphan rows](callfailed-orphan-rows.md) — Outbound appends MasterSheet row before the Retell call; rejections leave orphans. Fix = delete row on Call Failed branch (don't move the append). Issue #53.
+- [Booking Verification workflow](booking-verification-workflow.md) — standalone cloud-only n8n wf `dUEa8NI0z8vq2LSL` sends "Booking Verification Failed!!". Blank-Retell (AI never reached lead, they booked elsewhere) was a FALSE alarm; fixed 2026-06-01 to reclassify as a win + halt retries (status=completed). Not in any local EOC export.
 
 ## Architecture — Lead System (UPDATED 2026-04-10)
 - **Cloudflare Worker is ABANDONED.** All retry logic lives in n8n + Google Sheets.
