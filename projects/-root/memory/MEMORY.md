@@ -118,6 +118,7 @@
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
 - [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 6 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, cancel-task safety net for stray test bookings, ClickUp cleanup + 5 backfill cancel tasks. Workflow now 25 nodes.
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
+- [Cekura Tier-1 false-positive classes](cekura-tier1-false-positive-classes.md) — monthly Tier-1 (agent 13260, cron 427) re-alarms from 3 harness defects, NOT agent bugs: Slot-Validation-can't-see-SLOTS, Tour-Booking-Success-on-no-booking-scenarios, stale age-7 scenario. EO=5 + status=failure ⇒ false positive.
 - [Inbound auto-booking is the goal](feedback-inbound-autobook.md) — Skyvern is wired; "no booking" = bug, not design choice
 - [Voice AI issue tracker](voice-ai-issue-tracker.md) — all pipeline bugs go to `XPrime17/lead-reactivation` (despite the name)
 - [Inbound KB injection via pre-call webhook](inbound-kb-injection.md) — LIVE for EG. Google Doc → n8n → Retell phone-number inbound_webhook_url → agent prompt. RAG disabled.
