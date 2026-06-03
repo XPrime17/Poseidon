@@ -109,6 +109,7 @@
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
 
 ## St. Catharines (LIVE 2026-05-09)
+- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` via `*72`+number (`*73` off); carrier UNKNOWN (record once Janet reports); Janet setting up 2026-06-03
 - [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
 
 ## Leaside Inbound (PROVISIONED 2026-04-23)
