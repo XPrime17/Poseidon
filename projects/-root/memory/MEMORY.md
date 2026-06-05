@@ -109,13 +109,14 @@
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
 
 ## St. Catharines (LIVE 2026-05-09)
-- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` via `*72`+number (`*73` off); carrier UNKNOWN (record once Janet reports); Janet setting up 2026-06-03
+- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137`. Carrier = **NRBN**; residential tier has ONLY `*72` unconditional (no CFNA star code) — 4-ring policy needs NRBN **Business Hosted Voice** (Cisco BroadSoft, CFNA `*92`/`*93`) configured by NRBN. OPEN: confirm tier + set CFNA. 2026-06-04
 - [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
 
 ## Leaside Inbound (PROVISIONED 2026-04-23)
 - [Leaside Inbound](leaside-inbound.md) — agent + Twilio provisioned. Activation BLOCKED 2026-04-25: Sharmilla busy-signals on multiple Rogers star codes → Call Forwarding likely not on her plan. Action: call Rogers Business 1-888-764-3771 to enable "Call Forwarding (Variable)", then dial `*72` + `6474963276` (NOT `*92` — that was a Bell code). KB + ClickUp + post-call workflow still needed.
 
 ## EG Inbound Pilot (LIVE 2026-04-16)
+- [Always no-answer (4-ring) forwarding](feedback-no-answer-forwarding-always.md) — POLICY: every centre's inbound forward must ring the centre ~4x first (no-answer mode), NEVER unconditional `*72`. Staff get first crack; AI is overflow. Bell `*92`/`*93`; confirm carrier per centre. Set 2026-06-04.
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
 - [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 6 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, cancel-task safety net for stray test bookings, ClickUp cleanup + 5 backfill cancel tasks. Workflow now 25 nodes.
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771

@@ -42,7 +42,10 @@
       "mcp__cekura__scenarios_run_retell_webrtc",
       "mcp__cekura__search_cekura",
       "mcp__cekura__scenarios_folders_list",
-      "mcp__cekura__scenarios_folder_create"
+      "mcp__cekura__scenarios_folder_create",
+      "mcp__cekura__critical_metric_scenarios_list",
+      "mcp__cekura__metrics_retrieve",
+      "mcp__cekura__results_evaluate_metrics_create"
     ]
   }
 }

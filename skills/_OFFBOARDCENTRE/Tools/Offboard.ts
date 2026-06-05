@@ -533,12 +533,13 @@ async function generateExitReport(inv: Inventory, mode: Mode, actions: string[])
   log(`pulling Retell call history…`);
   let calls: any[] = [];
   try {
-    const r = await fetch(`${RETELL_BASE}/v2/list-calls`, {
+    const r = await fetch(`${RETELL_BASE}/v3/list-calls`, {
       method: "POST",
       headers: { Authorization: `Bearer ${RETELL_KEY}`, "Content-Type": "application/json" },
       body: JSON.stringify({ filter_criteria: { agent_id: [inv.agent.agent_id] }, limit: 100 }),
     });
-    if (r.ok) calls = await r.json();
+    // v3 returns { items, pagination_key, has_more }; tolerate legacy array shape.
+    if (r.ok) { const j = await r.json(); calls = Array.isArray(j) ? j : (j.items ?? []); }
   } catch (e) { err(`call dump failed: ${(e as Error).message}`); }
 
   // Stats

@@ -506,6 +506,126 @@
       "description": "offboard Sudbury",
       "first_prompt": "offboard Sudbury",
       "started_at": "2026-05-22T00:16:12+00:00",
+      "ended_at": "2026-05-25T23:35:06+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "fb113d38-c744-4f42-9e79-741f86cb023c",
+      "description": "let's add a feature to the nightly KB crawler that flags ...",
+      "first_prompt": "let's add a feature to the nightly KB crawler that flags if a centre doesn't have summer camps published to their website.  We should run this between January and June (inclusive).  Not relevant th...",
+      "started_at": "2026-05-25T23:35:06+00:00",
+      "ended_at": "2026-06-04T01:35:28+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "aefa9c6d-2676-496c-b7b7-209e71ed4d78",
+      "description": "diagnose issue flagged on saturday:  ClickUp task missing...",
+      "first_prompt": "diagnose issue flagged on saturday:  ClickUp task missing (workflow skipped create)",
+      "started_at": "2026-05-25T23:58:52+00:00",
+      "ended_at": "2026-05-31T21:06:13+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "05b70f05-910b-4408-ab3a-9b1258c01c3b",
+      "description": "need to deal with this email from Retell:  As we announce...",
+      "first_prompt": "need to deal with this email from Retell:  As we announced back in February 2026, we will be deprecating some fields in Phone Number APIs. Please TAKE ACTION to change API following the instruction...",
+      "started_at": "2026-05-31T19:54:05+00:00",
+      "ended_at": "2026-05-31T21:12:42+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "2cf2e90d-95d5-4b4b-a510-788a169db5e1",
+      "description": "let's deal with this task from St. Catharines:  \"[New Lea...",
+      "first_prompt": "let's deal with this task from St. Catharines:  \"[New Lead] Steven Adams - Caller returned a call but is unsure about the reason and requests a callback with more information.\"",
+      "started_at": "2026-05-31T23:02:33+00:00",
+      "ended_at": "2026-06-01T00:44:00+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6eac1eb0-d2fe-4cf0-81de-0d48c02452cd",
+      "description": "analyze retell receipt.  seems like token surcharge is in...",
+      "first_prompt": "analyze retell receipt.  seems like token surcharge is increasing.  how much are we over their limit?   \n      Receipt #2043-7710 \n \n      Apr 29–May 29, 2026 \n \n      Elevenlabs TTS \n \nQty 12,187 ...",
+      "started_at": "2026-06-01T00:44:03+00:00",
+      "ended_at": "2026-06-01T22:03:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "e3bc8c92-db49-4584-8142-a116e0dd12ea",
+      "description": "I thought we fixed this yesterday, but I got this email t...",
+      "first_prompt": "I thought we fixed this yesterday, but I got this email today:  Hi there,\n\nAction required: we detected continued usage of deprecated Retell API functionality in your account.\n\nUnless you update yo...",
+      "started_at": "2026-06-01T22:21:00+00:00",
+      "ended_at": "2026-06-01T23:28:29+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "e4c79ee2-fe97-486a-b8a9-00361c91e640",
+      "description": "review today's calls. I got an email \"Booking Verificatio...",
+      "first_prompt": "review today's calls. I got an email \"Booking Verification Failed!!\"  Could not parse date - Retell: , CRM: 06/13/2026",
+      "started_at": "2026-06-01T23:28:30+00:00",
+      "ended_at": "2026-06-01T23:59:34+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "f97eda90-c2b6-49b4-a696-b1faff9ecc35",
+      "description": "Looks like there were Cekura failures today:  [Cekura Tie...",
+      "first_prompt": "Looks like there were Cekura failures today:  [Cekura Tier 1 Regression] FAILURES DETECTED — 2026-06-01",
+      "started_at": "2026-06-01T23:59:36+00:00",
+      "ended_at": "2026-06-02T00:45:55+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "c81e1cc8-0da6-4c45-bb8b-11b2b1f084fc",
+      "description": "I want you to scrape all of the content from one of my Sk...",
+      "first_prompt": "I want you to scrape all of the content from one of my Skool groups.  I also want you to watch the videos to scrape that info.  I can login with my credentials",
+      "started_at": "2026-06-02T00:45:56+00:00",
+      "ended_at": "2026-06-03T23:17:06+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "daf9b54d-cf72-4951-aaf7-76c61340ca26",
+      "description": "Shauna is getting her director Janet to setup the call fo...",
+      "first_prompt": "Shauna is getting her director Janet to setup the call forwarding at St. Catharines.  I'm talking to her on WhatsApp.  Please prepare a small blurb of what she needs to do.",
+      "started_at": "2026-06-03T00:39:44+00:00",
+      "ended_at": "2026-06-04T01:35:31+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "9dadef59-c5ca-4ae4-a154-f54838991c78",
+      "description": "Hey Scott, the AI answered after 1 ring and it did not ri...",
+      "first_prompt": "Hey Scott, the AI answered after 1 ring and it did not ring at all at the centre.  From Janet",
+      "started_at": "2026-06-03T23:17:06+00:00",
+      "ended_at": "2026-06-04T01:20:20+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "7a979655-73ca-424c-b39c-9f06a26cf14f",
+      "description": "are you able to tell if my clients with chatdash stripe s...",
+      "first_prompt": "are you able to tell if my clients with chatdash stripe subscriptions are behind on their payments?",
+      "started_at": "2026-06-04T01:35:31+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,
