@@ -344,14 +344,15 @@
 - **Chat-Dash learnings (2026-03-29):** 7 competitive advantages documented in `tourforce-portal.md`
 - See `tourforce-portal.md` for full details, Chat-Dash learnings, and remaining manual steps
 
-## ChatDash Client Portal (ACTIVE 2026-03-28, BILLING BLOCKED)
+## ChatDash Client Portal (ACTIVE 2026-03-28, BILLING LIVE as of 2026-06-06)
 - **Portal domain:** `portal.tourforce.ca` (Cloudflare DNS → ChatDash)
 - **Email whitelabeling:** Configured with SendGrid DNS records on tourforce.ca
 - **Client login URL:** `portal.tourforce.ca/client/login`
 - **Client onboarding:** Manual — agency creates loginId + password, shares with client (no auto-invite)
-- **Billing status:** BLOCKED — "cannot make live charges" error despite verified Stripe account. Support ticket sent 2026-03-29. Likely trial/platform restriction.
-- **Plan:** Using for agent management while building custom TourForce Portal as replacement
+- **Billing status:** ✅ LIVE — first successful charge collected 2026-06-06 (Sharmilla / Leaside + Pickering). Earlier 2026-03-29 "cannot make live charges" block resolved at some point before this date.
+- **Plan:** Using for agent management AND billing while building custom TourForce Portal as eventual replacement
 - **Stripe connected:** `acct_1T3SS88QdbWckC7C` via Stripe Connect OAuth
+- [Past_due recovery playbook](playbook-chatdash-billing-recovery.md) — resend client setup email → client logs into client dashboard → adds payment method → Stripe auto-collects arrears. The client-dashboard login is a separate surface from the agency dashboard; clients often lose it.
 
 ## Feedback
 - [Retry over completed](feedback_retry_over_completed.md) — For ambiguous call disconnections, default to retry not completed

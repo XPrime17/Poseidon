@@ -31,6 +31,6 @@ metadata:
 - Founding rate retires when the 5th centre signs
 
 ## Open follow-ups
-- Confirm Stripe customer + subscription set up for Sharmilla (existing Stripe customer `cus_UEebdOCmqio8cL` is "Code Ninjas East Gwillimbury" — Leaside + Pickering need separate Stripe customer records)
+- ✅ **RESOLVED 2026-06-06:** Stripe customer + subscriptions WERE set up at signing — they had been sitting in `past_due` for ~14 days because Sharmilla never added a payment method. Recovery: resent Chat-Dash client setup email → she logged into client dashboard → added card → Stripe auto-collected arrears in one move. See [[playbook-chatdash-billing-recovery]] for the reusable flow.
 - Pickering CRM write-back ("coming" until HubSpot bridge live) — set expectation
 - Track conversion: did Sharmilla's "first 5 founding" framing accelerate her signing, vs. our prior month of pilot-no-pay status?
