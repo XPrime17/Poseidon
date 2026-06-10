@@ -1,5 +1,11 @@
 # PAI Memory
 
+## ▶ Active Transfer Doc
+- [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
+
+## ▶ Active Experiment
+- [Retry cadence A/B 2026-06-10](retry-cadence-ab-2026-06-10.md) — global switch (all live centres) to ASAP attempt 1 + 6:30pm-ET on day+1/+2/+3. New "Every Day 6:30pm ET" cron in Retry Scheduler `rt0aEuDnFv3ZCl1y`; cadence in `Calculate Next Call` (`4p1V0wESn3kZySt6`). Backups + revert path in file.
+
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
 
@@ -88,6 +94,8 @@
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)
+- [MED-1 deeper: inbound existing-customer recognition (2026-06-10)](med1-existing-customer-recognition-2026-06-10.md) — Option B to 3 inbound clones: name safety-net + Existing-Customer Overlay prompts, `existing_customer` post-call boolean, EOC ClickUp task flags+priority. Full phone-lookup deferred to HubSpot. Gate PASS.
+- [Pre-camp tour exception (2026-06-09)](cnkb-precamp-tour-rev-2026-06-09.md) — "come see the place before camp" now books as a normal Create tour (not deflected); one exception bullet after the Booking gate, shipped to all 9 live LLMs (source+SyncPrompt for 4 clones, StCath-out + 3 inbound patched in place). Backups in kb-crawler/llm-prompt-backups/2026-06-09-precamp-tour/.
 - [Repeated-Objection Escape (2026-06-07)](cnkb-repeated-objection-escape.md) — agents now hand off to staff after 2 repeats of a disputed point instead of looping ~22×. Patched in-place to all 9 live clones; SyncPrompt registry also cleaned (dropped 4 offboarded, fixed Burlington LLM, StCath excluded). Validated via Cekura 281290 (WebRTC).
 - [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (Junior 5-7, Create 7-14; overlap at 7), name-optional booking ("the guest"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each). **Age ranges corrected from earlier "5-6 Junior" note — true range is 5-7 per Scott 2026-05-13.**
 - [Create program age range = 8-14 (global)](create-age-range.md) — Scott 2026-05-23 corrected the overlap: Create 8-14, Junior 5-7. All 7-year-olds now flow through Junior path. Pending prompt rev blocked on St. Catharines Junior-scope feedback.
@@ -116,6 +124,15 @@
 - [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137`. Carrier = **NRBN**; residential tier has ONLY `*72` unconditional (no CFNA star code) — 4-ring policy needs NRBN **Business Hosted Voice** (Cisco BroadSoft, CFNA `*92`/`*93`) configured by NRBN. OPEN: confirm tier + set CFNA. 2026-06-04
 - [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
 
+## ClickUp Structure (RESTRUCTURED 2026-06-09)
+- [Per-centre folder + Inbound/Outbound lists](clickup-percentre-inbound-outbound-2026-06-09.md) — all 6 centres have own folder w/ separate Inbound+Outbound lists; Centre Lookup gained clickup_inbound_list_id (P)+clickup_outbound_list_id (Q); inbound/outbound EOC repointed (live, gate PASS). Full list-id map inside. Supersedes single-list layout below.
+
+## Leaside / Pickering (Sharmila)
+- [Leaside+Pickering share one ClickUp folder/list](clickup-leaside-pickering-sharmila.md) — folder "Pickering + Leaside (Sharmila)" 90117899982 → Inbound Tasks list 901113632689; Sharmila guest user_id 87425193. ✅ Centre Lookup clickup cols (M/N) now SET for both (rows 3+8) 2026-06-09 — staff-follow-up tasks will auto-create going forward.
+
+## Sheet Write Access (CORRECTION 2026-06-09)
+- [I CAN write Centre Lookup/MasterSheet via temp n8n workflow](centre-lookup-write-via-n8n.md) — temp Webhook→HTTP Sheets-API node with write cred yjVHcEWrpyDmxkvv (eg-backfill.py/sheet-read.py pattern). The old "Scott edits manually" claim is FALSE; don't repeat it.
+
 ## Leaside Inbound (PROVISIONED 2026-04-23)
 - [Leaside Inbound](leaside-inbound.md) — agent + Twilio provisioned. Activation BLOCKED 2026-04-25: Sharmilla busy-signals on multiple Rogers star codes → Call Forwarding likely not on her plan. Action: call Rogers Business 1-888-764-3771 to enable "Call Forwarding (Variable)", then dial `*72` + `6474963276` (NOT `*92` — that was a Bell code). KB + ClickUp + post-call workflow still needed.
 
@@ -132,6 +149,7 @@
 - [Outbound Junior-program deflection bug](outbound-junior-deflection.md) — agent hands off Junior inquiries instead of booking. Regression from Apr 6. Likely affects all 10 clones. HIGH priority.
 
 ## Lead Pipeline Gotchas
+- ["Wrong Location — wants Bayview" outbound is a Cekura test](audit-bayview-wrong-location-is-cekura.md) — call_8f1b380a looks like a real Leaside (1386 Bayview Ave) mis-route but is Cekura scenario 141951; tell = dynamic var first_name=CEKURA_TEST + PHONE +15555550100. Check dynamic vars before flagging outbound calls; weekly audit lacks the CEKURA_TEST filter the daily audit has.
 - [Lookup Centre Transient Error](centre-enablement-gotcha.md) — Google Sheets flakes cause BOTH "Not Enabled" + "Centre not found" emails and silently drop the lead (2026-04-13, Cindy Correia / Canton)
 - [KB Dynamic Injection (Outbound)](kb-dynamic-injection.md) — CNKB outbound agents have empty `knowledge_base_ids`; KB content is injected at call time via n8n Get KB (Google Docs) → `retell_llm_dynamic_variables`. Do NOT claim hallucination without checking the centre's Google Doc KB first.
 - [Call Failed leaves orphan rows](callfailed-orphan-rows.md) — Outbound appends MasterSheet row before the Retell call; rejections leave orphans. Fix = delete row on Call Failed branch (don't move the append). Issue #53.

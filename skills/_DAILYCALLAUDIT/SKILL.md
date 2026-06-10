@@ -39,7 +39,14 @@ For each agent, fetch up to 50 calls with `list_calls`. Filter to calls where `s
 
 ### Step 2: Filter Out Cekura Tests
 
-Remove calls where `transcript_preview` contains `CEKURA_TEST` or `lead_id` contains `CEKURA_TEST`. These are automated QA runs, not real leads.
+Remove **every** call matching ANY of these Cekura-test signals. A single check on `transcript_preview`/`lead_id` is NOT enough — synthetic scenarios like the "Wrong Location – Wants Bayview" test (#141951) carry their tell only in the dynamic variables and otherwise slip through and get reported as real production issues (this is what happened on the 2026-06-06 weekly audit → MED-2 false alarm):
+
+- `transcript_preview` contains `CEKURA_TEST`, OR `lead_id` contains `CEKURA_TEST`
+- **`retell_llm_dynamic_variables.first_name == "CEKURA_TEST"`** — pull the call's dynamic vars and check this; it is the most reliable tell
+- `retell_llm_dynamic_variables.PHONE == "+15555550100"` — the placeholder test number
+- `call_status == "not_connected"` with `duration_ms == 0` — common Cekura artifact
+
+These are automated QA runs, not real leads. The automated daily `audit.py` additionally cross-references the Cekura runs API by `(agent_id, to_number, minute)`; if you have `CEKURA_API_KEY`, do the same — otherwise the signals above catch the vast majority. **Apply this same filter for weekly/ad-hoc audits, not just the daily run.**
 
 ### Step 3: Group Retry Chains by `to_number`
 
@@ -106,6 +113,8 @@ For each real call, run these checks. Pull full transcript (`get_transcript`) fo
 
 #### 4E. Wrong Location (MEDIUM)
 **Check:** `wrong_location_requested: true` in call analysis.
+
+**FIRST — rule out a Cekura test (see Step 2):** the "Wrong Location – Wants Bayview" regression scenario (#141951) sets `wrong_location_requested: true` on purpose. Before flagging, confirm `retell_llm_dynamic_variables.first_name != "CEKURA_TEST"` and `PHONE != "+15555550100"`. If it's a test, drop it — not a production issue.
 
 **Suggest:** Review lead source — may indicate centre routing issue in Gmail plus-addressing.
 
@@ -175,11 +184,11 @@ Send via Resend HTTP API:
 - **From:** `onboarding@resend.dev`
 - **Subject:** `Daily Call Audit — [DATE] — [X issues found]`
 - **Body:** HTML-formatted version of the report above
-- **API Key:** `re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj`
+- **API Key:** in env var `RESEND_API_KEY` (same as `audit.py`) — never hardcode the literal; this repo is public.
 
 ```bash
 curl -X POST 'https://api.resend.com/emails' \
-  -H 'Authorization: Bearer re_jZ1fNYUk_Nb3DrrinayxqTTMGYtyMiKCj' \
+  -H "Authorization: Bearer $RESEND_API_KEY" \
   -H 'Content-Type: application/json' \
   -d '{
     "from": "onboarding@resend.dev",
