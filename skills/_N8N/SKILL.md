@@ -15,6 +15,21 @@ Deploy and test n8n workflow changes via the n8n cloud API.
 | **API Key Env Var** | `N8N_API_KEY` (in `/root/.env`) |
 | **API Base** | `https://xprime17.app.n8n.cloud/api/v1` |
 
+## Regression Gate — RUN AFTER EVERY PIPELINE CHANGE
+
+**Mandatory "definition of done"** for any change to a lead-pipeline workflow, the Centre
+Lookup sheet, or a centre's Retell phone bindings:
+
+```bash
+set -a; . /root/.env; . ~/.claude/.env; set +a
+python3 ~/.claude/skills/_N8N/Tools/PipelineRegressionCheck.py   # exit 0 = PASS, 1 = FAIL
+```
+
+It cross-validates Centre Lookup ↔ live workflow column refs ↔ Retell inbound bindings ↔
+ClickUp, and FAILS on the class of break that took EG inbound offline silently for 10 days
+(May-31 2026). A change is **not shipped** until this returns PASS. WARNs flag centres
+provisioned-but-not-wired (fix before activating). See `Tools/PipelineRegressionCheck.py`.
+
 ## Workflow Registry
 
 | Name | ID | Purpose |

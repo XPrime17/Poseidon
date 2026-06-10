@@ -41,15 +41,20 @@ bun SyncPrompt.ts --push --only Canton,Rayford
 
 ## Clone Registry
 
+Live outbound clones only (updated 2026-06-07).
+
 | Centre | Agent ID | LLM ID |
 |--------|----------|--------|
 | East Gwillimbury (source) | `agent_0c6c32b61cb506fefb6ac247f4` | `llm_44111168b1a2a469f50891b26e34` |
-| Canton | `agent_f10e56ab67fddf22bd60def599` | `llm_d25bbc493b20eb095ab92bceb116` |
-| StoneOak | `agent_cd531f218c39d6125098cf7abc` | `llm_c26de057ffe1ff9a71366e95c447` |
-| RoundRock | `agent_d06452d16a225cfbf207890350` | `llm_7b795d82b19f42562ef0abaf857f` |
-| Rayford | `agent_9c1c8996e054e87f6b76aa8a0a` | `llm_118c93e692e7255083a56043c3e9` |
-| Burlington | `agent_2f5419fc0c45a24a02bb820cce` | `llm_97ac9c35e7387a448b927ce509b6` |
+| Burlington | `agent_075f92a824314e958918af3d9c` | `llm_35ce5dd8697541ec0e97f0dcfde0` |
 | Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` |
+| Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `llm_4cfa990bea7bfcbf67060e8c8f72` |
+| Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | `llm_512d93c0c71e0ef00e318b3e9fc0` |
+
+**Excluded on purpose:**
+- **St. Catharines** — carries a per-centre custom AI intro (Stage 1). A full-prompt sync would clobber it; patch in place.
+- **Canton, StoneOak, RoundRock, Rayford** — offboarded 2026-05; removed from sync.
+- **Inbound agents** (EG/StCath/Leaside-Inbound) — separate prompts, not synced by this tool.
 
 ## Adding a New Clone
 

@@ -35,12 +35,15 @@ interface CloneEntry {
   llm_id: string;
 }
 
+// LIVE outbound clones only.
+// - Offboarded centres (Canton, StoneOak, RoundRock, Rayford — offboarded 2026-05)
+//   removed 2026-06-07 so a --push can't re-sync dead/stale agents.
+// - Burlington agent+LLM corrected 2026-06-07 (old registry entry llm_97ac… was 404).
+// - St. Catharines is intentionally EXCLUDED: it carries a per-centre custom AI intro
+//   (Stage 1) that a full-prompt overwrite would clobber. Patch StCath in place instead.
+// - Inbound agents (EG/StCath/Leaside-Inbound) have their own prompts; not synced here.
 const CLONES: CloneEntry[] = [
-  { name: "Canton",     agent_id: "agent_f10e56ab67fddf22bd60def599", llm_id: "llm_d25bbc493b20eb095ab92bceb116" },
-  { name: "StoneOak",   agent_id: "agent_cd531f218c39d6125098cf7abc", llm_id: "llm_c26de057ffe1ff9a71366e95c447" },
-  { name: "RoundRock",  agent_id: "agent_d06452d16a225cfbf207890350", llm_id: "llm_7b795d82b19f42562ef0abaf857f" },
-  { name: "Rayford",    agent_id: "agent_9c1c8996e054e87f6b76aa8a0a", llm_id: "llm_118c93e692e7255083a56043c3e9" },
-  { name: "Burlington", agent_id: "agent_2f5419fc0c45a24a02bb820cce", llm_id: "llm_97ac9c35e7387a448b927ce509b6" },
+  { name: "Burlington", agent_id: "agent_075f92a824314e958918af3d9c", llm_id: "llm_35ce5dd8697541ec0e97f0dcfde0" },
   { name: "Pickering",  agent_id: "agent_9d24e87943bc3b8105261bf308", llm_id: "llm_9b4bcc9bd77a2bd3c3c04ed579b1" },
   { name: "Leaside",    agent_id: "agent_1f8c2799630cd6524fa8176e6d", llm_id: "llm_4cfa990bea7bfcbf67060e8c8f72" },
   { name: "Riverside",  agent_id: "agent_ee11bcfc9222c37df4de8bfe95", llm_id: "llm_512d93c0c71e0ef00e318b3e9fc0" },
