@@ -50,6 +50,7 @@ Live outbound clones only (updated 2026-06-07).
 | Pickering | `agent_9d24e87943bc3b8105261bf308` | `llm_9b4bcc9bd77a2bd3c3c04ed579b1` |
 | Leaside | `agent_1f8c2799630cd6524fa8176e6d` | `llm_4cfa990bea7bfcbf67060e8c8f72` |
 | Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | `llm_512d93c0c71e0ef00e318b3e9fc0` |
+| Kanata | `agent_aac09671305b8903483ceee6df` | `llm_46f528077e86fca2a2a2549e2793` |
 
 **Excluded on purpose:**
 - **St. Catharines** — carries a per-centre custom AI intro (Stage 1). A full-prompt sync would clobber it; patch in place.

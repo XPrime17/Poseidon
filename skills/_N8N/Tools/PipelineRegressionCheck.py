@@ -15,12 +15,12 @@ Checks:
      (lookupColumn + `Lookup Centre…item.json.<col>`) must exist in the sheet.
      -> catches a column rename that misses a node.
   B. Inbound consistency — every row with inbound_number set must also have
-     clickup_list_id, clickup_user_ids, and centre_email.  (FAIL)
+     clickup_inbound_list_id, clickup_user_ids, and centre_email.  (FAIL)
   C. Inbound coverage — every LIVE inbound centre must have inbound_number populated
      AND that number must be bound to an inbound agent in Retell (FAIL).
      Retell inbound-bound numbers with no matching row -> WARN (provisioned, not live).
   D. Outbound — every enabled row must have outbound_number populated (FAIL).
-  E. ClickUp list validity — each clickup_list_id used by a live inbound centre must
+  E. ClickUp list validity — each clickup_inbound_list_id used by a live inbound centre must
      resolve via the ClickUp API (FAIL on 404).
 
 No side effects (read-only). Usage: python3 PipelineRegressionCheck.py
@@ -105,10 +105,11 @@ def main():
             if col not in headers:
                 FAIL(f"[A] workflow '{wf['name']}' references Centre Lookup column '{col}' which does not exist in the sheet")
 
-    # B. inbound consistency
+    # B. inbound consistency — clickup_inbound_list_id (col P) replaced the dead
+    # clickup_list_id (col N) in the 2026-06-09 per-centre Inbound/Outbound restructure
     for r in rows:
         if digits(r.get("inbound_number")):
-            for need in ("clickup_list_id", "clickup_user_ids", "centre_email"):
+            for need in ("clickup_inbound_list_id", "clickup_user_ids", "centre_email"):
                 if not r.get(need):
                     FAIL(f"[B] centre '{r['centre_id']}' has inbound_number set but '{need}' is empty")
 
@@ -147,7 +148,7 @@ def main():
         seen = {}
         for cid in LIVE_INBOUND_CENTRE_IDS:
             r = rows_by_cid.get(cid)
-            lid = r and r.get("clickup_list_id")
+            lid = r and r.get("clickup_inbound_list_id")
             if not lid: continue
             lid = str(int(lid)) if isinstance(lid, float) else str(lid)
             if lid in seen: continue
