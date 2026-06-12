@@ -2,6 +2,10 @@
 
 ## ▶ Active Transfer Doc
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
+- [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
+
+## ▶ Lead Program Expansion (2026-06-12)
+- [Create+Junior+Camp outbound](lead-program-expansion-2026-06-12.md) — trigger widened to subject:Inquiry, Classify Lead node (CORE→create, JUNIOR→junior, "New Inquiry for"→camp), lead_program col Z + dynamic var on both call paths, program-aware Stage 1 on all 7 outbound LLMs. OPEN: existing centres must drop their "New CORE Program Inquiry" forwarding filter.
 
 ## ▶ Active Experiment
 - [Retry cadence A/B 2026-06-10](retry-cadence-ab-2026-06-10.md) — global switch (all live centres) to ASAP attempt 1 + 6:30pm-ET on day+1/+2/+3. New "Every Day 6:30pm ET" cron in Retry Scheduler `rt0aEuDnFv3ZCl1y`; cadence in `Calculate Next Call` (`4p1V0wESn3kZySt6`). Backups + revert path in file.
@@ -27,6 +31,10 @@
 
 ## Power Automate Bridge (centre tenants — CRM Lead Forwarding)
 - ["Id is malformed" debug playbook](power-automate-shared-mailbox.md) — Forward (V2) on shared mailbox = 400 "Id is malformed". Fix: swap to Send (V2). Live-call triage order included. Older onboarding emails caused drift; current script (onboard-centre.ts:1061) is correct. Riverside/Leo 2026-05-03.
+
+## Onboarding Policy (NEW 2026-06-12)
+- [Onboarding email: two asks](feedback-onboarding-email-two-asks.md) — every director-facing onboarding email (template OR hand-drafted) must request a test phone number + a non-codeninjas email for ClickUp guest access.
+- [Onboard BOTH directions](feedback-onboard-both-directions.md) — every centre gets inbound+outbound agents (returned-call gap); onboard-centre.ts step4b auto-clones inbound, gate fails without binding; run provision-inbound.ts post-KB for registry+smoke.
 
 ## KB Ownership (NEW PROCEDURE 2026-05-08)
 - [KB ownership stays on our side](feedback-kb-ownership-flow.md) — WE create + own + share editor access to centre; centre never copies. onboard-centre.ts now requires `--kb-doc-id` flag and uses the new email pattern (fixed 2026-05-08).
@@ -128,6 +136,7 @@
 - [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
 
 ## ClickUp Structure (RESTRUCTURED 2026-06-09)
+- [Guest assign auto-shares](clickup-guest-assign-autoshare.md) — guest-share API is enterprise-gated (TEAM_110), but task `assignees` with a guest id works and shares the task; col M safe without folder share.
 - [Per-centre folder + Inbound/Outbound lists](clickup-percentre-inbound-outbound-2026-06-09.md) — all 6 centres have own folder w/ separate Inbound+Outbound lists; Centre Lookup gained clickup_inbound_list_id (P)+clickup_outbound_list_id (Q); inbound/outbound EOC repointed (live, gate PASS). Full list-id map inside. Supersedes single-list layout below.
 
 ## Leaside / Pickering (Sharmila)
@@ -144,6 +153,7 @@
 - [EG Inbound Pilot](eg-inbound-pilot.md) — full architecture, Bell forwarding fix, slot caching, post-call workflow
 - [EG Inbound Workflow Fixes 2026-04-25](eg-inbound-workflow-fixes-2026-04-25.md) — 6 fixes to End Of Call workflow: caller_name allowlist, idempotency, junk filter, Skyvern test gate, cancel-task safety net for stray test bookings, ClickUp cleanup + 5 backfill cancel tasks. Workflow now 25 nodes.
 - [EG Inbound Cekura Test Suite](eg-inbound-test-suite.md) — 10 scenarios live on Cekura (agent 16633), KB-boundary anti-hallucination test is #246771
+- [Tier-2 = per-centre crons, MCP-only API](cekura-tier2-percentre-crons.md) — one cron per centre staggered 5 min (511=Kanata); cron_jobs 404s on REST, use Cekura MCP.
 - [Cekura Tier-1 false-positive classes](cekura-tier1-false-positive-classes.md) — monthly Tier-1 (agent 13260, cron 427) re-alarms from 3 harness defects, NOT agent bugs: Slot-Validation-can't-see-SLOTS, Tour-Booking-Success-on-no-booking-scenarios, stale age-7 scenario. EO=5 + status=failure ⇒ false positive.
 - [Inbound auto-booking is the goal](feedback-inbound-autobook.md) — Skyvern is wired; "no booking" = bug, not design choice
 - [Voice AI issue tracker](voice-ai-issue-tracker.md) — all pipeline bugs go to `XPrime17/lead-reactivation` (despite the name)
