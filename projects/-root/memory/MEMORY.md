@@ -6,6 +6,9 @@
 ## ▶ Active Experiment
 - [Retry cadence A/B 2026-06-10](retry-cadence-ab-2026-06-10.md) — global switch (all live centres) to ASAP attempt 1 + 6:30pm-ET on day+1/+2/+3. New "Every Day 6:30pm ET" cron in Retry Scheduler `rt0aEuDnFv3ZCl1y`; cadence in `Calculate Next Call` (`4p1V0wESn3kZySt6`). Backups + revert path in file.
 
+## Droplet Ops
+- [Droplet /usr/bin/claude missing](droplet-claude-symlink-fix.md) — half-finished `npm i -g @anthropic-ai/claude-code` leaves `/usr/bin/claude` deleted; old staging dir `.claude-code-<HASH>/bin/claude.exe` still runs. Symlink fix or full reinstall — both documented.
+
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
 
