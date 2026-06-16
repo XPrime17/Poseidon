@@ -1,6 +1,6 @@
 ---
 name: stcath-inbound-call-forwarding
-description: "How to activate the St. Catharines inbound AI — no-answer forward (ring ~4x) the centre's main line to the Retell number; carrier still unknown"
+description: "How to activate the St. Catharines inbound AI — no-answer forward (ring ~4x) the centre's main line (289-974-0871) to the Retell number; carrier = NRBN"
 metadata: 
   node_type: memory
   type: project
@@ -9,7 +9,9 @@ metadata:
 
 # St. Catharines inbound call forwarding (2026-06-03)
 
-To go live on the inbound AI receptionist, the centre's **main business line** must be forwarded to the St. Catharines Retell inbound number **`+1 289-514-0137`** (`+12895140137`, the same number outbound calls originate from — see [[returned-outbound-calls-hit-inbound-agent]]).
+To go live on the inbound AI receptionist, the centre's **main business line — `+1 289-974-0871`** (confirmed by director Janet 2026-06-16) — must be forwarded to the St. Catharines Retell inbound number **`+1 289-514-0137`** (`+12895140137`, the same number outbound calls originate from — see [[returned-outbound-calls-hit-inbound-agent]]).
+
+> **NUMBER GOTCHA:** the centre's real line is **289-974-0871**. Do NOT use `905-220-0332` — that's the `test_number` field in `centre-lookup.csv` (synthetic-lead test target), which I once wrongly assumed was the main line because of the local 905 code. Also not the forwarding source: `289-514-0137` is the Retell/AI DID, not the centre line.
 
 **Mode: NO-ANSWER forwarding ONLY** (ring centre ~4x first, AI catches missed calls) — never unconditional `*72`. Standing rule, see [[feedback-no-answer-forwarding-always]]. On 2026-06-03 the blurb wrongly used `*72` (unconditional); Janet's 2026-06-04 test showed it skipping the centre entirely ("AI answered after 1 ring, centre never rang"). Forwarding path itself is confirmed working.
 
@@ -23,4 +25,6 @@ To go live on the inbound AI receptionist, the centre's **main business line** m
 - **NRBN RESIDENTIAL** voice (Resi-Voice-Features.pdf) offers ONLY `*72` unconditional Call Forwarding (`*73` off). **No Call-Forward-No-Answer star code exists** on residential. `*610` = rings before *voicemail*; `*86` = NRBN voicemail. So a residential line CANNOT do the 4-ring policy via star codes.
 - **NRBN BUSINESS "Hosted Voice" runs on Cisco BroadSoft (BroadWorks)**, which DOES support Call-Forward-No-Answer with configurable ring count (standard BroadWorks FAC `*92` activate / `*93` deactivate; ring count set in the Webex/BroadSoft portal or by NRBN, NOT in the dial code).
 
-**How to apply:** Janet's `*72` test worked — consistent with either tier (both honor `*72`). To honor the no-answer policy, confirm the centre's line is on **NRBN Business Hosted Voice** and have NRBN configure **CFNA → `+12895140137` after 4 rings** server-side (most reliable). NRBN support 1-877-331-6726 / business@nrbn.ca. If the line is residential-only, the no-answer policy is NOT achievable without upgrading to Hosted Voice — fallback is the current `*72` unconditional. **OPEN: confirm tier + get NRBN to set CFNA.**
+**How to apply:** Janet's `*72` test worked — consistent with either tier (both honor `*72`). To honor the no-answer policy, confirm the centre's line is on **NRBN Business Hosted Voice** and have NRBN configure **CFNA → `+12895140137` after 4 rings** server-side (most reliable). NRBN support 1-877-331-6726 / business@nrbn.ca. If the line is residential-only, the no-answer policy is NOT achievable without upgrading to Hosted Voice — fallback is the current `*72` unconditional.
+
+**Status 2026-06-16:** drafted a WhatsApp message for Janet → ask NRBN about line **289-974-0871**: (1) residential vs business/Hosted Voice, (2) does it support CFNA after ~4 rings, (3) included or paid plan-change. Don't authorize an upgrade without Scott's OK on cost. **OPEN: Janet to relay NRBN's answer.**
