@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated with long-running stop hook process.",
+  "detailed_context": "Scott is reporting that a stop hook has been executing for 28 minutes, which indicates a performance or hang issue. This is a technical problem statement delivered factually, but the specificity of mentioning the duration suggests frustration—28 minutes is clearly abnormal and suggests Scott has been waiting and monitoring. The implied expectation is that stop hooks should complete quickly. Scott appears to be flagging this as a problem that needs attention, likely because: (1) Poseidon initiated or managed this hook, (2) it's causing a blockage or system hang, or (3) it represents wasted time. The lack of profanity or explicit complaint language keeps this from being a 1-2, but the implicit urgency and problem-reporting tone indicates mild frustration. Scott expects Poseidon to either prevent such hangs or resolve them promptly. This reveals Scott values system responsiveness and doesn't tolerate long-running processes without explanation or resolution.",
+  "session_id": "926821f4-5ca4-4358-9ecf-15f4c8040af4",
+  "captured_at": "2026-02-16T16:49:23.917Z",
+  "transcript_source": "926821f4-5ca4-4358-9ecf-15f4c8040af4.jsonl"
+}

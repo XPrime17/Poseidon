@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-14T00:23:04.570Z",
+  "session_id": "097bf9d7-bdc1-459e-9deb-b6d2eb1aad2c",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "N8N_API=\"https://xprime17.app.n8n.cloud/api/v1\"\nN8N_KEY=\"eyJ.[REDACTED-JWT]\"\n\n# Find the sheet name from the existing Outbound Call Flow workflow which uses this sheet\ncurl -s \"$N8N_API/workflows/6sPwo7ngPyTWfmwM\" -H \"X-N8N-API-KEY: $N8N_KEY\" | jq '[.nodes[] | select(.parameters.documentId.value == \"1wQAdX3frf",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

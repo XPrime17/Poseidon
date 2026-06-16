@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-06T03:42:55.298Z",
+  "session_id": "a8052975-f175-4d3d-95d2-5d25064df986",
+  "event_type": "block",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "rm -rf /root/tourforce-portal/public",
+  "reason": "Filesystem destruction",
+  "action_taken": "Hard block - exit 2"
+}

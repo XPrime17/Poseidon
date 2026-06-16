@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-29T02:37:46.145Z",
+  "session_id": "46a6a10a-203d-485f-b391-cd2271be6cdd",
+  "event_type": "block",
+  "tool": "Write",
+  "category": "path_access",
+  "target": "/etc/systemd/system/daily-call-audit.service",
+  "reason": "Read-only path: /etc/**",
+  "action_taken": "Hard block - exit 2"
+}

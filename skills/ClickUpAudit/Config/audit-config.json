@@ -1,0 +1,76 @@
+{
+  "_comment": "ClickUpAudit configuration. teamId = Codeninjas. ignoreSpaceIds/ignoreListNamePatterns remove records-not-work from the audit. closurePolicy is per-list: which lists require a note/field/checklist on close. Edit collaboratively with Scott.",
+  "teamId": "9011711565",
+  "overdue": {
+    "staleDays": 14,
+    "buckets": [
+      { "label": "1-7d", "maxDays": 7 },
+      { "label": "8-30d", "maxDays": 30 },
+      { "label": "30d+", "maxDays": null }
+    ]
+  },
+  "ignoreSpaceIds": [
+    "90113617465"
+  ],
+  "ignoreSpaceNames": [
+    "Personal"
+  ],
+  "ignoreListNamePatterns": [
+    "Imported from Spreadsheet",
+    "Imported from Dela",
+    "Database",
+    "Functional Matrix"
+  ],
+  "ignoreListIds": [
+    "901109778078",
+    "901110672786",
+    "901110672658"
+  ],
+  "_ignoreListIds_labels": {
+    "901109778078": "Operations > Tactical (lead/CRM records)",
+    "901110672786": "Marketing > SEO Checklist (template)",
+    "901110672658": "Marketing > 90 Day Instagram Success Checklist (template)"
+  },
+  "closurePolicy": {
+    "_schema": "listId -> { label, requireNote, requireChecklistComplete, requireNoOpenSubtasks, requireAssignee, requiredCustomFields[], taskTypeRules[] }. taskTypeRules apply EXTRA required custom fields to tasks whose name contains 'match' (case-insensitive) — used for per-touchpoint outcome enrichment on On-Ramp.",
+    "901113048282": {
+      "label": "Ops > Students > On-Ramp",
+      "requireNote": true,
+      "requireChecklistComplete": true,
+      "requireDescriptionStepsComplete": false,
+      "requireNoOpenSubtasks": true,
+      "requireAssignee": true,
+      "requiredCustomFields": [],
+      "taskTypeRules": [
+        { "match": "onboard", "label": "Onboard", "requiredCustomFields": ["Contact Outcome"] },
+        { "match": "3-week", "label": "3-Week Check-In", "requiredCustomFields": ["Contact Outcome", "Parent Satisfaction"] },
+        { "match": "3-month", "label": "3-Month Check-In", "requiredCustomFields": ["Contact Outcome", "Parent Satisfaction", "Referral"] }
+      ]
+    },
+    "901113931577": {
+      "_note": "Documentation for this list lives in the Reason + Reason Details custom fields, not comments/assignee. Proper-closure test = Reason recorded. (Bulk-imported historical cancellations have no comment/assignee by design.)",
+      "label": "Ops > Students > Holds & Cancellations",
+      "requireNote": false,
+      "requireChecklistComplete": false,
+      "requireNoOpenSubtasks": false,
+      "requireAssignee": false,
+      "requiredCustomFields": ["Reason"]
+    },
+    "901113931638": {
+      "label": "Ops > Students > Long Term Nurture (LTN)",
+      "requireNote": true,
+      "requireChecklistComplete": false,
+      "requireNoOpenSubtasks": false,
+      "requireAssignee": true,
+      "requiredCustomFields": []
+    },
+    "901109971331": {
+      "label": "Ops > Tactical Sync-up > Action Items",
+      "requireNote": true,
+      "requireChecklistComplete": false,
+      "requireNoOpenSubtasks": false,
+      "requireAssignee": true,
+      "requiredCustomFields": []
+    }
+  }
+}

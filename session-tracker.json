@@ -396,10 +396,10 @@
       "description": "now that we have a nightly KB crawler, I want to revisit ...",
       "first_prompt": "now that we have a nightly KB crawler, I want to revisit the outbound agent prompt.  It currently deflects to staff if any other program besides Create is desired.  However, now it can perhaps try ...",
       "started_at": "2026-05-03T17:12:44+00:00",
-      "ended_at": "2026-05-08T15:06:35+00:00",
+      "ended_at": "2026-06-12T03:33:29+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "f1073f82-dcec-4c11-b3d1-1bc8f78e3502",
@@ -506,10 +506,10 @@
       "description": "offboard Sudbury",
       "first_prompt": "offboard Sudbury",
       "started_at": "2026-05-22T00:16:12+00:00",
-      "ended_at": "2026-05-25T23:35:06+00:00",
+      "ended_at": "2026-06-05T16:24:11+00:00",
       "status": "completed",
       "message_count": 0,
-      "synced": false
+      "synced": true
     },
     {
       "session_id": "fb113d38-c744-4f42-9e79-741f86cb023c",
@@ -626,10 +626,160 @@
       "description": "are you able to tell if my clients with chatdash stripe s...",
       "first_prompt": "are you able to tell if my clients with chatdash stripe subscriptions are behind on their payments?",
       "started_at": "2026-06-04T01:35:31+00:00",
+      "ended_at": "2026-06-06T15:27:49+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "b5d4a694-b7e7-4e5e-8c50-67402b3a926a",
+      "description": "Help me fix the issues reported by /doctor below.\n\nFor ea...",
+      "first_prompt": "Help me fix the issues reported by /doctor below.\n\nFor each issue: briefly explain what the fix will do, then ask me to confirm before running any shell command that deletes files, modifies global ...",
+      "started_at": "2026-06-06T15:27:49+00:00",
+      "ended_at": "2026-06-07T23:23:28+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "ba97f964-0f34-464f-a756-fd75eff2dca5",
+      "description": "resume work on /root/handoff-2026-06-07-eg-inbound.md",
+      "first_prompt": "resume work on /root/handoff-2026-06-07-eg-inbound.md",
+      "started_at": "2026-06-07T23:23:28+00:00",
+      "ended_at": "2026-06-08T23:39:42+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "546ea15a-9b3d-4de1-8986-da9f2129038a",
+      "description": "let's work on tasks from /root/handoff-2026-06-08-medium-...",
+      "first_prompt": "let's work on tasks from /root/handoff-2026-06-08-medium-issues.md",
+      "started_at": "2026-06-08T23:39:45+00:00",
+      "ended_at": "2026-06-10T00:58:41+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6cfb44c4-3f56-4d2a-9ffe-e9b10d6e1c79",
+      "description": "let's check on St. Catharine's outbound calls so far",
+      "first_prompt": "let's check on St. Catharine's outbound calls so far",
+      "started_at": "2026-06-10T00:56:01+00:00",
+      "ended_at": "2026-06-12T03:33:32+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "0dc915b3-0b24-4dc1-97a5-8672dc9c7540",
+      "description": "from /root/handoff-2026-06-10-followups.md, let's work on...",
+      "first_prompt": "from /root/handoff-2026-06-10-followups.md, let's work on this one:  MED‑1 deeper layer — inbound agents still don't capture caller identity or recognize\n  existing camp customers (no MyStudio look...",
+      "started_at": "2026-06-10T00:58:42+00:00",
+      "ended_at": "2026-06-10T03:51:59+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6f3a6f1f-46a9-433c-afc6-34aa9146c41a",
+      "description": "youre running on my digital ocean droplet.  other shells ...",
+      "first_prompt": "youre running on my digital ocean droplet.  other shells are getting this error when trying to launch claude which used to work fine:  -bash: /usr/bin/claude: No such file or directory",
+      "started_at": "2026-06-12T03:33:32+00:00",
+      "ended_at": "2026-06-12T14:11:57+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "1a67023f-0c20-4946-b9ff-54ae4799cbad",
+      "description": "check calls for issues over the last 3 days",
+      "first_prompt": "check calls for issues over the last 3 days",
+      "started_at": "2026-06-12T03:43:28+00:00",
+      "ended_at": "2026-06-14T15:42:22+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "0c8b2c4a-aec1-4d99-a128-2096a107a15f",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-06-12T14:11:59+00:00",
+      "ended_at": "2026-06-12T14:12:31+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "0102d5a3-1122-4106-8599-442881c95519",
+      "description": "Shauna is ready to onboard Kanata and Burlington centres",
+      "first_prompt": "Shauna is ready to onboard Kanata and Burlington centres",
+      "started_at": "2026-06-12T14:12:37+00:00",
+      "ended_at": "2026-06-14T15:42:22+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "20bf3ec0-a95d-4fdd-864a-db13901ff480",
+      "description": "Reply with exactly: FLEET_OK",
+      "first_prompt": "Reply with exactly: FLEET_OK",
+      "started_at": "2026-06-13T00:34:43+00:00",
+      "ended_at": "2026-06-13T00:35:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "39bbc7e4-6fee-4e93-af77-c04ca199f52b",
+      "description": "say FLEET_OK",
+      "first_prompt": "say FLEET_OK",
+      "started_at": "2026-06-13T00:35:57+00:00",
+      "ended_at": "2026-06-13T00:36:52+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "b5c07a88-35d7-419c-bf6e-2ed5ee3ae237",
+      "description": "In one sentence, what is TourForce? Reply only the sentence.",
+      "first_prompt": "In one sentence, what is TourForce? Reply only the sentence.",
+      "started_at": "2026-06-13T00:41:08+00:00",
+      "ended_at": "2026-06-13T00:41:55+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "8364d734-3985-44bb-94a3-845522eeb6eb",
+      "description": "As Poseidon, give me a precise END-TO-END functional map ...",
+      "first_prompt": "As Poseidon, give me a precise END-TO-END functional map of the TourForce voice AI business. Be concrete with real component/platform names. Cover: (1) How leads come IN — exact sources/platforms (...",
+      "started_at": "2026-06-14T15:42:22+00:00",
+      "ended_at": "2026-06-14T15:43:14+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "0c00ebb8-e3ea-4003-9b85-b34f611b1d1b",
+      "description": "review calls over the last few days for issues",
+      "first_prompt": "review calls over the last few days for issues",
+      "started_at": "2026-06-14T18:18:35+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,
       "synced": false
+    },
+    {
+      "session_id": "dbb0be7e-6d50-40b8-8d84-f7c2aa037098",
+      "description": "can you download Twilio receipts?",
+      "first_prompt": "can you download Twilio receipts?",
+      "started_at": "2026-06-14T19:11:52+00:00",
+      "ended_at": "2026-06-14T19:27:36+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
     }
   ]
 }

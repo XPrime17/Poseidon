@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-09T23:08:15.075Z",
+  "session_id": "3b916646-31d6-4d97-8ef2-e79c6279b12b",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s -H \"Authorization: Bearer $(grep RETELL_API_KEY ~/.claude/skills/_CNKB/.env 2>/dev/null | cut -d= -f2 || grep -h 'RETELL' ~/.claude/MCPs/*.json ~/.zshrc ~/.bashrc 2>/dev/null | head -3)\" \"https://api.retellai.com/get-agent/agent_c02bfb40888bba2275ea3a9f3a\" 2>&1 | head -50\n# fallback: check env\necho \"---\"\nenv | grep -i retell | head -5\necho \"---\"\nls ~/.claude/MCPs/ 2>/dev/null",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-23T05:03:01.599Z",
+  "session_id": "c1a67764-ed9f-4ec8-a937-71a02c9dca0b",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s \"https://sheets.googleapis.com/v4/spreadsheets/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/values/Sheet1?key=AIza[REDACTED-GOOGLE]\" | python3 -m json.tool 2>/dev/null || curl -s \"https://sheets.googleapis.com/v4/spreadsheets/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/values/Sheet1?key=AIza[REDACTED-GOOGLE]\"",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

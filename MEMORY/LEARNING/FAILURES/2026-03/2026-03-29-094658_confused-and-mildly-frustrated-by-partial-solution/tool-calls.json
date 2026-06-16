@@ -1,0 +1,702 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList,AskUserQuestion",
+      "max_results": 3
+    },
+    "timestamp": "2026-03-29T03:25:33.215Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "What's your goal with Chat-Dash right now? The subscription blocker (product not linked to agent) looks like you need to assign the product to the agent first in Chat-Dash's settings. Are you looking for help with something specific?",
+          "header": "Goal",
+          "options": [
+            {
+              "label": "Fix the product-agent link",
+              "description": "Help troubleshoot why 'No available products' shows for CN /w KB and get the subscription created"
+            },
+            {
+              "label": "Design TourForce pricing",
+              "description": "Set up the real Stripe products/pricing structure for TourForce clients (not just the test product)"
+            },
+            {
+              "label": "Evaluate Chat-Dash overall",
+              "description": "Assess whether Chat-Dash is the right platform for TourForce's client management and billing"
+            },
+            {
+              "label": "Just sharing context",
+              "description": "You're showing me the setup for awareness — no action needed right now"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T03:25:52.937Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Identify why product not linked to agent",
+      "description": "Determine why the \"test\" product (CA$1.00/mo) doesn't appear when creating a subscription for CN /w KB (retell) agent"
+    },
+    "timestamp": "2026-03-29T03:45:33.014Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Product appears in agent subscription dropdown",
+      "description": "The test product must show as an available option when creating a subscription for the CN /w KB (retell) agent under Code Ninjas East Gwillimbury"
+    },
+    "timestamp": "2026-03-29T03:45:34.813Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Subscription successfully created for EG",
+      "description": "A subscription is created linking Code Ninjas East Gwillimbury client → CN /w KB (retell) agent → pricing product"
+    },
+    "timestamp": "2026-03-29T03:45:35.930Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T03:45:37.490Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Research Chat-Dash product-agent linking",
+      "subagent_type": "Explore",
+      "prompt": "Search the web for how to link/assign a Stripe product to an agent in Chat-Dash (chat-dash.com). The platform is a voice AI agency management SaaS. The user created a Stripe product but when creating a subscription for a client's agent, it says \"No available products for this agent.\" I need to find the exact UI steps to assign a product to an agent. Check chat-dash.com documentation, help articles, or any tutorials. The URL structure appears to be chat-dash.com/agency/..."
+    },
+    "timestamp": "2026-03-29T03:56:22.923Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Stripe tax head office address configured",
+      "description": "Visit Stripe Dashboard → Settings → Tax and set a valid head office address so automatic tax calculation works in live mode"
+    },
+    "timestamp": "2026-03-29T04:35:55.728Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T04:36:13.161Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Stripe account activated for live charges",
+      "description": "Complete Stripe's business verification so the account can process live payments for TourForce clients"
+    },
+    "timestamp": "2026-03-29T04:41:33.838Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "TourForce isn't incorporated yet. How do you want to handle the Stripe business entity?",
+          "header": "Entity",
+          "options": [
+            {
+              "label": "Activate as individual now",
+              "description": "Register as sole proprietor/individual. You can update to a corporation later when TourForce is incorporated. Gets you live TODAY."
+            },
+            {
+              "label": "Wait for incorporation",
+              "description": "Hold off on live billing until TourForce is legally formed. Cleaner but blocks all client billing."
+            },
+            {
+              "label": "Already started verification",
+              "description": "You've already begun the Stripe onboarding and hit a specific issue"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T04:41:53.854Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T04:43:56.714Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md"
+    },
+    "timestamp": "2026-03-29T04:44:03.937Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/subzero-formation.md"
+    },
+    "timestamp": "2026-03-29T04:44:10.111Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T04:49:09.385Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskUpdate",
+      "max_results": 1
+    },
+    "timestamp": "2026-03-29T04:49:11.981Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T04:49:14.781Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T04:55:26.344Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-03-29T05:21:03.691Z"
+  },
+  {
+    "name": "Agent",
+    "input": {
+      "description": "Deep research Chat-Dash product-agent",
+      "subagent_type": "ClaudeResearcher",
+      "prompt": "Research Chat-Dash (chat-dash.com) — a voice AI agency management SaaS platform. I need to understand how to link/assign a Stripe product to a specific agent so it appears in the subscription creation dropdown.\n\nThe specific problem: When creating a subscription at chat-dash.com/agency/stripe-billing/create-subscription, after selecting a client and an agent, the \"Select Product\" dropdown shows \"No available products for this agent.\" A product exists (visible in the Active Products tab), but it doesn't appear for the agent.\n\nResearch these specific areas:\n1. What does the \"SaaS Configurator\" section do in Chat-Dash? (visible in the left sidebar)\n2. How are products assigned to agents in Chat-Dash?\n3. Is there an agent \"type\" or \"category\" setting that determines which products are available?\n4. Chat-Dash API documentation at docs.chat-dash.com — look for product-agent linking endpoints\n5. Any YouTube tutorials, forum posts, or help articles about this specific issue\n\nSearch queries to try:\n- \"chat-dash.com assign product to agent\"\n- \"chat-dash SaaS configurator\"\n- \"chat-dash no available products for this agent\"\n- \"chatdash stripe billing agent product\"\n- site:help.chat-dash.com product agent\n- site:docs.chat-dash.com saas configurator"
+    },
+    "timestamp": "2026-03-29T05:21:21.179Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T05:25:20.764Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T05:25:21.137Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "What exactly happens when you try to create the subscription? What error do you see?",
+          "header": "Error",
+          "options": [
+            {
+              "label": "Still 'cannot make live charges'",
+              "description": "Same error as before — Stripe account may not have finished activating"
+            },
+            {
+              "label": "Payment method error",
+              "description": "Can't add a payment method or card is declined"
+            },
+            {
+              "label": "Chat-Dash error",
+              "description": "Chat-Dash shows an error when trying to create the subscription"
+            },
+            {
+              "label": "Stripe API key issue",
+              "description": "Something about test vs live API keys"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T05:25:27.114Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Identify root cause of processing error",
+      "description": "Determine what Stripe API error Chat-Dash is hitting when creating the subscription for Code Ninjas EG"
+    },
+    "timestamp": "2026-03-29T15:01:41.788Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T15:02:06.410Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "6",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T15:12:14.272Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T15:12:14.797Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Stripe API connectivity verified",
+      "description": "Successfully authenticate and make a test API call to Stripe using the live secret key"
+    },
+    "timestamp": "2026-03-29T15:13:16.448Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "Share your Stripe live secret key (starts with sk_live_) and I'll test connectivity. You can also share the publishable key (pk_live_) if you want, but the secret key is what's needed for API calls.",
+          "header": "API Key",
+          "options": [
+            {
+              "label": "I'll paste it next message",
+              "description": "Share the sk_live_ key in your next message"
+            },
+            {
+              "label": "Concerned about security",
+              "description": "Want to discuss how the key will be stored/used first"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T15:13:30.608Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T15:19:12.783Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X GET https://api.stripe.com/v1/balance -u \"[REDACTED-STRIPE]:\" 2>&1",
+      "description": "Test Stripe API connectivity with restricted key"
+    },
+    "timestamp": "2026-03-29T15:26:47.709Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X GET \"https://api.stripe.com/v1/products?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1",
+      "description": "List Stripe products to verify API access"
+    },
+    "timestamp": "2026-03-29T15:26:55.755Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "7",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T15:26:59.451Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "limit": 10
+    },
+    "timestamp": "2026-03-29T15:27:07.137Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/stripe-billing.md",
+      "content": "---\nname: Stripe Billing - TourForce\ndescription: Stripe API config for TourForce voice AI agency billing via Chat-Dash\ntype: reference\n---\n\n## Stripe Account\n- **Account ID:** `acct_1T3SS88QdbWckC7C`\n- **Entity:** 2738714 Ontario Inc. (Scott's existing corp)\n- **Currency:** CAD\n- **Mode:** Live\n- **Dashboard:** https://dashboard.stripe.com\n\n## API Access\n- **Restricted key:** `[REDACTED-STRIPE]`\n- **Permissions:** Products, subscriptions, customers (restricted — no balance, no refunds)\n- **Auth:** Bearer via `-u \"KEY:\"` (colon after key, no password)\n\n## Products (as of 2026-03-29)\n- **Voice AI Subscription - Test** (`prod_UD7H1SBAJRzl67`) — CA$1.00/mo, test product\n- Default price: `price_1TEh308QdbWckC7CV0mInwhw`\n\n## Chat-Dash Integration\n- Stripe connected via Chat-Dash agency settings\n- Products must be linked to agents in Chat-Dash before subscriptions can be created\n- Auto-tax enabled — head office address set in Stripe tax settings\n"
+    },
+    "timestamp": "2026-03-29T15:27:18.286Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "| `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |\n| `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |",
+      "new_string": "| `session-tracker.md` | Session tracking system — hooks, Sheet, n8n workflow |\n| `agency-naming.md` | Old naming brainstorm (superseded by TourForce) |\n| `stripe-billing.md` | Stripe API keys, account ID, products, Chat-Dash integration |"
+    },
+    "timestamp": "2026-03-29T15:27:23.363Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Root cause of payment method failure identified",
+      "description": "Determine why Code Ninjas EG client cannot add a payment method in Chat-Dash client portal"
+    },
+    "timestamp": "2026-03-29T15:33:35.807Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Client can successfully add payment method",
+      "description": "The payment method flow works end-to-end for Code Ninjas EG in the Chat-Dash client portal"
+    },
+    "timestamp": "2026-03-29T15:33:36.374Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/customers?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List Stripe customers to find EG client"
+    },
+    "timestamp": "2026-03-29T15:33:53.982Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/subscriptions?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List Stripe subscriptions"
+    },
+    "timestamp": "2026-03-29T15:33:55.514Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/setup_intents?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List Stripe setup intents for payment methods"
+    },
+    "timestamp": "2026-03-29T15:33:56.953Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/invoices?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List Stripe invoices"
+    },
+    "timestamp": "2026-03-29T15:34:07.061Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/payment_links?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List Stripe payment links"
+    },
+    "timestamp": "2026-03-29T15:34:08.549Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/customers/cus_UEebdOCmqio8cL/payment_methods\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "Check customer's payment methods"
+    },
+    "timestamp": "2026-03-29T15:34:26.417Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T15:34:30.251Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "What exactly happens when you (as the client) try to add a payment method in Chat-Dash? What error do you see?",
+          "header": "Client Error",
+          "options": [
+            {
+              "label": "Generic error message",
+              "description": "Something like 'an error occurred' or 'unable to process'"
+            },
+            {
+              "label": "Stripe form doesn't load",
+              "description": "The credit card form/Stripe Elements never appears"
+            },
+            {
+              "label": "Card gets declined",
+              "description": "You enter card details but it's rejected"
+            },
+            {
+              "label": "No 'Add Payment' button",
+              "description": "There's no option to add a payment method in the client portal"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T15:34:40.829Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/subscriptions?limit=5\" -u \"mk_1T3SSR8QdbWckC7CnE67ZE9p:\" 2>&1 | python3 -m json.tool",
+      "description": "Test secret key - list subscriptions"
+    },
+    "timestamp": "2026-03-29T15:36:12.457Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/setup_intents?limit=5\" -u \"mk_1T3SSR8QdbWckC7CnE67ZE9p:\" 2>&1 | python3 -m json.tool",
+      "description": "Test secret key - list setup intents"
+    },
+    "timestamp": "2026-03-29T15:36:13.843Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/invoices?limit=5&customer=cus_UEebdOCmqio8cL\" -u \"mk_1T3SSR8QdbWckC7CnE67ZE9p:\" 2>&1 | python3 -m json.tool",
+      "description": "List invoices for EG customer"
+    },
+    "timestamp": "2026-03-29T15:36:14.523Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "The mk_ key isn't a Stripe API key. Can you go to Stripe Dashboard -> Developers -> API Keys and copy the Secret key? It starts with sk_live_ and is much longer (~100 chars).",
+          "header": "Key type",
+          "options": [
+            {
+              "label": "I'll paste it next",
+              "description": "Will share the sk_live_ key"
+            },
+            {
+              "label": "That's all I see",
+              "description": "The mk_ key is the only one available in the Stripe Dashboard"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T15:36:24.568Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/subscriptions?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List subscriptions with secret key"
+    },
+    "timestamp": "2026-03-29T15:42:04.682Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/setup_intents?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List setup intents"
+    },
+    "timestamp": "2026-03-29T15:42:06.011Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/invoices?limit=5&customer=cus_UEebdOCmqio8cL\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List invoices for EG customer"
+    },
+    "timestamp": "2026-03-29T15:42:07.760Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/payment_links?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "List payment links"
+    },
+    "timestamp": "2026-03-29T15:42:08.739Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/accounts/acct_1T3SS88QdbWckC7C\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps({k:d.get(k) for k in ['charges_enabled','payouts_enabled','details_submitted','requirements','capabilities']}, indent=2))\"",
+      "description": "Check Stripe account activation status and requirements"
+    },
+    "timestamp": "2026-03-29T15:42:46.520Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "8",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T15:42:50.720Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "The auto-tax feature is blocking everything because the customer has no billing address. How do you want to fix this?",
+          "header": "Tax fix",
+          "options": [
+            {
+              "label": "Disable auto-tax for now (Recommended)",
+              "description": "I'll void the stuck draft invoice. Re-create the subscription in Chat-Dash without auto-tax. You can enable it later once you have proper tax registrations."
+            },
+            {
+              "label": "Add EG's address to the customer",
+              "description": "I'll update the Stripe customer with Code Ninjas EG's address so tax can calculate. You'll need to share the address."
+            },
+            {
+              "label": "Both — fix this one and disable tax",
+              "description": "Void the invoice, update customer address, and disable auto-tax for now until TourForce is properly set up for tax collection"
+            }
+          ],
+          "multiSelect": false
+        }
+      ]
+    },
+    "timestamp": "2026-03-29T15:43:06.154Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST \"https://api.stripe.com/v1/customers/cus_UEebdOCmqio8cL\" \\\n  -u \"[REDACTED-STRIPE]:\" \\\n  -d \"name=Code Ninjas East Gwillimbury\" \\\n  -d \"address[line1]=17215 Leslie St\" \\\n  -d \"address[city]=Newmarket\" \\\n  -d \"address[state]=ON\" \\\n  -d \"address[postal_code]=L3Y 0A3\" \\\n  -d \"address[country]=CA\" \\\n  2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps({k:d.get(k) for k in ['id','name','address','email']}, indent=2))\"",
+      "description": "Update Stripe customer with EG address"
+    },
+    "timestamp": "2026-03-29T15:50:53.103Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/invoices/in_1TGBI78QdbWckC7CpaZt3dMJ\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps({'status':d.get('status'),'automatic_tax':d.get('automatic_tax'),'amount_due':d.get('amount_due'),'customer_address':d.get('customer_address')}, indent=2))\"",
+      "description": "Check if draft invoice tax status updated"
+    },
+    "timestamp": "2026-03-29T15:51:00.202Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/tax/registrations?limit=5\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -m json.tool",
+      "description": "Check Stripe tax registrations"
+    },
+    "timestamp": "2026-03-29T15:51:09.036Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST \"https://api.stripe.com/v1/invoices/in_1TGBI78QdbWckC7CpaZt3dMJ\" \\\n  -u \"[REDACTED-STRIPE]:\" \\\n  -d \"automatic_tax[enabled]=true\" \\\n  2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps({'status':d.get('status'),'automatic_tax':d.get('automatic_tax'),'error':d.get('error')}, indent=2))\"",
+      "description": "Refresh invoice auto-tax calculation"
+    },
+    "timestamp": "2026-03-29T15:51:27.209Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/payment_links/plink_1TGBGV8QdbWckC7CFzUHjnEz\" \\\n  -u \"[REDACTED-STRIPE]:\" \\\n  2>&1 | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps({'active':d.get('active'),'url':d.get('url')}, indent=2))\"",
+      "description": "Verify payment link is active"
+    },
+    "timestamp": "2026-03-29T15:51:45.435Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T15:51:49.538Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Chat-Dash learnings saved to memory",
+      "description": "Capture all Stripe billing integration learnings from Chat-Dash setup for TourForce portal implementation"
+    },
+    "timestamp": "2026-03-29T16:27:15.580Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/tourforce-portal.md"
+    },
+    "timestamp": "2026-03-29T16:27:24.295Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/tourforce-portal.md",
+      "old_string": "## Key Files",
+      "new_string": "## Chat-Dash Learnings (2026-03-29) — Implementation Requirements for Billing\n\nLessons learned from setting up Chat-Dash's Stripe billing integration. These are design requirements for TourForce's custom billing system.\n\n### Stripe Account Activation\n- Stripe KYC/business verification is manual-only (Dashboard) — no API/CLI/MCP can do it\n- Must be completed before ANY live charges. Cannot shortcut this.\n- Entity used: 2738714 Ontario Inc. (Scott's existing corp, interim until TourForce incorporates)\n- Account ID: `acct_1T3SS88QdbWckC7C`\n\n### Auto-Tax is a Trap (Critical)\n- Stripe Tax requires BOTH: (1) a tax registration AND (2) customer billing address\n- If auto-tax is enabled and either is missing, invoices get stuck in `draft` with `automatic_tax.status: \"requires_location_inputs\"`\n- This silently blocks ALL downstream operations: payment methods, subscription activation, invoice finalization\n- The error surfaces as generic \"A processing error occurred\" — impossible to debug without Stripe API/logs\n- **TourForce portal MUST:** Either (a) collect billing address BEFORE creating subscription, or (b) disable auto-tax and handle tax manually/later\n- Draft invoices created with missing tax inputs don't auto-heal when address is added — must be manually refreshed via API (`POST /invoices/{id}` with `automatic_tax[enabled]=true`)\n\n### Product-Agent Linking\n- Chat-Dash requires explicit product-to-agent mapping before subscriptions can be created\n- \"No available products for this agent\" = product exists but isn't linked to the agent\n- **TourForce portal design:** Products should be assignable to specific agents/centres, not global. Support both per-agent and per-centre pricing.\n\n### Stripe Connect vs Direct\n- Chat-Dash uses Stripe Connect (agency is platform, clients are connected accounts or customers)\n- TourForce can use simpler **direct Stripe integration** since Scott owns the Stripe account\n- Direct integration: Customer objects per centre, subscriptions per centre, no Connect complexity\n\n### Subscription Flow (What Chat-Dash Does)\n1. Agency creates subscription → Stripe creates Customer + Invoice + Payment Link\n2. Client receives payment link or logs into portal → adds payment method\n3. Subscription activates → recurring billing begins\n- **TourForce should replicate this flow** but with better error handling and address collection upfront\n\n### Client Portal Payment Flow\n- Chat-Dash client portal has no way to surface Stripe errors to the client\n- \"Add Payment Method\" fails silently when tax/invoice issues exist on the backend\n- **TourForce portal MUST:** Surface actual Stripe error messages to the admin, even if client sees a generic error\n- **Backup:** Always have the direct Stripe payment link (`buy.stripe.com/...`) as fallback\n\n### Stripe API Patterns\n- Restricted keys (`rk_live_`) for scoped access — good for programmatic management\n- Secret keys (`sk_live_`) for full access — needed for invoices, setup intents, tax registrations\n- Customer address updates don't cascade to existing draft invoices — must refresh invoice separately\n- Tax registrations: `POST /v1/tax/registrations` — one per country\n- Stripe account status: check `charges_enabled` + `payouts_enabled` on account object\n\n### Currency\n- Account is CAD. All products/prices/invoices default to CAD.\n- For US clients, will need USD prices — Stripe supports multi-currency per product\n\n### Onboarding Checklist (For Each New Centre)\n1. Collect billing address (BEFORE subscription creation)\n2. Create Stripe Customer with name + email + address\n3. Assign product/price to the centre's agent\n4. Create subscription (auto-tax will work if address is set)\n5. Send payment link or portal invite to centre owner\n6. Verify first payment succeeds\n\n## Key Files"
+    },
+    "timestamp": "2026-03-29T16:27:57.468Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/stripe-billing.md"
+    },
+    "timestamp": "2026-03-29T16:28:02.479Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stripe-billing.md",
+      "old_string": "## API Access\n- **Restricted key:** `[REDACTED-STRIPE]`\n- **Permissions:** Products, subscriptions, customers (restricted — no balance, no refunds)\n- **Auth:** Bearer via `-u \"KEY:\"` (colon after key, no password)",
+      "new_string": "## API Access\n- **Secret key:** `[REDACTED-STRIPE]`\n- **Restricted key:** `[REDACTED-STRIPE]`\n- **Restricted permissions:** Products, subscriptions, customers (no balance, no refunds)\n- **Auth:** Bearer via `-u \"KEY:\"` (colon after key, no password)"
+    },
+    "timestamp": "2026-03-29T16:28:13.109Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stripe-billing.md",
+      "old_string": "## Chat-Dash Integration\n- Stripe connected via Chat-Dash agency settings\n- Products must be linked to agents in Chat-Dash before subscriptions can be created\n- Auto-tax enabled — head office address set in Stripe tax settings",
+      "new_string": "## Tax Configuration\n- **Tax registration:** Active for Canada (`taxreg_1TGAmq8QdbWckC7CxyIVTZsC`, standard)\n- **Auto-tax:** Enabled — requires customer billing address on EVERY customer before creating subscriptions\n- **Head office address:** Set in Stripe tax settings\n\n## Customers (as of 2026-03-29)\n- **Code Ninjas East Gwillimbury** (`cus_UEebdOCmqio8cL`) — 17215 Leslie St, Newmarket ON L3Y 0A3\n\n## Chat-Dash Integration\n- Stripe connected via Chat-Dash agency settings\n- Products must be linked to agents in Chat-Dash before subscriptions can be created\n- Payment link created: `https://buy.stripe.com/aFabIV4AE0F99LI37v9AA00`"
+    },
+    "timestamp": "2026-03-29T16:28:22.751Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "10",
+      "status": "completed"
+    },
+    "timestamp": "2026-03-29T16:28:25.920Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://api.stripe.com/v1/accounts/acct_1T3SS88QdbWckC7C\" -u \"[REDACTED-STRIPE]:\" 2>&1 | python3 -c \"\nimport sys,json\nd=json.load(sys.stdin)\nprint(json.dumps({\n  'charges_enabled': d.get('charges_enabled'),\n  'payouts_enabled': d.get('payouts_enabled'),\n  'details_submitted': d.get('details_submitted'),\n  'requirements': d.get('requirements'),\n}, indent=2))\"",
+      "description": "Check Stripe account activation and requirements"
+    },
+    "timestamp": "2026-03-29T16:28:33.398Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Existing Stripe account reconnected to Chat-Dash",
+      "description": "Reconnect acct_1T3SS88QdbWckC7C (2738714 Ontario Inc.) to Chat-Dash without creating a new account"
+    },
+    "timestamp": "2026-03-29T16:41:53.804Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-03-29T16:42:12.792Z"
+  }
+]

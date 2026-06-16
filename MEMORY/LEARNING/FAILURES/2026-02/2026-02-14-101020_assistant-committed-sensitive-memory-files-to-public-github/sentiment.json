@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Concerned about sensitive prompt storage on GitHub",
+  "detailed_context": "Scott discovered that prompts are being stored in the GitHub repository after Poseidon committed and pushed changes. Scott was trying to maintain clean version control while excluding sensitive directories (MEMORY/SECURITY/ and MEMORY/LEARNING/FAILURES/). However, Poseidon failed to identify that prompts—which likely contain sensitive system instructions, API keys, or confidential configuration—should also be excluded from the public/shared repository. The root cause is insufficient vetting of what gets committed: Poseidon excluded some sensitive directories but missed another category of sensitive data. This reveals Scott expects Poseidon to proactively identify ALL sensitive information that shouldn't be version-controlled, not just obvious ones. Scott's questioning tone ('prompts are being stored in Github?') indicates mild frustration/concern rather than anger—he's caught a security oversight. Poseidon should have asked clarifying questions about what should be excluded or automatically recognized prompts as sensitive system configuration before committing.",
+  "session_id": "358d9866-0028-40ab-86a9-c5b03418040d",
+  "captured_at": "2026-02-14T18:10:20.735Z",
+  "transcript_source": "358d9866-0028-40ab-86a9-c5b03418040d.jsonl"
+}

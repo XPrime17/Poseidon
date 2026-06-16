@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-05T01:27:24.484Z",
+  "session_id": "fc061f69-2d9b-4a66-be30-e739e8a1260b",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "# Check Discord bot status\nDISCORD_TOKEN=\"[REDACTED-DISCORD-BOT]\"\necho \"Discord gateway status:\"\ncurl -s -H \"Authorization: Bot $DISCORD_TOKEN\" \"https://discord.com/api/v10/gateway/bot\" | jq '{url, shards, session_start_limit: .session_start_limit.remaining}'",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

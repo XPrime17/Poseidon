@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-16T05:07:20.704Z",
+  "session_id": "8f441f39-f488-4e80-94ec-58771f7b01b6",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "PAYLOAD=$(jq -n --rawfile prompt /tmp/cnkb_updated_prompt.txt '{\"general_prompt\": $prompt}') && curl -s -X PATCH \"https://api.retellai.com/update-retell-llm/llm_44111168b1a2a469f50891b26e34\" -H \"Authorization: Bearer key_[REDACTED]\" -H \"Content-Type: application/json\" -d \"$PAYLOAD\" | jq '{llm_id, version, is_published}'",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

@@ -842,7 +842,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/get-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.'",
+      "command": "curl -s -X GET \"https://api.retellai.com/get-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.'",
       "description": "Get current agent configuration from Retell API"
     },
     "timestamp": "2026-01-31T14:53:29.300Z"
@@ -850,7 +850,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X PATCH \"https://api.retellai.com/update-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"webhook_url\": \"https://lead-reactivation.scott-james1717.workers.dev/webhook/retell\"\n  }' | jq '.'",
+      "command": "curl -s -X PATCH \"https://api.retellai.com/update-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"webhook_url\": \"https://lead-reactivation.scott-james1717.workers.dev/webhook/retell\"\n  }' | jq '.'",
       "description": "Update Retell agent webhook URL to Cloudflare Worker"
     },
     "timestamp": "2026-01-31T14:53:38.765Z"
@@ -882,7 +882,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/get-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.webhook_url'",
+      "command": "curl -s -X GET \"https://api.retellai.com/get-agent/agent_552e57364711f0eec51afa512a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.webhook_url'",
       "description": "Verify webhook URL is persisted in agent config"
     },
     "timestamp": "2026-01-31T14:54:00.425Z"
@@ -984,7 +984,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/list-phone-numbers\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.'",
+      "command": "curl -s -X GET \"https://api.retellai.com/list-phone-numbers\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.'",
       "description": "List available phone numbers in Retell account"
     },
     "timestamp": "2026-01-31T14:59:21.779Z"
@@ -1000,7 +1000,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"test-webhook-verification\",\n      \"centre_id\": \"test-centre\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"test_call\": \"true\"\n    }\n  }' | jq '.'",
+      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"test-webhook-verification\",\n      \"centre_id\": \"test-centre\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"test_call\": \"true\"\n    }\n  }' | jq '.'",
       "description": "Create test phone call to +19059672357"
     },
     "timestamp": "2026-01-31T14:59:31.697Z"
@@ -1024,7 +1024,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "sleep 5 && curl -s -X GET \"https://api.retellai.com/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms}'",
+      "command": "sleep 5 && curl -s -X GET \"https://api.retellai.com/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms}'",
       "description": "Check call status after 5 seconds"
     },
     "timestamp": "2026-01-31T14:59:39.802Z"
@@ -1032,7 +1032,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\"",
+      "command": "curl -s -X GET \"https://api.retellai.com/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\"",
       "description": "Check call status without jq filter"
     },
     "timestamp": "2026-01-31T14:59:50.595Z"
@@ -1047,7 +1047,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms}' 2>/dev/null || curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\"",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms}' 2>/dev/null || curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\"",
       "description": "Check call status with correct v2 endpoint"
     },
     "timestamp": "2026-01-31T15:00:21.821Z"
@@ -1063,7 +1063,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "for i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n    -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"Call ended!\"\n    break\n  fi\ndone\ncurl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms, call_analysis}'",
+      "command": "for i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n    -H \"Authorization: Bearer key_[REDACTED]\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"Call ended!\"\n    break\n  fi\ndone\ncurl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{call_id, call_status, disconnection_reason, duration_ms, call_analysis}'",
       "description": "Monitor call until completion (up to 2 minutes)",
       "timeout": 150000
     },
@@ -1072,7 +1072,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    call_analysis: .call_analysis | {\n      call_summary,\n      custom_analysis_data: .custom_analysis_data | {\n        outcome,\n        email_permission,\n        appointment_booked,\n        detailed_call_summary\n      }\n    }\n  }'",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    call_analysis: .call_analysis | {\n      call_summary,\n      custom_analysis_data: .custom_analysis_data | {\n        outcome,\n        email_permission,\n        appointment_booked,\n        detailed_call_summary\n      }\n    }\n  }'",
       "description": "Get final call details with analysis"
     },
     "timestamp": "2026-01-31T15:00:59.488Z"
@@ -1239,7 +1239,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.webhook_url'",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_6eeada41ced2669e6ec021db27a\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.webhook_url'",
       "description": "Check if webhook URL was set for this specific call"
     },
     "timestamp": "2026-01-31T15:05:58.277Z"
@@ -1410,7 +1410,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"id\": \"test-centre-e2e\",\n    \"location_name\": \"Test Centre E2E\",\n    \"timezone\": \"America/Toronto\",\n    \"timezone_display\": \"Eastern\",\n    \"twilio_number\": \"+12494492726\",\n    \"availability_api_url\": \"https://mediterranean-editorial-specialties-ftp.trycloudflare.com/extract-calendar\",\n    \"max_concurrent_calls\": 1,\n    \"active_calls\": 0,\n    \"calling_enabled\": true\n  }' | jq '.'",
+      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"id\": \"test-centre-e2e\",\n    \"location_name\": \"Test Centre E2E\",\n    \"timezone\": \"America/Toronto\",\n    \"timezone_display\": \"Eastern\",\n    \"twilio_number\": \"+12494492726\",\n    \"availability_api_url\": \"https://mediterranean-editorial-specialties-ftp.trycloudflare.com/extract-calendar\",\n    \"max_concurrent_calls\": 1,\n    \"active_calls\": 0,\n    \"calling_enabled\": true\n  }' | jq '.'",
       "description": "Create test centre record in Supabase"
     },
     "timestamp": "2026-01-31T15:09:48.205Z"
@@ -1434,7 +1434,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Scott\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"scott@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"previous_notes\": \"E2E test lead for Skyvern flow verification\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\",\n    \"attempt_count\": 0\n  }' | jq '.'",
+      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Scott\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"scott@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"previous_notes\": \"E2E test lead for Skyvern flow verification\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\",\n    \"attempt_count\": 0\n  }' | jq '.'",
       "description": "Create test lead record in Supabase"
     },
     "timestamp": "2026-01-31T15:10:00.759Z"
@@ -1442,7 +1442,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Scott\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"scott@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"previous_notes\": \"E2E test lead for Skyvern flow verification\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\",\n    \"attempt_count\": 0\n  }'",
+      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Scott\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"scott@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"previous_notes\": \"E2E test lead for Skyvern flow verification\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\",\n    \"attempt_count\": 0\n  }'",
       "description": "Create test lead without jq to see raw response"
     },
     "timestamp": "2026-01-31T15:10:11.261Z"
@@ -1474,7 +1474,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\",\n      \"centre_id\": \"test-centre-e2e\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\"\n    }\n  }' | jq '{call_id, call_status, metadata}'",
+      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\",\n      \"centre_id\": \"test-centre-e2e\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\"\n    }\n  }' | jq '{call_id, call_status, metadata}'",
       "description": "Create test call with valid lead UUID"
     },
     "timestamp": "2026-01-31T15:10:24.366Z"
@@ -1482,7 +1482,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "echo \"📞 Call initiated: call_b6f8e03fb74e5ab398e4eafeba8\"\necho \"📞 Lead UUID: 7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\"\necho \"📞 Waiting for call to complete...\"\nfor i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n    -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i/12: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"✅ Call ended!\"\n    break\n  fi\ndone",
+      "command": "echo \"📞 Call initiated: call_b6f8e03fb74e5ab398e4eafeba8\"\necho \"📞 Lead UUID: 7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\"\necho \"📞 Waiting for call to complete...\"\nfor i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n    -H \"Authorization: Bearer key_[REDACTED]\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i/12: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"✅ Call ended!\"\n    break\n  fi\ndone",
       "description": "Monitor call until completion",
       "timeout": 150000
     },
@@ -1491,7 +1491,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    call_analysis: {\n      call_summary: .call_analysis.call_summary,\n      custom_analysis_data: .call_analysis.custom_analysis_data\n    }\n  }'",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    call_analysis: {\n      call_summary: .call_analysis.call_summary,\n      custom_analysis_data: .call_analysis.custom_analysis_data\n    }\n  }'",
       "description": "Get call outcome details"
     },
     "timestamp": "2026-01-31T15:11:51.425Z"
@@ -1515,7 +1515,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "sleep 5 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    status,\n    attempt_count,\n    last_outcome,\n    appointment_booked,\n    email_permission,\n    detailed_call_summary,\n    booking_status,\n    skyvern_task_id,\n    tour_date,\n    tour_time\n  }'",
+      "command": "sleep 5 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    status,\n    attempt_count,\n    last_outcome,\n    appointment_booked,\n    email_permission,\n    detailed_call_summary,\n    booking_status,\n    skyvern_task_id,\n    tour_date,\n    tour_time\n  }'",
       "description": "Check lead record for webhook processing results"
     },
     "timestamp": "2026-01-31T15:12:09.339Z"
@@ -1539,7 +1539,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    call_id,\n    outcome,\n    call_summary,\n    appointment_booked,\n    duration_seconds,\n    created_at\n  }'",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    call_id,\n    outcome,\n    call_summary,\n    appointment_booked,\n    duration_seconds,\n    created_at\n  }'",
       "description": "Check call_attempts table for details"
     },
     "timestamp": "2026-01-31T15:12:28.836Z"
@@ -1547,7 +1547,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\"",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\"",
       "description": "Get all call attempts for this call"
     },
     "timestamp": "2026-01-31T15:12:37.426Z"
@@ -1564,7 +1564,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?retell_call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.'",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/call_attempts?retell_call_id=eq.call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.'",
       "description": "Check call_attempts with correct column name"
     },
     "timestamp": "2026-01-31T15:12:53.673Z"
@@ -1579,7 +1579,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.call_analysis.custom_analysis_data' | head -20",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.call_analysis.custom_analysis_data' | head -20",
       "description": "Get the exact call analysis data"
     },
     "timestamp": "2026-01-31T15:13:18.071Z"
@@ -1611,7 +1611,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status\n  }'",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status\n  }'",
       "description": "Check if Skyvern info was recorded"
     },
     "timestamp": "2026-01-31T15:14:06.231Z"
@@ -1935,7 +1935,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd /root/lead-reactivation-github && echo \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ5MTA1NjQ4NzUsInN1YiI6Im9fNDcyMTA5OTkyMDI5MzU4MjU2In0.ClbiRA1eVI4dcoHJ83xpaLVtOGvWJd1ncEAqW8SYcc0\" | npx wrangler secret put SKYVERN_API_KEY",
+      "command": "cd /root/lead-reactivation-github && echo \"eyJ.[REDACTED-JWT]\" | npx wrangler secret put SKYVERN_API_KEY",
       "description": "Set SKYVERN_API_KEY secret in worker"
     },
     "timestamp": "2026-01-31T15:26:40.333Z"
@@ -1943,7 +1943,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && echo \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjQ5MTA1NjQ4NzUsInN1YiI6Im9fNDcyMTA5OTkyMDI5MzU4MjU2In0.ClbiRA1eVI4dcoHJ83xpaLVtOGvWJd1ncEAqW8SYcc0\" | npx wrangler secret put SKYVERN_API_KEY 2>&1",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && echo \"eyJ.[REDACTED-JWT]\" | npx wrangler secret put SKYVERN_API_KEY 2>&1",
       "description": "Set SKYVERN_API_KEY with Cloudflare token"
     },
     "timestamp": "2026-01-31T15:26:52.952Z"
@@ -1967,7 +1967,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && echo \"https://api.skyvern.com\" | npx wrangler secret put SKYVERN_API_URL 2>&1",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && echo \"https://api.skyvern.com\" | npx wrangler secret put SKYVERN_API_URL 2>&1",
       "description": "Set SKYVERN_API_URL secret"
     },
     "timestamp": "2026-01-31T15:27:04.501Z"
@@ -1991,7 +1991,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npm run deploy 2>&1 | tail -20",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npm run deploy 2>&1 | tail -20",
       "description": "Deploy worker with new Skyvern configuration",
       "timeout": 60000
     },
@@ -2000,7 +2000,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1 | tail -30",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1 | tail -30",
       "description": "Deploy worker using npx wrangler",
       "timeout": 60000
     },
@@ -2009,7 +2009,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler deploy",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler deploy",
       "description": "Deploy worker with full output",
       "timeout": 60000
     },
@@ -2027,7 +2027,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1",
       "description": "Deploy worker after installing dependencies",
       "timeout": 60000
     },
@@ -2052,7 +2052,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\",\n      \"centre_id\": \"test-centre-e2e\",\n      \"attempt_number\": \"2\",\n      \"campaign_type\": \"reactivation\"\n    }\n  }' | jq '{call_id, call_status, metadata}'",
+      "command": "curl -s -X POST \"https://api.retellai.com/v2/create-phone-call\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"override_agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\",\n      \"centre_id\": \"test-centre-e2e\",\n      \"attempt_number\": \"2\",\n      \"campaign_type\": \"reactivation\"\n    }\n  }' | jq '{call_id, call_status, metadata}'",
       "description": "Create another test call with Skyvern configured"
     },
     "timestamp": "2026-01-31T15:28:10.392Z"
@@ -2060,7 +2060,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "echo \"📞 Call initiated: call_c16878fe64210dcf450ba84de27\"\necho \"⏳ Waiting for call to complete...\"\nfor i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_c16878fe64210dcf450ba84de27\" \\\n    -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i/12: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"✅ Call ended!\"\n    break\n  fi\ndone",
+      "command": "echo \"📞 Call initiated: call_c16878fe64210dcf450ba84de27\"\necho \"⏳ Waiting for call to complete...\"\nfor i in {1..12}; do \n  sleep 10\n  STATUS=$(curl -s -X GET \"https://api.retellai.com/v2/get-call/call_c16878fe64210dcf450ba84de27\" \\\n    -H \"Authorization: Bearer key_[REDACTED]\" \\\n    -H \"Content-Type: application/json\" | jq -r '.call_status')\n  echo \"Check $i/12: Status = $STATUS\"\n  if [ \"$STATUS\" = \"ended\" ]; then\n    echo \"✅ Call ended!\"\n    break\n  fi\ndone",
       "description": "Monitor call until completion",
       "timeout": 150000
     },
@@ -2069,7 +2069,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_c16878fe64210dcf450ba84de27\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    outcome: .call_analysis.custom_analysis_data.outcome,\n    appointment_booked: .call_analysis.custom_analysis_data.appointment_booked,\n    tour_date: .call_analysis.custom_analysis_data.tour_date,\n    tour_time: .call_analysis.custom_analysis_data.tour_time\n  }'",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_c16878fe64210dcf450ba84de27\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '{\n    call_id,\n    call_status,\n    disconnection_reason,\n    duration_ms,\n    outcome: .call_analysis.custom_analysis_data.outcome,\n    appointment_booked: .call_analysis.custom_analysis_data.appointment_booked,\n    tour_date: .call_analysis.custom_analysis_data.tour_date,\n    tour_time: .call_analysis.custom_analysis_data.tour_time\n  }'",
       "description": "Get call outcome"
     },
     "timestamp": "2026-01-31T15:29:27.139Z"
@@ -2093,7 +2093,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "sleep 5 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    status,\n    last_outcome,\n    appointment_booked,\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason\n  }'",
+      "command": "sleep 5 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    status,\n    last_outcome,\n    appointment_booked,\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason\n  }'",
       "description": "Check lead record for webhook results"
     },
     "timestamp": "2026-01-31T15:29:46.152Z"
@@ -2133,7 +2133,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason,\n    updated_at\n  }'",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason,\n    updated_at\n  }'",
       "description": "Check if Skyvern task ID was recorded"
     },
     "timestamp": "2026-01-31T15:30:41.102Z"
@@ -2149,7 +2149,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72&select=skyvern_task_id,tour_date,tour_time,booking_status,booking_failure_reason,updated_at\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.'",
+      "command": "curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.7b4fc2b7-31cf-4e0a-aba4-8559bb5a6f72&select=skyvern_task_id,tour_date,tour_time,booking_status,booking_failure_reason,updated_at\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.'",
       "description": "Check latest database state"
     },
     "timestamp": "2026-01-31T15:31:06.250Z"
@@ -2165,7 +2165,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" | jq '.call_analysis.custom_analysis_data'",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_b6f8e03fb74e5ab398e4eafeba8\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" | jq '.call_analysis.custom_analysis_data'",
       "description": "Get exact custom_analysis_data format from successful call"
     },
     "timestamp": "2026-01-31T15:31:34.295Z"
@@ -2173,7 +2173,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Skyvern\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"skyvern@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\"\n  }' | jq '{id, first_name, last_name}'",
+      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Skyvern\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"skyvern@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\"\n  }' | jq '{id, first_name, last_name}'",
       "description": "Create fresh test lead for Skyvern verification"
     },
     "timestamp": "2026-01-31T15:31:55.157Z"
@@ -2181,7 +2181,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Skyvern\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"skyvern@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\"\n  }' | jq '.[0] | {id, first_name, last_name}'",
+      "command": "curl -s -X POST \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Content-Type: application/json\" \\\n  -H \"Prefer: return=representation\" \\\n  -d '{\n    \"centre_id\": \"test-centre-e2e\",\n    \"first_name\": \"Skyvern\",\n    \"last_name\": \"Test\",\n    \"phone\": \"+19059672357\",\n    \"email\": \"skyvern@test.com\",\n    \"program_interest\": \"CREATE\",\n    \"campaign_type\": \"reactivation\",\n    \"status\": \"pending\"\n  }' | jq '.[0] | {id, first_name, last_name}'",
       "description": "Create fresh test lead"
     },
     "timestamp": "2026-01-31T15:32:04.552Z"
@@ -2197,7 +2197,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "sleep 3 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.68872ff3-e784-4bdd-ab36-d7fbab7100ac\" \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" | jq '.[0] | {\n    status,\n    last_outcome,\n    appointment_booked,\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason\n  }'",
+      "command": "sleep 3 && curl -s -X GET \"https://uajdbjotlqvyursytlph.supabase.co/rest/v1/leads?id=eq.68872ff3-e784-4bdd-ab36-d7fbab7100ac\" \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" | jq '.[0] | {\n    status,\n    last_outcome,\n    appointment_booked,\n    skyvern_task_id,\n    tour_date,\n    tour_time,\n    booking_status,\n    booking_failure_reason\n  }'",
       "description": "Check if Skyvern task was created"
     },
     "timestamp": "2026-01-31T15:32:30.551Z"
@@ -2561,7 +2561,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler deploy",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler deploy",
       "description": "Deploy worker with Cloudflare API token set"
     },
     "timestamp": "2026-01-31T15:47:22.649Z"
@@ -2631,7 +2631,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+14168001234\",\n    \"to_number\": \"+19059672357\",\n    \"agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"00000000-0000-0000-0000-000000000001\",\n      \"centre_id\": \"pickering-on-ca\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"first_name\": \"Scott\",\n      \"last_name\": \"Test\",\n      \"phone\": \"+19059672357\",\n      \"email\": \"scott.test@example.com\"\n    },\n    \"retell_llm_dynamic_variables\": {\n      \"CENTRE_NAME\": \"Pickering\",\n      \"TIMEZONE\": \"Eastern\",\n      \"PHONE\": \"+19059672357\"\n    }\n  }'",
+      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+14168001234\",\n    \"to_number\": \"+19059672357\",\n    \"agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"00000000-0000-0000-0000-000000000001\",\n      \"centre_id\": \"pickering-on-ca\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"first_name\": \"Scott\",\n      \"last_name\": \"Test\",\n      \"phone\": \"+19059672357\",\n      \"email\": \"scott.test@example.com\"\n    },\n    \"retell_llm_dynamic_variables\": {\n      \"CENTRE_NAME\": \"Pickering\",\n      \"TIMEZONE\": \"Eastern\",\n      \"PHONE\": \"+19059672357\"\n    }\n  }'",
       "description": "Create test call via Retell API"
     },
     "timestamp": "2026-01-31T15:49:13.968Z"
@@ -2655,7 +2655,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X GET 'https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres?id=eq.pickering-on-ca&select=id,twilio_number' \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2Njg2NTUsImV4cCI6MjA4NDI0NDY1NX0.EBTDXe8RpU1c0bJ6s0NLqJlWPhxRIc0XT3jKfQxVANA\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\"",
+      "command": "curl -X GET 'https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres?id=eq.pickering-on-ca&select=id,twilio_number' \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\"",
       "description": "Get Twilio number from centres table"
     },
     "timestamp": "2026-01-31T15:49:36.110Z"
@@ -2711,7 +2711,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler tail --format=pretty | head -100",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler tail --format=pretty | head -100",
       "description": "View worker logs to verify Skyvern call"
     },
     "timestamp": "2026-01-31T15:50:32.789Z"
@@ -2749,7 +2749,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && curl -X GET \\\n  \"https://api.cloudflare.com/client/v4/accounts/6d3a6d9c0ed7e4d9f4ab5eacb28eb63c/workers/scripts/lead-reactivation/schedules/logs\" \\\n  -H \"Authorization: Bearer 0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE\" | jq -r '.result.data[0:3]' 2>/dev/null || echo \"Log fetch failed - checking different way\"",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && curl -X GET \\\n  \"https://api.cloudflare.com/client/v4/accounts/6d3a6d9c0ed7e4d9f4ab5eacb28eb63c/workers/scripts/lead-reactivation/schedules/logs\" \\\n  -H \"Authorization: Bearer 0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE\" | jq -r '.result.data[0:3]' 2>/dev/null || echo \"Log fetch failed - checking different way\"",
       "description": "Fetch recent worker logs from Cloudflare API"
     },
     "timestamp": "2026-01-31T16:01:21.717Z"
@@ -2788,7 +2788,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X GET 'https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres?select=id,location_name,timezone,timezone_display,twilio_number,calling_enabled,max_concurrent_calls,active_calls,availability_api_url' \\\n  -H \"apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2Njg2NTUsImV4cCI6MjA4NDI0NDY1NX0.EBTDXe8RpU1c0bJ6s0NLqJlWPhxRIc0XT3jKfQxVANA\" \\\n  -H \"Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhamRiam90bHF2eXVyc3l0bHBoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODY2ODY1NSwiZXhwIjoyMDg0MjQ0NjU1fQ.Y9fE0J51ImyLks_DqKLDuyGOiCDUEHNBfCmKQNVAiuE\" \\\n  -H \"Prefer: return=representation\"",
+      "command": "curl -X GET 'https://uajdbjotlqvyursytlph.supabase.co/rest/v1/centres?select=id,location_name,timezone,timezone_display,twilio_number,calling_enabled,max_concurrent_calls,active_calls,availability_api_url' \\\n  -H \"apikey: eyJ.[REDACTED-JWT]\" \\\n  -H \"Authorization: Bearer eyJ.[REDACTED-JWT]\" \\\n  -H \"Prefer: return=representation\"",
       "description": "Query centres table from Supabase"
     },
     "timestamp": "2026-01-31T16:08:38.218Z"
@@ -2866,7 +2866,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1 | grep -E \"Uploaded|Deployed|Error|error\" | head -5",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && npx wrangler deploy 2>&1 | grep -E \"Uploaded|Deployed|Error|error\" | head -5",
       "description": "Deploy worker with centres listing endpoint"
     },
     "timestamp": "2026-01-31T16:09:39.211Z"
@@ -3069,7 +3069,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "export CLOUDFLARE_API_TOKEN=0qKoNPQd_CXkzlQvUan0_i6V_I3KYVwnXNE2l8rE && cd /root/lead-reactivation-github && echo \"test-key-123\" | npx wrangler secret put IMPORT_API_KEY 2>&1 | grep -E \"Success|secret|error\" | head -3",
+      "command": "export CLOUDFLARE_API_TOKEN=[REDACTED] && cd /root/lead-reactivation-github && echo \"test-key-123\" | npx wrangler secret put IMPORT_API_KEY 2>&1 | grep -E \"Success|secret|error\" | head -3",
       "description": "Set IMPORT_API_KEY secret in Cloudflare"
     },
     "timestamp": "2026-01-31T16:24:06.413Z"
@@ -3119,7 +3119,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "CALL_TIMESTAMP=$(date +%s)\ncurl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"test-lead-'$CALL_TIMESTAMP'\",\n      \"centre_id\": \"east-gwillimbury-on-ca\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"first_name\": \"Scott\",\n      \"last_name\": \"Test\",\n      \"phone\": \"+19059672357\",\n      \"email\": \"scott.test@example.com\"\n    },\n    \"retell_llm_dynamic_variables\": {\n      \"CENTRE_NAME\": \"East Gwillimbury\",\n      \"TIMEZONE\": \"Eastern\",\n      \"PHONE\": \"+19059672357\"\n    }\n  }' | jq .",
+      "command": "CALL_TIMESTAMP=$(date +%s)\ncurl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"from_number\": \"+12494492726\",\n    \"to_number\": \"+19059672357\",\n    \"agent_id\": \"agent_552e57364711f0eec51afa512a\",\n    \"metadata\": {\n      \"lead_id\": \"test-lead-'$CALL_TIMESTAMP'\",\n      \"centre_id\": \"east-gwillimbury-on-ca\",\n      \"attempt_number\": \"1\",\n      \"campaign_type\": \"reactivation\",\n      \"first_name\": \"Scott\",\n      \"last_name\": \"Test\",\n      \"phone\": \"+19059672357\",\n      \"email\": \"scott.test@example.com\"\n    },\n    \"retell_llm_dynamic_variables\": {\n      \"CENTRE_NAME\": \"East Gwillimbury\",\n      \"TIMEZONE\": \"Eastern\",\n      \"PHONE\": \"+19059672357\"\n    }\n  }' | jq .",
       "description": "Create Retell phone call to Scott with east-gwillimbury-on-ca centre"
     },
     "timestamp": "2026-01-31T16:24:52.460Z"
@@ -3135,7 +3135,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d @/tmp/create-call.json -o /tmp/call-response.json -w \"\\nHTTP Status: %{http_code}\\n\"\ncat /tmp/call-response.json | jq .",
+      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d @/tmp/create-call.json -o /tmp/call-response.json -w \"\\nHTTP Status: %{http_code}\\n\"\ncat /tmp/call-response.json | jq .",
       "description": "Create Retell call and save response"
     },
     "timestamp": "2026-01-31T16:25:05.700Z"
@@ -3143,7 +3143,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" \\\n  -H \"Content-Type: application/json\" \\\n  -d @/tmp/create-call.json > /tmp/call-response.json 2>&1\n\ncat /tmp/call-response.json",
+      "command": "curl -X POST https://api.retellai.com/v2/create-phone-call \\\n  -H \"Authorization: Bearer key_[REDACTED]\" \\\n  -H \"Content-Type: application/json\" \\\n  -d @/tmp/create-call.json > /tmp/call-response.json 2>&1\n\ncat /tmp/call-response.json",
       "description": "Create call and view response"
     },
     "timestamp": "2026-01-31T16:25:11.641Z"
@@ -3220,7 +3220,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -X GET \"https://api.retellai.com/v2/list-calls?limit=10&sort_order=descending\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" 2>/dev/null | jq '[.calls[] | {call_id, call_status, created_at: (.start_timestamp // .created_timestamp), to_number, metadata: .metadata.centre_id}] | .[0:5]'",
+      "command": "curl -X GET \"https://api.retellai.com/v2/list-calls?limit=10&sort_order=descending\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" 2>/dev/null | jq '[.calls[] | {call_id, call_status, created_at: (.start_timestamp // .created_timestamp), to_number, metadata: .metadata.centre_id}] | .[0:5]'",
       "description": "List most recent Retell calls to identify duplicates"
     },
     "timestamp": "2026-01-31T16:40:10.262Z"
@@ -3228,7 +3228,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/list-calls?limit=10&sort_order=descending\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" > /tmp/recent-calls.json\n\nhead -200 /tmp/recent-calls.json",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/list-calls?limit=10&sort_order=descending\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" > /tmp/recent-calls.json\n\nhead -200 /tmp/recent-calls.json",
       "description": "Fetch recent calls from Retell API"
     },
     "timestamp": "2026-01-31T16:40:21.816Z"
@@ -3236,7 +3236,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_89a0b686bf451e4d9205bec20cf\" \\\n  -H \"Authorization: Bearer key_eb01765f71b0a93b347d324af573\" > /tmp/call-detail.json\n\ncat /tmp/call-detail.json | head -50",
+      "command": "curl -s -X GET \"https://api.retellai.com/v2/get-call/call_89a0b686bf451e4d9205bec20cf\" \\\n  -H \"Authorization: Bearer key_[REDACTED]\" > /tmp/call-detail.json\n\ncat /tmp/call-detail.json | head -50",
       "description": "Get details of the specific call I created"
     },
     "timestamp": "2026-01-31T16:40:27.873Z"

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-22T17:08:37.756Z",
+  "session_id": "24931826-d703-4d94-a2bf-2832aed6f4b1",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "N8N_API=\"https://xprime17.app.n8n.cloud/api/v1\" && N8N_KEY=\"eyJ.[REDACTED-JWT]\" && curl -s -H \"X-N8N-API-KEY: $N8N_KEY\" \"$N8N_API/executions/14093?includeData=true\" | jq '[.data.resultData.runData[\"Append row in sheet\"]?[0].data.main[0][]? | {lead: .json.lead_id, first: .json.First, centre: .json.centre_id, ph",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

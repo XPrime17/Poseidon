@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-26T00:02:08.048Z",
+  "session_id": "aefa9c6d-2676-496c-b7b7-209e71ed4d78",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "set -a; . /root/daily-call-audit/.env; set +a; curl -sS -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"${N8N_BASE_URL}/api/v1/executions/19479?includeData=true\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print('workflow:', d.get('workflowId'), '| status:', d.get('finished'), '| stopped:', d.get('stoppedAt')); rd=d.get('data',{}).get('resultData',{}); print('lastNode:', rd.get('lastNodeExecuted')); runs=rd.get('runData',{}); print('nodes executed:'); [print(' ', n, '->', len(v), 'run(s)') for n,v ",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

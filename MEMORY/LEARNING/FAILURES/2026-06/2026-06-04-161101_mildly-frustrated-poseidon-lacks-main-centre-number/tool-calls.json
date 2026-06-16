@@ -1,0 +1,372 @@
+[
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rEi \"forward|\\*72|\\*73|inbound number|twilio|\\+1[0-9]{10}|[0-9]{3}[-.][0-9]{3}[-.][0-9]{4}\" /root/.claude/projects/-root/memory/stcatharines-chatdash-wired.md /root/.claude/projects/-root/memory/clickup-stcath.md /root/.claude/projects/-root/memory/stcath-custom-intro-2026-05-25.md 2>/dev/null",
+      "description": "Find St. Catharines inbound number in memory"
+    },
+    "timestamp": "2026-06-03T00:41:59.941Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rEil \"catharines|stcath\" /root/.claude/projects/-root/memory/ | xargs grep -lEi \"inbound\" 2>/dev/null; echo \"---NUMBERS---\"; grep -rEi \"catharines\" /root/.claude/projects/-root/memory/*.md | grep -Ei \"[0-9]{3}[-.) ]?[0-9]{3}[-.][0-9]{4}|\\+1[0-9]{10}|to_number|inbound_webhook\"",
+      "description": "Search for St. Catharines inbound phone number"
+    },
+    "timestamp": "2026-06-03T00:42:09.473Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/.claude && git rev-parse --show-toplevel 2>/dev/null && git remote -v 2>/dev/null | head -2; echo \"---\"; ls /root/.claude/projects/-root/memory/stcath* 2>/dev/null",
+      "description": "Find git root for memory repo"
+    },
+    "timestamp": "2026-06-03T00:59:14.381Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/stcath-inbound-call-forwarding.md",
+      "content": "---\nname: stcath-inbound-call-forwarding\ndescription: How to activate the St. Catharines inbound AI — forward the centre's main line to the Retell number via *72; carrier still unknown\nmetadata:\n  type: project\n---\n\n# St. Catharines inbound call forwarding (2026-06-03)\n\nTo go live on the inbound AI receptionist, the centre's **main business line** must be forwarded to the St. Catharines Retell inbound number **`+1 289-514-0137`** (`+12895140137`, the same number outbound calls originate from — see [[returned-outbound-calls-hit-inbound-agent]]).\n\n**Activation (standard North-American Call Forwarding Variable):** from the centre's main phone, dial `*72` + `2895140137`, wait for confirmation tone, hang up. **Deactivate:** `*73`.\n\n**Verification:** call the centre's main number from a cell — AI should answer in a couple of rings. The cell-test against the *main centre number* is the real proof; a returned missed-call reaching the AI is NOT proof (those bypass forwarding — [[returned-outbound-calls-hit-inbound-agent]]).\n\n**Why:** the inbound agent (`agent_c02bfb40888bba2275ea3a9f3a`, llm `llm_5b4dbab1bf6dcc5007c61c2726ff`) only receives calls once the centre's published line forwards to the Retell DID.\n\n**How to apply:** Shauna's director **Janet** is setting this up (2026-06-03, via WhatsApp). Sent her the `*72` blurb. **Carrier is UNKNOWN** — if `*72` returns a busy signal/error, the plan lacks \"Call Forwarding (Variable)\" and the carrier must enable it first (this was the [[leaside-inbound]] Rogers wall). If St. Catharines runs a hosted PBX/VoIP portal, forwarding is set there, not via star-codes. **TODO: record the carrier once Janet reports back** so the next centre's blurb is exact.\n"
+    },
+    "timestamp": "2026-06-03T00:59:32.037Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## St. Catharines (LIVE 2026-05-09)\n- [ChatDash forwarding wired](stcatharines-chatdash-wired.md)",
+      "new_string": "## St. Catharines (LIVE 2026-05-09)\n- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` via `*72`+number (`*73` off); carrier UNKNOWN (record once Janet reports); Janet setting up 2026-06-03\n- [ChatDash forwarding wired](stcatharines-chatdash-wired.md)"
+    },
+    "timestamp": "2026-06-03T00:59:38.573Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"## St. Catharines (LIVE\" projects/-root/memory/MEMORY.md",
+      "description": "Locate St. Catharines section line"
+    },
+    "timestamp": "2026-06-03T00:59:41.746Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "offset": 111,
+      "limit": 3
+    },
+    "timestamp": "2026-06-03T00:59:44.756Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## St. Catharines (LIVE 2026-05-09)\n- [ChatDash forwarding wired](stcatharines-chatdash-wired.md)",
+      "new_string": "## St. Catharines (LIVE 2026-05-09)\n- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` via `*72`+number (`*73` off); carrier UNKNOWN (record once Janet reports); Janet setting up 2026-06-03\n- [ChatDash forwarding wired](stcatharines-chatdash-wired.md)"
+    },
+    "timestamp": "2026-06-03T00:59:49.694Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add -f projects/-root/memory/stcath-inbound-call-forwarding.md projects/-root/memory/MEMORY.md && git status --short && echo \"---SCAN---\" && git diff --cached | grep -Ei \"password|api[_-]?key|secret|token|op://|sip|bearer|-----BEGIN\" || echo \"secret-scan: clean\"",
+      "description": "Stage memory files and scan staged diff for secrets"
+    },
+    "timestamp": "2026-06-03T00:59:54.642Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git commit -m \"memory: St. Catharines inbound call-forwarding procedure (Janet setup 2026-06-03)\n\nForward centre main line to Retell +12895140137 via *72; carrier\nunknown pending Janet's report. Add stcath-inbound-call-forwarding.md\n+ MEMORY.md index entry.\n\nCo-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>\" -- projects/-root/memory/stcath-inbound-call-forwarding.md projects/-root/memory/MEMORY.md && git pull --rebase --autostash origin main && git push origin HEAD && echo \"---VERIFY---\" && git log --oneline -1",
+      "description": "Commit memory files, rebase, push"
+    },
+    "timestamp": "2026-06-03T01:00:03.716Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git pull --rebase --autostash origin master && git push origin HEAD && echo \"---VERIFY---\" && git log --oneline -1 && git status -sb | head -1",
+      "description": "Rebase and push to master"
+    },
+    "timestamp": "2026-06-03T01:00:11.384Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat /root/.claude/projects/-root/memory/eg-inbound-pilot.md /root/.claude/projects/-root/memory/leaside-inbound.md 2>/dev/null",
+      "description": "Read EG + Leaside inbound forwarding mode"
+    },
+    "timestamp": "2026-06-04T01:16:09.222Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "Janet's test confirms forwarding works, but *72 is UNCONDITIONAL — every call skips the centre and hits the AI directly. Which behavior do you want for St. Catharines?",
+          "header": "Forward mode",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "No-answer (match EG)",
+              "description": "Centre rings ~4x first, staff can answer; AI only catches missed/overflow calls. This is EG's model. Janet turns OFF *72 (dial *73), then sets the no-answer code — but I need the centre's carrier to give the exact code (*92 on Bell; Rogers differs)."
+            },
+            {
+              "label": "Keep unconditional (*72)",
+              "description": "AI is THE receptionist — answers 100% of calls, centre phone never rings. Already live as-is, nothing more to do. Choose this only if staff should never field calls directly."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-06-04T01:16:40.512Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList",
+      "max_results": 5
+    },
+    "timestamp": "2026-06-04T01:38:25.206Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Write standing policy feedback memory: always no-answer (4-ring) forwarding",
+      "description": "Create feedback-* memory: all centre call forwarding must use no-answer/ring-then-forward (~4 rings), never unconditional *72. Include why (staff get first crack; AI catches overflow) and how to apply (cancel *72 with *73; Bell *92, confirm carrier per centre).",
+      "activeForm": "Writing no-answer-forwarding policy memory"
+    },
+    "timestamp": "2026-06-04T01:38:31.181Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Correct stcath-inbound-call-forwarding.md to no-answer mode",
+      "description": "Replace the *72 unconditional activation step with the no-answer pattern (cancel *72 via *73, then *92 on Bell after 4 rings, carrier still to confirm). Note 2026-06-03 cell test proved unconditional was live; switched per Scott policy 2026-06-04.",
+      "activeForm": "Correcting St. Catharines forwarding memory"
+    },
+    "timestamp": "2026-06-04T01:38:34.059Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Update MEMORY.md index entries",
+      "description": "Add the feedback policy line and refresh the St. Catharines forwarding line to reflect no-answer mode.",
+      "activeForm": "Updating MEMORY.md index"
+    },
+    "timestamp": "2026-06-04T01:38:34.831Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-06-04T01:38:37.920Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/feedback-no-answer-forwarding-always.md",
+      "content": "---\nname: feedback-no-answer-forwarding-always\ndescription: All centre inbound forwarding must be no-answer (ring ~4x first), NEVER unconditional *72\nmetadata:\n  type: feedback\n---\n\nWhen setting up inbound call forwarding for ANY centre, **always use the no-answer / \"wait for 4 rings\" approach** — never unconditional forwarding (`*72` / Call Forwarding Variable).\n\n**Why:** unconditional forwarding sends 100% of callers straight to the AI and the centre phone never rings, so staff can never answer their own line. The intended model (proven on [[eg-inbound-pilot]]) is: the centre rings first (~4 rings), and the AI only catches calls nobody answers. Staff get first crack; the AI is overflow/after-hours backup, not a gatekeeper. Scott set this as a standing rule 2026-06-04 after Janet's St. Catharines test showed `*72` skipping the centre entirely.\n\n**How to apply:** Do NOT put `*72` in onboarding blurbs. If a centre was already set to `*72`, cancel it first with `*73`, then set no-answer forwarding. The exact code is carrier-specific — Bell = `*92` + 10-digit destination, fires after exactly 4 rings, cancel with `*93` (per EG). Rogers and others differ, so confirm the centre's carrier before sending the code. Test by calling the centre's main number from a cell: it must ring at the centre a few times *before* the AI answers. See [[stcath-inbound-call-forwarding]] and [[leaside-inbound]].\n"
+    },
+    "timestamp": "2026-06-04T01:38:49.149Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-04T01:38:49.274Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-04T01:39:07.725Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stcath-inbound-call-forwarding.md",
+      "old_string": "**Activation (standard North-American Call Forwarding Variable):** from the centre's main phone, dial `*72` + `2895140137`, wait for confirmation tone, hang up. **Deactivate:** `*73`.\n\n**Verification:** call the centre's main number from a cell — AI should answer in a couple of rings. The cell-test against the *main centre number* is the real proof; a returned missed-call reaching the AI is NOT proof (those bypass forwarding — [[returned-outbound-calls-hit-inbound-agent]]).",
+      "new_string": "**Mode: NO-ANSWER forwarding ONLY** (ring centre ~4x first, AI catches missed calls) — never unconditional `*72`. Standing rule, see [[feedback-no-answer-forwarding-always]]. On 2026-06-03 the blurb wrongly used `*72` (unconditional); Janet's 2026-06-04 test showed it skipping the centre entirely (\"AI answered after 1 ring, centre never rang\"). Forwarding path itself is confirmed working.\n\n**Activation:** first cancel the unconditional forward with `*73`, then set no-answer forwarding to `2895140137`. Exact code is carrier-specific — Bell = `*92` + 10-digit (fires after 4 rings; cancel `*93`); Rogers/others differ.\n\n**Verification:** call the centre's main number from a cell — it must ring at the centre a few times *before* the AI answers. The cell-test against the *main centre number* is the real proof; a returned missed-call reaching the AI is NOT proof (those bypass forwarding — [[returned-outbound-calls-hit-inbound-agent]])."
+    },
+    "timestamp": "2026-06-04T01:39:01.767Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stcath-inbound-call-forwarding.md",
+      "old_string": "**How to apply:** Shauna's director **Janet** is setting this up (2026-06-03, via WhatsApp). Sent her the `*72` blurb. **Carrier is UNKNOWN** — if `*72` returns a busy signal/error, the plan lacks \"Call Forwarding (Variable)\" and the carrier must enable it first (this was the [[leaside-inbound]] Rogers wall). If St. Catharines runs a hosted PBX/VoIP portal, forwarding is set there, not via star-codes. **TODO: record the carrier once Janet reports back** so the next centre's blurb is exact.",
+      "new_string": "**How to apply:** Shauna's director **Janet** is setting this up via WhatsApp. As of 2026-06-04: forwarding works, but switching from unconditional → no-answer. Sent Janet a blurb to `*73` (cancel) then set no-answer. **Carrier still UNKNOWN** — asked Janet to name it (Bell `*92` likely, Ontario centre). If St. Catharines runs a hosted PBX/VoIP portal, forwarding is set there, not via star-codes. **TODO: record the carrier once Janet reports back** so the next centre's blurb is exact."
+    },
+    "timestamp": "2026-06-04T01:39:07.332Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` via `*72`+number (`*73` off); carrier UNKNOWN (record once Janet reports); Janet setting up 2026-06-03",
+      "new_string": "- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` using NO-ANSWER mode (ring ~4x first); `*72` unconditional was wrong, cancel via `*73`; carrier UNKNOWN (Bell `*92` likely); Janet switching 2026-06-04"
+    },
+    "timestamp": "2026-06-04T01:39:15.309Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "offset": 1,
+      "limit": 6
+    },
+    "timestamp": "2026-06-04T01:39:19.084Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "offset": 6,
+      "limit": 5
+    },
+    "timestamp": "2026-06-04T01:39:24.062Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## EG Inbound Pilot (LIVE 2026-04-16)\n- [EG Inbound Pilot](eg-inbound-pilot.md)",
+      "new_string": "## EG Inbound Pilot (LIVE 2026-04-16)\n- [Always no-answer (4-ring) forwarding](feedback-no-answer-forwarding-always.md) — POLICY: every centre's inbound forward must ring the centre ~4x first (no-answer mode), NEVER unconditional `*72`. Staff get first crack; AI is overflow. Bell `*92`/`*93`; confirm carrier per centre. Set 2026-06-04.\n- [EG Inbound Pilot](eg-inbound-pilot.md)"
+    },
+    "timestamp": "2026-06-04T01:39:36.447Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-04T01:39:36.634Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "echo \"=== new feedback file exists ===\" && test -f projects/-root/memory/feedback-no-answer-forwarding-always.md && echo OK; echo \"=== no stray *72-as-activation left in stcath file ===\" && grep -n \"72\\|92\\|no-answer\\|NO-ANSWER\" projects/-root/memory/stcath-inbound-call-forwarding.md; echo \"=== index lines ===\" && grep -n \"no-answer\\|4-ring\" projects/-root/memory/MEMORY.md; echo \"=== git status (memory only) ===\" && git status --short projects/-root/memory/",
+      "description": "Verify memory edits and check git status"
+    },
+    "timestamp": "2026-06-04T01:39:42.374Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stcath-inbound-call-forwarding.md",
+      "old_string": "description: \"How to activate the St. Catharines inbound AI — forward the centre's main line to the Retell number via *72; carrier still unknown\"",
+      "new_string": "description: \"How to activate the St. Catharines inbound AI — no-answer forward (ring ~4x) the centre's main line to the Retell number; carrier still unknown\""
+    },
+    "timestamp": "2026-06-04T01:39:50.965Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:WebSearch,WebFetch",
+      "max_results": 5
+    },
+    "timestamp": "2026-06-04T22:42:41.554Z"
+  },
+  {
+    "name": "WebSearch",
+    "input": {
+      "query": "NRBN Niagara Regional Broadband Network phone call forwarding no answer star code feature access"
+    },
+    "timestamp": "2026-06-04T22:42:44.644Z"
+  },
+  {
+    "name": "WebSearch",
+    "input": {
+      "query": "nrbn.ca hosted phone \"call forward\" no answer feature access codes guide"
+    },
+    "timestamp": "2026-06-04T22:42:45.098Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://www.nrbn.ca/faq/home-phone",
+      "prompt": "List every call forwarding feature and its star/feature access code. Specifically: Call Forward No Answer (forward only when unanswered after N rings), Call Forward Always, Call Forward Busy, and how to set the number of rings before forwarding or voicemail. Quote the exact star codes (e.g. *72, *92, *610) and any deactivate codes."
+    },
+    "timestamp": "2026-06-04T22:42:58.426Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://www.nrbn.ca/home-phone",
+      "prompt": "Does this page list call forwarding feature access star codes, especially Call Forward No Answer? Quote any star codes and any link to a phone features guide or PDF."
+    },
+    "timestamp": "2026-06-04T22:42:59.948Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://www.nrbn.ca/hubfs/Home-Phone/Resi-Voice-Features.pdf",
+      "prompt": "List every call forwarding feature and its exact star/feature access code. Specifically: Call Forward No Answer (forward only when unanswered), Call Forward Always, Call Forward Busy, and any code to set number of rings before forwarding. Quote the exact activation and deactivation codes (e.g. *72, *92, *93, *610)."
+    },
+    "timestamp": "2026-06-04T22:43:09.512Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/daf9b54d-cf72-4951-aaf7-76c61340ca26/tool-results/webfetch-1780612989749-s2x25e.pdf"
+    },
+    "timestamp": "2026-06-04T22:43:16.967Z"
+  },
+  {
+    "name": "WebSearch",
+    "input": {
+      "query": "NRBN business hosted PBX phone \"call forward no answer\" OR \"find me follow me\" feature codes Niagara"
+    },
+    "timestamp": "2026-06-04T22:43:43.480Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://business.nrbn.ca/support",
+      "prompt": "Does NRBN business phone / hosted PBX offer Call Forward No Answer (forward only when unanswered after N rings) or sequential/simultaneous ring? List any feature access codes, portal names, or a phone features guide PDF link."
+    },
+    "timestamp": "2026-06-04T22:43:44.597Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/stcath-inbound-call-forwarding.md",
+      "old_string": "**How to apply:** Shauna's director **Janet** is setting this up via WhatsApp. As of 2026-06-04: forwarding works, but switching from unconditional → no-answer. Sent Janet a blurb to `*73` (cancel) then set no-answer. **Carrier still UNKNOWN** — asked Janet to name it (Bell `*92` likely, Ontario centre). If St. Catharines runs a hosted PBX/VoIP portal, forwarding is set there, not via star-codes. **TODO: record the carrier once Janet reports back** so the next centre's blurb is exact.",
+      "new_string": "**Carrier = Niagara Regional Broadband Network (NRBN)**, https://www.nrbn.ca/ (confirmed by Scott 2026-06-04). Key constraint:\n- **NRBN RESIDENTIAL** voice (Resi-Voice-Features.pdf) offers ONLY `*72` unconditional Call Forwarding (`*73` off). **No Call-Forward-No-Answer star code exists** on residential. `*610` = rings before *voicemail*; `*86` = NRBN voicemail. So a residential line CANNOT do the 4-ring policy via star codes.\n- **NRBN BUSINESS \"Hosted Voice\" runs on Cisco BroadSoft (BroadWorks)**, which DOES support Call-Forward-No-Answer with configurable ring count (standard BroadWorks FAC `*92` activate / `*93` deactivate; ring count set in the Webex/BroadSoft portal or by NRBN, NOT in the dial code).\n\n**How to apply:** Janet's `*72` test worked — consistent with either tier (both honor `*72`). To honor the no-answer policy, confirm the centre's line is on **NRBN Business Hosted Voice** and have NRBN configure **CFNA → `+12895140137` after 4 rings** server-side (most reliable). NRBN support 1-877-331-6726 / business@nrbn.ca. If the line is residential-only, the no-answer policy is NOT achievable without upgrading to Hosted Voice — fallback is the current `*72` unconditional. **OPEN: confirm tier + get NRBN to set CFNA.**"
+    },
+    "timestamp": "2026-06-04T22:44:23.189Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/feedback-no-answer-forwarding-always.md",
+      "old_string": "**How to apply:** Do NOT put `*72` in onboarding blurbs. If a centre was already set to `*72`, cancel it first with `*73`, then set no-answer forwarding. The exact code is carrier-specific — Bell = `*92` + 10-digit destination, fires after exactly 4 rings, cancel with `*93` (per EG). Rogers and others differ, so confirm the centre's carrier before sending the code. Test by calling the centre's main number from a cell: it must ring at the centre a few times *before* the AI answers. See [[stcath-inbound-call-forwarding]] and [[leaside-inbound]].",
+      "new_string": "**How to apply:** Do NOT put `*72` in onboarding blurbs. If a centre was already set to `*72`, cancel it first with `*73`, then set no-answer forwarding. The exact code is carrier-specific — Bell = `*92` + 10-digit destination, fires after exactly 4 rings, cancel with `*93` (per EG). Rogers and others differ, so confirm the centre's carrier before sending the code. Test by calling the centre's main number from a cell: it must ring at the centre a few times *before* the AI answers. See [[stcath-inbound-call-forwarding]] and [[leaside-inbound]].\n\n**CAVEAT — not every carrier offers no-answer forwarding.** Some residential/VoIP plans only have unconditional `*72` and NO CFNA star code (e.g. **NRBN residential** at St. Catharines — see [[stcath-inbound-call-forwarding]]). When a centre's plan lacks CFNA, the policy requires either upgrading to a business/hosted-PBX tier (NRBN Business = Cisco BroadSoft, supports CFNA `*92`/`*93` with portal-set ring count) or having the carrier configure no-answer forwarding server-side. Always check the carrier's feature guide before promising the 4-ring behavior."
+    },
+    "timestamp": "2026-06-04T22:44:36.088Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137` using NO-ANSWER mode (ring ~4x first); `*72` unconditional was wrong, cancel via `*73`; carrier UNKNOWN (Bell `*92` likely); Janet switching 2026-06-04",
+      "new_string": "- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137`. Carrier = **NRBN**; residential tier has ONLY `*72` unconditional (no CFNA star code) — 4-ring policy needs NRBN **Business Hosted Voice** (Cisco BroadSoft, CFNA `*92`/`*93`) configured by NRBN. OPEN: confirm tier + set CFNA. 2026-06-04"
+    },
+    "timestamp": "2026-06-04T22:44:39.772Z"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-06-04T01:51:09.000Z",
+  "session_id": "c81e1cc8-0da6-4c45-bb8b-11b2b1f084fc",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -fsSL https://deno.land/install.sh | sh > /tmp/deno_install.log 2>&1; echo \"deno install exit $?\"; ls -la ~/.deno/bin/deno 2>/dev/null || echo \"no deno binary\"",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

@@ -1,0 +1,8 @@
+{
+  "rating": 1,
+  "summary": ".  trust lead form email.  2.  no pilot, just implement for all",
+  "detailed_context": "## ⚙️ EXECUTE — design summary before shipping\n\n### What's already in place (memory was stale)\nThe EOC workflow `4p1V0wESn3kZySt6` has a **fully wired Staff Follow-Up branch**:\n\n```\nStaff Follow-Up Needed? (IF) → Lookup Centre SF → Format Staff Follow-Up Task\n                                                       ├→ Send Staff Follow-Up Email (Gmail)\n                                                       └→ Has ClickUp Config? (IF) → Create Staff Follow-Up Task (ClickUp API)\n```\n\n- **Trigger:** ",
+  "session_id": "aefa9c6d-2676-496c-b7b7-209e71ed4d78",
+  "captured_at": "2026-05-31T19:58:17.703Z",
+  "transcript_source": "aefa9c6d-2676-496c-b7b7-209e71ed4d78.jsonl"
+}

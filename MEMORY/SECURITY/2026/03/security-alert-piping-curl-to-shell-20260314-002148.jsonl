@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-14T00:21:48.223Z",
+  "session_id": "097bf9d7-bdc1-459e-9deb-b6d2eb1aad2c",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "N8N_API=\"https://xprime17.app.n8n.cloud/api/v1\"\nN8N_KEY=\"eyJ.[REDACTED-JWT]\"\n\n# Delete the manual trigger workflow\ncurl -s -X DELETE \"$N8N_API/workflows/UbsvOryzXEpSEr8X\" -H \"X-N8N-API-KEY: $N8N_KEY\" > /dev/null\n\n# New approach: Create a Schedule trigger workflow set to fire immediately\n# Also include a webhoo",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

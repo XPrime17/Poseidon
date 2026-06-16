@@ -1,0 +1,407 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList,TaskUpdate",
+      "max_results": 3
+    },
+    "timestamp": "2026-05-02T17:00:13.181Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Locate Riverside config in KB crawler",
+      "description": "Find the doc-ID mapping for Riverside in /root/kb-crawler/ — confirm whether Riverside is listed (with empty/placeholder ID) or completely absent."
+    },
+    "timestamp": "2026-05-02T17:00:18.736Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Create new Riverside Google Doc with write access",
+      "description": "Create a fresh Google Doc owned by an account whose creds are loaded into the n8n GDocs Write credential (hTsOcQ3CNsZ5e1xQ), so the crawler can write to it without an external editor-share dance."
+    },
+    "timestamp": "2026-05-02T17:00:21.918Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Wire Riverside doc ID into crawler config",
+      "description": "Update the crawler config (/root/kb-crawler/) with the new Riverside doc ID and verify shape matches existing centres."
+    },
+    "timestamp": "2026-05-02T17:00:23.058Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Run crawler against Riverside and verify write",
+      "description": "Trigger a one-shot crawl for Riverside, confirm the Doc body populates with KB content (no permission error), and confirm the Retell pre-call webhook can read it."
+    },
+    "timestamp": "2026-05-02T17:00:24.681Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -la /root/kb-crawler/ 2>/dev/null && echo \"---\" && ls /root/.claude/skills/_KBCRAWLER/ 2>/dev/null",
+      "description": "List kb-crawler directory and skill"
+    },
+    "timestamp": "2026-05-02T17:00:25.975Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-02T17:00:28.762Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/kb-crawler/centres.json"
+    },
+    "timestamp": "2026-05-02T17:00:29.150Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/skills/_KBCRAWLER/SKILL.md"
+    },
+    "timestamp": "2026-05-02T17:00:29.591Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:00:46.019Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-02T17:00:46.425Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncurl -s -X GET \"https://xprime17.app.n8n.cloud/api/v1/workflows/hTsOcQ3CNsZ5e1xQ\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '.nodes[] | {name, type, parameters: (.parameters | {operation, resource, documentURL, content, url, method})}'",
+      "description": "Inspect KB Crawler GDocs Write workflow structure"
+    },
+    "timestamp": "2026-05-02T17:00:53.777Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncurl -s -X GET \"https://xprime17.app.n8n.cloud/api/v1/workflows/hTsOcQ3CNsZ5e1xQ\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '.nodes[] | select(.name==\"BatchUpdate\" or .name==\"Read Doc\") | {name, type, credentials, authentication: .parameters.authentication, oauthType: .parameters.genericAuthType, params: .parameters}'",
+      "description": "Get credential IDs for BatchUpdate and Read Doc nodes"
+    },
+    "timestamp": "2026-05-02T17:01:01.878Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncat > /tmp/create-doc-wf.json <<'EOF'\n{\n  \"name\": \"TEMP - Create Riverside Doc\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"httpMethod\": \"POST\",\n        \"path\": \"create-riverside-doc\",\n        \"responseMode\": \"lastNode\",\n        \"options\": {}\n      },\n      \"id\": \"trigger-1\",\n      \"name\": \"Webhook\",\n      \"type\": \"n8n-nodes-base.webhook\",\n      \"typeVersion\": 2,\n      \"position\": [200, 300],\n      \"webhookId\": \"create-riverside-doc-webhook\"\n    },\n    {\n      \"parameters\": {\n        \"method\": \"POST\",\n        \"url\": \"https://docs.googleapis.com/v1/documents\",\n        \"authentication\": \"predefinedCredentialType\",\n        \"nodeCredentialType\": \"googleDocsOAuth2Api\",\n        \"sendBody\": true,\n        \"specifyBody\": \"json\",\n        \"jsonBody\": \"={ \\\"title\\\": \\\"Code Ninjas Riverside KB\\\" }\",\n        \"options\": {}\n      },\n      \"id\": \"create-1\",\n      \"name\": \"Create Doc\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4.2,\n      \"position\": [440, 300],\n      \"credentials\": {\n        \"googleDocsOAuth2Api\": {\n          \"id\": \"58qerrOCaSjZ51WF\",\n          \"name\": \"Google Docs account\"\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"Webhook\": { \"main\": [[{ \"node\": \"Create Doc\", \"type\": \"main\", \"index\": 0 }]] }\n  },\n  \"settings\": { \"executionOrder\": \"v1\" }\n}\nEOF\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows\" \\\n  -H \"X-N8N-API-KEY: $N8N_API_KEY\" \\\n  -H \"Content-Type: application/json\" \\\n  -d @/tmp/create-doc-wf.json | jq '{id, name, active}'",
+      "description": "Create temp n8n workflow to create Google Doc"
+    },
+    "timestamp": "2026-05-02T17:01:15.638Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR/activate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '{id, active}'\necho \"---\"\nsleep 2\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/create-riverside-doc\" -H \"Content-Type: application/json\" -d '{}' | jq '{documentId, title, revisionId}'",
+      "description": "Activate temp workflow and trigger webhook to create Google Doc"
+    },
+    "timestamp": "2026-05-02T17:01:22.422Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/kb-crawler/centres.json",
+      "old_string": "  {\n    \"id\": \"ct-riverside\",\n    \"slug\": \"ct-riverside\",\n    \"name\": \"Riverside\",\n    \"docId\": \"\",\n    \"note\": \"Needs Google Doc created\"\n  }",
+      "new_string": "  {\n    \"id\": \"ct-riverside\",\n    \"slug\": \"ct-riverside\",\n    \"name\": \"Riverside\",\n    \"docId\": \"1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0\"\n  }"
+    },
+    "timestamp": "2026-05-02T17:01:38.555Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:01:38.940Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:01:39.683Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-02T17:01:40.087Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/kb-crawler && bun run crawl.ts --centre ct-riverside --dry-run 2>&1 | tail -40",
+      "description": "Dry-run crawl for Riverside"
+    },
+    "timestamp": "2026-05-02T17:01:40.916Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "bun run crawl.ts --centre ct-riverside 2>&1 | tail -20",
+      "description": "Real crawl write to Riverside doc"
+    },
+    "timestamp": "2026-05-02T17:02:21.248Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\n# verify by reading doc back through GDocs Read webhook\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/kb-gdocs-read\" -H \"Content-Type: application/json\" -d '{\"doc_id\":\"1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0\"}' | jq '.content[:500]'",
+      "description": "Read Riverside doc back to verify content was written"
+    },
+    "timestamp": "2026-05-02T17:03:07.813Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\n# Update temp workflow to share the doc with Scott via Drive API permissions endpoint\ncat > /tmp/share-doc-wf.json <<'EOF'\n{\n  \"name\": \"TEMP - Create Riverside Doc\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"httpMethod\": \"POST\",\n        \"path\": \"share-riverside-doc\",\n        \"responseMode\": \"lastNode\",\n        \"options\": {}\n      },\n      \"id\": \"trigger-1\",\n      \"name\": \"Webhook\",\n      \"type\": \"n8n-nodes-base.webhook\",\n      \"typeVersion\": 2,\n      \"position\": [200, 300],\n      \"webhookId\": \"share-riverside-doc-webhook\"\n    },\n    {\n      \"parameters\": {\n        \"method\": \"POST\",\n        \"url\": \"https://www.googleapis.com/drive/v3/files/1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0/permissions?sendNotificationEmail=false\",\n        \"authentication\": \"predefinedCredentialType\",\n        \"nodeCredentialType\": \"googleDocsOAuth2Api\",\n        \"sendBody\": true,\n        \"specifyBody\": \"json\",\n        \"jsonBody\": \"={ \\\"role\\\": \\\"writer\\\", \\\"type\\\": \\\"user\\\", \\\"emailAddress\\\": \\\"scott.james@codeninjas.com\\\" }\",\n        \"options\": {}\n      },\n      \"id\": \"share-1\",\n      \"name\": \"Share Doc\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4.2,\n      \"position\": [440, 300],\n      \"credentials\": {\n        \"googleDocsOAuth2Api\": {\n          \"id\": \"58qerrOCaSjZ51WF\",\n          \"name\": \"Google Docs account\"\n        }\n      }\n    }\n  ],\n  \"connections\": {\n    \"Webhook\": { \"main\": [[{ \"node\": \"Share Doc\", \"type\": \"main\", \"index\": 0 }]] }\n  },\n  \"settings\": { \"executionOrder\": \"v1\" }\n}\nEOF\n# Deactivate before update\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR/deactivate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" >/dev/null\ncurl -s -X PUT \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR\" \\\n  -H \"X-N8N-API-KEY: $N8N_API_KEY\" -H \"Content-Type: application/json\" \\\n  -d @/tmp/share-doc-wf.json | jq '{id, name}'\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR/activate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '{active}'\nsleep 2\necho \"--- share response ---\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/share-riverside-doc\" -H \"Content-Type: application/json\" -d '{}' | jq '{id, role, type, emailAddress, error: .error}'",
+      "description": "Share Riverside doc with Scott as editor via Drive permissions API"
+    },
+    "timestamp": "2026-05-02T17:03:29.669Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR/deactivate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" >/dev/null\ncurl -s -X DELETE \"https://xprime17.app.n8n.cloud/api/v1/workflows/9jJ9UFo2ZBXyjvtR\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '{id, name}'",
+      "description": "Delete temp workflow"
+    },
+    "timestamp": "2026-05-02T17:03:39.861Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/skills/_KBCRAWLER/SKILL.md",
+      "old_string": "**Note:** St. Catharines + Burlington share EG's doc. Riverside needs a doc created.",
+      "new_string": "**Note:** St. Catharines + Burlington share EG's doc. Riverside has its own doc owned by the n8n OAuth account (write works without external editor share)."
+    },
+    "timestamp": "2026-05-02T17:03:42.723Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/skills/_KBCRAWLER/SKILL.md",
+      "old_string": "- **Leaside doc:** Google Doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` needs editor access shared with the n8n OAuth account. Currently read-only → write fails.\n- **Riverside:** No Google Doc configured. Needs doc created and ID added to `centres.json`.",
+      "new_string": "- **Leaside doc:** Google Doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` needs editor access shared with the n8n OAuth account. Currently read-only → write fails. (Fix pattern: re-create owned by the OAuth account, like Riverside.)"
+    },
+    "timestamp": "2026-05-02T17:03:48.412Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:03:55.922Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/kbcrawler-skill.md"
+    },
+    "timestamp": "2026-05-02T17:03:56.507Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/kbcrawler-skill.md",
+      "old_string": "- **Leaside doc:** Replaced with `1iiC7zTyE190wesxXevNwOGV8gRE3PoJLO-1YWF3hi2Y` (Scott's copy, write access confirmed 2026-04-25). Old doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` was owned by Sharmilla (read-only).\n- **Riverside:** No Google Doc ID. Needs doc created + ID added to `centres.json`.",
+      "new_string": "- **Leaside doc:** Replaced with `1iiC7zTyE190wesxXevNwOGV8gRE3PoJLO-1YWF3hi2Y` (Scott's copy, write access confirmed 2026-04-25). Old doc `1hDmMP6565YUXbXu9srTpADGBhZy8xt4woODiqfsoSDI` was owned by Sharmilla (read-only).\n- **Riverside doc:** Created 2026-05-02 as `1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0` (\"Code Ninjas Riverside KB\"). Owned by the n8n OAuth account → write works without external editor share. Shared with scott.james@codeninjas.com as writer. First crawl wrote 965 chars.\n- **Pattern for new centres:** Use a temp n8n workflow to POST to `https://docs.googleapis.com/v1/documents` with credential `58qerrOCaSjZ51WF` — the doc is owned by the OAuth account, so write works automatically. Avoids the Leaside-style \"doc shared from another account\" trap."
+    },
+    "timestamp": "2026-05-02T17:04:12.991Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Verify crawler skip logic for shared-doc centres",
+      "description": "Read /root/kb-crawler/crawl.ts to confirm the \"shares EG doc\" skip is keyed on duplicate docId vs the `note` field. Determines whether dropping the note is sufficient."
+    },
+    "timestamp": "2026-05-02T17:27:12.128Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Create Burlington + St. Catharines Google Docs",
+      "description": "Use the same temp n8n workflow pattern (POST /v1/documents with cred 58qerrOCaSjZ51WF) to create two new docs titled \"Code Ninjas Burlington KB\" and \"Code Ninjas St. Catharines KB\", both owned by the OAuth account."
+    },
+    "timestamp": "2026-05-02T17:27:13.653Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Wire new doc IDs into centres.json",
+      "description": "Replace shared EG docId for both Burlington and St. Catharines with their new IDs; remove the \"Shares EG doc — crawl skipped\" notes."
+    },
+    "timestamp": "2026-05-02T17:27:15.132Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Crawl both centres and verify writes",
+      "description": "Dry-run then real-write the crawler for ct-burlington and st-catharines; read each doc back via the GDocs Read webhook to confirm content landed."
+    },
+    "timestamp": "2026-05-02T17:27:16.407Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Share both docs with Scott + clean up",
+      "description": "Add scott.james@codeninjas.com as writer on each doc via Drive permissions API. Delete the temp workflow when done. Update SKILL.md and memory note."
+    },
+    "timestamp": "2026-05-02T17:27:18.036Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-02T17:27:18.038Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n -A 3 -i \"shares\\|skip\\|duplicate\\|seenDoc\\|note\" /root/kb-crawler/crawl.ts | head -60",
+      "description": "Find crawler's shared-doc skip logic"
+    },
+    "timestamp": "2026-05-02T17:27:19.158Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:27:24.513Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "6",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-02T17:27:24.915Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncat > /tmp/create-doc-wf2.json <<'EOF'\n{\n  \"name\": \"TEMP - Create KB Doc\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"httpMethod\": \"POST\",\n        \"path\": \"create-kb-doc\",\n        \"responseMode\": \"lastNode\",\n        \"options\": {}\n      },\n      \"id\": \"trigger-1\",\n      \"name\": \"Webhook\",\n      \"type\": \"n8n-nodes-base.webhook\",\n      \"typeVersion\": 2,\n      \"position\": [200, 300],\n      \"webhookId\": \"create-kb-doc-webhook\"\n    },\n    {\n      \"parameters\": {\n        \"method\": \"POST\",\n        \"url\": \"https://docs.googleapis.com/v1/documents\",\n        \"authentication\": \"predefinedCredentialType\",\n        \"nodeCredentialType\": \"googleDocsOAuth2Api\",\n        \"sendBody\": true,\n        \"specifyBody\": \"json\",\n        \"jsonBody\": \"={{ JSON.stringify({ title: $json.body.title }) }}\",\n        \"options\": {}\n      },\n      \"id\": \"create-1\",\n      \"name\": \"Create Doc\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4.2,\n      \"position\": [440, 300],\n      \"credentials\": {\n        \"googleDocsOAuth2Api\": {\n          \"id\": \"58qerrOCaSjZ51WF\",\n          \"name\": \"Google Docs account\"\n        }\n      }\n    },\n    {\n      \"parameters\": {\n        \"method\": \"POST\",\n        \"url\": \"=https://www.googleapis.com/drive/v3/files/{{ $json.documentId }}/permissions?sendNotificationEmail=false\",\n        \"authentication\": \"predefinedCredentialType\",\n        \"nodeCredentialType\": \"googleDocsOAuth2Api\",\n        \"sendBody\": true,\n        \"specifyBody\": \"json\",\n        \"jsonBody\": \"={ \\\"role\\\": \\\"writer\\\", \\\"type\\\": \\\"user\\\", \\\"emailAddress\\\": \\\"scott.james@codeninjas.com\\\" }\",\n        \"options\": {}\n      },\n      \"id\": \"share-1\",\n      \"name\": \"Share Doc\",\n      \"type\": \"n8n-nodes-base.httpRequest\",\n      \"typeVersion\": 4.2,\n      \"position\": [680, 300],\n      \"credentials\": {\n        \"googleDocsOAuth2Api\": {\n          \"id\": \"58qerrOCaSjZ51WF\",\n          \"name\": \"Google Docs account\"\n        }\n      }\n    },\n    {\n      \"parameters\": {\n        \"jsCode\": \"return [{ json: { documentId: $('Create Doc').first().json.documentId, title: $('Create Doc').first().json.title, sharedWith: 'scott.james@codeninjas.com', permissionId: $json.id } }];\"\n      },\n      \"id\": \"respond-1\",\n      \"name\": \"Respond\",\n      \"type\": \"n8n-nodes-base.code\",\n      \"typeVersion\": 2,\n      \"position\": [920, 300]\n    }\n  ],\n  \"connections\": {\n    \"Webhook\": { \"main\": [[{ \"node\": \"Create Doc\", \"type\": \"main\", \"index\": 0 }]] },\n    \"Create Doc\": { \"main\": [[{ \"node\": \"Share Doc\", \"type\": \"main\", \"index\": 0 }]] },\n    \"Share Doc\": { \"main\": [[{ \"node\": \"Respond\", \"type\": \"main\", \"index\": 0 }]] }\n  },\n  \"settings\": { \"executionOrder\": \"v1\" }\n}\nEOF\nWF_ID=$(curl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" -H \"Content-Type: application/json\" -d @/tmp/create-doc-wf2.json | jq -r '.id')\necho \"Workflow ID: $WF_ID\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/$WF_ID/activate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" >/dev/null\nsleep 2\necho \"--- Burlington ---\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/create-kb-doc\" -H \"Content-Type: application/json\" -d '{\"title\":\"Code Ninjas Burlington KB\"}' | jq '{documentId, title, sharedWith, permissionId}'\necho \"--- St. Catharines ---\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/create-kb-doc\" -H \"Content-Type: application/json\" -d '{\"title\":\"Code Ninjas St. Catharines KB\"}' | jq '{documentId, title, sharedWith, permissionId}'\necho \"--- WF_ID for cleanup: $WF_ID ---\"",
+      "description": "Create+share both KB docs via temp n8n workflow"
+    },
+    "timestamp": "2026-05-02T17:27:44.485Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/kb-crawler/centres.json",
+      "old_string": "  {\n    \"id\": \"st-catharines-on-ca\",\n    \"slug\": \"st-catharines-on-ca\",\n    \"name\": \"St. Catharines\",\n    \"docId\": \"1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek\",\n    \"note\": \"Shares EG doc — crawl skipped, uses EG data\"\n  },\n  {\n    \"id\": \"burlington-on-ca\",\n    \"slug\": \"burlington-on-ca\",\n    \"name\": \"Burlington\",\n    \"docId\": \"1QTvkO1d72KYIi2ALtPEIrOASsbxggxeyCRiS1rWK3Ek\",\n    \"note\": \"Shares EG doc — crawl skipped, uses EG data\"\n  },",
+      "new_string": "  {\n    \"id\": \"st-catharines-on-ca\",\n    \"slug\": \"st-catharines-on-ca\",\n    \"name\": \"St. Catharines\",\n    \"docId\": \"1fn_s059ds_uP--mH4izXPNKdwFjW8TOL9SWopsPEpis\"\n  },\n  {\n    \"id\": \"burlington-on-ca\",\n    \"slug\": \"burlington-on-ca\",\n    \"name\": \"Burlington\",\n    \"docId\": \"1N5q0uyFUxPKruud1N94rlzfz1K-rKzsR3z3qttNUr5o\"\n  },"
+    },
+    "timestamp": "2026-05-02T17:28:06.461Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "6",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:28:06.825Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "7",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:28:07.430Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "8",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-02T17:28:07.903Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "bun run crawl.ts --centre burlington-on-ca 2>&1 | tail -10 && echo \"---\" && bun run crawl.ts --centre st-catharines-on-ca 2>&1 | tail -10",
+      "description": "Real-write crawl for Burlington and St. Catharines"
+    },
+    "timestamp": "2026-05-02T17:28:09.340Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "echo \"--- Burlington ---\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/kb-gdocs-read\" -H \"Content-Type: application/json\" -d '{\"doc_id\":\"1N5q0uyFUxPKruud1N94rlzfz1K-rKzsR3z3qttNUr5o\"}' | jq '.content[:400]'\necho\necho \"--- St. Catharines ---\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/kb-gdocs-read\" -H \"Content-Type: application/json\" -d '{\"doc_id\":\"1fn_s059ds_uP--mH4izXPNKdwFjW8TOL9SWopsPEpis\"}' | jq '.content[:400]'",
+      "description": "Read back both docs to verify content"
+    },
+    "timestamp": "2026-05-02T17:29:09.204Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncurl -s -X POST \"https://xprime17.app.n8n.cloud/api/v1/workflows/zD72uMNTUQpApl7B/deactivate\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" >/dev/null\ncurl -s -X DELETE \"https://xprime17.app.n8n.cloud/api/v1/workflows/zD72uMNTUQpApl7B\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | jq '{id, name}'",
+      "description": "Delete temp workflow"
+    },
+    "timestamp": "2026-05-02T17:29:21.702Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/skills/_KBCRAWLER/SKILL.md",
+      "old_string": "**Note:** St. Catharines + Burlington share EG's doc. Riverside has its own doc owned by the n8n OAuth account (write works without external editor share).",
+      "new_string": "**Note:** All 11 centres now have their own dedicated docs. Riverside, Burlington, and St. Catharines docs are owned by the n8n OAuth account (write works without external editor share)."
+    },
+    "timestamp": "2026-05-02T17:29:25.391Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/kbcrawler-skill.md",
+      "old_string": "- **Riverside doc:** Created 2026-05-02 as `1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0` (\"Code Ninjas Riverside KB\"). Owned by the n8n OAuth account → write works without external editor share. Shared with scott.james@codeninjas.com as writer. First crawl wrote 965 chars.",
+      "new_string": "- **Riverside doc:** Created 2026-05-02 as `1p3vCjF0n9W-4zpi4AUL6HRN3gTpBrkRpxBHUGPLMx-0` (\"Code Ninjas Riverside KB\"). Owned by the n8n OAuth account → write works without external editor share. Shared with scott.james@codeninjas.com as writer. First crawl wrote 965 chars.\n- **Burlington doc:** Created 2026-05-02 as `1N5q0uyFUxPKruud1N94rlzfz1K-rKzsR3z3qttNUr5o` (\"Code Ninjas Burlington KB\"). Replaced shared EG docId in centres.json. First crawl succeeded.\n- **St. Catharines doc:** Created 2026-05-02 as `1fn_s059ds_uP--mH4izXPNKdwFjW8TOL9SWopsPEpis` (\"Code Ninjas St. Catharines KB\"). Replaced shared EG docId. First crawl succeeded.\n- **Skip-logic gotcha:** Crawler `crawl.ts:614` keys the \"shares EG\" skip on `centre.note?.includes(\"crawl skipped\")` — must remove the note in centres.json AFTER swapping docId, or the crawl is no-op'd."
+    },
+    "timestamp": "2026-05-02T17:29:33.942Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "8",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:29:34.299Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "9",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-02T17:29:34.726Z"
+  }
+]

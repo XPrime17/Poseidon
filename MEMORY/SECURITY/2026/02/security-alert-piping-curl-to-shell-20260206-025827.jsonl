@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-06T02:58:27.220Z",
+  "session_id": "463021cf-e103-4e5c-87a9-1eb73a2ee054",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s https://lead-reactivation.scott-james1717.workers.dev/api/dashboard/data 2>/dev/null | python3 -m json.tool 2>/dev/null || curl -s https://lead-reactivation.scott-james1717.workers.dev/api/dashboard 2>/dev/null | python3 -m json.tool 2>/dev/null",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

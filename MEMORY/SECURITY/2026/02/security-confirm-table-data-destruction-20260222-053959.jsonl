@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-22T05:39:59.318Z",
+  "session_id": "6bcbe8b2-9dcd-4161-94a3-d5f88d865dc8",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "# The call ID was truncated - let me get the full ID first\npython3 -c \"\nimport urllib.request, json\nfrom datetime import datetime, timezone\n\nnow_ts = int(datetime.now(timezone.utc).timestamp() * 1000)\nfive_min_ago = now_ts - 600000\n\nreq = urllib.request.Request(\n    'https://api.retellai.com/v2/list-calls',\n    data=json.dumps({\n        'filter_criteria': {\n            'agent_id': ['agent_0c6c32b61cb506fefb6ac247f4'],\n            'after_start_timestamp': five_min_ago\n        },\n        'sort_ord",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

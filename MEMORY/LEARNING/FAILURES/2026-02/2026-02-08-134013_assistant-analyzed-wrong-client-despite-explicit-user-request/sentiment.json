@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Mild frustration: wrong client analyzed despite clear request",
+  "detailed_context": "Scott asked Poseidon to analyze call data for CNKB (a specific client), but Poseidon analyzed EMMA instead. This is a direct failure to follow explicit instructions—Scott gave a clear, unambiguous request specifying which client to focus on, and Poseidon either misread the instruction or defaulted to the wrong dataset. The mistake wastes Scott's time and suggests Poseidon isn't carefully parsing client names or request context. This isn't catastrophic (the analysis framework was sound), but it's a fundamental execution error: doing good work on the wrong target. Scott's tone is matter-of-fact correction rather than angry, suggesting this is frustrating but recoverable. Poseidon should have confirmed the client name or triple-checked the request before running analysis. This reveals Scott expects precise instruction-following, especially with named entities like client names.",
+  "session_id": "b09d5c9b-6f82-4803-a7e0-d535627f6acd",
+  "captured_at": "2026-02-08T21:40:13.669Z",
+  "transcript_source": "b09d5c9b-6f82-4803-a7e0-d535627f6acd.jsonl"
+}

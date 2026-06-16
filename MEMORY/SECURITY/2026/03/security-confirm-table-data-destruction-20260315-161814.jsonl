@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-15T16:18:14.480Z",
+  "session_id": "1ac7dd4c-68cb-4698-a248-bad8372b1c27",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "python3 << 'PYEOF'\nimport json\n\nwith open('/root/end-of-call-workflow.json') as f:\n    data = json.load(f)\n\npd = data['pinData']['End Of Call-Webhook1'][0]['json']['body']\n\n# Print everything except the transcript_object (word-level timestamps) and e2e_latency\ncall = pd['call'].copy()\n# Truncate/remove the huge arrays\nif 'transcript_object' in call:\n    count = len(call['transcript_object'])\n    call['transcript_object'] = f\"[{count} entries - omitted for brevity]\"\nif 'e2e_latency' in call:\n    ",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

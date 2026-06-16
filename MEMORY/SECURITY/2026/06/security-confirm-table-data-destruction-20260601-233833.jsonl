@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-06-01T23:38:33.255Z",
+  "session_id": "e4c79ee2-fe97-486a-b8a9-00361c91e640",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "cd /root; F=\"/root/.claude/projects/-root/e4c79ee2-fe97-486a-b8a9-00361c91e640/tool-results/mcp-retell-voice-ai-get_transcript-1780357096505.txt\"; echo \"=== roles present ===\"; jq -r '.transcript_object[].role' \"$F\" | sort | uniq -c; echo \"=== tool calls (name + args + result, truncated) ===\"; jq -rc '.transcript_object[] | select(.role==\"tool_call_invocation\" or (.tool_calls!=null) or .name!=null) | {role, name, arguments, content}' \"$F\" 2>/dev/null | head -40",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

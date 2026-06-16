@@ -507,7 +507,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a npx wrangler deploy 2>&1",
+      "command": "CLOUDFLARE_API_TOKEN=[REDACTED] npx wrangler deploy 2>&1",
       "description": "Deploy moltworker with API token",
       "timeout": 120000
     },

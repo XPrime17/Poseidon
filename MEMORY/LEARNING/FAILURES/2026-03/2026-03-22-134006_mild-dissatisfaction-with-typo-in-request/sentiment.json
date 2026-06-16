@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Mild dissatisfaction with typo in request",
+  "detailed_context": "Scott was progressing through a database setup workflow with Poseidon to run a migration script requiring credentials. When Poseidon asked for the Supabase database password, the message contained a typo. Rather than proceeding, Scott paused to point out the error and asked the assistant to repeat the request with the typo corrected. This reveals Scott values precise, polished communication from Poseidon—not just functional clarity but error-free presentation. The calm, direct response ('ask me that again, typo') indicates mild dissatisfaction rather than frustration. Scott isn't rejecting the request or refusing cooperation; he simply expects his AI assistant to communicate cleanly. This suggests Scott has reasonable quality standards for how Poseidon should present information. Poseidon should acknowledge the typo, correct it, and rephrase the request accurately before proceeding.",
+  "session_id": "c21e8b3d-f8bd-4e38-bba4-a9ccab379d0c",
+  "captured_at": "2026-03-22T20:40:06.987Z",
+  "transcript_source": "c21e8b3d-f8bd-4e38-bba4-a9ccab379d0c.jsonl"
+}

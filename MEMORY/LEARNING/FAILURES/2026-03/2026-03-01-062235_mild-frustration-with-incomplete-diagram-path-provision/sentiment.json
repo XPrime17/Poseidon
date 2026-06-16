@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Mild frustration with incomplete diagram path provision",
+  "detailed_context": "Scott is establishing a clear directive that Poseidon should 'ALWAYS' provide full paths to diagrams going forward. The capitalization and phrasing suggest a prior frustration pattern—likely instances where Poseidon referenced or discussed diagrams without providing complete file paths, forcing Scott to ask for clarification or hunt for locations. The emphasis on 'ALWAYS' indicates Scott wants to prevent this recurring issue. Root cause: insufficient clarity and completeness in Poseidon's diagram references. What Poseidon should do: proactively include full file paths (e.g., '/home/scott/projects/system-architecture.svg') whenever diagrams are mentioned, discussed, or linked. This pattern reveals Scott values efficiency and self-sufficiency—he wants complete information upfront to avoid follow-up requests. The frustration level is mild because the directive is stated calmly rather than angrily, but the emphasis signals this is a learned boundary from prior experience.",
+  "session_id": "be1592a4-b2c1-4a7a-b827-d0399fd76a30",
+  "captured_at": "2026-03-01T14:22:35.981Z",
+  "transcript_source": "be1592a4-b2c1-4a7a-b827-d0399fd76a30.jsonl"
+}

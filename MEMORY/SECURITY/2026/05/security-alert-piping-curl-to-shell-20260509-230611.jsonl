@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-09T23:06:11.476Z",
+  "session_id": "3b916646-31d6-4d97-8ef2-e79c6279b12b",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions?workflowId=rt0aEuDnFv3ZCl1y&limit=10&includeData=false\" | python3 -c \"import sys,json; d=json.load(sys.stdin); [print(e['id'], e.get('startedAt'), e.get('finished'), e.get('status'), e.get('mode')) for e in d.get('",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

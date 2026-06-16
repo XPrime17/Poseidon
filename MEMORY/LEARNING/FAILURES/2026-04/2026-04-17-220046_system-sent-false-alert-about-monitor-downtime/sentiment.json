@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "System sent false alert about monitor downtime",
+  "detailed_context": "Scott is reporting that the outbound call monitor (likely the daily scheduled heartbeat or health check) is malfunctioning. The system sent him an automated alert claiming the monitor hasn't run in many days, but Scott has evidence/visibility that it actually HAS been running. This indicates either (1) the monitor itself is broken and not executing properly, or (2) the alert logic is incorrectly flagging a healthy system as down. The frustration stems from unreliable monitoring—false alarms undermine trust in the system and create noise. Scott needs the monitoring to be accurate so he can rely on its status reports. The root cause is likely a bug in the monitor's state tracking, timing logic, or alerting conditions that needs investigation and remediation.",
+  "session_id": "f6e70775-c6c4-4dd9-b988-f6e377f4f0b5",
+  "captured_at": "2026-04-18T05:00:46.438Z",
+  "transcript_source": "f6e70775-c6c4-4dd9-b988-f6e377f4f0b5.jsonl"
+}

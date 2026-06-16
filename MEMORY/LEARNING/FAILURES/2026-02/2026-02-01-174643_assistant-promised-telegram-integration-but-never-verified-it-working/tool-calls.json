@@ -333,7 +333,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"8322308359:AAELtrV8BOvJu9LPEn775voLMjhJTM2iRyw\" | npx wrangler secret put TELEGRAM_BOT_TOKEN",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"8322308359:AAELtrV8BOvJu9LPEn775voLMjhJTM2iRyw\" | npx wrangler secret put TELEGRAM_BOT_TOKEN",
       "description": "Set Telegram bot token with Cloudflare API token"
     },
     "timestamp": "2026-02-01T23:26:36.988Z"
@@ -357,7 +357,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy",
       "description": "Deploy Moltworker with Telegram configuration",
       "timeout": 300000
     },
@@ -478,7 +478,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"true\" | npx wrangler secret put DEBUG_ROUTES",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"true\" | npx wrangler secret put DEBUG_ROUTES",
       "description": "Enable debug routes"
     },
     "timestamp": "2026-02-01T23:33:17.981Z"
@@ -486,7 +486,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -20",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -20",
       "description": "Redeploy with debug routes enabled",
       "timeout": 300000
     },
@@ -548,7 +548,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"open\" | npx wrangler secret put TELEGRAM_DM_POLICY",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"open\" | npx wrangler secret put TELEGRAM_DM_POLICY",
       "description": "Set Telegram DM policy to open (no pairing required)"
     },
     "timestamp": "2026-02-01T23:34:48.666Z"
@@ -556,7 +556,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -15",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -15",
       "description": "Redeploy with open Telegram policy",
       "timeout": 300000
     },
@@ -688,7 +688,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && timeout 20 npx wrangler tail --format json 2>&1 | head -50",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && timeout 20 npx wrangler tail --format json 2>&1 | head -50",
       "description": "Check worker logs for Telegram errors"
     },
     "timestamp": "2026-02-01T23:42:59.476Z"
@@ -737,7 +737,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -20",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -20",
       "description": "Deploy fix for cron to start gateway",
       "timeout": 300000
     },
@@ -779,7 +779,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "date && echo \"---\" && cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npx wrangler tail --format pretty 2>&1 &\nTAIL_PID=$!\nsleep 10\nkill $TAIL_PID 2>/dev/null\nwait $TAIL_PID 2>/dev/null",
+      "command": "date && echo \"---\" && cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npx wrangler tail --format pretty 2>&1 &\nTAIL_PID=$!\nsleep 10\nkill $TAIL_PID 2>/dev/null\nwait $TAIL_PID 2>/dev/null",
       "description": "Check current time and try to capture worker logs",
       "timeout": 30000
     },
@@ -900,7 +900,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"1m\" | npx wrangler secret put SANDBOX_SLEEP_AFTER && echo \"Set container to sleep after 1 min of inactivity - will force fresh restart\"",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"1m\" | npx wrangler secret put SANDBOX_SLEEP_AFTER && echo \"Set container to sleep after 1 min of inactivity - will force fresh restart\"",
       "description": "Set container to sleep after 1 minute to force restart"
     },
     "timestamp": "2026-02-01T23:53:15.538Z"
@@ -908,7 +908,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -10",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -10",
       "description": "Deploy with new sleep setting",
       "timeout": 300000
     },
@@ -1041,7 +1041,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npx wrangler secret list 2>&1 | grep -E \"TELEGRAM|telegram\" || echo \"No Telegram secrets found\"",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npx wrangler secret list 2>&1 | grep -E \"TELEGRAM|telegram\" || echo \"No Telegram secrets found\"",
       "description": "List Telegram-related secrets"
     },
     "timestamp": "2026-02-02T00:04:58.153Z"
@@ -1049,7 +1049,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"never\" | npx wrangler secret put SANDBOX_SLEEP_AFTER",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"never\" | npx wrangler secret put SANDBOX_SLEEP_AFTER",
       "description": "Set container to never sleep (keepAlive)"
     },
     "timestamp": "2026-02-02T00:05:24.687Z"
@@ -1076,7 +1076,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1",
       "description": "Deploy with fresh container build",
       "timeout": 300000
     },
@@ -1104,7 +1104,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -30",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -30",
       "description": "Deploy with startup script fix",
       "timeout": 300000
     },
@@ -1223,7 +1223,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -20",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -20",
       "description": "Deploy with fixed Telegram config",
       "timeout": 300000
     },
@@ -1314,7 +1314,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -15",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -15",
       "description": "Deploy with public debug endpoint",
       "timeout": 300000
     },
@@ -1384,7 +1384,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -15",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -15",
       "description": "Deploy with debug logging",
       "timeout": 300000
     },

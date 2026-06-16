@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Mild frustration: recommendation contradicts Scott's working solution",
+  "detailed_context": "Scott was seeking accurate Power Automate email forwarding instructions for the onboarding process. Poseidon recommended using 'Forward an email (V2)' as the approach in the instructions. However, Scott has verified that his own working setup uses 'Send an email (V2)' instead. This contradiction signals Poseidon either made an assumption without validation or didn't consider real-world tested approaches. The root issue is a gap between recommended practice and proven-working practice. Scott's tone is measured but clearly indicates the instructions need revision. This reveals a pattern: Scott expects recommendations to be grounded in verified, functional solutions—not theoretical approaches. The specific behavior that triggered this was including 'Forward an email (V2)' in instructions without confirming it actually works better than the 'Send' alternative. Poseidon should have either tested both approaches before recommending, asked Scott which he preferred, or used 'Send an email (V2)' since it's known to work reliably.",
+  "session_id": "565b2235-0ab8-4bf6-a812-e28c355dc6eb",
+  "captured_at": "2026-03-18T03:27:31.719Z",
+  "transcript_source": "565b2235-0ab8-4bf6-a812-e28c355dc6eb.jsonl"
+}

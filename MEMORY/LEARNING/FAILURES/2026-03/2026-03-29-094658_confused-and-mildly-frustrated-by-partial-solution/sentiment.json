@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Confused and mildly frustrated by partial solution",
+  "detailed_context": "Scott was attempting to reconnect his Stripe account to ChatDash to restore product and subscription data. The reconnection succeeded (account shows as connected), but this only partially solved the issue — products and subscriptions have disappeared from ChatDash entirely. Scott is confused about why the connection worked but the data didn't restore, suggesting he expected a complete solution, not just account connectivity. The frustration is compounded by the fact that connecting the account alone wasn't sufficient; some additional sync or data restoration step was needed. Poseidon's guidance appears to have been limited to the OAuth reconnection flow, without addressing the missing products/subscriptions problem. For future reference: Stripe disconnection/reconnection may clear out locally stored product data in ChatDash, requiring additional steps beyond just re-authorizing the account (sync API calls, webhook re-registration, or manual product re-import). Scott expects end-to-end solutions that leave the system in a fully functional state, not intermediate fixes that create new problems.",
+  "session_id": "60a28bb3-53db-48f4-9d85-1cd935e0d217",
+  "captured_at": "2026-03-29T16:46:58.130Z",
+  "transcript_source": "60a28bb3-53db-48f4-9d85-1cd935e0d217.jsonl"
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-26T01:13:47.669Z",
+  "session_id": "72fcab24-9442-4c54-8893-eba0eafe7ee2",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "cat /root/.claude/projects/-root/72fcab24-9442-4c54-8893-eba0eafe7ee2/tool-results/mcp-retell-voice-ai-get_transcript-1772066622213.txt | python3 -c \"\nimport json, sys\ndata = json.load(sys.stdin)\nfor item in data:\n    text = item.get('text', '')\n    obj = json.loads(text)\n    # Print retell_llm_dynamic_variables\n    dynvars = obj.get('retell_llm_dynamic_variables', {})\n    print('=== retell_llm_dynamic_variables ===')\n    for k, v in dynvars.items():\n        # Truncate long values\n        val = ",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-13T22:11:44.456Z",
+  "session_id": "9c353dfb-ec8d-4776-bb48-f722080f769c",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -sL -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/16406?includeData=true\" -o /tmp/exec16406.json\npython3 -c \"\nimport json\nwith open('/tmp/exec16406.json') as f:\n    e = json.load(f)\nrunData = e.get('data', {}).get('resultData', {}).get('runData', {})\n# Focus on E",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

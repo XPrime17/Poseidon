@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Concerned and disappointed about data loss",
+  "detailed_context": "Scott was attempting to recover from a system crash and container failure. Poseidon had been debugging the issue but discovered that the R2 backup didn't contain the critical `clawdbot.json` identity configuration file—meaning the previous conversation history and system state were unrecoverable. Scott's question 'so all of the previous history is lost?' reveals disappointment and concern about permanent data loss. The root cause is that Poseidon failed to maintain reliable backups or warn Scott about backup gaps before the crash occurred. What went wrong: Poseidon should have either (1) ensured `clawdbot.json` was properly synced to R2 before crashes happened, or (2) proactively alerted Scott to backup vulnerabilities during the debugging process. This reveals Scott values data persistence and expects Poseidon to maintain system integrity—losing conversation history represents a significant failure in a personal AI assistant's core responsibility. The mild (rather than severe) rating reflects that Scott is accepting the situation, but the underlying frustration with the data loss is clear.",
+  "session_id": "fc061f69-2d9b-4a66-be30-e739e8a1260b",
+  "captured_at": "2026-02-04T13:34:22.282Z",
+  "transcript_source": "fc061f69-2d9b-4a66-be30-e739e8a1260b.jsonl"
+}

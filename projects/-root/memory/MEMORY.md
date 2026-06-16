@@ -12,6 +12,7 @@
 
 ## Droplet Ops
 - [Droplet /usr/bin/claude missing](droplet-claude-symlink-fix.md) — half-finished `npm i -g @anthropic-ai/claude-code` leaves `/usr/bin/claude` deleted; old staging dir `.claude-code-<HASH>/bin/claude.exe` still runs. Symlink fix or full reinstall — both documented.
+- [Deploy creds in /root/.env](deploy-env-sourcing.md) — N8N_API_KEY+ELEVENLABS live in /root/.env; Bash tool shell is non-login & non-persistent so it's absent unless you `set -a; . /root/.env; set +a` inline before deploy-*.py. Not "lost n8n access."
 
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
@@ -105,6 +106,7 @@
 - [Already-enrolled calls are not bugs](feedback-already-enrolled.md) — don't flag "already signed up" outbound calls as audit issues, business outcome is correct
 
 ## CNKB Prompt + Workflow Rev (2026-04-21/22)
+- [EG-Inbound camp-handoff (2026-06-15)](eg-inbound-camp-handoff-2026-06-15.md) — inbound EOC `3oV7SpPKWmr3xJlQ` routes on appointment_booked NOT staff_followup_needed (camp lead was nameless, not dropped). Shipped: prompt patch (grab name early, cap spoken lists at 3, offer to email full schedule) + Option A triage fix (unbooked new_lead → "needs follow-up" + Action Required, all centres). Gate PASS.
 - [MED-1 deeper: inbound existing-customer recognition (2026-06-10)](med1-existing-customer-recognition-2026-06-10.md) — Option B to 3 inbound clones: name safety-net + Existing-Customer Overlay prompts, `existing_customer` post-call boolean, EOC ClickUp task flags+priority. Full phone-lookup deferred to HubSpot. Gate PASS.
 - [Pre-camp tour exception (2026-06-09)](cnkb-precamp-tour-rev-2026-06-09.md) — "come see the place before camp" now books as a normal Create tour (not deflected); one exception bullet after the Booking gate, shipped to all 9 live LLMs (source+SyncPrompt for 4 clones, StCath-out + 3 inbound patched in place). Backups in kb-crawler/llm-prompt-backups/2026-06-09-precamp-tour/.
 - [Repeated-Objection Escape (2026-06-07)](cnkb-repeated-objection-escape.md) — agents now hand off to staff after 2 repeats of a disputed point instead of looping ~22×. Patched in-place to all 9 live clones; SyncPrompt registry also cleaned (dropped 4 offboarded, fixed Burlington LLM, StCath excluded). Validated via Cekura 281290 (WebRTC).

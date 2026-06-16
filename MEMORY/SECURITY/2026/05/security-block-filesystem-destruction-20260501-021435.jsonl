@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-01T02:14:35.454Z",
+  "session_id": "0becf12a-c36f-4fec-9f8b-af66cf13d63c",
+  "event_type": "block",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "mkdir -p /root/nv-pilot-archive && cp /root/nv-pilot-results.md /root/nv-director-email.md /root/nv-pilot-deck.pptx /root/nv-pilot-deck.pdf /root/build-nv-deck.py /tmp/nv-pilot/calls-*.json /tmp/nv-stats*.json /tmp/nv-final-stats.json /tmp/nv-comparison-stats.json /tmp/nv-rows.json /root/nv-pilot-archive/ 2>/dev/null; rm -rf /root/nv-deck; ls -la /root/nv-pilot-archive/ | head -30",
+  "reason": "Filesystem destruction",
+  "action_taken": "Hard block - exit 2"
+}

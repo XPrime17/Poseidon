@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated by regression in crawler functionality",
+  "detailed_context": "Scott was attempting to troubleshoot a critical regression: the nightly crawler stopped populating individual camps, a feature that previously worked. Based on recent work, Poseidon modified skip logic (keyed on 'crawl skipped'), created and shared documents, and wired them into centres.json before initiating crawling. The regression suggests recent changes—particularly the skip logic modification or configuration updates—inadvertently broke the individual camp population feature. Scott's frustration stems from losing previously reliable functionality without understanding the cause. The phrase 'we had that working at one point' reflects disappointment that working code was broken through recent changes. Poseidon should have tested the complete crawl workflow end-to-end after making skip logic and configuration changes to catch this regression immediately. This reveals Scott expects changes to maintain backward compatibility, values stability of proven features, and wants clear cause-effect understanding when regressions occur. Prioritizing full system testing after modifications would have prevented this situation.",
+  "session_id": "79010521-0744-4501-a3f5-55d230c115c7",
+  "captured_at": "2026-05-02T17:46:18.955Z",
+  "transcript_source": "79010521-0744-4501-a3f5-55d230c115c7.jsonl"
+}

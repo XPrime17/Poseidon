@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-22T19:31:27.377Z",
+  "session_id": "9e1c7440-8caa-4c7d-ab44-89a73d991ced",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "python3 << 'PYEOF'\nimport json\n\nwith open('/root/.claude/projects/-root/9e1c7440-8caa-4c7d-ab44-89a73d991ced/tool-results/bwpn3ukbx.txt') as f:\n    content = f.read()\n\n# Parse full JSON (it got truncated, try loading what we can)\ntry:\n    data = json.loads(content)\nexcept:\n    # Find the last complete node\n    # Try trimming to valid JSON\n    print(\"JSON truncated, searching raw text instead\")\n    import sys\n    sys.exit(0)\n\nnodes = data.get('nodes', [])\nconnections = data.get('connections', {})",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

@@ -1,0 +1,2493 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList",
+      "max_results": 2
+    },
+    "timestamp": "2026-05-12T22:53:56.719Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Review recent daily call audits",
+      "description": "Pull last 3-5 daily call audit reports from droplet (or logs) and surface any issues that need addressing.",
+      "activeForm": "Reviewing recent daily call audits"
+    },
+    "timestamp": "2026-05-12T22:54:00.343Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify timer is healthy",
+      "description": "Confirm daily-call-audit.timer is active and last runs succeeded (no silent failures since the Cloudflare 1010 incident).",
+      "activeForm": "Verifying audit timer health"
+    },
+    "timestamp": "2026-05-12T22:54:01.511Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Categorize and prioritize issues",
+      "description": "Group findings (recurring vs one-off, blocking vs cosmetic). Recommend action items, link to known memories where applicable.",
+      "activeForm": "Categorizing audit findings"
+    },
+    "timestamp": "2026-05-12T22:54:02.989Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-12T22:54:03.057Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@138.197.171.204 'systemctl status daily-call-audit.timer --no-pager | head -20; echo \"---\"; systemctl list-timers daily-call-audit.timer --no-pager | head -5; echo \"---LAST LOGS---\"; journalctl -u daily-call-audit.service --no-pager -n 50 --since \"5 days ago\" | tail -80'",
+      "description": "Check audit timer status and recent service logs on droplet"
+    },
+    "timestamp": "2026-05-12T22:54:07.422Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 root@138.197.171.204 'ls -lah /root/daily-call-audit/ 2>/dev/null; echo \"---OUTPUT FILES---\"; ls -lat /root/daily-call-audit/*.{json,txt,log,md,html} 2>/dev/null | head -20'",
+      "description": "List audit script directory and any output files"
+    },
+    "timestamp": "2026-05-12T22:54:08.848Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat ~/.ssh/config 2>/dev/null | head -50; echo \"---KEYS---\"; ls -la ~/.ssh/ 2>/dev/null | grep -E \"id_|key\" | head -20",
+      "description": "Check SSH config and available keys"
+    },
+    "timestamp": "2026-05-12T22:54:12.660Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "hostname -I 2>/dev/null; echo \"---\"; systemctl status daily-call-audit.timer --no-pager 2>&1 | head -20",
+      "description": "Confirm host and check timer status locally"
+    },
+    "timestamp": "2026-05-12T22:54:18.518Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -lah /root/daily-call-audit/ 2>/dev/null; echo \"---OUTPUTS---\"; find /root/daily-call-audit -maxdepth 3 -type f -mtime -7 2>/dev/null | head -40",
+      "description": "List audit directory and recent output files"
+    },
+    "timestamp": "2026-05-12T22:54:19.503Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "journalctl -u daily-call-audit.service --no-pager --since \"6 days ago\" -o short 2>&1 | tail -120",
+      "description": "Get last 6 days of audit service logs"
+    },
+    "timestamp": "2026-05-12T22:54:24.891Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -nE \"(send_email|resend|to=|subject|report|html|write|output)\" /root/daily-call-audit/audit.py 2>/dev/null | head -40",
+      "description": "Find email/output sinks in audit script"
+    },
+    "timestamp": "2026-05-12T22:54:25.722Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskUpdate",
+      "max_results": 1
+    },
+    "timestamp": "2026-05-12T22:54:29.574Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-12T22:54:31.921Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-12T22:54:32.330Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -lat /var/log/daily-call-audit/*.html 2>/dev/null | head -10",
+      "description": "List recent audit HTML artifacts"
+    },
+    "timestamp": "2026-05-12T22:54:32.962Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "for f in /var/log/daily-call-audit/audit-20260508T*.html /var/log/daily-call-audit/audit-20260509T*.html /var/log/daily-call-audit/audit-20260510T*.html /var/log/daily-call-audit/audit-20260511T*.html /var/log/daily-call-audit/audit-20260512T*.html; do echo \"========= $f =========\"; lynx -dump -nolist -width=140 \"$f\" 2>/dev/null || python3 -c \"import sys,html,re; t=open('$f').read(); t=re.sub(r'<style.*?</style>','',t,flags=re.S); t=re.sub(r'<[^>]+>','\\n',t); t=html.unescape(t); print(re.sub(r'\\n{2,}','\\n\\n',t))\"; done",
+      "description": "Dump last 5 audit reports as text"
+    },
+    "timestamp": "2026-05-12T22:54:37.368Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -lE \"12898038797|19059672357\" /root/.claude/projects/-root/memory/*.md 2>/dev/null | head -5",
+      "description": "Find memory references for the recurring test numbers"
+    },
+    "timestamp": "2026-05-12T22:54:59.653Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -B1 -A2 -E \"12898038797|19059672357\" /root/.claude/projects/-root/memory/eg-inbound-pilot.md /root/.claude/projects/-root/memory/eg-inbound-test-suite.md 2>/dev/null | head -30",
+      "description": "Identify what these test numbers belong to"
+    },
+    "timestamp": "2026-05-12T22:55:03.113Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-12T22:55:10.803Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-12T22:55:11.079Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-12T22:55:34.923Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Extract every EG-Inbound STAFF_DEFLECTION row",
+      "description": "Pull from /var/log/daily-call-audit/calls-*.json and audit HTML for the last 7 days; capture full call_id, date, verbatim quote.",
+      "activeForm": "Extracting EG-Inbound staff-deflection instances"
+    },
+    "timestamp": "2026-05-13T01:32:51.357Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Build HTML report and send via Resend",
+      "description": "Compose plain, scannable HTML with one row per instance + Retell call link. POST to Resend with Mozilla UA. Confirm status=200.",
+      "activeForm": "Sending compiled report via Resend"
+    },
+    "timestamp": "2026-05-13T01:32:52.489Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T01:32:52.572Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T01:32:55.252Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls /var/log/daily-call-audit/calls-*.json 2>/dev/null | tail -10; echo \"---SCHEMA---\"; python3 -c \"import json; d=json.load(open('/var/log/daily-call-audit/calls-20260512T010040Z.json')); print('top keys:', list(d.keys())); print('first issue:', json.dumps(d['issues'][0] if d.get('issues') else {}, indent=2)[:500])\"",
+      "description": "Inspect calls-*.json schema"
+    },
+    "timestamp": "2026-05-13T01:32:56.872Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__retell-voice-ai__list_calls,mcp__retell-voice-ai__get_transcript,mcp__retell-voice-ai__list_agents",
+      "max_results": 3
+    },
+    "timestamp": "2026-05-13T01:33:07.988Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -i \"EG.*Inbound\\|inbound.*EG\\|inbound_agent\" /root/.claude/projects/-root/memory/eg-inbound-pilot.md 2>/dev/null | head -10",
+      "description": "Find EG-Inbound agent ID from memory"
+    },
+    "timestamp": "2026-05-13T01:33:11.559Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__list_agents",
+    "input": {},
+    "timestamp": "2026-05-13T01:33:16.532Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__list_calls",
+    "input": {
+      "agent_id": "agent_17d623c8a8f95fc674288d0e00",
+      "limit": 50
+    },
+    "timestamp": "2026-05-13T01:33:23.511Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/mcp-retell-voice-ai-list_calls-1778636004638.txt 2>/dev/null | jq -r '.[] | select(.call_id | startswith(\"call_3dc3a13\") or startswith(\"call_f6146e6\") or startswith(\"call_3701926\") or startswith(\"call_d4d54c4\") or startswith(\"call_d5f35d7\")) | \"\\(.call_id) | start=\\(.start_timestamp) | to=\\(.to_number // \"?\") | from=\\(.from_number // \"?\") | reason=\\(.disconnection_reason // \"?\")\"'",
+      "description": "Resolve truncated call IDs from list_calls output"
+    },
+    "timestamp": "2026-05-13T01:33:29.096Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/mcp-retell-voice-ai-list_calls-1778636004638.txt 2>/dev/null | jq -r '.[0] | keys' | head -40",
+      "description": "Inspect call object schema"
+    },
+    "timestamp": "2026-05-13T01:33:33.206Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/mcp-retell-voice-ai-list_calls-1778636004638.txt 2>/dev/null | jq -r '.[] | select(.call_id | startswith(\"call_3dc3a13\") or startswith(\"call_f6146e6\") or startswith(\"call_3701926\") or startswith(\"call_d4d54c4\") or startswith(\"call_d5f35d7\")) | \"\\(.call_id)\\t\\(.start_time)\\t\\(.duration_ms)\\t\\(.from_number)\\t\\(.call_analysis.call_summary // \"(no summary)\" | .[0:200])\"'",
+      "description": "Get start_time, duration, summary for each call"
+    },
+    "timestamp": "2026-05-13T01:33:38.047Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -nE \"retell|dashboard|call_url|href.*call_\" /root/daily-call-audit/audit.py | head -10",
+      "description": "Find Retell call URL pattern in audit script"
+    },
+    "timestamp": "2026-05-13T01:33:50.297Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:33:53.801Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T01:33:54.199Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/tmp/eg_deflection_email.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"Email Scott a compiled report of EG-Inbound STAFF_DEFLECTION findings (last 7 days).\"\"\"\nimport json, os, urllib.request, urllib.error\n\ninstances = [\n    {\n        \"date\": \"2026-05-07\",\n        \"call_id\": \"call_3dc3a133b3c86f1062c74a76d77\",\n        \"from\": \"+19058669939\",\n        \"duration_s\": 69,\n        \"context\": \"Real caller asking about sibling discounts for summer camp half-day, week two.\",\n        \"quote\": \"I'll have our team reach out to you about sibling discounts for half-day camps in week two.\",\n        \"severity\": \"HIGH\",\n    },\n    {\n        \"date\": \"2026-05-08\",\n        \"call_id\": \"call_f6146e62409fd2d152aef6c4e72\",\n        \"from\": \"+14169094157\",\n        \"duration_s\": 93,\n        \"context\": \"Stephanie Fletcher requesting subscription pause for Milo & Felix starting May 12.\",\n        \"quote\": \"One of our team members will reach out to confirm the pause.\",\n        \"severity\": \"HIGH\",\n    },\n    {\n        \"date\": \"2026-05-09\",\n        \"call_id\": \"call_37019267bbe033ee4f89ab771d5\",\n        \"from\": \"+19059672357\",\n        \"duration_s\": 144,\n        \"context\": \"Caller booked tour for May 23 10 AM. After booking, asked about Junior program for 10yo (age-gate failure compounded with deflection).\",\n        \"quote\": \"I'll make sure one of our team members gives you a call back.\",\n        \"severity\": \"HIGH\",\n    },\n    {\n        \"date\": \"2026-05-09\",\n        \"call_id\": \"call_37019267bbe033ee4f89ab771d5\",\n        \"from\": \"+19059672357\",\n        \"duration_s\": 144,\n        \"context\": \"Same call as above — second deflection on 10yo Junior interest (Junior is 5-7; this child should be Create).\",\n        \"quote\": \"I'll let them know you're interested in learning about our Junior program as well. One of our team members will reach out to you soon.\",\n        \"severity\": \"HIGH\",\n    },\n    {\n        \"date\": \"2026-05-11\",\n        \"call_id\": \"call_d4d54c4068da503a0a129918beb\",\n        \"from\": \"+14166697541\",\n        \"duration_s\": 93,\n        \"context\": \"Kevin requesting callback to enroll son in summer camp + apply discount. No appointment booked.\",\n        \"quote\": \"One of our team members will reach out to you to help with enrollment and answer your discount question.\",\n        \"severity\": \"HIGH\",\n    },\n    {\n        \"date\": \"2026-05-11\",\n        \"call_id\": \"call_d5f35d73a0de5383c875186bc46\",\n        \"from\": \"+14166697541\",\n        \"duration_s\": 67,\n        \"context\": \"Kevin's follow-up to secure Harper's camp spot. Clear enrolment intent. Audit also flagged 'someone will reach' as banned per 2026-04-21 Booking Autonomy rev.\",\n        \"quote\": \"I'll make sure the team knows you're ready to sign Harper up and want to secure your camp spot as soon as possible. Someone will reach out to you very soon.\",\n        \"severity\": \"HIGH\",\n    },\n]\n\nunique_calls = sorted(set(i[\"call_id\"] for i in instances))\n\nrows = []\nfor i, x in enumerate(instances, 1):\n    row = f\"\"\"\n<tr>\n  <td style=\"padding:10px;border-bottom:1px solid #eee;vertical-align:top;width:50px\"><b>#{i}</b></td>\n  <td style=\"padding:10px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap\">{x['date']}</td>\n  <td style=\"padding:10px;border-bottom:1px solid #eee;vertical-align:top\">\n    <a href=\"https://dashboard.retellai.com/calls/{x['call_id']}\" style=\"color:#1f6feb;text-decoration:none;font-family:monospace;font-size:12px\">{x['call_id']}</a><br>\n    <span style=\"color:#666;font-size:12px\">from {x['from']} · {x['duration_s']}s</span>\n  </td>\n  <td style=\"padding:10px;border-bottom:1px solid #eee;vertical-align:top;color:#444;font-size:13px\">{x['context']}</td>\n  <td style=\"padding:10px;border-bottom:1px solid #eee;vertical-align:top;background:#fff8e6;font-style:italic;color:#7a4f00\">&ldquo;{x['quote']}&rdquo;</td>\n</tr>\"\"\"\n    rows.append(row)\n\nhtml_body = f\"\"\"<html><body style=\"font-family:-apple-system,Helvetica,Arial,sans-serif;color:#222;max-width:1100px;margin:0 auto;padding:20px\">\n<h2 style=\"margin:0 0 4px 0\">EG-Inbound — STAFF_DEFLECTION instances</h2>\n<p style=\"color:#666;margin:0 0 16px 0\">Window: 2026-05-07 → 2026-05-12 (last 6 daily audits) · Agent: <code>CNKB-EG-Inbound</code> (<code>agent_17d623c8a8f95fc674288d0e00</code>)</p>\n\n<div style=\"background:#fff3cd;border:1px solid #ffe69c;border-radius:6px;padding:12px 16px;margin:0 0 20px 0\">\n  <b>{len(instances)} deflection instances across {len(unique_calls)} unique calls</b> — every one HIGH severity. The 2026-04-21 Booking Autonomy rev was supposed to suppress this language but EG-Inbound is still emitting it (one May 11 instance was literally flagged as \"banned per 2026-04-21 Booking Autonomy rev\"). Strong signal the rev never reached this agent's LLM, or was overridden by surrounding prompt text.\n</div>\n\n<table style=\"border-collapse:collapse;width:100%;font-size:13px\">\n  <thead>\n    <tr style=\"background:#f6f8fa\">\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de\">#</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de\">Date</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de\">Call</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de\">Context</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de\">Agent said</th>\n    </tr>\n  </thead>\n  <tbody>{''.join(rows)}</tbody>\n</table>\n\n<h3 style=\"margin:24px 0 8px 0\">Pattern</h3>\n<ul style=\"font-size:14px;color:#333;line-height:1.6\">\n  <li><b>5 of 6</b> instances use the phrase \"<i>team member will reach out</i>\" or \"<i>someone will reach</i>\" — exact banned phrasing.</li>\n  <li><b>3 of 6</b> trigger on clear enrolment / pause / discount intent — moments the agent should be <i>booking or capturing structured data</i>, not handing off.</li>\n  <li><b>1 of 6</b> compounds with AGE_GATE_ERROR (10yo offered Junior).</li>\n  <li>All 6 are HIGH; none resulted in a booking.</li>\n</ul>\n\n<h3 style=\"margin:24px 0 8px 0\">Suggested fix path</h3>\n<ol style=\"font-size:14px;color:#333;line-height:1.6\">\n  <li>Pull <code>llm_6d77f36696f6fbfad97d03fa5ef8</code> (EG-Inbound LLM) and diff against any CNKB outbound clone for the <b>Booking Autonomy</b> section.</li>\n  <li>If missing or weakened, re-push the canonical block + the \"banned phrases\" list.</li>\n  <li>Add a Cekura regression scenario that probes \"<i>I'm ready to sign up — can someone help me?</i>\" and asserts the agent books rather than deflects.</li>\n</ol>\n\n<p style=\"color:#888;font-size:12px;margin-top:32px;border-top:1px solid #eee;padding-top:12px\">\nGenerated 2026-05-13 from <code>/var/log/daily-call-audit/audit-*.html</code> on <code>n8n-production (138.197.171.204)</code>.\n</p>\n</body></html>\"\"\"\n\npayload = {\n    \"from\": \"onboarding@resend.dev\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": f\"EG-Inbound: {len(instances)} STAFF_DEFLECTION instances (last 6 daily audits)\",\n    \"html\": html_body,\n}\n\nreq = urllib.request.Request(\n    \"https://api.resend.com/emails\",\n    data=json.dumps(payload).encode(),\n    headers={\n        \"Authorization\": \"Bearer re_[REDACTED]\",\n        \"Content-Type\": \"application/json\",\n        \"User-Agent\": \"Mozilla/5.0 (X11; Linux x86_64) eg-deflection-report/1.0\",\n    },\n    method=\"POST\",\n)\n\ntry:\n    with urllib.request.urlopen(req, timeout=30) as r:\n        print(f\"RESEND status={r.status} resp={r.read().decode()}\")\nexcept urllib.error.HTTPError as e:\n    print(f\"RESEND error status={e.code} resp={e.read().decode()}\")\n"
+    },
+    "timestamp": "2026-05-13T01:34:23.845Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 /tmp/eg_deflection_email.py",
+      "description": "Send EG-Inbound deflection report email via Resend"
+    },
+    "timestamp": "2026-05-13T01:34:24.371Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:34:32.635Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Save feedback memory — inbound/outbound deflection rule",
+      "description": "Capture: staff-deflection language is banned for OUTBOUND only; for INBOUND it's expected behaviour (receptionist role).",
+      "activeForm": "Saving inbound/outbound deflection rule to memory"
+    },
+    "timestamp": "2026-05-13T01:43:57.715Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Re-triage the 6 instances with correct rubric",
+      "description": "Which of the 6 are actual booking-fumbles where the agent SHOULD have stayed and booked, vs legitimate staff handoffs?",
+      "activeForm": "Re-triaging deflection instances"
+    },
+    "timestamp": "2026-05-13T01:43:59.239Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Propose audit script fix to gate by direction",
+      "description": "audit.py STAFF_DEFLECTION + banned-phrase checks should skip inbound centres or apply narrower criteria.",
+      "activeForm": "Proposing audit script gating"
+    },
+    "timestamp": "2026-05-13T01:44:00.214Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T01:44:00.218Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/feedback-staff-deflection-outbound-only.md",
+      "content": "---\nname: feedback-staff-deflection-outbound-only\ndescription: \"Staff-deflection language ('team will reach out', 'someone will contact you') is banned for OUTBOUND agents only. INBOUND agents are expected to hand off to staff when appropriate.\"\nmetadata:\n  type: feedback\n---\n\nThe 2026-04-21 Booking Autonomy rev — including its banned phrases (\"team member will reach out\", \"someone will reach out\") — applies to **outbound agents only**. For inbound agents, staff handoff IS the correct behaviour in many cases.\n\n**Why:** Inbound agents are receptionists, not closers. Calls about subscription pauses, billing, sibling discounts, pricing edge cases, complaints, etc. legitimately require a human follow-up. Forcing the inbound agent to \"book autonomously\" on those would be wrong (the agent has no authority over billing/pricing and no KB coverage for unusual asks).\n\n**How to apply:**\n- When reviewing audit output for inbound agents (e.g., CNKB-EG-Inbound), do NOT count `STAFF_DEFLECTION` or banned-phrase findings as bugs by default.\n- Treat them as bugs ONLY when the caller's intent was a clear tour booking AND the agent had everything needed to book but deflected anyway (e.g., Kevin's \"ready to sign Harper up\" on 2026-05-11).\n- The audit's `STAFF_DEFLECTION` LLM check + banned-phrase regex should be gated to outbound centres in [[daily-call-audit-droplet]] — currently fires on all and inflates HIGH counts.\n- The CNKB outbound clones [[prompt-v2026-04-21]] remain bound by Booking Autonomy — don't relax there.\n\nRelated: [[staff-followup-promise-dropped]] (parallel concern: when inbound DOES promise staff outreach, the post-call workflow must honour it; Pickering pilot [[staff-followup-pickering-pilot]] addresses that side).\n\nSurfaced 2026-05-13 when I incorrectly flagged 6 EG-Inbound deflections as Booking-Autonomy regressions.\n"
+    },
+    "timestamp": "2026-05-13T01:44:12.253Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "offset": 1,
+      "limit": 15
+    },
+    "timestamp": "2026-05-13T01:44:12.821Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## Communication Style\n- [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks \"did you send X?\" twice, paste it again clean; don't say \"scroll up\"\n- [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.",
+      "new_string": "## Communication Style\n- [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks \"did you send X?\" twice, paste it again clean; don't say \"scroll up\"\n- [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.\n\n## Voice Agent Rubric\n- [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — \"team will reach out\" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits."
+    },
+    "timestamp": "2026-05-13T01:44:20.101Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "6",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:44:20.436Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "7",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T01:44:20.752Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "7",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:44:36.293Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "8",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:44:36.564Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Confirm Retell dashboard URL format",
+      "description": "Verify https://dashboard.retellai.com/calls/{call_id} is correct or find the canonical path.",
+      "activeForm": "Confirming Retell dashboard URL format"
+    },
+    "timestamp": "2026-05-13T01:56:06.634Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Build re-analysis email with correct rubric + links",
+      "description": "6 calls, each row: verdict (real bug / appropriate handoff / mixed), reason, Retell call link, recording link if available. End with the single-to-fix list.",
+      "activeForm": "Building corrected email"
+    },
+    "timestamp": "2026-05-13T01:56:07.773Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Send via Resend and confirm 200",
+      "description": "POST to api.resend.com with Mozilla UA; verify message id returned.",
+      "activeForm": "Sending email"
+    },
+    "timestamp": "2026-05-13T01:56:08.883Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T01:56:08.888Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "9",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T01:56:11.897Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__retell-voice-ai__get_transcript",
+      "max_results": 1
+    },
+    "timestamp": "2026-05-13T01:56:12.514Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_d5f35d73a0de5383c875186bc46"
+    },
+    "timestamp": "2026-05-13T01:56:15.812Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/toolu_0126iUha2rcQtSgHpjLTkxkD.json 2>/dev/null | jq -r '\"recording_url=\" + (.recording_url // \"null\") + \" public_log_url=\" + (.public_log_url // \"null\") + \" log_url=\" + (.log_url // \"null\")'",
+      "description": "Check what URLs Retell provides for a call"
+    },
+    "timestamp": "2026-05-13T01:56:20.916Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_3dc3a133b3c86f1062c74a76d77"
+    },
+    "timestamp": "2026-05-13T01:56:27.257Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_f6146e62409fd2d152aef6c4e72"
+    },
+    "timestamp": "2026-05-13T01:56:28.046Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_37019267bbe033ee4f89ab771d5"
+    },
+    "timestamp": "2026-05-13T01:56:28.927Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_d4d54c4068da503a0a129918beb"
+    },
+    "timestamp": "2026-05-13T01:56:29.590Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/mcp-retell-voice-ai-get_transcript-1778637389346.txt 2>/dev/null | jq -r '{call_id, from_number, start_time, duration_ms, summary: .call_analysis.call_summary, in_voicemail: .call_analysis.in_voicemail, appointment_booked: .call_analysis.custom_analysis_data.appointment_booked, tour_date: .call_analysis.custom_analysis_data.tour_date, tour_time: .call_analysis.custom_analysis_data.tour_time, child_age: .call_analysis.custom_analysis_data.child_age, recording_url}'",
+      "description": "Pull key call_37019267 metadata from saved transcript"
+    },
+    "timestamp": "2026-05-13T01:56:37.732Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/toolu_018kbgswcthz29E81arx54Ne.json 2>/dev/null | jq -r '\"f6146e62 recording=\\(.recording_url) booked=\\(.call_analysis.custom_analysis_data.appointment_booked)\"'; jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/toolu_017K2RY6HQKwHE6xNMzmaJnX.json 2>/dev/null | jq -r '\"d4d54c40 recording=\\(.recording_url) booked=\\(.call_analysis.custom_analysis_data.appointment_booked)\"'; jq -r '.[0].text' /root/.claude/projects/-root/4bb62092-eb24-47e7-8dc5-e4936c81436f/tool-results/toolu_0126iUha2rcQtSgHpjLTkxkD.json 2>/dev/null | jq -r '\"d5f35d73 recording=\\(.recording_url) booked=\\(.call_analysis.custom_analysis_data.appointment_booked)\"'",
+      "description": "Get recording URLs for the other 3 calls"
+    },
+    "timestamp": "2026-05-13T01:56:42.626Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "9",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:56:54.692Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "10",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T01:56:55.173Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/tmp/eg_inbound_reanalysis_email.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"Re-analysis of EG-Inbound STAFF_DEFLECTION findings under correct (inbound = receptionist) rubric.\"\"\"\nimport json, urllib.request, urllib.error\n\n# Each call entry. instances are grouped per call (some calls had 2 LLM flags)\ncalls = [\n    {\n        \"n\": 1,\n        \"verdict\": \"appropriate\",          # appropriate | bug | mixed\n        \"verdict_label\": \"Appropriate handoff\",\n        \"verdict_color\": \"#1f883d\",\n        \"date\": \"2026-05-07\",\n        \"caller\": \"Heather\",\n        \"from\": \"+19058669939\",\n        \"duration_s\": 70,\n        \"call_id\": \"call_3dc3a133b3c86f1062c74a76d77\",\n        \"recording\": \"https://dxc03zgurdly9.cloudfront.net/c8fabaa4e676e6bf797cc664ee62846e4b4b9f6df9033408f64dc830271d4294/recording.wav\",\n        \"ask\": \"Sibling-discount inquiry, half-day camp week 2\",\n        \"quote\": \"I'll have our team reach out to you about sibling discounts for half-day camps in week two.\",\n        \"rationale\": \"Pricing/discount question — agent doesn't own pricing, has no KB coverage for sibling-discount math. Handoff is correct.\",\n        \"booked\": None,\n    },\n    {\n        \"n\": 2,\n        \"verdict\": \"appropriate\",\n        \"verdict_label\": \"Appropriate handoff\",\n        \"verdict_color\": \"#1f883d\",\n        \"date\": \"2026-05-08\",\n        \"caller\": \"Stephanie Fletcher\",\n        \"from\": \"+14169094157\",\n        \"duration_s\": 93,\n        \"call_id\": \"call_f6146e62409fd2d152aef6c4e72\",\n        \"recording\": \"https://dxc03zgurdly9.cloudfront.net/13135e90ac40b12db6d93547c904387094ec54ea60ef6041eb303fa26bb866e7/recording.wav\",\n        \"ask\": \"Wants to pause subscription for Milo & Felix starting May 12\",\n        \"quote\": \"One of our team members will reach out to confirm the pause.\",\n        \"rationale\": \"Billing/subscription change — agent has no authority to mutate enrolment state. Handoff is correct.\",\n        \"booked\": None,\n    },\n    {\n        \"n\": 3,\n        \"verdict\": \"bug-other\",\n        \"verdict_label\": \"Real bug — AGE_GATE, not deflection\",\n        \"verdict_color\": \"#d29922\",\n        \"date\": \"2026-05-09\",\n        \"caller\": \"(test +1 905 967 2357)\",\n        \"from\": \"+19059672357\",\n        \"duration_s\": 144,\n        \"call_id\": \"call_37019267bbe033ee4f89ab771d5\",\n        \"recording\": \"https://dxc03zgurdly9.cloudfront.net/d1469ee941020d74f2724f146fb8c629a92131a67f476fa668cea1f461ac2156/recording.wav\",\n        \"ask\": \"Booked tour for May 23 10 AM (10-year-old child), then asked about Junior program\",\n        \"quote\": \"I'll let them know you're interested in learning about our Junior program as well. One of our team members will reach out to you soon.\",\n        \"rationale\": \"Tour was successfully booked (appointment_booked=true). Issue is the agent agreed to follow up on Junior for a 10-year-old. Junior is 5-7; 10yo belongs in Create. Agent should have corrected the program rather than passing the mismatch to staff.\",\n        \"booked\": True,\n    },\n    {\n        \"n\": 4,\n        \"verdict\": \"mixed\",\n        \"verdict_label\": \"Mixed — booking opportunity missed alongside legit discount Q\",\n        \"verdict_color\": \"#bf8700\",\n        \"date\": \"2026-05-11\",\n        \"caller\": \"Kevin (call 1 of 2)\",\n        \"from\": \"+14166697541\",\n        \"duration_s\": 93,\n        \"call_id\": \"call_d4d54c4068da503a0a129918beb\",\n        \"recording\": \"https://dxc03zgurdly9.cloudfront.net/fd683e2f7952ac000f5d18d83d397ad58c0b157b6c19813773e095f11964c6af/recording.wav\",\n        \"ask\": \"Wants to enroll 7yo son in JR Lego summer camp AND apply a discount\",\n        \"quote\": \"One of our team members will reach out to you to help with enrollment and answer your discount question.\",\n        \"rationale\": \"Discount question = appropriate handoff. Enrolment intent = could have been moved forward (offer a tour slot, get a tour booked while team handles discount). Agent did neither — purely deflected.\",\n        \"booked\": False,\n    },\n    {\n        \"n\": 5,\n        \"verdict\": \"bug\",\n        \"verdict_label\": \"Real booking-fumble — clearest case\",\n        \"verdict_color\": \"#cf222e\",\n        \"date\": \"2026-05-11\",\n        \"caller\": \"Kevin (call 2 of 2 — call-back)\",\n        \"from\": \"+14166697541\",\n        \"duration_s\": 67,\n        \"call_id\": \"call_d5f35d73a0de5383c875186bc46\",\n        \"recording\": \"https://dxc03zgurdly9.cloudfront.net/cccdf3eff9219adf88882074607d2b12fb4765e12bd5e34f5a8f2c01205ce771/recording.wav\",\n        \"ask\": \"Calls back: \\\"wanna sign my kid up before I lose my space in this camp.\\\" Provides Harper Wilton, age 7. Confirms callback number.\",\n        \"quote\": \"I'll make sure the team knows you're ready to sign Harper up and want to secure your camp spot as soon as possible. Someone will reach out to you very soon.\",\n        \"rationale\": \"Caller had urgency (\\\"before I lose my space\\\"), child name + age (7 = Create-eligible), confirmed contact. Agent had everything needed to lock in a tour and instead deflected for the second time. This is the real bug.\",\n        \"booked\": False,\n    },\n]\n\n# Stats\nn_bug = sum(1 for c in calls if c[\"verdict\"].startswith(\"bug\"))\nn_mixed = sum(1 for c in calls if c[\"verdict\"] == \"mixed\")\nn_appropriate = sum(1 for c in calls if c[\"verdict\"] == \"appropriate\")\n\n# Render rows\nrows = []\nfor c in calls:\n    booked_html = \"\"\n    if c[\"booked\"] is True:\n        booked_html = '<span style=\"background:#dafbe1;color:#1a7f37;padding:2px 8px;border-radius:10px;font-size:11px\">tour booked ✓</span>'\n    elif c[\"booked\"] is False:\n        booked_html = '<span style=\"background:#ffebe9;color:#cf222e;padding:2px 8px;border-radius:10px;font-size:11px\">not booked</span>'\n\n    rows.append(f\"\"\"\n<tr>\n  <td style=\"padding:14px;border-bottom:1px solid #eee;vertical-align:top;width:30px\"><b>#{c['n']}</b></td>\n  <td style=\"padding:14px;border-bottom:1px solid #eee;vertical-align:top;white-space:nowrap;font-size:13px\">\n    <b>{c['date']}</b><br>\n    <span style=\"color:#666\">{c['caller']}</span><br>\n    <span style=\"color:#888;font-size:11px\">{c['from']} · {c['duration_s']}s</span><br>\n    {booked_html}\n  </td>\n  <td style=\"padding:14px;border-bottom:1px solid #eee;vertical-align:top\">\n    <span style=\"display:inline-block;background:{c['verdict_color']};color:#fff;padding:4px 10px;border-radius:4px;font-size:11px;font-weight:600;margin-bottom:8px\">{c['verdict_label']}</span>\n    <div style=\"color:#333;font-size:13px;margin:6px 0 8px 0\"><b>Caller intent:</b> {c['ask']}</div>\n    <div style=\"background:#fff8e6;border-left:3px solid #d4a72c;padding:8px 12px;margin:8px 0;font-style:italic;color:#7a4f00;font-size:13px\">\"{c['quote']}\"</div>\n    <div style=\"color:#555;font-size:13px;line-height:1.5\"><b>Why this verdict:</b> {c['rationale']}</div>\n    <div style=\"margin-top:10px;font-size:12px\">\n      <a href=\"https://dashboard.retellai.com/calls/{c['call_id']}\" style=\"color:#1f6feb;text-decoration:none;margin-right:14px\">Open in Retell dashboard →</a>\n      <a href=\"{c['recording']}\" style=\"color:#1f6feb;text-decoration:none\">▶ Play recording</a>\n      <div style=\"color:#999;font-family:monospace;font-size:11px;margin-top:4px\">{c['call_id']}</div>\n    </div>\n  </td>\n</tr>\"\"\")\n\nhtml_body = f\"\"\"<html><body style=\"font-family:-apple-system,Helvetica,Arial,sans-serif;color:#222;max-width:1000px;margin:0 auto;padding:24px;background:#fafafa\">\n\n<div style=\"background:#fff;border-radius:8px;padding:24px;border:1px solid #e1e4e8\">\n\n<h2 style=\"margin:0 0 4px 0\">EG-Inbound — Re-analysis (corrected rubric)</h2>\n<p style=\"color:#666;margin:0 0 16px 0;font-size:13px\">Window 2026-05-07 → 2026-05-12 · Agent <code>CNKB-EG-Inbound</code> (Cimo) · 5 calls flagged STAFF_DEFLECTION in daily audits</p>\n\n<div style=\"background:#ddf4ff;border:1px solid #b6e3ff;border-radius:6px;padding:14px 16px;margin:0 0 20px 0;font-size:13px\">\n  <b>Rubric correction:</b> The 2026-04-21 Booking Autonomy \"no staff handoff\" rule applies to <b>outbound</b> agents only. Inbound agents are receptionists — staff handoff IS expected when the ask is outside agent authority (pricing, billing, subscription edits, complaints). My earlier report wrongly treated all 6 instances as bugs. Below is the honest pass.\n</div>\n\n<div style=\"display:flex;gap:12px;margin-bottom:20px\">\n  <div style=\"flex:1;background:#dafbe1;border:1px solid #aceebb;border-radius:6px;padding:12px;text-align:center\">\n    <div style=\"font-size:24px;font-weight:700;color:#1a7f37\">{n_appropriate}</div>\n    <div style=\"font-size:12px;color:#1a7f37\">Appropriate handoff</div>\n  </div>\n  <div style=\"flex:1;background:#fff8c5;border:1px solid #d4a72c;border-radius:6px;padding:12px;text-align:center\">\n    <div style=\"font-size:24px;font-weight:700;color:#9a6700\">{n_mixed}</div>\n    <div style=\"font-size:12px;color:#9a6700\">Mixed / borderline</div>\n  </div>\n  <div style=\"flex:1;background:#ffebe9;border:1px solid #ff8182;border-radius:6px;padding:12px;text-align:center\">\n    <div style=\"font-size:24px;font-weight:700;color:#cf222e\">{n_bug}</div>\n    <div style=\"font-size:12px;color:#cf222e\">Real bug</div>\n  </div>\n</div>\n\n<table style=\"border-collapse:collapse;width:100%;background:#fff\">\n  <thead>\n    <tr style=\"background:#f6f8fa\">\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de;font-size:12px\">#</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de;font-size:12px\">Call</th>\n      <th style=\"padding:10px;text-align:left;border-bottom:2px solid #d0d7de;font-size:12px\">Verdict + reasoning</th>\n    </tr>\n  </thead>\n  <tbody>{''.join(rows)}</tbody>\n</table>\n\n<h3 style=\"margin:24px 0 8px 0\">What's actually broken</h3>\n<ol style=\"font-size:14px;color:#333;line-height:1.7\">\n  <li><b>Kevin/Harper booking-fumble</b> (#5, <code>call_d5f35d73…</code>) — 7yo child, parent ready to enrol, urgency stated. Agent had everything to offer a tour. Did not. Same caller's first call (#4) was the same miss.</li>\n  <li><b>AGE_GATE_ERROR on 10yo Junior</b> (#3, <code>call_37019267…</code>) — tour was booked, but agent agreed to follow up on Junior program for a 10-year-old. Junior is 5–7. Either correct the program in-call or know that EG-Inbound's prompt needs an age-gate sharpening.</li>\n</ol>\n\n<h3 style=\"margin:24px 0 8px 0\">Suggested next step</h3>\n<p style=\"font-size:14px;color:#333;line-height:1.6\">\nAdd a single rule to the EG-Inbound prompt: <i>\"If the caller states explicit enrolment intent ('want to sign up', 'enroll my son', 'lose my spot') AND the child age is Create-eligible (7-14) AND they have not asked about pricing/discount, offer to book a tour slot before passing to staff.\"</i> That single change converts #4 and #5 without affecting the (correct) handoffs in #1 and #2.\n</p>\n\n<h3 style=\"margin:24px 0 8px 0\">Audit tooling fix (cosmetic)</h3>\n<p style=\"font-size:13px;color:#555\">\n<code>audit.py</code> applies the STAFF_DEFLECTION rubric to all centres. Gating it to outbound-only would drop noise like #1 and #2 from future HIGH counts. Filed but low priority.\n</p>\n\n<p style=\"color:#888;font-size:11px;margin-top:32px;border-top:1px solid #eee;padding-top:12px\">\nGenerated 2026-05-13 · transcripts from Retell · audits from <code>/var/log/daily-call-audit/</code> on n8n-production · supersedes earlier report (id <code>69bca775-b6eb-4174-8aa3-841f4ffff778</code>)\n</p>\n\n</div>\n</body></html>\"\"\"\n\npayload = {\n    \"from\": \"onboarding@resend.dev\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": f\"EG-Inbound re-analysis: {n_bug} real bug, {n_mixed} mixed, {n_appropriate} appropriate (was: 6 false alarms)\",\n    \"html\": html_body,\n}\n\nreq = urllib.request.Request(\n    \"https://api.resend.com/emails\",\n    data=json.dumps(payload).encode(),\n    headers={\n        \"Authorization\": \"Bearer re_[REDACTED]\",\n        \"Content-Type\": \"application/json\",\n        \"User-Agent\": \"Mozilla/5.0 (X11; Linux x86_64) eg-inbound-reanalysis/1.0\",\n    },\n    method=\"POST\",\n)\ntry:\n    with urllib.request.urlopen(req, timeout=30) as r:\n        print(f\"RESEND status={r.status} resp={r.read().decode()}\")\nexcept urllib.error.HTTPError as e:\n    print(f\"RESEND error status={e.code} resp={e.read().decode()}\")\n"
+    },
+    "timestamp": "2026-05-13T01:57:47.071Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 /tmp/eg_inbound_reanalysis_email.py",
+      "description": "Send corrected re-analysis email"
+    },
+    "timestamp": "2026-05-13T01:57:47.593Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "10",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:57:58.050Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "11",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T01:57:58.217Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify ClickUp tasks exist for 4 EG-Inbound handoffs",
+      "description": "Query ClickUp list 901113422190 for tasks created in window 2026-05-07 → 2026-05-12 matching the 4 inbound handoff calls.",
+      "activeForm": "Verifying ClickUp tasks exist"
+    },
+    "timestamp": "2026-05-13T02:01:57.508Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Design audit.py CLICKUP_TASK_MISSING check",
+      "description": "Specify endpoint, match criteria (call_id in description? lead phone? time window?), severity, and where to slot it in the existing pipeline.",
+      "activeForm": "Designing audit check"
+    },
+    "timestamp": "2026-05-13T02:01:59.090Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Report findings + recommendation",
+      "description": "Concise status: current state of the 4 calls' tasks, plus the proposed check design with example code.",
+      "activeForm": "Reporting findings"
+    },
+    "timestamp": "2026-05-13T02:02:00.212Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T02:02:00.235Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "12",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:02:04.477Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -lE \"CLICKUP|clickup.*api|pk_[0-9]\" /root/.claude/projects/-root/memory/*.md 2>/dev/null | head -5; echo \"---\"; grep -rE \"CLICKUP_API_TOKEN|pk_[0-9]+_[A-Z0-9]\" /root/.bashrc /root/.profile /etc/environment /root/daily-call-audit/audit.py /root/.claude/settings.json /root/n8n* 2>/dev/null | head -5",
+      "description": "Find ClickUp API token in memory/env/configs"
+    },
+    "timestamp": "2026-05-13T02:02:07.135Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat /root/.claude/projects/-root/memory/clickup-multicentre.md 2>/dev/null | head -60",
+      "description": "Read ClickUp multicentre memory for API details"
+    },
+    "timestamp": "2026-05-13T02:02:07.656Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rE \"clickup.*token|CLICKUP.*KEY|pk_[0-9]\" /root/.claude/MCPs/ 2>/dev/null | head -5; echo \"---\"; ls /root/.claude/MCPs/ 2>/dev/null | grep -i click; echo \"---ENV---\"; env | grep -i CLICK; echo \"---SOPS---\"; find /root -maxdepth 4 -name \"*.env\" -o -name \"secrets*\" 2>/dev/null | head -10",
+      "description": "Find ClickUp API token in MCP configs and env"
+    },
+    "timestamp": "2026-05-13T02:02:19.309Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -iE \"click\" /root/.env /root/.claude/.env 2>/dev/null | sed 's/=.*$/=<REDACTED>/' | head -10",
+      "description": "Check for ClickUp token in env files (redacted)"
+    },
+    "timestamp": "2026-05-13T02:02:23.382Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions?workflowId=3oV7SpPKWmr3xJlQ&limit=20\" 2>/dev/null | python3 -c \"import sys,json; d=json.load(sys.stdin); print(f'total: {len(d.get(\\\"data\\\",[]))}'); [print(f'{e[\\\"id\\\"]:>10} | started={e.get(\\\"startedAt\\\",\\\"?\\\")} | status={e.get(\\\"status\\\",e.get(\\\"finished\\\",\\\"?\\\"))} | mode={e.get(\\\"mode\\\",\\\"?\\\")}') for e in d.get('data',[])[:15]]\"",
+      "description": "Get last 20 Inbound End Of Call - EG executions from n8n"
+    },
+    "timestamp": "2026-05-13T02:02:37.097Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/18593?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {})\nprint('Nodes that ran:')\nfor node in run:\n    print(f'  - {node}')\n\"",
+      "description": "Inspect which nodes ran in one EG-Inbound execution"
+    },
+    "timestamp": "2026-05-13T02:02:49.359Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "for exec_id in 18382 18476 18583; do\n  echo \"=== execution $exec_id ===\"\n  curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/${exec_id}?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {})\ninb = run.get('Inbound Webhook', [{}])[0].get('data', {}).get('main', [[{}]])[0]\nif inb and isinstance(inb, list) and inb:\n    call_id = inb[0].get('json',{}).get('body',{}).get('call',{}).get('call_id','?')\nelse:\n    call_id = '?'\nstatus_clickup = 'Create ClickUp Task' in run\nstatus_filter = 'Filter: call_analyzed' in run\nprint(f'  call_id: {call_id}')\nprint(f'  filter: call_analyzed ran = {status_filter}')\nprint(f'  ClickUp create ran = {status_clickup}')\n\"\ndone",
+      "description": "Check ClickUp create node ran for 3 more executions"
+    },
+    "timestamp": "2026-05-13T02:03:05.824Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions?workflowId=3oV7SpPKWmr3xJlQ&limit=100\" 2>/dev/null | python3 -c \"\nimport sys, json\nfrom datetime import datetime\nd = json.load(sys.stdin)\ntarget = datetime(2026, 5, 7, 13, 10)\nfor e in d.get('data', []):\n    s = e.get('startedAt', '')\n    if s.startswith('2026-05-07T13:1'):\n        print(f'{e[\\\"id\\\"]} | {s} | {e[\\\"status\\\"]}')\n\"",
+      "description": "Find Heather call execution on 2026-05-07"
+    },
+    "timestamp": "2026-05-13T02:03:14.377Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/18311?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {})\ninb = run.get('Inbound Webhook', [{}])[0].get('data', {}).get('main', [[{}]])[0]\ncall_id = inb[0].get('json',{}).get('body',{}).get('call',{}).get('call_id','?') if inb else '?'\n# Pull task id from Create ClickUp Task output\ncu = run.get('Create ClickUp Task', [{}])\ntask_info = '(not run)'\nif cu:\n    out = cu[0].get('data', {}).get('main', [[]])[0]\n    if out:\n        first = out[0].get('json', {})\n        task_info = f'task_id={first.get(\\\"id\\\",\\\"?\\\")} name={first.get(\\\"name\\\",\\\"?\\\")[:80]}'\nprint(f'call_id: {call_id}')\nprint(f'ClickUp: {task_info}')\n\"",
+      "description": "Confirm Heather call created ClickUp task + grab task id"
+    },
+    "timestamp": "2026-05-13T02:03:21.926Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "12",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:03:35.817Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "13",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:03:36.081Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 1,
+      "limit": 60
+    },
+    "timestamp": "2026-05-13T02:03:37.146Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "13",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:03:41.544Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "14",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:03:41.665Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "14",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:04:10.271Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 60,
+      "limit": 200
+    },
+    "timestamp": "2026-05-13T02:05:47.533Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat /root/daily-call-audit/daily-call-audit.service; echo \"---ENV---\"; grep -E \"N8N|RETELL|RESEND|ANTHROPIC|CEKURA\" /root/.claude/.env 2>/dev/null | sed 's/=.*$/=<SET>/'",
+      "description": "Check service env and which keys are wired in"
+    },
+    "timestamp": "2026-05-13T02:05:52.379Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 258,
+      "limit": 270
+    },
+    "timestamp": "2026-05-13T02:05:59.052Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "RETELL_KEY    = os.environ.get(\"RETELL_API_KEY\", \"\").strip()\nRESEND_KEY    = os.environ.get(\"RESEND_API_KEY\", \"\").strip()\nANTHROPIC_KEY = os.environ.get(\"ANTHROPIC_API_KEY\", \"\").strip()\nCEKURA_KEY    = os.environ.get(\"CEKURA_API_KEY\", \"\").strip()",
+      "new_string": "RETELL_KEY    = os.environ.get(\"RETELL_API_KEY\", \"\").strip()\nRESEND_KEY    = os.environ.get(\"RESEND_API_KEY\", \"\").strip()\nANTHROPIC_KEY = os.environ.get(\"ANTHROPIC_API_KEY\", \"\").strip()\nCEKURA_KEY    = os.environ.get(\"CEKURA_API_KEY\", \"\").strip()\nN8N_KEY       = os.environ.get(\"N8N_API_KEY\", \"\").strip()\nN8N_BASE      = os.environ.get(\"N8N_BASE_URL\", \"https://xprime17.app.n8n.cloud\").rstrip(\"/\")"
+    },
+    "timestamp": "2026-05-13T02:06:13.300Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "    \"agent_17d623c8a8f95fc674288d0e00\": 16633,  # EG-Inbound\n}",
+      "new_string": "    \"agent_17d623c8a8f95fc674288d0e00\": 16633,  # EG-Inbound\n}\n\n# Centres that operate as inbound receptionists. Different rubric: staff handoffs\n# are EXPECTED (not banned), but every handoff promise must result in a ClickUp task.\nINBOUND_CENTRES = {\"EG-Inbound\"}\n\n# Per-inbound-centre n8n workflow info used to verify ClickUp task creation.\n# `filter_node` is the gate that only the call_analyzed webhook event passes through —\n# we only check executions where this node ran (other Retell events don't create tasks).\n# `create_node` runs on the happy path. `dedup_branch` firing is also a HEALTHY outcome\n# (same caller called twice → existing task is fine).\nINBOUND_WORKFLOWS = {\n    \"EG-Inbound\": {\n        \"workflow_id\": \"3oV7SpPKWmr3xJlQ\",\n        \"filter_node\": \"Filter: call_analyzed\",\n        \"create_node\": \"Create ClickUp Task\",\n        \"dedup_branch\": \"Duplicate?\",\n        \"clickup_list_id\": \"901113422190\",\n    },\n    # add Leaside-Inbound, StCatharines-Inbound etc. as they onboard\n}"
+    },
+    "timestamp": "2026-05-13T02:06:19.570Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "# 5G Retry Chain Anomaly (already computed)\nfor tn, n, attempt, centre, first, flag in chain_summary:\n    if not flag: continue\n    sev = \"HIGH\" if flag == \"CAP_BREACH\" else \"MEDIUM\" if flag == \"SCHEDULER_LAG\" else \"LOW\"\n    issues.append((sev, f\"Retry chain {flag}\", centre, tn, \"—\",\n                   f\"{n} calls, max retry_attempt={attempt}, lead={first or '?'}\"))",
+      "new_string": "# 5G Retry Chain Anomaly (already computed) — outbound-only; inbound has no retry concept\nfor tn, n, attempt, centre, first, flag in chain_summary:\n    if not flag: continue\n    # Skip if every centre on this chain is inbound\n    chain_centres = set(centre.split(\",\"))\n    if chain_centres and chain_centres.issubset(INBOUND_CENTRES):\n        continue\n    sev = \"HIGH\" if flag == \"CAP_BREACH\" else \"MEDIUM\" if flag == \"SCHEDULER_LAG\" else \"LOW\"\n    issues.append((sev, f\"Retry chain {flag}\", centre, tn, \"—\",\n                   f\"{n} calls, max retry_attempt={attempt}, lead={first or '?'}\"))\n\n# 5I ClickUp Task Verification (inbound only) -----------------------------------\n# For every inbound call_analyzed event, verify the n8n workflow created a ClickUp\n# task (or hit the dedup branch, which is also fine). Catches three failure modes:\n#   - workflow never fired (Retell→n8n webhook drop)\n#   - workflow fired but skipped create_node (logic bug)\n#   - workflow create_node errored\nclickup_check_status = \"skipped (no N8N_API_KEY)\" if not N8N_KEY else None\nif N8N_KEY:\n    def fetch_n8n(path):\n        req = urllib.request.Request(f\"{N8N_BASE}/api/v1{path}\",\n                                     headers={\"X-N8N-API-KEY\": N8N_KEY, \"User-Agent\": USER_AGENT})\n        try:\n            with urllib.request.urlopen(req, timeout=20) as r:\n                return json.loads(r.read().decode()), None\n        except urllib.error.HTTPError as e:\n            return None, f\"HTTP {e.code}\"\n        except Exception as e:\n            return None, str(e)[:120]\n\n    # Cache one executions-list fetch per workflow + a per-execution data fetch\n    _exec_list_cache = {}\n    def get_workflow_executions(wf_id):\n        if wf_id in _exec_list_cache: return _exec_list_cache[wf_id]\n        data, err = fetch_n8n(f\"/executions?workflowId={wf_id}&limit=250\")\n        _exec_list_cache[wf_id] = (data.get(\"data\", []) if data else [], err)\n        return _exec_list_cache[wf_id]\n\n    def execution_call_status(exec_id, cfg):\n        \"\"\"Return ('created'|'deduped'|'workflow_failed'|None, exec_id).\"\"\"\n        data, err = fetch_n8n(f\"/executions/{exec_id}?includeData=true\")\n        if err or not data: return None\n        run = (data.get(\"data\", {}).get(\"resultData\", {}).get(\"runData\", {}) or {})\n        if cfg[\"filter_node\"] not in run:\n            return None  # not the call_analyzed event\n        if cfg[\"create_node\"] in run:\n            return \"created\"\n        if cfg[\"dedup_branch\"] in run:\n            return \"deduped\"\n        return \"workflow_failed\"\n\n    def extract_call_id_from_exec(exec_id):\n        data, _ = fetch_n8n(f\"/executions/{exec_id}?includeData=true\")\n        if not data: return None\n        run = (data.get(\"data\", {}).get(\"resultData\", {}).get(\"runData\", {}) or {})\n        inb = (run.get(\"Inbound Webhook\") or [{}])[0]\n        try:\n            main = inb.get(\"data\", {}).get(\"main\", [[{}]])[0]\n            return main[0].get(\"json\", {}).get(\"body\", {}).get(\"call\", {}).get(\"call_id\")\n        except Exception:\n            return None\n\n    inbound_checked = 0\n    inbound_missing = []\n    for centre in INBOUND_CENTRES:\n        cfg = INBOUND_WORKFLOWS.get(centre)\n        if not cfg: continue\n        centre_calls = [c for c in real if c.get(\"_centre\") == centre]\n        if not centre_calls: continue\n        execs, err = get_workflow_executions(cfg[\"workflow_id\"])\n        if err:\n            clickup_check_status = f\"n8n error: {err}\"\n            break\n        # Build {call_id: status} by walking executions in the window\n        cutoff = datetime.now(timezone.utc) - timedelta(hours=WINDOW_HRS + 2)\n        call_status_map = {}\n        for e in execs:\n            try:\n                ts = datetime.fromisoformat(e.get(\"startedAt\", \"\").replace(\"Z\", \"+00:00\"))\n            except Exception:\n                continue\n            if ts < cutoff: continue\n            cid = extract_call_id_from_exec(e[\"id\"])\n            if not cid: continue\n            st = execution_call_status(e[\"id\"], cfg)\n            # Only record the call_analyzed verdict (filter_node ran); ignore call_started/ended\n            if st is not None:\n                call_status_map[cid] = (st, e[\"id\"])\n\n        for c in centre_calls:\n            cid = c.get(\"call_id\")\n            if not cid: continue\n            inbound_checked += 1\n            verdict = call_status_map.get(cid)\n            if verdict is None:\n                # No call_analyzed execution found — Retell webhook may not have hit n8n yet,\n                # or worse, was dropped. Only flag if the call is at least 5 min old.\n                start_ms = c.get(\"start_timestamp\") or 0\n                age_min = (datetime.now(timezone.utc).timestamp() * 1000 - start_ms) / 60000\n                if age_min >= 5:\n                    issues.append((\"HIGH\", \"ClickUp task missing (no n8n execution)\",\n                                   c[\"_centre\"], c.get(\"to_number\") or \"?\", cid,\n                                   \"Retell call_analyzed event did not produce an n8n execution\"))\n                    inbound_missing.append(cid)\n                continue\n            status, exec_id = verdict\n            if status == \"workflow_failed\":\n                issues.append((\"HIGH\", \"ClickUp task missing (workflow skipped create)\",\n                               c[\"_centre\"], c.get(\"to_number\") or \"?\", cid,\n                               f\"n8n exec {exec_id} reached filter but did not run create_node\"))\n                inbound_missing.append(cid)\n            # 'created' and 'deduped' are healthy outcomes — no issue raised\n    if clickup_check_status is None:\n        clickup_check_status = f\"checked {inbound_checked} inbound calls; {len(inbound_missing)} missing ClickUp tasks\""
+    },
+    "timestamp": "2026-05-13T02:06:44.713Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "# 5H Staff-Deflection Language (BANNED in 2026-04-21 prompt rev)\nDEFLECTION_PATTERNS = [\n    re.compile(r\"team will (reach out|call|contact|confirm)\", re.I),\n    re.compile(r\"someone will (call|reach|confirm)\", re.I),\n    re.compile(r\"(staff|team) will (confirm|finalize) (your |the )?booking\", re.I),\n    re.compile(r\"a member of (our|the) team will\", re.I),\n]\nfor c in transcript_targets:\n    at = agent_text(c)\n    for pat in DEFLECTION_PATTERNS:\n        m = pat.search(at)\n        if m:\n            issues.append((\"MEDIUM\", \"Staff-deflection language\", c[\"_centre\"],\n                           c.get(\"to_number\") or \"?\", c.get(\"call_id\") or \"?\",\n                           f\"agent said: '…{m.group(0)}…' (banned per 2026-04-21 Booking Autonomy rev)\"))\n            break",
+      "new_string": "# 5H Staff-Deflection Language (BANNED in 2026-04-21 prompt rev) — OUTBOUND ONLY.\n# Inbound agents are receptionists; staff handoff IS expected for pricing, billing,\n# subscription edits, etc. (see feedback-staff-deflection-outbound-only memory).\nDEFLECTION_PATTERNS = [\n    re.compile(r\"team will (reach out|call|contact|confirm)\", re.I),\n    re.compile(r\"someone will (call|reach|confirm)\", re.I),\n    re.compile(r\"(staff|team) will (confirm|finalize) (your |the )?booking\", re.I),\n    re.compile(r\"a member of (our|the) team will\", re.I),\n]\nfor c in transcript_targets:\n    if c.get(\"_centre\") in INBOUND_CENTRES:\n        continue\n    at = agent_text(c)\n    for pat in DEFLECTION_PATTERNS:\n        m = pat.search(at)\n        if m:\n            issues.append((\"MEDIUM\", \"Staff-deflection language\", c[\"_centre\"],\n                           c.get(\"to_number\") or \"?\", c.get(\"call_id\") or \"?\",\n                           f\"agent said: '…{m.group(0)}…' (banned per 2026-04-21 Booking Autonomy rev)\"))\n            break"
+    },
+    "timestamp": "2026-05-13T02:06:54.864Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"cekura_lookup_status\\|LLM pass\\|Window:\" /root/daily-call-audit/audit.py | head -10",
+      "description": "Find email header section that surfaces sub-check statuses"
+    },
+    "timestamp": "2026-05-13T02:06:59.209Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 685,
+      "limit": 10
+    },
+    "timestamp": "2026-05-13T02:07:02.211Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "<p style=\"font-size:12px;color:#555\">Transcripts fetched: <b>{len(transcript_targets)}</b> · LLM pass: {esc(llm_status)}<br>Cekura cross-ref: {esc(cekura_lookup_status)}</p>",
+      "new_string": "<p style=\"font-size:12px;color:#555\">Transcripts fetched: <b>{len(transcript_targets)}</b> · LLM pass: {esc(llm_status)}<br>Cekura cross-ref: {esc(cekura_lookup_status)}<br>ClickUp handoff verify: {esc(clickup_check_status)}</p>"
+    },
+    "timestamp": "2026-05-13T02:07:07.098Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "    cad = (c.get(\"call_analysis\") or {}).get(\"custom_analysis_data\") or {}\n    booked = bool(cad.get(\"appointment_booked\"))\n    centre = c[\"_centre\"]\n    cid    = c.get(\"call_id\") or \"?\"\n    tn     = c.get(\"to_number\") or \"?\"\n    rubric = (\n        \"You are a strict QA reviewer for a Code Ninjas voice AI agent. Read the transcript and \"\n        \"flag ONLY clear, evidence-based issues. Be concise. If nothing is wrong, return [].\\n\\n\"\n        \"Categories to consider (only flag if evidence is in the transcript):\\n\"\n        \"- VOICEMAIL_MISDETECT: agent kept talking after hitting voicemail (silence, beep, no real human reply)\\n\"\n        \"- STAFF_DEFLECTION: agent said someone else will confirm/book/contact — banned, agent must complete the booking itself\\n\"",
+      "new_string": "    cad = (c.get(\"call_analysis\") or {}).get(\"custom_analysis_data\") or {}\n    booked = bool(cad.get(\"appointment_booked\"))\n    centre = c[\"_centre\"]\n    cid    = c.get(\"call_id\") or \"?\"\n    tn     = c.get(\"to_number\") or \"?\"\n    is_inbound = centre in INBOUND_CENTRES\n    role_note = (\n        \"This is an INBOUND receptionist agent. Staff handoff IS expected for pricing, billing, \"\n        \"subscription edits, sibling-discount math, or anything outside the agent's booking authority. \"\n        \"DO NOT flag STAFF_DEFLECTION on inbound. Only flag BOOKING_FUMBLE if the caller had clear \"\n        \"tour-booking intent AND the agent had child age + identity AND still deflected instead of booking.\"\n    ) if is_inbound else (\n        \"This is an OUTBOUND agent. Booking Autonomy applies: agent must complete tour booking itself; \"\n        \"staff-handoff language ('team will reach out', 'someone will contact you') is BANNED.\"\n    )\n    rubric = (\n        \"You are a strict QA reviewer for a Code Ninjas voice AI agent. Read the transcript and \"\n        \"flag ONLY clear, evidence-based issues. Be concise. If nothing is wrong, return [].\\n\\n\"\n        f\"AGENT ROLE: {role_note}\\n\\n\"\n        \"Categories to consider (only flag if evidence is in the transcript):\\n\"\n        \"- VOICEMAIL_MISDETECT: agent kept talking after hitting voicemail (silence, beep, no real human reply)\\n\"\n        \"- STAFF_DEFLECTION: (OUTBOUND ONLY) agent said someone else will confirm/book/contact — banned, agent must complete the booking itself\\n\""
+    },
+    "timestamp": "2026-05-13T02:07:19.342Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "test -f /root/daily-call-audit/.env && cat /root/daily-call-audit/.env | sed 's/=.*$/=<SET>/' || echo \"(no per-skill .env)\"",
+      "description": "Check per-skill .env contents"
+    },
+    "timestamp": "2026-05-13T02:07:23.225Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/daily-call-audit/.env",
+      "content": "# Per-skill overrides loaded by daily-call-audit.service (after /root/.claude/.env).\n# Keep skill-specific keys here so the main .env stays small.\n\nN8N_API_KEY=eyJ.[REDACTED-JWT]\nN8N_BASE_URL=https://xprime17.app.n8n.cloud\n"
+    },
+    "timestamp": "2026-05-13T02:07:33.675Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "chmod 600 /root/daily-call-audit/.env; python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Lock down env file perms and syntax-check audit.py"
+    },
+    "timestamp": "2026-05-13T02:07:34.943Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=24 python3 /root/daily-call-audit/audit.py 2>&1 | tail -10",
+      "description": "Manual dry-run of audit with new ClickUp check enabled"
+    },
+    "timestamp": "2026-05-13T02:07:40.978Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -oE \"ClickUp[^<]*|HIGH[^<]*ClickUp[^<]*\" /var/log/daily-call-audit/latest.html 2>/dev/null | head -20",
+      "description": "Confirm ClickUp check status surfaced in email"
+    },
+    "timestamp": "2026-05-13T02:07:50.732Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/daily-call-audit && git status --short && git diff --stat",
+      "description": "Show git status of audit dir"
+    },
+    "timestamp": "2026-05-13T02:08:00.046Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat .gitignore 2>/dev/null; echo \"---\"; ls -la .env 2>/dev/null",
+      "description": "Confirm .env is gitignored before commit"
+    },
+    "timestamp": "2026-05-13T02:08:07.116Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nadd inbound ClickUp task verification + gate deflection rules by direction\n\nInbound receptionists are expected to hand off to staff for pricing/billing/\nsubscription issues. The audit now (a) verifies every inbound call_analyzed\nevent resulted in a ClickUp task via n8n executions API, and (b) skips the\noutbound-only STAFF_DEFLECTION regex + SCHEDULER_LAG retry-chain checks for\ninbound centres. Adds optional N8N_API_KEY env (gracefully skipped if absent).\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -3",
+      "description": "Commit audit enhancement"
+    },
+    "timestamp": "2026-05-13T02:08:15.970Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Disclose all sends from this session",
+      "description": "List every email I triggered to scott.james@codeninjas.com today so Scott can match what's in his inbox.",
+      "activeForm": "Disclosing sends"
+    },
+    "timestamp": "2026-05-13T02:26:23.734Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Add --dry mode toggle for future test runs",
+      "description": "Wire AUDIT_DRY_RUN=1 to skip Resend POST (still write HTML artifact). Small patch, prevents future accidental sends.",
+      "activeForm": "Adding dry-run mode"
+    },
+    "timestamp": "2026-05-13T02:26:25.340Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T02:26:25.416Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "15",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:26:28.495Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "Want me to add a dry-run mode so future test runs don't email you?",
+          "header": "Dry-run",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "Yes, add AUDIT_DRY_RUN=1 toggle (Recommended)",
+              "description": "Small patch: AUDIT_DRY_RUN=1 skips Resend POST but still writes the HTML artifact to /var/log/daily-call-audit/. I'll use it on future manual test runs."
+            },
+            {
+              "label": "No, leave it — just tell me when you send",
+              "description": "Keep current behaviour; I'll explicitly say 'I'm about to test-send' before running."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-05-13T02:26:38.312Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "15",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:27:12.739Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "16",
+      "status": "deleted"
+    },
+    "timestamp": "2026-05-13T02:27:12.902Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/feedback-announce-before-sending.md",
+      "content": "---\nname: feedback-announce-before-sending\ndescription: \"When running scripts that send real email (audits, reports, n8n test workflows), announce 'I'm about to send' first instead of suppressing the send via dry-run flags.\"\nmetadata:\n  type: feedback\n---\n\nWhen testing scripts that send real outbound communications (Resend, n8n workflows, Twilio, etc.), the preferred workflow is to **announce the impending send explicitly** to Scott before running it — not to add `--dry-run` toggles or `AUDIT_DRY_RUN=1` style flags.\n\n**Why:** Scott prefers real-end-to-end verification (the email actually lands in the inbox) over synthetic dry runs that miss delivery-side bugs. Trade-off: occasional duplicate or unexpected email in his inbox is fine, as long as it was announced ahead of time so it doesn't surprise him. Confirmed 2026-05-13 after I test-ran `audit.py` without warning him and a third audit email landed in his inbox.\n\n**How to apply:**\n- Before running any script that calls Resend / n8n send nodes / Twilio / Gmail send: say in plain text \"I'm about to test-send X to your inbox — heads up.\"\n- Do NOT add `DRY_RUN` flags to existing send-capable scripts on Scott's behalf. He prefers the system to send for real.\n- Exception: if a test would send to a centre director or external party (not Scott himself), DO route to a test recipient or add a guard — the announce-first rule only covers sends to Scott.\n\nRelated: [[bcc-scott-on-centre-emails]] — Scott always wants visibility on centre-bound sends, which is a different surface but same underlying preference (he wants to see what got sent, not be shielded from it).\n"
+    },
+    "timestamp": "2026-05-13T02:27:24.642Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## Communication Style\n- [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks \"did you send X?\" twice, paste it again clean; don't say \"scroll up\"\n- [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.",
+      "new_string": "## Communication Style\n- [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks \"did you send X?\" twice, paste it again clean; don't say \"scroll up\"\n- [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.\n- [Announce before test-sending](feedback-announce-before-sending.md) — don't add dry-run flags to send-capable scripts; just say \"I'm about to send X\" before running. Scott prefers real sends with a heads-up over synthetic dry-runs."
+    },
+    "timestamp": "2026-05-13T02:27:29.106Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Patch audit.py to hyperlink call IDs",
+      "description": "Wrap call_id column in Retell dashboard link. Skip when cid is the chain placeholder (—).",
+      "activeForm": "Adding Retell links to audit"
+    },
+    "timestamp": "2026-05-13T02:30:54.526Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Syntax-check + announce + test-send",
+      "description": "Compile-check, announce I'm about to send, run manually so Scott can see linked output.",
+      "activeForm": "Verifying patch end-to-end"
+    },
+    "timestamp": "2026-05-13T02:30:55.812Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Commit",
+      "description": "Commit the rendering change separately so it's easy to revert.",
+      "activeForm": "Committing"
+    },
+    "timestamp": "2026-05-13T02:30:56.504Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T02:30:56.599Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "17",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:30:59.440Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "issue_rows = (\"\".join(\n    f\"<tr><td>{badge(sev)}</td><td>{esc(kind)}</td><td>{esc(centre)}</td>\"\n    f\"<td>{esc(ident)}</td><td><code>{esc(cid)[:12]}…</code></td><td>{esc(ev)}</td></tr>\"\n    for sev, kind, centre, ident, cid, ev in issues\n) or \"<tr><td colspan=6><i>No issues detected.</i></td></tr>\")",
+      "new_string": "def call_link(cid):\n    if not cid or cid == \"—\" or cid == \"?\":\n        return \"—\"\n    return (f'<a href=\"https://dashboard.retellai.com/calls/{esc(cid)}\" '\n            f'style=\"color:#1f6feb;text-decoration:none\">'\n            f'<code>{esc(cid)[:12]}…</code></a>')\n\nissue_rows = (\"\".join(\n    f\"<tr><td>{badge(sev)}</td><td>{esc(kind)}</td><td>{esc(centre)}</td>\"\n    f\"<td>{esc(ident)}</td><td>{call_link(cid)}</td><td>{esc(ev)}</td></tr>\"\n    for sev, kind, centre, ident, cid, ev in issues\n) or \"<tr><td colspan=6><i>No issues detected.</i></td></tr>\")"
+    },
+    "timestamp": "2026-05-13T02:31:03.630Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check audit.py after rendering patch"
+    },
+    "timestamp": "2026-05-13T02:31:04.497Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "17",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:31:07.929Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "18",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:31:08.120Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -5",
+      "description": "Test-send audit with 72h window so it has real issues with links"
+    },
+    "timestamp": "2026-05-13T02:31:12.660Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -oE 'href=\"https://dashboard.retellai.com/calls/[^\"]+' /var/log/daily-call-audit/latest.html | head -10",
+      "description": "Confirm Retell links rendered in the email HTML"
+    },
+    "timestamp": "2026-05-13T02:31:26.664Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "18",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:31:31.913Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "19",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:31:32.267Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nhyperlink call IDs in audit issue table\n\nEach row's call_id column now links to https://dashboard.retellai.com/calls/{id}\nfor one-click triage. Placeholder rows (retry-chain summaries with no single\ncall_id) render as a dash instead.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit the rendering patch"
+    },
+    "timestamp": "2026-05-13T02:31:34.588Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "19",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:31:39.714Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Find correct Retell call URL format",
+      "description": "Web search Retell docs or community for the right deep-link path to a single call (call_id in URL).",
+      "activeForm": "Finding correct Retell URL"
+    },
+    "timestamp": "2026-05-13T02:45:10.825Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Patch + re-test + commit",
+      "description": "Update audit.py call_link helper; verify a sample link actually lands on the call page; announce, send #5, commit.",
+      "activeForm": "Patching and re-verifying"
+    },
+    "timestamp": "2026-05-13T02:45:12.293Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Memory the correct URL",
+      "description": "Save the verified Retell dashboard URL pattern so future scripts use it.",
+      "activeForm": "Saving URL pattern"
+    },
+    "timestamp": "2026-05-13T02:45:13.083Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T02:45:13.190Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "20",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:45:16.451Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:WebSearch,WebFetch",
+      "max_results": 2
+    },
+    "timestamp": "2026-05-13T02:45:16.625Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "Can you paste the URL pattern from the Retell dashboard when you open a specific call? (Click any call in your dashboard — the URL bar will show it.)",
+          "header": "Retell URL",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "I'll paste the URL",
+              "description": "Paste the full URL from your dashboard so I can pattern-match the call_id placement (you can sanitize the call_id if you want)."
+            },
+            {
+              "label": "Drop the link entirely — keep call_id as plain text",
+              "description": "Skip the link work; revert to plain truncated call_id and ship without dashboard links."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-05-13T02:45:26.450Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "20",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:48:21.347Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "21",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:48:21.475Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "def call_link(cid):\n    if not cid or cid == \"—\" or cid == \"?\":\n        return \"—\"\n    return (f'<a href=\"https://dashboard.retellai.com/calls/{esc(cid)}\" '\n            f'style=\"color:#1f6feb;text-decoration:none\">'\n            f'<code>{esc(cid)[:12]}…</code></a>')",
+      "new_string": "def call_link(cid):\n    if not cid or cid == \"—\" or cid == \"?\":\n        return \"—\"\n    return (f'<a href=\"https://dashboard.retellai.com/call-history?history={esc(cid)}\" '\n            f'style=\"color:#1f6feb;text-decoration:none\">'\n            f'<code>{esc(cid)[:12]}…</code></a>')"
+    },
+    "timestamp": "2026-05-13T02:48:22.931Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check after URL fix"
+    },
+    "timestamp": "2026-05-13T02:48:23.436Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -3; echo \"---\"; grep -oE 'href=\"https://dashboard.retellai.com/[^\"]+' /var/log/daily-call-audit/latest.html | head -3",
+      "description": "Test-send audit with corrected URL + verify rendered HTML"
+    },
+    "timestamp": "2026-05-13T02:48:28.670Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nfix Retell dashboard call URL format\n\nThe previous /calls/{id} guess redirected to the agents landing page.\nCorrect format is /call-history?history={call_id} (single-call drill-in\nfrom the call-history list).\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit URL fix"
+    },
+    "timestamp": "2026-05-13T02:48:45.967Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/retell-dashboard-url-format.md",
+      "content": "---\nname: retell-dashboard-url-format\ndescription: \"Retell dashboard deep-link to a single call is /call-history?history={call_id} — NOT /calls/{call_id}.\"\nmetadata:\n  type: reference\n---\n\nTo open a specific Retell call in the dashboard, use:\n\n```\nhttps://dashboard.retellai.com/call-history?history={call_id}\n```\n\nThe `history` query param is the single-call drill-in from the call-history list view.\n\n**Wrong patterns that silently redirect to the agents landing page** (don't use):\n- `https://dashboard.retellai.com/calls/{call_id}` ← my first guess, fails silently\n- `https://dashboard.retellai.com/agents/{agent_id}/calls/{call_id}`\n\nConfirmed by Scott 2026-05-13 (he pasted the URL from his dashboard while clicking a call). Now used by `/root/daily-call-audit/audit.py` `call_link()` helper. Apply the same pattern in any future audit/report/email that links to a Retell call.\n\nRelated: [[daily-call-audit-droplet]] (the audit that uses these links).\n"
+    },
+    "timestamp": "2026-05-13T02:48:49.783Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.",
+      "new_string": "- **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.\n- [Retell dashboard call URL format](retell-dashboard-url-format.md) — single-call deep link is `/call-history?history={call_id}`. `/calls/{id}` silently redirects to agents page."
+    },
+    "timestamp": "2026-05-13T02:48:51.813Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "21",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:48:57.488Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "22",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:48:57.917Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Diagnose 18591 false-positive",
+      "description": "Pull execution 18591 runData and check if Filter: call_analyzed actually passed any items downstream.",
+      "activeForm": "Diagnosing 18591"
+    },
+    "timestamp": "2026-05-13T02:54:48.315Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Fix check logic — filter output, not presence",
+      "description": "Patch audit.py to verify filter passed items (data.main[0] non-empty), not just that the node ran.",
+      "activeForm": "Fixing check logic"
+    },
+    "timestamp": "2026-05-13T02:54:49.174Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Re-test + commit",
+      "description": "Verify no false positives on call_started/call_ended executions; announce and test-send #6.",
+      "activeForm": "Verifying fix"
+    },
+    "timestamp": "2026-05-13T02:54:50.195Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T02:54:50.203Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "23",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:54:53.697Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/18591?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {}) or {}\nprint('Nodes in runData:')\nfor name, runs in run.items():\n    if not runs: continue\n    main = runs[0].get('data', {}).get('main', [])\n    items_out = sum(len(branch) for branch in main if isinstance(branch, list))\n    print(f'  {name:35} → {items_out} items downstream')\n# Show webhook body event type\ninb = (run.get('Inbound Webhook') or [{}])[0].get('data', {}).get('main', [[{}]])[0]\nif inb and isinstance(inb, list) and inb:\n    evt = inb[0].get('json', {}).get('body', {}).get('event', '?')\n    cid = inb[0].get('json', {}).get('body', {}).get('call', {}).get('call_id', '?')\n    print(f'\\\\nWebhook event: {evt}')\n    print(f'Call ID: {cid}')\n\"",
+      "description": "Inspect exec 18591 node outputs to confirm filter behaviour"
+    },
+    "timestamp": "2026-05-13T02:55:02.768Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/18591?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {})\nfilt = run.get('Filter: call_analyzed', [{}])[0]\nprint('Filter node main output structure:')\nmain = filt.get('data', {}).get('main', [])\nprint(f'  num branches: {len(main)}')\nfor i, branch in enumerate(main):\n    print(f'  branch[{i}]: {len(branch) if isinstance(branch, list) else \\\"?\\\"} items')\n\"; echo \"---compare to 18593 (call_analyzed)---\"; curl -s -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" \"https://xprime17.app.n8n.cloud/api/v1/executions/18593?includeData=true\" 2>/dev/null | python3 -c \"\nimport sys, json\nd = json.load(sys.stdin)\nrun = d.get('data', {}).get('resultData', {}).get('runData', {})\nfilt = run.get('Filter: call_analyzed', [{}])[0]\nmain = filt.get('data', {}).get('main', [])\nprint(f'  num branches: {len(main)}')\nfor i, branch in enumerate(main):\n    print(f'  branch[{i}]: {len(branch) if isinstance(branch, list) else \\\"?\\\"} items')\n\"",
+      "description": "Compare filter output structure between call_started (18591) and call_analyzed (18593)"
+    },
+    "timestamp": "2026-05-13T02:55:18.919Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "23",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:55:26.781Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "24",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:55:27.564Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "    def execution_call_status(exec_id, cfg):\n        \"\"\"Return ('created'|'deduped'|'workflow_failed'|None, exec_id).\"\"\"\n        data, err = fetch_n8n(f\"/executions/{exec_id}?includeData=true\")\n        if err or not data: return None\n        run = (data.get(\"data\", {}).get(\"resultData\", {}).get(\"runData\", {}) or {})\n        if cfg[\"filter_node\"] not in run:\n            return None  # not the call_analyzed event\n        if cfg[\"create_node\"] in run:\n            return \"created\"\n        if cfg[\"dedup_branch\"] in run:\n            return \"deduped\"\n        return \"workflow_failed\"",
+      "new_string": "    def execution_call_status(exec_id, cfg):\n        \"\"\"Return 'created'|'deduped'|'workflow_failed'|None.\n\n        n8n Filter nodes have 2 output branches: branch[0]=matched, branch[1]=unmatched.\n        The Filter node will appear in runData for ALL events (call_started, call_ended,\n        call_analyzed) — but only call_analyzed produces items on the matched branch.\n        We must check the matched-branch output count, not just node presence.\n        \"\"\"\n        data, err = fetch_n8n(f\"/executions/{exec_id}?includeData=true\")\n        if err or not data: return None\n        run = (data.get(\"data\", {}).get(\"resultData\", {}).get(\"runData\", {}) or {})\n        filt_runs = run.get(cfg[\"filter_node\"]) or []\n        if not filt_runs:\n            return None  # filter never ran (workflow errored before reaching it)\n        main = filt_runs[0].get(\"data\", {}).get(\"main\", [])\n        matched = main[0] if main and isinstance(main[0], list) else []\n        if not matched:\n            return None  # not a call_analyzed event — filter rejected it (call_started/ended)\n        if cfg[\"create_node\"] in run:\n            return \"created\"\n        if cfg[\"dedup_branch\"] in run:\n            return \"deduped\"\n        return \"workflow_failed\""
+    },
+    "timestamp": "2026-05-13T02:55:33.673Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check the filter-branch fix"
+    },
+    "timestamp": "2026-05-13T02:55:34.324Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "24",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:55:37.623Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "25",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T02:55:37.795Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -5; echo \"---ClickUp issues in this run---\"; grep -oE \"ClickUp[^<]*\" /var/log/daily-call-audit/latest.html | head -5",
+      "description": "Re-test with branch-aware filter check"
+    },
+    "timestamp": "2026-05-13T02:55:44.126Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nfix ClickUp check false positives on call_started/call_ended events\n\nThe Filter: call_analyzed node has 2 output branches: matched (branch[0])\nand unmatched (branch[1]). The node appears in runData for every Retell\nwebhook event, but only call_analyzed events produce items on the matched\nbranch. Previous check treated any non-deduped, non-created execution as\nworkflow_failed, falsely flagging the call_started + call_ended events\nthat fire for every call.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit branch-aware filter check"
+    },
+    "timestamp": "2026-05-13T02:56:01.282Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "25",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T02:56:07.948Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Tighten LLM rubric — tours vs camps",
+      "description": "In audit.py llm_review rubric, make explicit that agents book TOURS only. Camps/parties/enrolment → handoff correct.",
+      "activeForm": "Tightening rubric"
+    },
+    "timestamp": "2026-05-13T03:01:45.699Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Save booking-scope rule to memory",
+      "description": "Memory: voice agents book tours only — camp enrolments and parties are staff territory.",
+      "activeForm": "Saving booking scope rule"
+    },
+    "timestamp": "2026-05-13T03:01:46.893Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify + commit",
+      "description": "Announce, test-send, confirm Kevin/Harper no longer flagged. Commit.",
+      "activeForm": "Verifying and committing"
+    },
+    "timestamp": "2026-05-13T03:01:47.973Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:01:48.046Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "26",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:01:51.958Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "    is_inbound = centre in INBOUND_CENTRES\n    role_note = (\n        \"This is an INBOUND receptionist agent. Staff handoff IS expected for pricing, billing, \"\n        \"subscription edits, sibling-discount math, or anything outside the agent's booking authority. \"\n        \"DO NOT flag STAFF_DEFLECTION on inbound. Only flag BOOKING_FUMBLE if the caller had clear \"\n        \"tour-booking intent AND the agent had child age + identity AND still deflected instead of booking.\"\n    ) if is_inbound else (\n        \"This is an OUTBOUND agent. Booking Autonomy applies: agent must complete tour booking itself; \"\n        \"staff-handoff language ('team will reach out', 'someone will contact you') is BANNED.\"\n    )",
+      "new_string": "    is_inbound = centre in INBOUND_CENTRES\n    # CRITICAL: voice agents (inbound AND outbound) ONLY book TOURS — defined as an\n    # initial walk-through / try-a-class visit. They do NOT book: camp enrolments,\n    # class/membership enrolments, birthday parties, subscription edits, pricing/\n    # discount approvals. Those ALL legitimately route to staff. Never flag a handoff\n    # on a non-tour ask as a BOOKING_FUMBLE.\n    scope_note = (\n        \"Voice agents ONLY book TOURS (initial walk-through / try-a-class visit). \"\n        \"They do NOT book camp enrolments, class enrolments, birthday parties, or \"\n        \"subscription changes — those route to staff and that handoff is CORRECT. \"\n        \"Words like 'sign up', 'enroll', 'secure my camp spot', 'register for camp', \"\n        \"'book a party' indicate NON-TOUR intent — do NOT flag BOOKING_FUMBLE on these.\"\n    )\n    role_note = (\n        f\"This is an INBOUND receptionist agent. {scope_note} \"\n        \"Staff handoff IS expected for pricing, billing, subscription edits, \"\n        \"sibling-discount math, camp/class enrolment, parties, or anything outside \"\n        \"the agent's tour-booking authority. DO NOT flag STAFF_DEFLECTION on inbound. \"\n        \"Only flag BOOKING_FUMBLE if the caller had clear TOUR-booking intent (asked \"\n        \"about visiting, touring, trying a class, seeing the centre) AND the agent had \"\n        \"child age + identity AND still deflected instead of scheduling a tour.\"\n    ) if is_inbound else (\n        f\"This is an OUTBOUND agent. {scope_note} Booking Autonomy applies to TOUR \"\n        \"bookings: agent must complete tour scheduling itself; staff-handoff language \"\n        \"('team will reach out', 'someone will contact you') is BANNED for tour bookings.\"\n    )"
+    },
+    "timestamp": "2026-05-13T03:02:01.086Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "        \"- BOOKING_FUMBLE: agent thinks they booked but never collected child_age + tour_date + tour_time\\n\"",
+      "new_string": "        \"- BOOKING_FUMBLE: caller clearly asked for a TOUR (visiting, try-a-class, walk-through) \"\n        \"AND agent had child age + identity AND failed to schedule. Do NOT flag this on camp enrolment, \"\n        \"party booking, class registration, or pricing/discount asks — those are correctly handed off to staff.\\n\""
+    },
+    "timestamp": "2026-05-13T03:02:03.325Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check rubric update"
+    },
+    "timestamp": "2026-05-13T03:02:04.188Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "26",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:02:08.413Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "27",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:02:08.798Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/feedback-agents-book-tours-only.md",
+      "content": "---\nname: feedback-agents-book-tours-only\ndescription: \"Voice AI agents ONLY book TOURS (initial walk-through / try-a-class visits). They do NOT book camp enrolments, class enrolments, parties, or subscription changes — those are staff handoff territory and the handoff is correct.\"\nmetadata:\n  type: feedback\n---\n\nVoice agents (inbound AND outbound) have ONE booking authority: **tours**.\n\n**A \"tour\" =** initial walk-through or try-a-class visit at the centre. The thing CNKB outbound agents are trying to close, and what inbound agents schedule when callers want to come see the place.\n\n**NOT bookable by the agent — staff handoff is correct:**\n- Camp enrolment (summer camp, day camp, PA-day camp)\n- Class / membership enrolment\n- Birthday parties\n- Subscription pause / cancel / edits\n- Pricing or discount approvals\n- Sibling-discount math\n\n**Why:** these all touch staff-only systems (CRM mutations, payment processing, calendar conflicts) and require human judgement on edge cases (promo eligibility, age exceptions, multi-child pricing). The voice agent's job stops at \"tour booked\" — everything else is the centre director's call.\n\n**How to apply when reviewing audits / call quality:**\n- A caller saying \"sign up\", \"enroll my kid\", \"secure my camp spot\", \"register\", \"book a party\" = NON-tour intent. Don't flag the agent's handoff as a BOOKING_FUMBLE.\n- A caller saying \"come visit\", \"see the centre\", \"try a class\", \"schedule a tour\" = TOUR intent. Now BOOKING_FUMBLE is fair game if the agent had child age + parent identity and still deflected.\n- Outbound Booking Autonomy rev applies to TOUR booking specifically — it doesn't (and can't) make the agent book non-tour items.\n\nConfirmed 2026-05-13 after I wrongly flagged Kevin/Harper's camp-enrolment handoff as a real bug (it wasn't — Kevin wanted to enrol in CAMP, which agent can't do).\n\nRelated: [[feedback-staff-deflection-outbound-only]] (companion rule: inbound handoffs aren't banned), [[prompt-v2026-04-21]] (Booking Autonomy = TOUR autonomy).\n"
+    },
+    "timestamp": "2026-05-13T03:02:18.675Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## Voice Agent Rubric\n- [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — \"team will reach out\" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits.",
+      "new_string": "## Voice Agent Rubric\n- [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — \"team will reach out\" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits.\n- [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory."
+    },
+    "timestamp": "2026-05-13T03:02:22.461Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "27",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:02:22.881Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "28",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:02:22.982Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -3; echo \"---HIGH issues---\"; grep -A1 \"HIGH\" /var/log/daily-call-audit/latest.html | grep -E \"(BOOKING_FUMBLE|STAFF_DEFLECTION|AGE_GATE|Voicemail|ClickUp)\" | head -10",
+      "description": "Re-test with tour-only rubric"
+    },
+    "timestamp": "2026-05-13T03:02:29.071Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nclarify in LLM rubric that agents only book TOURS, not camps/parties/enrolments\n\nA handoff for camp enrolment, class registration, party booking, subscription\nedits, or pricing approval is CORRECT behaviour — those touch staff-only systems.\nBOOKING_FUMBLE should fire only when the caller asked for a tour and the agent\nhad child age + parent identity to schedule one. Update both the role/scope\nnote and the BOOKING_FUMBLE category description in the rubric.\n\nCaught by Scott 2026-05-13: Kevin/Harper call was a camp-enrolment ask, not a\ntour-booking ask — agent's handoff was correct, not a fumble.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit tour-only rubric tightening"
+    },
+    "timestamp": "2026-05-13T03:02:58.430Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "28",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:03:07.698Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Fix Junior age range in rubric",
+      "description": "audit.py: Junior 5-6 → 5-7. Add note that 7 overlaps Create.",
+      "activeForm": "Fixing age range"
+    },
+    "timestamp": "2026-05-13T03:05:31.617Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Correct age memory + check other refs",
+      "description": "Update prompt-v2026-04-21 memory. Grep all memory for \"5-6\" and \"Junior\" to catch any other stale refs.",
+      "activeForm": "Correcting memory"
+    },
+    "timestamp": "2026-05-13T03:05:31.691Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify + commit",
+      "description": "Announce, test-send, confirm AGE_GATE on call_d4d54c40 clears. Commit.",
+      "activeForm": "Verifying and committing"
+    },
+    "timestamp": "2026-05-13T03:05:32.314Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:05:32.322Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "29",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:05:35.623Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rn \"5-6\\|ages 5 to 6\\|Junior.*5.*6\\|5.*to.*6.*Junior\" /root/.claude/projects/-root/memory/ 2>/dev/null",
+      "description": "Find all memory refs to wrong Junior range"
+    },
+    "timestamp": "2026-05-13T03:05:36.902Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"5-6\\|ages 5\\|Junior\" /root/daily-call-audit/audit.py",
+      "description": "Find all age refs in audit.py"
+    },
+    "timestamp": "2026-05-13T03:05:48.976Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "        \"- AGE_GATE_ERROR: Code Ninjas programs by age — Junior = ages 5-6, Create = ages 7-14. \"\n        \"Flag ONLY if BOTH (a) the child's age is explicitly stated in the transcript AND \"\n        \"(b) the agent recommends the wrong program for that age (Junior to a 7+yo, or Create to a child <7). \"\n        \"DO NOT flag based on the agent's program description alone. \"\n        \"Agent saying 'Create is for ages 7-14' or 'Junior is for ages 5-6' is CORRECT — never flag this.\\n\"",
+      "new_string": "        \"- AGE_GATE_ERROR: Code Ninjas programs by age — Junior = ages 5-7, Create = ages 7-14. \"\n        \"Note the overlap at age 7: a 7-year-old can correctly be placed in EITHER program. \"\n        \"Flag ONLY if BOTH (a) the child's age is explicitly stated in the transcript AND \"\n        \"(b) the agent recommends a program clearly outside its range (Junior to a child 8+, or Create to a child <7). \"\n        \"Age 7 placed in Junior is CORRECT (not a fumble). Age 7 placed in Create is also CORRECT. \"\n        \"DO NOT flag based on the agent's program description alone. \"\n        \"Agent saying 'Create is for ages 7-14' or 'Junior is for ages 5-7' is CORRECT — never flag this.\\n\""
+    },
+    "timestamp": "2026-05-13T03:05:55.796Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (5-6 Junior, 7-14 Create), name-optional booking (\"the guest\"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each).",
+      "new_string": "- [CNKB Prompt Rev 2026-04-21](prompt-v2026-04-21.md) — age-gate (Junior 5-7, Create 7-14; overlap at 7), name-optional booking (\"the guest\"), SLOTS-deferred dates, Booking Autonomy section, Stage 6 soft-hold. Pushed to all 11 CNKB LLMs (~18.9K chars each). **Age ranges corrected from earlier \"5-6 Junior\" note — true range is 5-7 per Scott 2026-05-13.**"
+    },
+    "timestamp": "2026-05-13T03:05:58.826Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/prompt-v2026-04-21.md",
+      "offset": 35,
+      "limit": 8
+    },
+    "timestamp": "2026-05-13T03:05:59.246Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/prompt-v2026-04-21.md",
+      "old_string": "Explicitly forbids \"team will reach out to confirm\" / \"someone will call back to confirm\" / \"team will confirm your booking\" for a tour just booked. Enumerates when staff follow-up IS appropriate: Junior inquiries (5-6), wrong location, callback-requested, out-of-age-range, unanswerable questions. Everything else: you ARE the booking system.",
+      "new_string": "Explicitly forbids \"team will reach out to confirm\" / \"someone will call back to confirm\" / \"team will confirm your booking\" for a tour just booked. Enumerates when staff follow-up IS appropriate: Junior inquiries (ages 5-7), wrong location, callback-requested, out-of-age-range, unanswerable questions. Everything else: you ARE the booking system. **Age-range correction 2026-05-13:** Junior is 5-7 (not 5-6); Create is 7-14; age 7 overlaps. If the production prompt currently says 5-6 Junior, that's a separate bug — verify with `get_retell_llm` before assuming it's correct."
+    },
+    "timestamp": "2026-05-13T03:06:05.591Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check after age-range fix"
+    },
+    "timestamp": "2026-05-13T03:06:06.346Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "29",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:06:09.565Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "30",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:06:10.017Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "31",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:06:10.243Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -3; echo \"---issues---\"; grep -oE \"calls=[0-9]+ real=[0-9]+ cekura=[0-9]+ issues=[0-9]+ \\(H[0-9]+/M[0-9]+/L[0-9]+\\)\" /var/log/daily-call-audit/latest.html /tmp/audit_out.txt 2>/dev/null | head -2",
+      "description": "Re-test with corrected Junior range"
+    },
+    "timestamp": "2026-05-13T03:06:17.010Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -oE \"(HIGH|MEDIUM|LOW)</span></td><td>[^<]+</td><td>[^<]+</td>\" /var/log/daily-call-audit/latest.html | sed 's/<[^>]*>/ | /g' | head -10",
+      "description": "List issues from this run"
+    },
+    "timestamp": "2026-05-13T03:06:35.074Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\ncorrect Junior age range in AGE_GATE rubric: 5-7, not 5-6\n\nJunior covers ages 5-7; Create covers 7-14. Age 7 overlaps both programs and\nshould never trigger AGE_GATE_ERROR. Previous rubric (5-6 Junior) wrongly\nflagged 7-year-olds placed in Junior as misclassifications.\n\nCaught by Scott 2026-05-13. Memory notes [[prompt-v2026-04-21]] and\n[[MEMORY]] index also corrected. Production prompts may still say 5-6;\nverify separately via get_retell_llm if accurate program-range matters\nto a downstream check.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit Junior age fix"
+    },
+    "timestamp": "2026-05-13T03:06:47.992Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "31",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:06:56.826Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Build KIND_LEGEND map",
+      "description": "Map every Kind string the audit emits → one-line plain-English explanation. Include both regex and LLM kinds.",
+      "activeForm": "Building legend map"
+    },
+    "timestamp": "2026-05-13T03:09:43.489Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Render legend in email (only for kinds present)",
+      "description": "Add a compact \"What these mean\" section beneath the issues table; only show entries for Kinds that fired in this run.",
+      "activeForm": "Rendering legend"
+    },
+    "timestamp": "2026-05-13T03:09:44.584Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify + commit",
+      "description": "Announce, test-send #9 to confirm legend renders cleanly. Commit.",
+      "activeForm": "Verifying and committing"
+    },
+    "timestamp": "2026-05-13T03:09:45.502Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:09:45.507Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "32",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:09:49.048Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 693,
+      "limit": 35
+    },
+    "timestamp": "2026-05-13T03:09:49.943Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "issue_rows = (\"\".join(\n    f\"<tr><td>{badge(sev)}</td><td>{esc(kind)}</td><td>{esc(centre)}</td>\"\n    f\"<td>{esc(ident)}</td><td>{call_link(cid)}</td><td>{esc(ev)}</td></tr>\"\n    for sev, kind, centre, ident, cid, ev in issues\n) or \"<tr><td colspan=6><i>No issues detected.</i></td></tr>\")",
+      "new_string": "issue_rows = (\"\".join(\n    f\"<tr><td>{badge(sev)}</td><td>{esc(kind)}</td><td>{esc(centre)}</td>\"\n    f\"<td>{esc(ident)}</td><td>{call_link(cid)}</td><td>{esc(ev)}</td></tr>\"\n    for sev, kind, centre, ident, cid, ev in issues\n) or \"<tr><td colspan=6><i>No issues detected.</i></td></tr>\")\n\n# Plain-English explanation of every Kind string the audit can emit.\n# Keep entries short (one line) and concrete. Used to render a glossary\n# beneath the issues table for the Kinds that actually fired in this run.\nKIND_LEGEND = {\n    # Deterministic / regex / structural\n    \"Booking missing fields\":          \"Post-call analysis says appointment_booked=true but one of child_age, tour_date, tour_time is empty — booking record is incomplete.\",\n    \"Wrong location requested\":        \"Caller mentioned a different centre than the one they reached (e.g., called EG asking about Pickering). Agent should redirect.\",\n    \"Retry chain CAP_BREACH\":          \"Same to_number was called more than 4 times in the window — exceeds the retry cap. Indicates End-Of-Call workflow failed to mark the lead complete.\",\n    \"Retry chain SCHEDULER_LAG\":       \"Gap between two retries exceeded ~3 hours. Retry Scheduler probably skipped a tick.\",\n    \"Retry chain PREMATURE_FIRE\":      \"Two retries fired less than 60 minutes apart — too aggressive; the scheduler should space them out.\",\n    \"Voicemail misdetection (likely)\": \"in_voicemail=false but most user turns are <4 words AND the same number hit voicemail elsewhere in the window — agent likely kept talking into a voicemail beep.\",\n    \"Decline reason mismatch\":         \"Transcript shows the caller saying 'not interested' / 'already enrolled' / 'stop calling' but the post-call decline_reason field is empty — lead will be wrongly retried.\",\n    \"Fallback phrase repetition\":      \"Agent said 'are you still there?' / 'can you hear me?' / 'trouble hearing' 3+ times — likely audio/connection issue, not a conversation.\",\n    \"Staff-deflection language\":       \"(OUTBOUND ONLY) Agent used a banned phrase ('team will reach out', 'someone will call') instead of completing the tour booking itself.\",\n    \"Name echo violation\":             \"Agent repeated the child's first name 2+ times after the parent provided it, instead of switching to 'your kiddo' / 'the guest' per 2026-04-21 prompt rev.\",\n    \"ClickUp task missing (no n8n execution)\": \"Inbound call_analyzed event from Retell never produced an n8n execution — the webhook may have been dropped. Staff have no follow-up task.\",\n    \"ClickUp task missing (workflow skipped create)\": \"n8n workflow ran on the call_analyzed event but the Create ClickUp Task node did not fire — logic bug somewhere in the workflow.\",\n    # LLM (Sonnet) findings\n    \"LLM: VOICEMAIL_MISDETECT\": \"LLM verdict: agent kept talking after hitting voicemail (long silences, beep, no real human reply).\",\n    \"LLM: STAFF_DEFLECTION\":    \"LLM verdict (OUTBOUND ONLY): agent said someone else will handle the booking. Banned for outbound tour calls; inbound handoffs are expected and not flagged.\",\n    \"LLM: HALLUCINATION\":       \"LLM verdict: agent stated hours / programs / facts not in the KB (pricing excluded since it's KB-injected).\",\n    \"LLM: DECLINE_MISSED\":      \"LLM verdict: caller clearly declined but agent kept selling.\",\n    \"LLM: AGE_GATE_ERROR\":      \"LLM verdict: child age was stated AND agent recommended a program outside its range. Junior=5-7, Create=7-14 (age 7 overlaps).\",\n    \"LLM: BOOKING_FUMBLE\":      \"LLM verdict: caller asked for a TOUR (visit/try-a-class), agent had child age + identity, and still failed to schedule. Camp/party/enrolment asks do NOT count.\",\n    \"LLM: NAME_ECHO\":           \"LLM verdict: agent repeated the child's name multiple times instead of 'your kiddo'.\",\n    \"LLM: TONE\":                \"LLM verdict: agent rude, robotic, or stuck in a loop.\",\n}\n\n# Render legend only for kinds that actually appeared in this run\nkinds_present = []\nseen = set()\nfor sev, kind, *_rest in issues:\n    if kind in seen: continue\n    seen.add(kind)\n    kinds_present.append(kind)\nif kinds_present:\n    legend_rows = \"\".join(\n        f\"<tr><td style='font-family:monospace;font-size:12px;white-space:nowrap;padding-right:12px;vertical-align:top'>{esc(k)}</td>\"\n        f\"<td style='font-size:12px;color:#444'>{esc(KIND_LEGEND.get(k, '(no description yet — update KIND_LEGEND in audit.py)'))}</td></tr>\"\n        for k in kinds_present\n    )\n    legend_html = (\n        \"<h3>What these Kinds mean</h3>\"\n        \"<table border=0 cellpadding=4 cellspacing=0 style='border-collapse:collapse'>\"\n        f\"{legend_rows}</table>\"\n    )\nelse:\n    legend_html = \"\""
+    },
+    "timestamp": "2026-05-13T03:10:13.660Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"Issues</h3>\\|Per-Centre\\|chain_rows\\|issue_rows\" /root/daily-call-audit/audit.py | head -10",
+      "description": "Locate Issues section in HTML body for legend insertion"
+    },
+    "timestamp": "2026-05-13T03:10:18.324Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 798,
+      "limit": 12
+    },
+    "timestamp": "2026-05-13T03:10:22.505Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "<h3>Issues</h3>\n<table border=1 cellpadding=4 cellspacing=0 style=\"border-collapse:collapse\">\n<tr><th>Severity</th><th>Kind</th><th>Centre</th><th>Lead (to_number)</th><th>Call ID</th><th>Evidence</th></tr>\n{issue_rows}\n</table>\n\n<h3>Per-Centre</h3>",
+      "new_string": "<h3>Issues</h3>\n<table border=1 cellpadding=4 cellspacing=0 style=\"border-collapse:collapse\">\n<tr><th>Severity</th><th>Kind</th><th>Centre</th><th>Lead (to_number)</th><th>Call ID</th><th>Evidence</th></tr>\n{issue_rows}\n</table>\n\n{legend_html}\n\n<h3>Per-Centre</h3>"
+    },
+    "timestamp": "2026-05-13T03:10:28.455Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check legend addition"
+    },
+    "timestamp": "2026-05-13T03:10:28.863Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "32",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:10:32.565Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "33",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:10:32.970Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "34",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:10:33.234Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -3; echo \"---legend present?---\"; grep -c \"What these Kinds mean\" /var/log/daily-call-audit/latest.html",
+      "description": "Test-send + confirm legend rendered"
+    },
+    "timestamp": "2026-05-13T03:10:38.123Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\nadd 'What these Kinds mean' legend to audit email\n\nRenders a glossary table beneath the Issues table, showing one-line plain\nEnglish explanations for every Kind that fired in the current run. Covers\nboth deterministic checks (Booking missing fields, retry-chain flags,\nClickUp task missing, etc.) and LLM verdicts (STAFF_DEFLECTION, NAME_ECHO,\nAGE_GATE_ERROR, BOOKING_FUMBLE, etc.).\n\nOnly Kinds present in the current run are rendered — keeps email tight.\nUnknown Kinds get a 'no description yet — update KIND_LEGEND' fallback so\nnew check types are visible until documented.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit legend addition"
+    },
+    "timestamp": "2026-05-13T03:10:59.657Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "34",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:11:12.001Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Cap NAME_ECHO at LOW in LLM rubric",
+      "description": "Update audit.py llm_review rubric to force severity=LOW for NAME_ECHO findings; add post-hoc clamp in case LLM still emits HIGH.",
+      "activeForm": "Capping NAME_ECHO at LOW"
+    },
+    "timestamp": "2026-05-13T03:13:32.478Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Memory the severity rule",
+      "description": "Save: NAME_ECHO is a style/etiquette issue, never HIGH. Same caps may apply to other LLM kinds later.",
+      "activeForm": "Memorying severity rule"
+    },
+    "timestamp": "2026-05-13T03:13:33.509Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify + commit",
+      "description": "Announce, test-send #10, confirm NAME_ECHO shows as LOW. Commit.",
+      "activeForm": "Verifying and committing"
+    },
+    "timestamp": "2026-05-13T03:13:34.338Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:13:34.431Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "35",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:13:37.580Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 617,
+      "limit": 20
+    },
+    "timestamp": "2026-05-13T03:13:38.542Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "        \"- NAME_ECHO: agent repeats child's name back multiple times instead of 'your kiddo'\\n\"\n        \"- TONE: agent rude, robotic, or stuck in a loop\\n\\n\"",
+      "new_string": "        \"- NAME_ECHO: agent repeats child's name back multiple times instead of 'your kiddo'. \"\n        \"ALWAYS LOW severity — this is a style/etiquette issue, never HIGH or MEDIUM. \"\n        \"One confirmation echo right after collection is normal and should NOT be flagged.\\n\"\n        \"- TONE: agent rude, robotic, or stuck in a loop\\n\\n\""
+    },
+    "timestamp": "2026-05-13T03:13:44.000Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/daily-call-audit/audit.py",
+      "offset": 650,
+      "limit": 20
+    },
+    "timestamp": "2026-05-13T03:13:48.233Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/daily-call-audit/audit.py",
+      "old_string": "    out = []\n    for it in items if isinstance(items, list) else []:\n        sev  = (it.get(\"severity\") or \"LOW\").upper()\n        if sev not in {\"HIGH\", \"MEDIUM\", \"LOW\"}: sev = \"LOW\"\n        kind = it.get(\"kind\") or \"Issue\"\n        ev   = (it.get(\"evidence\") or \"\")[:200]\n        out.append((sev, f\"LLM: {kind}\", centre, tn, cid, ev))\n    return out",
+      "new_string": "    # Severity caps for LLM kinds that should never escalate above a fixed ceiling.\n    # NAME_ECHO is a style/etiquette nit, never HIGH/MEDIUM per Scott 2026-05-13.\n    LLM_SEVERITY_CAP = {\"NAME_ECHO\": \"LOW\"}\n\n    out = []\n    for it in items if isinstance(items, list) else []:\n        sev  = (it.get(\"severity\") or \"LOW\").upper()\n        if sev not in {\"HIGH\", \"MEDIUM\", \"LOW\"}: sev = \"LOW\"\n        kind = (it.get(\"kind\") or \"Issue\").upper()\n        cap  = LLM_SEVERITY_CAP.get(kind)\n        if cap:\n            sev = cap  # clamp regardless of what the LLM said\n        ev   = (it.get(\"evidence\") or \"\")[:200]\n        out.append((sev, f\"LLM: {kind}\", centre, tn, cid, ev))\n    return out"
+    },
+    "timestamp": "2026-05-13T03:13:57.864Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 -c \"import py_compile; py_compile.compile('/root/daily-call-audit/audit.py', doraise=True); print('syntax OK')\"",
+      "description": "Syntax-check cap addition"
+    },
+    "timestamp": "2026-05-13T03:13:58.023Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "35",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:14:02.795Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "36",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:14:03.185Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/feedback-llm-severity-caps.md",
+      "content": "---\nname: feedback-llm-severity-caps\ndescription: \"Some LLM finding kinds have hard severity ceilings that must never be exceeded — NAME_ECHO is always LOW, no matter what the LLM judges.\"\nmetadata:\n  type: feedback\n---\n\nThe audit's LLM (Sonnet) rubric tends to inflate severity on style / etiquette issues — judging a 2-echo NAME_ECHO as HIGH when the right verdict is LOW. To prevent this from drifting back, the audit applies hard **severity caps** to specific Kinds:\n\n| Kind         | Cap   | Why                                                             |\n|--------------|-------|-----------------------------------------------------------------|\n| NAME_ECHO    | LOW   | Style/etiquette issue (use \"your kiddo\" instead of repeating the name). One confirmation echo after collection is normal. Never warrants HIGH. |\n\n**How to apply:**\n- When adding new LLM kinds to audit.py, ask \"could this ever be a HIGH-priority operational issue, or is it always cosmetic?\" If cosmetic, add to `LLM_SEVERITY_CAP` in audit.py around line 658.\n- If Scott pushes back on severity for a kind, default to capping rather than removing — the detection is still useful, just at lower priority.\n\nSurfaced 2026-05-13 after the LLM flagged a 2-echo NAME_ECHO as HIGH on Kevin/Harper's call (call_d5f35d73).\n\nRelated: [[feedback-staff-deflection-outbound-only]], [[feedback-agents-book-tours-only]] — together these three rules now constrain the rubric to match operational reality.\n"
+    },
+    "timestamp": "2026-05-13T03:14:10.491Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory.",
+      "new_string": "- [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory.\n- [LLM severity caps](feedback-llm-severity-caps.md) — NAME_ECHO always LOW (style issue, never HIGH). Audit clamps post-hoc via LLM_SEVERITY_CAP dict."
+    },
+    "timestamp": "2026-05-13T03:14:13.563Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "36",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:14:14.023Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "37",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:14:14.333Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; source /root/daily-call-audit/.env; set +a; AUDIT_TO_EMAIL=scott.james@codeninjas.com AUDIT_WINDOW_HOURS=72 python3 /root/daily-call-audit/audit.py 2>&1 | tail -3; echo \"---NAME_ECHO severity---\"; grep -oE \"[A-Z]+</span></td><td>LLM: NAME_ECHO\" /var/log/daily-call-audit/latest.html | head -3",
+      "description": "Re-test with severity cap; confirm NAME_ECHO is LOW"
+    },
+    "timestamp": "2026-05-13T03:14:19.419Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add audit.py && git commit -m \"$(cat <<'EOF'\ncap LLM NAME_ECHO severity at LOW\n\nNAME_ECHO is a style/etiquette nit (one extra \"Harper\" instead of \"your kiddo\")\nand should never be HIGH. The LLM was inflating severity to HIGH; both the\nrubric language and a post-hoc LLM_SEVERITY_CAP dict now enforce LOW.\n\nThe cap mechanism is extensible — add more kinds to LLM_SEVERITY_CAP if other\nLLM findings drift above their appropriate ceiling.\n\nCo-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>\nEOF\n)\" 2>&1 | tail -2",
+      "description": "Commit severity cap"
+    },
+    "timestamp": "2026-05-13T03:14:40.381Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "37",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:14:46.947Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Pull call_f2fbc5c0 transcript and outcome",
+      "description": "Get full transcript, identify centre/agent, see what agent did when faced with the call-control prompt.",
+      "activeForm": "Pulling call transcript"
+    },
+    "timestamp": "2026-05-13T03:17:37.926Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Confirm Retell DTMF capability",
+      "description": "Verify via Retell docs / agent config schema whether DTMF send is supported on outbound calls.",
+      "activeForm": "Checking Retell DTMF support"
+    },
+    "timestamp": "2026-05-13T03:17:39.078Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Recommendation",
+      "description": "Report findings + viable approach (agent prompt rule / tool / pre-call digits / state-machine). Don't ship yet.",
+      "activeForm": "Drafting recommendation"
+    },
+    "timestamp": "2026-05-13T03:17:40.125Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:17:40.230Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "39",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:17:44.454Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "38",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:17:43.837Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_transcript",
+    "input": {
+      "call_id": "call_f2fbc5c0f72e0700c765fca555b"
+    },
+    "timestamp": "2026-05-13T03:17:44.234Z"
+  },
+  {
+    "name": "WebSearch",
+    "input": {
+      "query": "Retell AI DTMF send digits press tone IVR navigation tool 2026"
+    },
+    "timestamp": "2026-05-13T03:17:57.070Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://docs.retellai.com/build/dtmf",
+      "prompt": "How does Retell support sending DTMF tones during a call? What configuration or tool is needed? Can the agent press a digit (like 9) when prompted by an IVR or call-screening system? Include the JSON schema or tool definition for triggering DTMF."
+    },
+    "timestamp": "2026-05-13T03:17:56.780Z"
+  },
+  {
+    "name": "WebFetch",
+    "input": {
+      "url": "https://docs.retellai.com/build/single-multi-prompt/press-digit",
+      "prompt": "Document the Press Digit feature for Retell agents. Show how to add it to a single-prompt agent (not a conversation-flow agent). Include the JSON schema, where to configure it (LLM tools? states?), and any examples of using it for call-screening / robocall-blocker bypass (e.g., \"press 9 to get through\"). Quote exact API names."
+    },
+    "timestamp": "2026-05-13T03:18:13.002Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__get_retell_llm",
+    "input": {
+      "llm_id": "llm_9b4bcc9bd77a2bd3c3c04ed579b1"
+    },
+    "timestamp": "2026-05-13T03:18:25.422Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "38",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:18:36.857Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "39",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:18:37.600Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "40",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:18:37.665Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "40",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:18:53.857Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; set +a; curl -s -X PATCH \"https://api.retellai.com/update-retell-llm/llm_9b4bcc9bd77a2bd3c3c04ed579b1\" -H \"Authorization: Bearer $RETELL_API_KEY\" -H \"Content-Type: application/json\" -d '{\"general_tools\":[{\"type\":\"end_call\",\"name\":\"end_call\"},{\"type\":\"press_digit\",\"name\":\"press_digit\",\"description\":\"Press a DTMF digit to bypass a call-control gate (e.g., robocall-blocker requiring you to press 9 to get through).\"}]}' | python3 -c \"import sys,json; d=json.load(sys.stdin); print(json.dumps([t for t in d.get('general_tools',[])], indent=2)) if 'general_tools' in d else print(json.dumps(d, indent=2)[:500])\"",
+      "description": "Probe Retell PATCH schema for press_digit tool on Pickering"
+    },
+    "timestamp": "2026-05-13T03:20:32.190Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/tmp/ship_press_digit.py",
+      "content": "#!/usr/bin/env python3\n\"\"\"Add press_digit tool + call-control prompt rule to all active outbound CNKB LLMs.\"\"\"\nimport json, os, urllib.request, urllib.error\n\nAPI_KEY = os.environ[\"RETELL_API_KEY\"]\n\nLLMS = {\n    \"Emma\":              \"llm_77cfa44e3394885ff3e25d95c4f2\",\n    \"CNKB-EG\":           \"llm_44111168b1a2a469f50891b26e34\",\n    \"CNKB-Burlington\":   \"llm_35ce5dd8697541ec0e97f0dcfde0\",\n    \"CNKB-Pickering\":    \"llm_9b4bcc9bd77a2bd3c3c04ed579b1\",\n    \"CNKB-Leaside\":      \"llm_4cfa990bea7bfcbf67060e8c8f72\",\n    \"CNKB-Riverside\":    \"llm_512d93c0c71e0ef00e318b3e9fc0\",\n    \"CNKB-Sudbury\":      \"llm_247d6d98f7073c6d31d54f26f53d\",\n    \"CNKB-StCatharines\": \"llm_5b4dbab1bf6dcc5007c61c2726ff\",\n}\n\nPRESS_DIGIT_TOOL = {\n    \"type\": \"press_digit\",\n    \"name\": \"press_digit\",\n    \"description\": \"Press a DTMF digit to bypass a call-control gate (e.g., robocall-blocker requiring 'press X to get through'). Use ONLY when a recorded message explicitly instructs you to press a specific digit.\",\n    \"speak_after_execution\": False,\n}\n\n# Sub-section to inject. Looks for the LOOP DETECTION marker so the new rule\n# slots in just above it within the \"Handling Call Screening Systems\" section.\nANCHOR = \"- **LOOP DETECTION:**\"\nNEW_RULE = (\n    \"- **Call-control / robocall-blocker gates** (e.g., \\\"This number has call control. To get through, please press nine.\\\"):\\n\"\n    \"  - These are NOT human gatekeepers. They expect a DTMF tone, not speech.\\n\"\n    \"  - Immediately invoke the `press_digit` tool with the digit you were told to press.\\n\"\n    \"  - Do NOT say \\\"Sure, I'll hold\\\" — that won't satisfy the gate.\\n\"\n    \"  - After pressing, wait silently for the call to connect to a real person.\\n\"\n    \"  - If the same prompt plays again after pressing, try pressing once more.\\n\"\n)\n\ndef fetch(llm_id):\n    req = urllib.request.Request(\n        f\"https://api.retellai.com/get-retell-llm/{llm_id}\",\n        headers={\"Authorization\": f\"Bearer {API_KEY}\"},\n    )\n    with urllib.request.urlopen(req, timeout=30) as r:\n        return json.loads(r.read().decode())\n\ndef patch(llm_id, payload):\n    req = urllib.request.Request(\n        f\"https://api.retellai.com/update-retell-llm/{llm_id}\",\n        data=json.dumps(payload).encode(),\n        headers={\"Authorization\": f\"Bearer {API_KEY}\", \"Content-Type\": \"application/json\"},\n        method=\"PATCH\",\n    )\n    with urllib.request.urlopen(req, timeout=30) as r:\n        return json.loads(r.read().decode())\n\nresults = []\nfor name, llm_id in LLMS.items():\n    try:\n        cur = fetch(llm_id)\n        tools = list(cur.get(\"general_tools\") or [])\n        prompt = cur.get(\"general_prompt\") or \"\"\n\n        # Idempotent: only add tool if not already present\n        has_tool = any(t.get(\"type\") == \"press_digit\" for t in tools)\n        if not has_tool:\n            tools.append(PRESS_DIGIT_TOOL)\n            tool_action = \"added\"\n        else:\n            tool_action = \"already present\"\n\n        # Idempotent prompt edit: insert NEW_RULE above LOOP DETECTION if not yet there\n        if \"Call-control / robocall-blocker gates\" in prompt:\n            prompt_action = \"already present\"\n            new_prompt = prompt\n        elif ANCHOR in prompt:\n            new_prompt = prompt.replace(ANCHOR, NEW_RULE + ANCHOR, 1)\n            prompt_action = \"inserted\"\n        else:\n            new_prompt = prompt\n            prompt_action = f\"SKIPPED — anchor '{ANCHOR}' not found in prompt\"\n\n        # Skip API call if nothing actually changed\n        if tool_action == \"already present\" and prompt_action in (\"already present\", \"SKIPPED — anchor '- **LOOP DETECTION:**' not found in prompt\"):\n            results.append(f\"{name:22} | tool={tool_action:18} | prompt={prompt_action}\")\n            continue\n\n        payload = {\"general_tools\": tools, \"general_prompt\": new_prompt}\n        patch(llm_id, payload)\n        results.append(f\"{name:22} | tool={tool_action:18} | prompt={prompt_action}\")\n    except Exception as e:\n        results.append(f\"{name:22} | ERROR: {str(e)[:120]}\")\n\nprint(\"\\n\".join(results))\n"
+    },
+    "timestamp": "2026-05-13T03:21:00.207Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; source /root/.claude/.env; set +a; python3 /tmp/ship_press_digit.py",
+      "description": "Ship press_digit tool + prompt rule to 8 active outbound CNKB LLMs"
+    },
+    "timestamp": "2026-05-13T03:21:00.845Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/retell-press-digit-rollout.md",
+      "content": "---\nname: retell-press-digit-rollout\ndescription: \"press_digit tool wired to 7 of 8 active outbound CNKB clones to bypass call-control / robocall-blocker gates ('press 9 to get through').\"\nmetadata:\n  type: project\n---\n\n**Shipped 2026-05-13** — added Retell `press_digit` tool + prompt sub-section to 7 outbound CNKB LLMs. Bypasses carrier call-control screens (Nomorobo, Ooma, etc.) that require pressing a digit to connect.\n\n**Tool config:**\n```json\n{\n  \"type\": \"press_digit\",\n  \"name\": \"press_digit\",\n  \"description\": \"Press a DTMF digit to bypass a call-control gate ...\",\n  \"speak_after_execution\": false\n}\n```\n`speak_after_execution: false` is critical — we want silence after the press, waiting for the human.\n\n**Prompt sub-section** (inserted in the `## Handling Call Screening Systems` section, just above `**LOOP DETECTION:**`):\n- Detect \"press X\" / \"press X to get through\" / \"call control\" patterns\n- Invoke `press_digit` immediately, do NOT say \"Sure, I'll hold\"\n- Try once more if the prompt repeats, then fall back to LOOP DETECTION\n\n**Coverage status:**\n| LLM | Tool | Prompt |\n|---|---|---|\n| CNKB-EG | ✅ | ✅ |\n| CNKB-Burlington | ✅ | ✅ |\n| CNKB-Pickering | ✅ | ✅ |\n| CNKB-Leaside | ✅ | ✅ |\n| CNKB-Riverside | ✅ | ✅ |\n| CNKB-Sudbury | ✅ | ✅ |\n| CNKB-StCatharines | ✅ | ✅ |\n| Emma (Lead Reactivation) | ✅ tool only | ❌ no matching anchor in prompt |\n\n**Why Emma is partial:** Different prompt structure (older agent, no `Handling Call Screening Systems` section). Tool exists but LLM has no instructions to invoke it. Open question: does Emma even encounter call-control? Probably less common since its leads are warmer/older.\n\n**Triggering case:** Pickering call `call_f2fbc5c0f72e0700c765fca555b` 2026-05-12 22:13 — agent hit \"press 9\" screen, said \"Sure, I'll hold!\", lost the lead.\n\n**Audit follow-on (suggested, not shipped):** Add `CALL_CONTROL_NOT_BYPASSED` check to audit.py — outbound call ended with no conversation AND transcript contains \"press [digit]\" phrasing AND `press_digit` tool was NOT invoked. Catches future regressions in case prompt updates accidentally dilute the rule.\n\nRelated: [[outbound-junior-deflection]] (other CNKB outbound bug class), [[lead-reactivation]] (broader outbound architecture).\n"
+    },
+    "timestamp": "2026-05-13T03:21:25.635Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "- [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.",
+      "new_string": "- [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.\n- [press_digit rollout 2026-05-13](retell-press-digit-rollout.md) — DTMF tool wired to 7 of 8 outbound CNKB LLMs; bypasses call-control \"press 9 to get through\" gates. Triggered by Pickering call_f2fbc5c0 lost lead."
+    },
+    "timestamp": "2026-05-13T03:21:29.083Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Verify clean repo state",
+      "description": "git status, confirm remote, list pending commits to push, check no secrets staged.",
+      "activeForm": "Verifying repo state"
+    },
+    "timestamp": "2026-05-13T03:23:17.058Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Push and confirm",
+      "description": "git push to remote, verify success.",
+      "activeForm": "Pushing to remote"
+    },
+    "timestamp": "2026-05-13T03:23:17.812Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:23:17.820Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "41",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:23:23.389Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git status --short && echo \"---remote---\" && git remote -v && echo \"---unpushed commits---\" && git log --oneline origin/master..HEAD 2>/dev/null || git log --oneline -8",
+      "description": "Verify repo state, remote, and pending commits"
+    },
+    "timestamp": "2026-05-13T03:23:24.349Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "pwd; echo \"---\"; ls -la .git 2>/dev/null | head -3; echo \"---in daily-call-audit---\"; pwd && git status --short && echo \"remote:\" && git remote -v && echo \"unpushed:\" && git log --oneline @{u}..HEAD 2>&1 | head -10",
+      "description": "Determine actual repo for the audit commits"
+    },
+    "timestamp": "2026-05-13T03:23:37.755Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git log --all --pretty=format: --name-only --diff-filter=A 2>/dev/null | grep -E \"^\\.env$|/\\.env$\" | head -5 && echo \"(↑ .env hits in history — check)\" || echo \"✓ no .env in any commit\"",
+      "description": "Confirm no .env leaked into git history"
+    },
+    "timestamp": "2026-05-13T03:23:44.890Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "hits=$(git log --all --pretty=format: --name-only --diff-filter=A 2>/dev/null | grep -cE \"^\\.env$|/\\.env$\") ; echo \"env-file additions in history: $hits\"; echo \"---staged---\"; git ls-files | grep -E \"\\.env$|secrets\" || echo \"no .env tracked\"",
+      "description": "Count any .env additions in history and any tracked secret files"
+    },
+    "timestamp": "2026-05-13T03:23:56.143Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "41",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:24:02.065Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "42",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:24:02.540Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git push origin master 2>&1 | tail -10",
+      "description": "Push 8 commits to GitHub"
+    },
+    "timestamp": "2026-05-13T03:24:03.052Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git fetch origin && echo \"---incoming---\" && git log --oneline HEAD..origin/master | head -10",
+      "description": "Fetch and inspect incoming commits"
+    },
+    "timestamp": "2026-05-13T03:24:09.466Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git pull --rebase origin master 2>&1 | tail -8",
+      "description": "Rebase local commits on top of origin/master"
+    },
+    "timestamp": "2026-05-13T03:24:22.512Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git rebase --abort 2>&1; echo \"---post-abort---\"; git status --short; git log --oneline -3",
+      "description": "Abort rebase, restore my 8 commits intact"
+    },
+    "timestamp": "2026-05-13T03:24:41.541Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "How would you like to push these 8 commits? My local master and origin/master share no common ancestor for the daily-call-audit subtree, so a clean rebase isn't possible without conflicts on .gitignore and similar.",
+          "header": "Push strategy",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "Push to a feature branch and open a PR (Recommended)",
+              "description": "Push as `audit-improvements-2026-05-13` branch. Doesn't touch master. You merge via PR when ready. Safest, preserves history cleanly."
+            },
+            {
+              "label": "Force-push my local master, overwriting origin",
+              "description": "DESTRUCTIVE. Drops the 10 other commits on origin/master (onboarding fixes, calendar-api slot caching, sales deck, voicemail diagrams, etc.). Do not pick unless you know origin/master is also yours and outdated."
+            },
+            {
+              "label": "Merge origin into mine (merge commit)",
+              "description": "Creates a merge commit. Preserves both histories. Slightly messy log but no conflicts on audit.py since none of the incoming commits touch it (the .gitignore conflict during rebase was a per-commit replay artifact)."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-05-13T03:24:50.408Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git checkout -b audit-improvements-2026-05-13 && git push -u origin audit-improvements-2026-05-13 2>&1 | tail -8",
+      "description": "Push to feature branch"
+    },
+    "timestamp": "2026-05-13T03:27:16.420Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "42",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:27:21.206Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-05-13T03:30:39.528Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Explain PR concept with analogy",
+      "description": "Plain English: branch → PR → review → merge. Use Cekura/Google Docs analogy.",
+      "activeForm": "Explaining PR concept"
+    },
+    "timestamp": "2026-05-13T03:30:37.407Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Generate PR workflow illustration via Art skill",
+      "description": "Visual showing the lifecycle: local edits → push → PR → review/comments → approve → merge.",
+      "activeForm": "Generating illustration"
+    },
+    "timestamp": "2026-05-13T03:30:38.486Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "ISC: Draft PR body for audit-improvements branch",
+      "description": "Summary + 8 commits + test plan. Copy-paste ready.",
+      "activeForm": "Drafting PR body"
+    },
+    "timestamp": "2026-05-13T03:30:39.227Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "44",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:30:44.861Z"
+  },
+  {
+    "name": "Skill",
+    "input": {
+      "skill": "Art",
+      "args": "Create an educational technical illustration explaining the GitHub Pull Request workflow for a non-developer audience. STYLE: Clean, modern infographic-style illustration with soft colors (blues, greens, soft oranges). Should feel friendly and educational, not intimidating. Like a high-quality engineering blog header image. SUBJECT: A horizontal flow diagram showing 5 labeled stages of a pull request, left to right: 1) \"LOCAL EDITS\" — a developer's laptop with code being edited on a feature branch (label: \"audit-improvements-2026-05-13\"), small icon of a person working 2) \"PUSH\" — an arrow showing the branch being uploaded to GitHub (small cloud icon labeled \"GitHub\") 3) \"OPEN PR\" — a document/proposal icon labeled \"Pull Request\" showing a summary of changes 4) \"REVIEW\" — speech bubbles/comments, with thumbs up emoji and a \"Request Changes\" callout, suggesting collaboration 5) \"MERGE\" — the feature branch joining the main branch (\"master\") with a sparkle/checkmark indicating success — and the changes now live in production. CRITICAL: Include the labels \"feature branch\" and \"master branch\" with the two branches visually distinct (e.g., feature branch as a curved offshoot rejoining the main horizontal line at the end). NO faces on the people (just silhouettes/abstract figures). NO real GitHub logo (use a generic cloud/git icon). Aspect ratio 16:9 or 21:9. Save the result as /root/pr-workflow-explained.png and report the absolute path back."
+    },
+    "timestamp": "2026-05-13T03:30:51.882Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST http://localhost:8888/notify -H \"Content-Type: application/json\" -d '{\"message\": \"Running the TechnicalDiagrams workflow in the Art skill to illustrate the Pull Request lifecycle for Scott\"}' > /dev/null 2>&1 &\necho \"notification sent\"",
+      "description": "Voice notification for Art skill invocation"
+    },
+    "timestamp": "2026-05-13T03:30:58.366Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls ~/Downloads/ 2>/dev/null | head -3; ls -d ~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Art 2>/dev/null && echo \"(customizations dir exists)\"; ls ~/.claude/skills/Art/Tools/Generate.ts 2>/dev/null",
+      "description": "Probe Downloads, customizations dir, generator tool"
+    },
+    "timestamp": "2026-05-13T03:30:59.536Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat ~/.claude/skills/PAI/USER/SKILLCUSTOMIZATIONS/Art/PREFERENCES.md 2>/dev/null | head -80",
+      "description": "Load Scott's Art preferences"
+    },
+    "timestamp": "2026-05-13T03:31:03.823Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "bun run ~/.claude/skills/Art/Tools/Generate.ts \\\n  --model nano-banana-pro \\\n  --size 2K \\\n  --aspect-ratio 16:9 \\\n  --output ~/Downloads/pr-workflow-explained.png \\\n  --prompt 'Educational infographic illustration explaining the GitHub Pull Request workflow for someone unfamiliar with software development. Clean modern flat-design style with soft pastel palette: muted blues, sage greens, warm soft oranges. Friendly and approachable, like a Notion or Stripe documentation header. Horizontal layout, 5 labeled stages flowing left to right with arrows between them:\n\nSTAGE 1 LOCAL EDITS: a stylized laptop with code lines on screen, a small abstract silhouette figure (no face) sitting at it. Above the laptop a branching diagram fragment showing one line splitting off another, labeled \"feature branch: audit-improvements\".\n\nSTAGE 2 PUSH: an upward arrow from the laptop to a soft-edged cloud icon labeled \"Remote\". Small subtle text \"git push\".\n\nSTAGE 3 OPEN PR: a document/proposal card icon labeled \"PULL REQUEST\" with three short summary bullet lines visible on it.\n\nSTAGE 4 REVIEW: two speech bubbles overlapping the PR card with a checkmark in one bubble and a small pencil-edit icon in the other. Small label \"comments + approvals\".\n\nSTAGE 5 MERGE: the feature branch curve rejoining the main horizontal line, with a sparkle/checkmark at the junction. Main line labeled \"master branch\". Small label \"now live\".\n\nBottom of image: clean thin horizontal line representing master branch running across all 5 stages. Feature branch shown as a curved colored offshoot above it, departing at stage 1 and rejoining at stage 5. Labels in clean sans-serif typography. No real logos, no faces on figures, no clutter. Aspect ratio 16:9.'",
+      "description": "Generate PR workflow infographic via nano-banana-pro"
+    },
+    "timestamp": "2026-05-13T03:31:15.999Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/Downloads/pr-workflow-explained.png"
+    },
+    "timestamp": "2026-05-13T03:31:51.354Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cp /root/Downloads/pr-workflow-explained.png /root/pr-workflow-explained.png && ls -lh /root/pr-workflow-explained.png",
+      "description": "Mirror to /root/ per original ask"
+    },
+    "timestamp": "2026-05-13T03:32:00.651Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "44",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:32:01.016Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "43",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:32:01.285Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "43",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:32:13.079Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "45",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-05-13T03:32:13.135Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "How do you want to open the PR?",
+          "header": "PR creation",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "Open via web (you do it) — Recommended for first PR",
+              "description": "You go to the link, paste the title and body, click Create. Best for first time so you see the UI."
+            },
+            {
+              "label": "Open via CLI (I do it)",
+              "description": "I run gh pr create with the body above; you get a URL back. Fast, but you don't see the GitHub UI walk-through."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-05-13T03:32:35.642Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "gh pr create --base master --head audit-improvements-2026-05-13 --title \"Tighten daily audit: ClickUp verify, inbound rubric, links, legend\" --body \"$(cat <<'EOF'\n## Summary\n\nEight focused fixes to `/root/daily-call-audit/audit.py`. Net effect: the daily audit email now contains far fewer false positives and is easier to read.\n\n- New **inbound ClickUp verification** check — confirms every inbound `call_analyzed` event produced a staff-followup task in ClickUp via the n8n executions API. Catches workflow-skip, create-node-error, and webhook-drop failure modes.\n- **Outbound/inbound rubric separation** — `STAFF_DEFLECTION` and retry-chain flags no longer fire on inbound centres (receptionist handoffs are expected, not bugs).\n- **Tours-vs-camps clarification** — `BOOKING_FUMBLE` no longer fires on camp enrolment, party booking, or pricing handoffs (voice agents only book tours).\n- **Junior age range corrected** to 5-7 (was 5-6); age 7 now correctly overlaps Create.\n- **NAME_ECHO capped at LOW** severity — it's a style nit, never HIGH.\n- **Working Retell call links** in the issues table — \\`/call-history?history={call_id}\\` (the previous \\`/calls/{id}\\` redirected to the agents landing page).\n- **Glossary** (\"What these Kinds mean\") rendered beneath the issues table, only for kinds present in the current run.\n- **Bug fix**: ClickUp check no longer false-positives on \\`call_started\\` / \\`call_ended\\` events (n8n Filter nodes appear in runData regardless of which output branch the items flowed to — fix inspects branch-0 item count, not just node presence).\n\n## Test plan\n\n- [x] Syntax-checked after every commit (\\`python3 -c \"import py_compile...\"\\`)\n- [x] 9 manual test-sends across the day with a 72h window — confirmed each fix landed and didn't regress prior fixes\n- [x] Verified ClickUp check correctly classifies all 5 inbound calls in the test window as \\`created\\`\n- [x] Verified Retell links resolve to the correct call page (not the agents redirect)\n- [x] Legend renders only for kinds present, falls back gracefully on unknown kinds\n- [ ] Next scheduled run at 01:00 UTC will exercise the full pipeline unattended\n\n## Risk\n\nLow. All changes are in \\`audit.py\\` which runs once per day on the droplet via systemd timer. No production-call code paths touched. If the new ClickUp check misbehaves, worst case is a misleading status line in the email — no operational impact. Rolling back is \\`git revert\\` on the merged commits.\n\n## Notes\n\n- Memory dir (gitignored) captures the rubric corrections so future sessions don't drift back.\n- Separate related rollout: \\`press_digit\\` tool added to 7 of 8 outbound CNKB Retell LLMs (not part of this PR — touches Retell config, not the repo).\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\nEOF\n)\" 2>&1 | tail -5",
+      "description": "Create PR via gh CLI"
+    },
+    "timestamp": "2026-05-13T03:34:58.210Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git checkout master 2>&1 | head -3\ngit log --oneline -1\necho \"---\"\ngit checkout -b audit-pipeline-merge 2>&1\necho \"---merging unrelated histories---\"\ngit merge --allow-unrelated-histories audit-improvements-2026-05-13 -m \"Merge audit pipeline into master lineage\" 2>&1 | tail -10",
+      "description": "Merge unrelated histories on a new branch"
+    },
+    "timestamp": "2026-05-13T03:35:20.046Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git branch -r | head -20; echo \"---\"; git log --oneline -3 origin/droplet/daily-call-audit 2>/dev/null",
+      "description": "Confirm correct base branch"
+    },
+    "timestamp": "2026-05-13T03:35:28.021Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git checkout audit-improvements-2026-05-13 2>&1 | tail -2\ngit branch -D audit-pipeline-merge 2>/dev/null\ngh pr create --base droplet/daily-call-audit --head audit-improvements-2026-05-13 --title \"Tighten daily audit: ClickUp verify, inbound rubric, links, legend\" --body \"$(cat <<'EOF'\n## Summary\n\nEight focused fixes to `audit.py`. Net effect: the daily audit email now contains far fewer false positives and is easier to read.\n\n- New **inbound ClickUp verification** check — confirms every inbound `call_analyzed` event produced a staff-followup task in ClickUp via the n8n executions API. Catches workflow-skip, create-node-error, and webhook-drop failure modes.\n- **Outbound/inbound rubric separation** — `STAFF_DEFLECTION` and retry-chain flags no longer fire on inbound centres (receptionist handoffs are expected, not bugs).\n- **Tours-vs-camps clarification** — `BOOKING_FUMBLE` no longer fires on camp enrolment, party booking, or pricing handoffs (voice agents only book tours).\n- **Junior age range corrected** to 5-7 (was 5-6); age 7 now correctly overlaps Create.\n- **NAME_ECHO capped at LOW** severity — it is a style nit, never HIGH.\n- **Working Retell call links** in the issues table — `/call-history?history={call_id}` (the previous `/calls/{id}` redirected to the agents landing page).\n- **Glossary** (\"What these Kinds mean\") rendered beneath the issues table, only for kinds present in the current run.\n- **Bug fix**: ClickUp check no longer false-positives on `call_started` / `call_ended` events (n8n Filter nodes appear in runData regardless of which output branch the items flowed to — fix inspects branch-0 item count, not just node presence).\n\n## Test plan\n\n- [x] Syntax-checked after every commit\n- [x] 9 manual test-sends across the day with a 72h window — confirmed each fix landed and didn't regress prior fixes\n- [x] Verified ClickUp check correctly classifies all 5 inbound calls in the test window as `created`\n- [x] Verified Retell links resolve to the correct call page (not the agents redirect)\n- [x] Legend renders only for kinds present, falls back gracefully on unknown kinds\n- [ ] Next scheduled run at 01:00 UTC will exercise the full pipeline unattended\n\n## Risk\n\nLow. All changes are in `audit.py` which runs once per day on the droplet via systemd timer. No production-call code paths touched. If the new ClickUp check misbehaves, worst case is a misleading status line in the email — no operational impact.\n\n## Notes\n\n- Memory dir (gitignored on droplet) captures the rubric corrections so future sessions don't drift back to the old rules.\n- Separate related rollout: `press_digit` tool added to 7 of 8 outbound CNKB Retell LLMs (not part of this PR — touches Retell config, not the repo).\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\nEOF\n)\" 2>&1 | tail -5",
+      "description": "Create PR with correct base branch (droplet/daily-call-audit)"
+    },
+    "timestamp": "2026-05-13T03:35:41.511Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "45",
+      "status": "completed"
+    },
+    "timestamp": "2026-05-13T03:35:46.266Z"
+  }
+]

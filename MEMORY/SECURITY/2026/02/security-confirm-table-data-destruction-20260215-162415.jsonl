@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-15T16:24:15.240Z",
+  "session_id": "3666319b-48f5-422e-8a21-63364f44ff1d",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "cat << 'JSEOF' > /tmp/extract-email-enhanced.js\nconst items = $input.all();\nconst results = [];\n\n// Simple quoted-printable decoder\nfunction decodeQP(str) {\n  return str.replace(/=\\r?\\n/g, '').replace(/=([0-9A-Fa-f]{2})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));\n}\n\n// Parse a raw RFC 2822 email string into {subject, from, date, body}\nfunction parseEml(raw) {\n  // Split headers from body\n  let splitIdx = raw.indexOf('\\r\\n\\r\\n');\n  if (splitIdx === -1) splitIdx = raw.indexOf('\\n\\n');\n",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

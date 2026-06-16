@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-23T05:06:52.909Z",
+  "session_id": "c1a67764-ed9f-4ec8-a937-71a02c9dca0b",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "source /root/.env\n\n# Get raw execution response\ncurl -s \"https://xprime17.app.n8n.cloud/api/v1/executions/9647\" \\\n  -H \"X-N8N-API-KEY: $N8N_API_KEY\" | python3 -c \"\nimport json,sys\ndata = json.load(sys.stdin)\n# Print keys available\nprint('Top keys:', list(data.keys()))\nprint('Status:', data.get('status'))\nprint('Finished:', data.get('stoppedAt'))\nprint()\n# Print raw data section (truncated)\nraw = json.dumps(data, indent=2)\nprint(raw[:3000])\n\" 2>/dev/null",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

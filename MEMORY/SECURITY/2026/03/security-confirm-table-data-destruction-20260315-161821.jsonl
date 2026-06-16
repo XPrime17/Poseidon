@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-15T16:18:21.854Z",
+  "session_id": "1ac7dd4c-68cb-4698-a248-bad8372b1c27",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "python3 << 'PYEOF'\nimport json\n\nwith open('/root/end-of-call-workflow.json') as f:\n    data = json.load(f)\n\ncall = data['pinData']['End Of Call-Webhook1'][0]['json']['body']['call']\n\n# Print just the call_analysis section\nprint(\"=== CALL ANALYSIS (from pinData) ===\")\nprint(json.dumps(call.get('call_analysis', {}), indent=2))\n\nprint(\"\\n=== KEY CALL FIELDS (from pinData) ===\")\nprint(json.dumps({\n    \"call_id\": call.get(\"call_id\"),\n    \"call_type\": call.get(\"call_type\"),\n    \"agent_id\": call.get(\"a",
+  "reason": "Table data destruction",
+  "action_taken": "Prompted user for confirmation"
+}

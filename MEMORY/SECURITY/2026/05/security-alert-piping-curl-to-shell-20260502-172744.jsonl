@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-05-02T17:27:44.797Z",
+  "session_id": "79010521-0744-4501-a3f5-55d230c115c7",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "N8N_API_KEY=\"eyJ.[REDACTED-JWT]\"\ncat > /tmp/create-doc-wf2.json <<'EOF'\n{\n  \"name\": \"TEMP - Create KB Doc\",\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"httpMethod\": \"POST\",\n        \"path\": \"create-kb-doc\",\n        \"responseMode\": \"lastNode\",\n        \"options\": {}\n      },\n      \"id\": \"trigger-1\",\n      \"",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

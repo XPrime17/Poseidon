@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-27T02:02:44.557Z",
+  "session_id": "5f9a0b50-665f-494d-92fb-71b49f106bcc",
+  "event_type": "block",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "# Clean up test environment\nrm -rf /tmp/test-pai-install",
+  "reason": "Filesystem destruction",
+  "action_taken": "Hard block - exit 2"
+}

@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Confused by unclear explanation, needs clarity",
+  "detailed_context": "Scott asked for clarification after receiving a complex technical explanation about Git branch tracking and PR creation. The explanation appeared incomplete (cut off mid-sentence at 'branc') and failed to clearly state what action, if any, Scott needs to take next. Scott's core frustration stems from uncertainty: does he need to manually handle something, or has Poseidon already completed the task? This is mild dissatisfaction rather than anger. Poseidon should have: (1) completed the explanation fully, (2) provided a clear action summary (e.g., 'You don't need to do anything—the PR is created and ready'), or (3) asked clarifying questions about Scott's immediate next steps. The incomplete message and overly technical explanation without guidance on next steps created unnecessary confusion.",
+  "session_id": "4bb62092-eb24-47e7-8dc5-e4936c81436f",
+  "captured_at": "2026-05-13T03:40:25.978Z",
+  "transcript_source": "4bb62092-eb24-47e7-8dc5-e4936c81436f.jsonl"
+}

@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-08T18:53:52.646Z",
+  "session_id": "1f470cc7-04d7-4e40-98ca-4a3ee700d090",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "WF_ID=$(curl -s -X POST -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" -H \"Content-Type: application/json\" -d @/tmp/verify_sheet.json \"https://xprime17.app.n8n.cloud/api/v1/workflows\" | python3 -c \"import sys,json; print(json.load(sys.stdin).get('id','ERROR'))\") && curl -s -X POST -H \"X-N8N-API-KEY: eyJhbGciOiJIUzI1Ni",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

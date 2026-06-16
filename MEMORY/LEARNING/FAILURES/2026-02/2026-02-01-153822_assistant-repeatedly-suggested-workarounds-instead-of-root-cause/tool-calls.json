@@ -333,7 +333,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"8322308359:AAELtrV8BOvJu9LPEn775voLMjhJTM2iRyw\" | npx wrangler secret put TELEGRAM_BOT_TOKEN",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"8322308359:AAELtrV8BOvJu9LPEn775voLMjhJTM2iRyw\" | npx wrangler secret put TELEGRAM_BOT_TOKEN",
       "description": "Set Telegram bot token with Cloudflare API token"
     },
     "timestamp": "2026-02-01T23:26:36.988Z"
@@ -357,7 +357,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy",
       "description": "Deploy Moltworker with Telegram configuration",
       "timeout": 300000
     },
@@ -478,7 +478,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"true\" | npx wrangler secret put DEBUG_ROUTES",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"true\" | npx wrangler secret put DEBUG_ROUTES",
       "description": "Enable debug routes"
     },
     "timestamp": "2026-02-01T23:33:17.981Z"
@@ -486,7 +486,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -20",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -20",
       "description": "Redeploy with debug routes enabled",
       "timeout": 300000
     },
@@ -548,7 +548,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && echo \"open\" | npx wrangler secret put TELEGRAM_DM_POLICY",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && echo \"open\" | npx wrangler secret put TELEGRAM_DM_POLICY",
       "description": "Set Telegram DM policy to open (no pairing required)"
     },
     "timestamp": "2026-02-01T23:34:48.666Z"
@@ -556,7 +556,7 @@
   {
     "name": "Bash",
     "input": {
-      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=ytdDKYxnJb7LDPd1SxuiZGFSpCQJlfXKRVBFn69a && npm run deploy 2>&1 | tail -15",
+      "command": "cd ~/moltworker && export CLOUDFLARE_API_TOKEN=[REDACTED] && npm run deploy 2>&1 | tail -15",
       "description": "Redeploy with open Telegram policy",
       "timeout": 300000
     },

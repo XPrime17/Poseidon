@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-17T23:48:22.460Z",
+  "session_id": "b458619e-77d6-4ab2-a071-f9790d772760",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "docker system prune -a -f 2>&1",
+  "reason": "Container/image cleanup",
+  "action_taken": "Prompted user for confirmation"
+}

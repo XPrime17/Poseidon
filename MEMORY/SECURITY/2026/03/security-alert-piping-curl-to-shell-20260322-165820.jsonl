@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-22T16:58:20.050Z",
+  "session_id": "24931826-d703-4d94-a2bf-2832aed6f4b1",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "N8N_API=\"https://xprime17.app.n8n.cloud/api/v1\" && N8N_KEY=\"eyJ.[REDACTED-JWT]\" && for WF_ID in 6sPwo7ngPyTWfmwM rt0aEuDnFv3ZCl1y 4p1V0wESn3kZySt6 H7sxzNFsME4wkeJp; do echo \"=== Workflow: $WF_ID ===\" && curl -s -H \"X-N8N-API-KEY: $N8N_KEY\" \"$N8N_API/executions?workflowId=$WF_ID&limit=5&status=error\" | jq '{tot",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

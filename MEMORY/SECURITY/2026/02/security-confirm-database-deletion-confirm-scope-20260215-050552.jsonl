@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-02-15T05:05:52.085Z",
+  "session_id": "3666319b-48f5-422e-8a21-63364f44ff1d",
+  "event_type": "confirm",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "# Deactivate and delete the old duplicates\n# Keep only 2cyDXUCWooSXqPcN (the fixed one with hardcoded keys)\n\n# Deactivate mcqESXeJR5Cc4hTB first\nsqlite3 /root/.n8n/database.sqlite \"UPDATE workflow_entity SET active = 0 WHERE id = 'mcqESXeJR5Cc4hTB';\"\nsqlite3 /root/.n8n/database.sqlite \"DELETE FROM workflow_entity WHERE id = 'y396BhlfwsGXcZ1d';\"\nsqlite3 /root/.n8n/database.sqlite \"DELETE FROM workflow_entity WHERE id = 'mcqESXeJR5Cc4hTB';\"\n\n# Verify what's left\nsqlite3 /root/.n8n/database.sqlite ",
+  "reason": "Database deletion (confirm scope)",
+  "action_taken": "Prompted user for confirmation"
+}

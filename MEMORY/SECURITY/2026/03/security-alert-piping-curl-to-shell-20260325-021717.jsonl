@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-03-25T02:17:17.108Z",
+  "session_id": "5f9a0b50-665f-494d-92fb-71b49f106bcc",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s -X GET \"https://xprime17.app.n8n.cloud/api/v1/workflows/4p1V0wESn3kZySt6\" -H \"X-N8N-API-KEY: eyJ.[REDACTED-JWT]\" | jq '[.nodes[] | select(.type | contains(\"googleSheets\"))] | .[0]' 2>/dev/null",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

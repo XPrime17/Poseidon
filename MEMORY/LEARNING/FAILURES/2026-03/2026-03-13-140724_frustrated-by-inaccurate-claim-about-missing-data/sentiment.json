@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Frustrated by inaccurate claim about missing data",
+  "detailed_context": "Scott was reviewing Poseidon's analysis of a booking scenario, likely from a call transcript or system log. Poseidon claimed the tour was booked 'without any information on availability,' suggesting the SLOTS variable data wasn't accessible. Scott is frustrated because this claim is factually incorrect—the SLOTS variable WAS passed in dynamically with complete availability information. The core issue: Poseidon made a statement about data availability without actually examining what data was present. Scott is correcting this oversight by pointing out that the variable existed and contained the necessary info. This reveals Scott's expectation that Poseidon should thoroughly analyze actual data structures before claiming information is missing. The frustration is mild (measured tone, no hostility) but clear—he's calling out sloppy analysis or incomplete reading of the available context.",
+  "session_id": "0b6d0a87-f52a-4aa6-9ef4-48c6510858ac",
+  "captured_at": "2026-03-13T21:07:24.535Z",
+  "transcript_source": "0b6d0a87-f52a-4aa6-9ef4-48c6510858ac.jsonl"
+}
