@@ -13,6 +13,7 @@
 ## Droplet Ops
 - [Droplet /usr/bin/claude missing](droplet-claude-symlink-fix.md) — half-finished `npm i -g @anthropic-ai/claude-code` leaves `/usr/bin/claude` deleted; old staging dir `.claude-code-<HASH>/bin/claude.exe` still runs. Symlink fix or full reinstall — both documented.
 - [Deploy creds in /root/.env](deploy-env-sourcing.md) — N8N_API_KEY+ELEVENLABS live in /root/.env; Bash tool shell is non-login & non-persistent so it's absent unless you `set -a; . /root/.env; set +a` inline before deploy-*.py. Not "lost n8n access."
+- [Scraper lock deadlock fix](scraper-lock-deadlock-fix-2026-06-16.md) — calendar-api hung holding global extraction_lock (no scrape timeout); shipped 90s wait_for + bounded acquire + timed browser.close + `scraper-watchdog.timer` (5min, restarts on stale>30min/unreachable). Cache age in /health is the canary.
 
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
@@ -75,6 +76,7 @@
 - **Retell** = voice AI platform (agents, LLMs, clones, calls, prompts). OPERATIONAL system.
 - [Retell dashboard call URL format](retell-dashboard-url-format.md) — single-call deep link is `/call-history?history={call_id}`. `/calls/{id}` silently redirects to agents page.
 - [Retell disconnection_reason semantics](retell-disconnection-reasons.md) — `user_declined` = phone rejected call (0s, no transcript), NOT a conversational decline
+- [Voicemail greeting mis-read as user](feedback-voicemail-greeting-hallucinated-as-user.md) — when `in_voicemail=true`, answering-machine greeting is transcribed as live user speech; call_summary fabricates engagement + fake names (Ativ→"Latif"/"Steve"). Trust `in_voicemail`, ignore summary/extracted names on voicemail.
 - [Retell call_type enum two-side gotcha](retell-enum-two-side-gotcha.md) — adding new call_type values requires BOTH prompt AND post_call_analysis_data description updates; skipping either silently coerces to "other"
 - [TTS reads `\!` as "Hush"](tts-backslash-pronounced.md) — never escape punctuation in begin_message / prompt; Retell TTS pronounces backslashes literally (EG inbound, 2026-05-02)
 - [Retell boosted_keywords lives on agent](retell-boosted-keywords.md) — `boosted_keywords` is on the agent object (HTTP PATCH /update-agent), NOT the LLM; not exposed in MCP. Default seed list for CN agents documented.
@@ -134,7 +136,8 @@
 - Audit keying: ALWAYS group retry chains by `to_number`, never by transcript name (two different Ashleys produced false cap-breach report on 2026-04-20)
 
 ## St. Catharines (LIVE 2026-05-09)
-- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — forward centre main line to Retell `+12895140137`. Carrier = **NRBN**; residential tier has ONLY `*72` unconditional (no CFNA star code) — 4-ring policy needs NRBN **Business Hosted Voice** (Cisco BroadSoft, CFNA `*92`/`*93`) configured by NRBN. OPEN: confirm tier + set CFNA. 2026-06-04
+- [Inbound call forwarding setup](stcath-inbound-call-forwarding.md) — ✅ RESOLVED 2026-06-16: live with CFNA no-answer forwarding (3 rings) on 289-974-0871 → `+12895140137`; line is NRBN Business Hosted Voice. Validated by first real inbound booking same day.
+- [First real StCath booking 2026-06-16](stcath-first-real-booking-2026-06-16.md) — inbound call_03baab… (real parent, tour 2026-06-26) = first genuine + first inbound booking. The 7 May outbound "bookings" were all tests (numbers 9059672357 / 9052200332, both testing=TRUE).
 - [ChatDash forwarding wired](stcatharines-chatdash-wired.md) — agent `agent_c02bfb40888bba2275ea3a9f3a` → ChatDash `69ff9fa71ed668b4a511a754` → n8n EOC. Missing forwarding caused 8x retry loop on Stanley test lead 2026-05-10; fixed same night.
 
 ## ClickUp Structure (RESTRUCTURED 2026-06-09)
