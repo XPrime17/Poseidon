@@ -4,6 +4,12 @@
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
 - [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
 
+## ▶ On-Site Callback Rev (2026-06-19)
+- [Parking-lot/running-late → call back in a few min](onsite-callback-rev-2026-06-19.md) — StCath inbound patched (Shauna's ask): time-sensitive on-site callers told to call centre back shortly instead of slow callback. Real-time staff-alert outbound agent filed as GitHub lead-reactivation#60. OPEN: fan block to other 4 inbound agents; Shauna's cell for #60.
+
+## ▶ StCath Dashboard Empty (2026-06-19)
+- [Outbound lead-supply dry since June 8](stcath-outbound-starvation-2026-06-19.md) — StCath outbound idle: no leads appended to MasterSheet since ~6/8 (last=Rachel 9059311485, exhausted). NOT a bug — Centre Lookup row healthy/enabled, pipeline dials 5 other centres fine, inbound busy. Upstream forwarding lapse suspected (LineLeader→HubSpot migration). Next: confirm with Shauna. Inbound-wiring half: ChatDash now wired on StCath inbound (agent `6a34b517d33388e95eeefd6f`), verified Retell→ChatDash→n8n live (execs 21605-07).
+
 ## ▶ Inbound Slot-Source EG Contamination (2026-06-18)
 - [Agents served EG's slots to other centres](inbound-slot-source-eg-contamination-2026-06-18.md) — StCath/Kanata/Burlington inbound `get_tour_slots` hit generic `/retell/get-slots` → `calendar_api.py` defaulted to east-gwillimbury → StCath offered closed-Friday slots (Louis 6/26). Fixed: all 5 live inbound centres added to `CENTRES` cache (Leaside slug `on-leaside`→`leaside-on-ca`), EG default removed (→safe "unavailable"), 4 inbound LLM tool URLs repointed to `/retell/get-slots/<centre>`. Backups saved. OPEN: re-contact Louis for a real StCath slot (Thu 6/25 5:30 PM).
 
