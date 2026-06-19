@@ -4,6 +4,12 @@
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
 - [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
 
+## ▶ Inbound Slot-Source EG Contamination (2026-06-18)
+- [Agents served EG's slots to other centres](inbound-slot-source-eg-contamination-2026-06-18.md) — StCath/Kanata/Burlington inbound `get_tour_slots` hit generic `/retell/get-slots` → `calendar_api.py` defaulted to east-gwillimbury → StCath offered closed-Friday slots (Louis 6/26). Fixed: all 5 live inbound centres added to `CENTRES` cache (Leaside slug `on-leaside`→`leaside-on-ca`), EG default removed (→safe "unavailable"), 4 inbound LLM tool URLs repointed to `/retell/get-slots/<centre>`. Backups saved. OPEN: re-contact Louis for a real StCath slot (Thu 6/25 5:30 PM).
+
+## ▶ Booking Verification Dead-Branches (2026-06-18)
+- [Dead-branches + Skyvern Wait timeout fixed](booking-verif-deadbranch-fix-2026-06-18.md) — Booking Verification `dUEa8NI0z8vq2LSL` Row Found[false]→orphaned `no row` email (killed Scott's verif emails; inbound never matched MasterSheet). REAL root cause of dropped bookings: both EOC `Wait on Skyvern` nodes timed out at 15min but Skyvern takes ~20min→`body=null`→switch matched nothing. Fixed: Wait 15→30min (inbound+outbound `4p1V0wESn3kZySt6`), `fallbackOutput=extra` on both switches. Regression PASS. StCath 06/26 likely DID book (LineLeader notif 21:59) — confirm in LineLeader (ClickUp 868k1wwnp). OPEN: Resend confirm/fail nodes still test-mode.
+
 ## ▶ Lead Program Expansion (2026-06-12)
 - [Create+Junior+Camp outbound](lead-program-expansion-2026-06-12.md) — trigger widened to subject:Inquiry, Classify Lead node (CORE→create, JUNIOR→junior, "New Inquiry for"→camp), lead_program col Z + dynamic var on both call paths, program-aware Stage 1 on all 7 outbound LLMs. OPEN: existing centres must drop their "New CORE Program Inquiry" forwarding filter.
 
