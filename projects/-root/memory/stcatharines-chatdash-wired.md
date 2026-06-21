@@ -21,3 +21,6 @@ CNKB-St. Catharines outbound (`agent_c02bfb40888bba2275ea3a9f3a`) routes its `we
 Verified 2026-05-10 02:55Z via synthetic `call_started` ping → exec 18489 reached n8n EOC, filtered cleanly at "Filter out Call Started & Ended" (no side effects).
 
 Other CNKB outbound agents likely have similar ChatDash agent IDs that were wired during their original onboarding. Audit the rest if a similar retry-loop ever recurs.
+
+## Inbound now wired too (2026-06-19)
+StCath **inbound** (`agent_fa924598caf3662856ac3cea3b`) was direct-to-n8n until 2026-06-19 — so the director-facing ChatDash dashboard showed "no data" (all real bookings, e.g. Louis 6/16, are inbound; outbound has been voicemail-only/idle since 6/8). Scott created a ChatDash inbound agent in the UI (ChatDash API blocked on plan); connecting it auto-repointed the Retell `webhook_url` to `api.chat-dash.com/v1/private/agents/6a34b517d33388e95eeefd6f/import/webhook`. Forwarding URL (ChatDash side) = inbound EOC `https://xprime17.app.n8n.cloud/webhook/inbound-end-of-call` (NOT the outbound URL — per-direction gotcha). Verified end-to-end: live 10-sec test call → n8n inbound-EOC execs 21605-21607 success (chain Retell→ChatDash→n8n intact). Rollback value if ever needed: set inbound webhook_url back to `…/webhook/inbound-end-of-call`.
