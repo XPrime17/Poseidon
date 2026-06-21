@@ -35,6 +35,9 @@
 - [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.
 - [Announce before test-sending](feedback-announce-before-sending.md) — don't add dry-run flags to send-capable scripts; just say "I'm about to send X" before running. Scott prefers real sends with a heads-up over synthetic dry-runs.
 
+## Business Seasonality
+- [Outbound is seasonally slow in June](outbound-seasonality.md) — summer-camp lull; recovers in August (back-to-school). Don't auto-flag dark June/July outbound as starvation unless inbound's also broken or leads stopped appending. Tempers [[stcath-outbound-starvation-2026-06-19]].
+
 ## Voice Agent Rubric
 - [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — "team will reach out" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits.
 - [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory.
