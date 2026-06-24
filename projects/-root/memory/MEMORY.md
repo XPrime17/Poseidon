@@ -7,7 +7,13 @@
 ## ▶ On-Site Callback Rev (2026-06-19)
 - [Parking-lot/running-late → call back in a few min](onsite-callback-rev-2026-06-19.md) — StCath inbound patched (Shauna's ask): time-sensitive on-site callers told to call centre back shortly instead of slow callback. Real-time staff-alert outbound agent filed as GitHub lead-reactivation#60. OPEN: fan block to other 4 inbound agents; Shauna's cell for #60.
 
-## ▶ StCath Dashboard Empty (2026-06-19)
+## ▶ CORE Classifier Drop (2026-06-24)
+- [CORE leads dropped 6/12-6/23 + fixed](core-classifier-drop-2026-06-24.md) — `Classify Lead` regex `/New CORE Inquiry/` never matched real subject `New CORE Program Inquiry` → every CORE lead dropped (all centres) since 6/12; Nadine Gageiro was one. Fixed `/New CORE(\s+Program)?\s+Inquiry/i`, gate PASS. SUPERSEDES the StCath "forwarding lapse" theory below. 21 backfill armed (n8n `QdsKZXl5clf26jsd`, fires 6/25 18:00 ET); batch-lead detection = #61.
+
+## ▶ E2E Lead-Flow Gate (2026-06-24)
+- [Live deploy gate: synthetic lead → real call](e2e-leadflow-regression-harness-2026-06-24.md) — `E2ELeadFlowCheck.py` drives a `New CORE Program Inquiry` through the whole pipeline; asserts it reaches the dial (catches classifier-class breaks the static gate can't). Helper wf `joLG6ji6JEMW6aaW`, fixture row `regression-test` (Testing→Scott's cell). Weekly canary `e2e-leadflow-check.timer` Thu 19:00 ET (rings cell, emails on FAIL). Run after [[pipeline-regression-gate]].
+
+## ▶ StCath Dashboard Empty (2026-06-19) — root cause CORRECTED → see core-classifier-drop-2026-06-24
 - [Outbound lead-supply dry since June 8](stcath-outbound-starvation-2026-06-19.md) — StCath outbound idle: no leads appended to MasterSheet since ~6/8 (last=Rachel 9059311485, exhausted). NOT a bug — Centre Lookup row healthy/enabled, pipeline dials 5 other centres fine, inbound busy. Upstream forwarding lapse suspected (LineLeader→HubSpot migration). Next: confirm with Shauna. Inbound-wiring half: ChatDash now wired on StCath inbound (agent `6a34b517d33388e95eeefd6f`), verified Retell→ChatDash→n8n live (execs 21605-07).
 
 ## ▶ Inbound Slot-Source EG Contamination (2026-06-18)

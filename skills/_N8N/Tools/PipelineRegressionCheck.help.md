@@ -3,6 +3,14 @@
 Layer-1 contract/integrity check for the voice-AI lead pipeline. **Run after any change** to a
 lead-pipeline n8n workflow, the Centre Lookup sheet, or a centre's Retell phone bindings.
 
+> **Two-layer gate.** This is the **static** Layer 1. After it PASSES, also run the **live**
+> Layer 2 — `E2ELeadFlowCheck.py` (see `E2ELeadFlowCheck.help.md`) — which drives one real
+> synthetic lead through intake → classify → enable → append → **Retell dial** to prove the
+> pipeline actually works end-to-end (catches classifier-regex breaks like the live
+> `New CORE Program Inquiry` drop that static checks can't see). Layer 2 rings the **test**
+> phone, so on deploys run Layer 1 first; run Layer 2 (or let its Thursday canary run) second.
+> Deploy order: **static PASS → live PASS**.
+
 ## Run
 ```bash
 set -a; . /root/.env; . ~/.claude/.env; set +a
