@@ -37,6 +37,9 @@
 ## Security Rules (CRITICAL)
 - [No live credentials in memory files](feedback-no-credentials-in-memory.md) — memory dir is on public GitHub; passwords/keys/SIP auth must be 1Password pointers, not literals (GitHub secret scanning blocked Leaside push 2026-04-25)
 
+## Scheduling Policy
+- [Schedule via systemd timers on the droplet](feedback-schedule-via-systemd-timer.md) — default scheduled tasks to `.timer`+`.service` on n8n-production (full env/connectors/files), NOT cloud `/schedule` (sandbox has no Retell/Gmail/n8n + no local files). Confirmed by Scott 2026-06-25; pattern = [[retry-cadence-ab-2026-06-10]] read-out.
+
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
 - [BCC Scott on all centre-bound emails](feedback-bcc-scott-on-centre-emails.md) — every n8n email node routing to centre director must include bccAddresses=scott.james@codeninjas.com (skip Scott-only). Baselined 2026-05-10 across 9 nodes in 2 workflows.
