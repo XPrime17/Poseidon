@@ -9,6 +9,7 @@
 
 ## ▶ CORE Classifier Drop (2026-06-24)
 - [CORE leads dropped 6/12-6/23 + fixed](core-classifier-drop-2026-06-24.md) — `Classify Lead` regex `/New CORE Inquiry/` never matched real subject `New CORE Program Inquiry` → every CORE lead dropped (all centres) since 6/12; Nadine Gageiro was one. Fixed `/New CORE(\s+Program)?\s+Inquiry/i`, gate PASS. SUPERSEDES the StCath "forwarding lapse" theory below. 21 backfill armed (n8n `QdsKZXl5clf26jsd`, fires 6/25 18:00 ET); batch-lead detection = #61.
+- [Backfill fired early 6/24 — only 1/21 dialed](core-backfill-batch-collapse-2026-06-24.md) — Scott had me trigger the backfill manually 6/24 19:29 ET (guard→day24, cron bump, exec 22020). 21/21 injected but Classify Lead collapsed 21→1; only Nadine Gageiro (EG) dialed, **20 dropped + consumed**. Batch-collapse #61 confirmed in prod. Backfill now DEACTIVATED. OPEN: re-inject remaining 20 throttled (1/poll).
 
 ## ▶ E2E Lead-Flow Gate (2026-06-24)
 - [Live deploy gate: synthetic lead → real call](e2e-leadflow-regression-harness-2026-06-24.md) — `E2ELeadFlowCheck.py` drives a `New CORE Program Inquiry` through the whole pipeline; asserts it reaches the dial (catches classifier-class breaks the static gate can't). Helper wf `joLG6ji6JEMW6aaW`, fixture row `regression-test` (Testing→Scott's cell). Weekly canary `e2e-leadflow-check.timer` Thu 19:00 ET (rings cell, emails on FAIL). Run after [[pipeline-regression-gate]].
@@ -47,6 +48,7 @@
 ## Voice Agent Rubric
 - [Staff-deflection rule is OUTBOUND-only](feedback-staff-deflection-outbound-only.md) — "team will reach out" language is banned on outbound clones (Booking Autonomy rev), but EXPECTED on inbound agents (receptionist role). Don't apply outbound rubric to inbound audits.
 - [Agents book TOURS only](feedback-agents-book-tours-only.md) — never flag BOOKING_FUMBLE on camp enrolment, party, class registration, or pricing asks. Voice agent scope = tour scheduling; everything else is staff territory.
+- [Inbound add-child-to-existing-booking = correct deflection](inbound-add-child-existing-booking-2026-06-25.md) — `appointment_booked=false` (call_dec5bf53…, StCath Cimo) wasn't a miss; adding a kid to a family member's full July-2 6:30 session is staff territory. Slot tool returned correct centre calendar (no EG contamination). Confirmed by Scott.
 - [LLM severity caps](feedback-llm-severity-caps.md) — NAME_ECHO always LOW (style issue, never HIGH). Audit clamps post-hoc via LLM_SEVERITY_CAP dict.
 
 ## Verification Skills (CREATED 2026-05-03)
