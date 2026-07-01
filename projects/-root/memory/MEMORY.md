@@ -39,6 +39,9 @@
 ## ▶ Lead Program Expansion (2026-06-12)
 - [Create+Junior+Camp outbound](lead-program-expansion-2026-06-12.md) — trigger widened to subject:Inquiry, Classify Lead node (CORE→create, JUNIOR→junior, "New Inquiry for"→camp), lead_program col Z + dynamic var on both call paths, program-aware Stage 1 on all 7 outbound LLMs. OPEN: existing centres must drop their "New CORE Program Inquiry" forwarding filter.
 
+## ▶ Orphan Sweep Duplicate-lead_id Bug (2026-07-01)
+- [Orphan Sweep no-ops on dup lead_ids](orphan-sweep-dup-leadid-2026-07-01.md) — `Fix Orphaned Leads` in `H7sxzNFsME4wkeJp` uses `appendOrUpdate` match=`lead_id` (not unique); detects all orphans (Find=8/Fix=8 for weeks) but updates only first-match row, so stuck `calling` rows (Chetan row 437 vs twin 425) never heal. Swept 8 orphans manually 7/1 (0 stuck now); filed lead-reactivation#62 (bug, priority-high). Fix (row_number batchUpdate + dedup guard) NOT shipped — awaiting Scott.
+
 ## ▶ Active Experiment
 - [Retry cadence A/B 2026-06-10](retry-cadence-ab-2026-06-10.md) — global switch (all live centres) to ASAP attempt 1 + 6:30pm-ET on day+1/+2/+3. New "Every Day 6:30pm ET" cron in Retry Scheduler `rt0aEuDnFv3ZCl1y`; cadence in `Calculate Next Call` (`4p1V0wESn3kZySt6`). Backups + revert path in file.
 
