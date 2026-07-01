@@ -15,7 +15,19 @@ export const registerAgentTools = (server: McpServer, client: Retell) => {
     "Use this to see all agents before fetching transcripts or updating prompts.",
     {},
     handler(async () => {
-      const agents = await client.agent.list();
+      // Enumerate agent_ids via POST /v2/list-agents — retell-sdk agent.list() still calls
+      // the deprecated GET /list-agents (removed 2026-07-31). v2 items are a slim projection
+      // (no response_engine/llm_id/language), so retrieve each to preserve this tool's output.
+      const ids: string[] = [];
+      let pag: string | undefined;
+      do {
+        const body: any = { filter_criteria: { channel: { op: "eq", type: "string", value: "voice" } }, limit: 1000 };
+        if (pag) body.pagination_key = pag;
+        const page: any = await (client as any).post("/v2/list-agents", { body });
+        for (const a of (page?.items ?? [])) ids.push(a.agent_id);
+        pag = page?.has_more ? page?.pagination_key : undefined;
+      } while (pag);
+      const agents = await Promise.all(ids.map((id) => client.agent.retrieve(id)));
       return agents.map((a: any) => ({
         agent_id: a.agent_id,
         agent_name: a.agent_name ?? "(unnamed)",
