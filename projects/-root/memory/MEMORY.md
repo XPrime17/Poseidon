@@ -125,6 +125,7 @@
 - [press_digit rollout 2026-05-13](retell-press-digit-rollout.md) — DTMF tool wired to 7 of 8 outbound CNKB LLMs; bypasses call-control "press 9 to get through" gates. Triggered by Pickering call_f2fbc5c0 lost lead.
 - [Phone-number weighted *_agents API](retell-phone-weighted-agents-api.md) — Retell deprecated singular `*_agent_id` (2026-03-31) for `*_agents` arrays `[{agent_id,weight}]`; unbind=`[]`. Migrated provision-inbound/onboard-centre/Offboard 2026-05-31. `inbound_webhook_url` + call-level `override_agent_id` unaffected.
 - [v2→v3 list-calls migration](retell-v3-list-calls-migration.md) — DIFFERENT deprecation than phone-fields; `/v2/list-calls`→`/v3/list-calls` (cutoff 2026-06-15). v3 returns `{items,pagination_key,has_more}` not a bare array; get-call stays v2. All 5 sites migrated 2026-06-01; audit.py + portal need redeploy.
+- [list-agents → v2 migration](retell-list-agents-v2-migration-2026-07-01.md) — 3rd deprecation: `GET /list-agents`→`POST /v2/list-agents` (removed 2026-07-31). Doc's `{op,value}` is WRONG — needs `{op,type:"string",value}`; v2 items are SLIM (no llm_id/language) → enrich via `/get-agent`. All 4 live callers migrated+verified 2026-07-01 (2 _N8N tools, cnkb-list-agents.ts, MCP list_agents). poseidon-repo agents.ts uncommitted.
 - **Cekura** = testing/evaluation platform (scenarios, metrics, test runs). QA TOOL.
 - When Scott asks about agents, calls, prompts, clones → Retell section. Do NOT load Cekura.
 - When Scott asks about testing, scenarios, metrics → Cekura section.
