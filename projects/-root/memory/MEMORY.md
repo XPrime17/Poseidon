@@ -8,6 +8,9 @@
 - [+2d due dates fleet-wide + deleted-tasks recovered](clickup-due-date-2026-06-30.md) — added `due_date=now+2d` to 3 ClickUp creator nodes (outbound EOC `4p1V0wESn3kZySt6` Create Staff Follow-Up Task; inbound EOC `3oV7SpPKWmr3xJlQ` Create ClickUp Task + Create Cancel Task) + backfilled open tasks. Sharmila user_id 87425193. Token still hard-coded in n8n nodes (move to cred; `CLICKUP_PERSONAL_TOKEN` in `/root/.claude/.env`).
 - [6/9 23:47 batch = real backfill, NOT junk](feedback-clickup-backfill-not-junk.md) — read a task body before deleting; "+1xxx" are real callback numbers. I deleted Pickering's 5 by mis-classifying them, rebuilt as `868k6h22*`.
 
+## ▶ Wrong-Number Context Gate (2026-07-05)
+- [Garbled name → "wrong number" hangup on real customer, fixed fleet-wide](wrong-number-context-gate-2026-07-05.md) — StCath call_aef1941…: ASR-mangled name reply → agent declared wrong number+goodbye in one turn, misread barge-in "Yes", hung up. Fixed 5 inbound prompts (context gate, ask→WAIT→close, garbled-name re-ask) + audit.py 5J HIGH rule. Backups `/root/cnkb-wrong-number-context-gate-2026-07-05/`.
+
 ## ▶ Slot-Weekday Hallucination Fix (2026-06-30)
 - [Agents fabricated tour weekdays → fixed at source+prompt+audit, fleet-wide](slot-weekday-hallucination-fix-2026-06-30.md) — SLOTS/get_tour_slots fed ISO dates only but prompts said "speak the day of week" (from the 6/1 trim; Cekura empty-var harness was blind). Fixed Format Slots in both n8n outbound wfs + calendar_api.py inbound + 7 outbound & 5 inbound prompts (read-exactly guard) + audit.py HALLUCINATION→HIGH floor. Backups in `/root/n8n-backups/slots-weekday-fix-2026-06-30/` + `/root/cnkb-slots-weekday-prompt-2026-06-30/`. OPEN: confirm next real call renders right; add real-slots assertion to the gate.
 
