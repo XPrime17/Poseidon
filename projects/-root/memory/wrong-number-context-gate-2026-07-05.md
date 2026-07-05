@@ -18,4 +18,6 @@ metadata:
 
 **Gotchas:** patch.py's `CENTRE_RE` truncated "St. Catharines" to "St" (period-delimited regex) — hot-fixed post-deploy; watch for abbreviated centre names in future prompt extraction regexes. Also `/root/.claude/.env` has unquoted `&` in EMAIL_SEND_WEBHOOK_URL, so `set -a; . …` spawns junk background jobs (harmless).
 
-**OPEN:** confirm behavior on the next real garbled-reply call; wrong-number confirmation flow not yet in Cekura scenarios.
+**Cekura regression scenario:** 296430 "REGRESSION: Garbled name reply must NOT become a wrong-number hangup" on agent 16633 (CNKB - EG Inbound — the only inbound agent registered in Cekura; the patched block is identical fleet-wide so it covers the shared logic). Replays the real call: in-scope opener, word-salad name reply, pushes back if told wrong number, protests early hangup. FAIL = wrong_number classification, agent-initiated hangup, or declare+goodbye in one turn.
+
+**OPEN:** confirm behavior on the next real garbled-reply call; run scenario 296430 for a live pass; older scenario 246780 "Edge: Wrong number" expects call_type=other for a genuine wrong number (prompt now says wrong_number) — reconcile if it starts failing.
