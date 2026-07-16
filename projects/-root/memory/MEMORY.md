@@ -8,6 +8,10 @@
 - [+2d due dates fleet-wide + deleted-tasks recovered](clickup-due-date-2026-06-30.md) — added `due_date=now+2d` to 3 ClickUp creator nodes (outbound EOC `4p1V0wESn3kZySt6` Create Staff Follow-Up Task; inbound EOC `3oV7SpPKWmr3xJlQ` Create ClickUp Task + Create Cancel Task) + backfilled open tasks. Sharmila user_id 87425193. Token still hard-coded in n8n nodes (move to cred; `CLICKUP_PERSONAL_TOKEN` in `/root/.claude/.env`).
 - [6/9 23:47 batch = real backfill, NOT junk](feedback-clickup-backfill-not-junk.md) — read a task body before deleting; "+1xxx" are real callback numbers. I deleted Pickering's 5 by mis-classifying them, rebuilt as `868k6h22*`.
 
+## ▶ Leaside Inbound Forward Target (2026-07-16)
+- [Busy signal = forwarding to outbound-only DID → RESOLVED](leaside-inbound-forward-target-2026-07-16.md) — Sharmila forwarded Leaside line to 647-584-1523 (was outbound-only in Retell) → busy. Both DIDs share one Twilio trunk routing inbound→Retell fine; only the Retell inbound-agent binding was missing. FIXED (Option B): bound agent_50a754cd… (CNKB-Leaside-Inbound) to 584-1523 → now inbound+outbound (single-number model); backfilled sheet F8. Sharmila keeps 584-1523. OPEN: live test call.
+- [Twilio access location](twilio-access-location.md) — master creds in onboard-centre.ts; centres = Twilio sub-accounts + SIP trunks → sip.retellai.com. Don't claim "no Twilio access" from empty env vars.
+
 ## ▶ Wrong-Number Context Gate (2026-07-05)
 - [Garbled name → "wrong number" hangup on real customer, fixed fleet-wide](wrong-number-context-gate-2026-07-05.md) — StCath call_aef1941…: ASR-mangled name reply → agent declared wrong number+goodbye in one turn, misread barge-in "Yes", hung up. Fixed 5 inbound prompts (context gate, ask→WAIT→close, garbled-name re-ask) + audit.py 5J HIGH rule. Backups `/root/cnkb-wrong-number-context-gate-2026-07-05/`.
 
@@ -58,6 +62,11 @@
 
 ## Scheduling Policy
 - [Schedule via systemd timers on the droplet](feedback-schedule-via-systemd-timer.md) — default scheduled tasks to `.timer`+`.service` on n8n-production (full env/connectors/files), NOT cloud `/schedule` (sandbox has no Retell/Gmail/n8n + no local files). Confirmed by Scott 2026-06-25; pattern = [[retry-cadence-ab-2026-06-10]] read-out.
+
+## Data Sourcing
+- [Always pull DIDs from Centre Lookup sheet](feedback-did-from-centre-lookup.md) — never placeholder/guess phone numbers; sheet `1wQAdX…GK0` Sheet1 col E `inbound_number`, read via `/root/sheet-read.py`. Kanata `+1 613-702-8134`, Burlington `+1 289-907-1911`. NEW col R `centre_landline` (2026-07-10).
+- [Use Google search for business lookups](feedback-use-google-search.md) — WebSearch missed Kanata's landline; Scott Googled it instantly. Try `google.com/search?q=` before declaring "not found."
+- [Single-number model is fleet-wide](single-number-model-fleetwide.md) — one Retell # = inbound+outbound per centre (StCath model); EG's #13 consolidation DONE (`12898038797`). Landlines forward IN → tracked in col R. Origin session `b5d4a694`, handoff `/root/handoff-2026-06-07-eg-inbound.md`.
 
 ## Communication Style
 - [Re-deliver deliverables on re-ask](feedback-redeliver-on-reask.md) — when Scott asks "did you send X?" twice, paste it again clean; don't say "scroll up"
