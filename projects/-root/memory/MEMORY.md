@@ -18,6 +18,9 @@
 ## ▶ Slot-Weekday Hallucination Fix (2026-06-30)
 - [Agents fabricated tour weekdays → fixed at source+prompt+audit, fleet-wide](slot-weekday-hallucination-fix-2026-06-30.md) — SLOTS/get_tour_slots fed ISO dates only but prompts said "speak the day of week" (from the 6/1 trim; Cekura empty-var harness was blind). Fixed Format Slots in both n8n outbound wfs + calendar_api.py inbound + 7 outbound & 5 inbound prompts (read-exactly guard) + audit.py HALLUCINATION→HIGH floor. Backups in `/root/n8n-backups/slots-weekday-fix-2026-06-30/` + `/root/cnkb-slots-weekday-prompt-2026-06-30/`. OPEN: confirm next real call renders right; add real-slots assertion to the gate.
 
+## ▶ Voicemail Callback Hallucination Fix (2026-07-16)
+- [Outbound agents invented VM callback numbers → deterministic voicemail + prompt guard + audit rule, fleet-wide](voicemail-hallucination-fix-2026-07-16.md) — StCath call_ac4627d2… left the centre TEST number (col I 9052200332) on voicemail; LLM hallucinated it (no VM script → improvised). Shipped to all 7 enabled outbound agents: `voicemail_option`=static_text (landline where col E set), `# Phone Number Rule` prompt guard, audit.py rule 5K (spoken # not in injected KB → HIGH). Landline=289-974-0871 (sheet col E = KB, no discrepancy). OPEN: backfill col E for Pickering/Leaside/Riverside; confirm next real VM.
+
 ## ▶ On-Site Callback Rev (2026-06-19)
 - [Parking-lot/running-late → call back in a few min](onsite-callback-rev-2026-06-19.md) — StCath inbound patched (Shauna's ask): time-sensitive on-site callers told to call centre back shortly instead of slow callback. Real-time staff-alert outbound agent filed as GitHub lead-reactivation#60. OPEN: fan block to other 4 inbound agents; Shauna's cell for #60.
 
