@@ -8,6 +8,12 @@
 - [+2d due dates fleet-wide + deleted-tasks recovered](clickup-due-date-2026-06-30.md) — added `due_date=now+2d` to 3 ClickUp creator nodes (outbound EOC `4p1V0wESn3kZySt6` Create Staff Follow-Up Task; inbound EOC `3oV7SpPKWmr3xJlQ` Create ClickUp Task + Create Cancel Task) + backfilled open tasks. Sharmila user_id 87425193. Token still hard-coded in n8n nodes (move to cred; `CLICKUP_PERSONAL_TOKEN` in `/root/.claude/.env`).
 - [6/9 23:47 batch = real backfill, NOT junk](feedback-clickup-backfill-not-junk.md) — read a task body before deleting; "+1xxx" are real callback numbers. I deleted Pickering's 5 by mis-classifying them, rebuilt as `868k6h22*`.
 
+## ▶ EG Staff Softphone on Twilio (2026-07-20)
+- [Phil/ACD + Scott outbound as EG via Twilio SIP Domain + Hiya — WORKING 2026-07-21](eg-staff-softphone-twilio-2026-07-20.md) — `cnkb-eg-staff.sip.twilio.com` (SIP Domain) in EG sub-account for HUMAN staff outbound on +1 289-803-8797 w/ existing Hiya branding; separate from Retell trunk (untouched). Dial-out Function `eg-staff-dialout` pins callerId. Bria: **UDP/5060/SRTP-off** (TLS→503), auth name = user. Gotcha: register vs call are separate gates; 0 registrations = busy on every call → full Bria restart to re-bind. Creds local `/root/.eg-staff-provision.env` (not memory). Reusable pattern for owner-QC-recording upsell. OPEN: confirm Hiya brand on handset; registration persistence; Phil's Bria.
+
+## ▶ Refund/Billing "Not Handled" Fix (2026-07-20)
+- [Refund calls forced to "needs follow-up"](refund-nothandled-fix-2026-07-20.md) — ClickUp 868kebbvy: refund caller deflected fine but analysis LLM set handled_by_agent=true → "Handled by Agent: Yes" → staff (Jenn) unsure whether to call. Fixed inbound EOC `3oV7SpPKWmr3xJlQ` Format ClickUp Task: `STAFF_ONLY_TYPES=['billing_question']` in `needsFollowup` gate → billing/refund ALWAYS "No - needs follow-up" + Action Required, fleet-wide. Deploy `/root/deploy-refund-nothandled-2026-07-20.py`.
+
 ## ▶ Leaside Inbound Forward Target (2026-07-16)
 - [Busy signal = forwarding to outbound-only DID → RESOLVED](leaside-inbound-forward-target-2026-07-16.md) — Sharmila forwarded Leaside line to 647-584-1523 (was outbound-only in Retell) → busy. Both DIDs share one Twilio trunk routing inbound→Retell fine; only the Retell inbound-agent binding was missing. FIXED (Option B): bound agent_50a754cd… (CNKB-Leaside-Inbound) to 584-1523 → now inbound+outbound (single-number model); backfilled sheet F8. Sharmila keeps 584-1523. OPEN: live test call.
 - [Twilio access location](twilio-access-location.md) — master creds in onboard-centre.ts; centres = Twilio sub-accounts + SIP trunks → sip.retellai.com. Don't claim "no Twilio access" from empty env vars.
@@ -52,6 +58,9 @@
 ## ▶ Orphan Sweep Duplicate-lead_id Bug (2026-07-01)
 - [Orphan Sweep no-ops on dup lead_ids](orphan-sweep-dup-leadid-2026-07-01.md) — `Fix Orphaned Leads` in `H7sxzNFsME4wkeJp` uses `appendOrUpdate` match=`lead_id` (not unique); detects all orphans (Find=8/Fix=8 for weeks) but updates only first-match row, so stuck `calling` rows (Chetan row 437 vs twin 425) never heal. Swept 8 orphans manually 7/1 (0 stuck now); filed lead-reactivation#62 (bug, priority-high). Fix (row_number batchUpdate + dedup guard) NOT shipped — awaiting Scott.
 
+## ▶ Cekura Regression Traffic (2026-07-19)
+- [Recurring outbound personas = Cekura, not real leads](cekura-biweekly-regression-personas.md) — "Jamie/Lucas 9yo Minecraft" (`+13682101298`), "Leo 10" (`+18647326888`), "Sam wrong-location" are Cekura test personas: scripted user side, fixed numbers fleet-wide, `metadata`/`dynamic_variables` null (not n8n lead-dial), biweekly Wed ~10:35 UTC. Exclude from real-lead counts.
+
 ## ▶ Active Experiment
 - [Retry cadence A/B 2026-06-10](retry-cadence-ab-2026-06-10.md) — global switch (all live centres) to ASAP attempt 1 + 6:30pm-ET on day+1/+2/+3. New "Every Day 6:30pm ET" cron in Retry Scheduler `rt0aEuDnFv3ZCl1y`; cadence in `Calculate Next Call` (`4p1V0wESn3kZySt6`). Backups + revert path in file.
 
@@ -67,7 +76,9 @@
 - [Schedule via systemd timers on the droplet](feedback-schedule-via-systemd-timer.md) — default scheduled tasks to `.timer`+`.service` on n8n-production (full env/connectors/files), NOT cloud `/schedule` (sandbox has no Retell/Gmail/n8n + no local files). Confirmed by Scott 2026-06-25; pattern = [[retry-cadence-ab-2026-06-10]] read-out.
 
 ## Data Sourcing
-- [Always pull DIDs from Centre Lookup sheet](feedback-did-from-centre-lookup.md) — never placeholder/guess phone numbers; sheet `1wQAdX…GK0` Sheet1 col E `inbound_number`, read via `/root/sheet-read.py`. Kanata `+1 613-702-8134`, Burlington `+1 289-907-1911`. NEW col R `centre_landline` (2026-07-10).
+- [Always pull DIDs from Centre Lookup sheet](feedback-did-from-centre-lookup.md) — never placeholder/guess; resolve columns by NAME (layout shifts). Current: E `centre_landline`, F `inbound_number`, R `clickup_outbound_list_id`. Read via `/root/sheet-read.py`.
+- [Bell forwarding *92 ON / *93 OFF](bell-forwarding-star-codes.md) — Burlington go-live stalled: Shauna dialed *93 (OFF, no number) → dead beep. AI line was fine. Isolation test = direct-dial the DID.
+- [Inbound agents run is_published=False (normal)](inbound-agents-unpublished-normal.md) — all 4 live inbound agents incl. booking-proven StCath/EG; never chase this flag as an inbound bug.
 - [Use Google search for business lookups](feedback-use-google-search.md) — WebSearch missed Kanata's landline; Scott Googled it instantly. Try `google.com/search?q=` before declaring "not found."
 - [Single-number model is fleet-wide](single-number-model-fleetwide.md) — one Retell # = inbound+outbound per centre (StCath model); EG's #13 consolidation DONE (`12898038797`). Landlines forward IN → tracked in col R. Origin session `b5d4a694`, handoff `/root/handoff-2026-06-07-eg-inbound.md`.
 
