@@ -15,7 +15,7 @@ Never write live credentials into memory files. The memory dir is committed to a
   - Bad: `SIP auth: leaside / Twiliopass!7`
   - Good: `SIP auth: leaside / [REDACTED — see 1Password "Twilio Leaside SIP password"]`
 - Treat as secret: passwords, API keys, JWT tokens, SIP auth, OAuth refresh tokens, signing keys, webhook signing secrets, full DSNs/connection strings.
-- Treat as borderline (avoid co-locating with secrets): Twilio Account SIDs, Phone SIDs — secret scanners flag these as patterns when they appear near passwords.
+- Treat as borderline: **full Twilio Account SIDs (`AC`+32hex) are blocked STANDALONE** — GitHub push protection rejects them as "Twilio Account String Identifier" even with no password nearby (hit 2026-07-22 on `eg-staff-softphone-twilio-2026-07-20.md:14`). Truncate them (`ACf4e7…`) + reference the sub-account by friendly_name; the full SID is always re-fetchable via `/Accounts.json`. Resource SIDs (SD/TK/CL/ZS/PN trunk SIDs) are NOT flagged.
 - Identifiers safe to write: agent IDs, workflow IDs, phone numbers, sheet IDs, public webhook URLs (even on n8n cloud — these are public endpoints).
 - If you catch yourself about to write a credential, redact at the point of writing — don't rely on a later cleanup pass.
 - After a push is blocked by secret scanning: redact, reset --soft, recommit, push, AND tell Scott to rotate the credential since it lived in the local reflog.
