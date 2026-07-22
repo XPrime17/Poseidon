@@ -42,8 +42,12 @@ def _http(req):
     with urllib.request.urlopen(req, timeout=40) as x:
         return json.loads(x.read())
 
-def retell(path):
-    return _http(urllib.request.Request(RETELL + path, headers={"Authorization": f"Bearer {RK}"}))
+def retell(path, method="GET", body=None):
+    data = json.dumps(body).encode() if body is not None else None
+    headers = {"Authorization": f"Bearer {RK}"}
+    if data is not None:
+        headers["Content-Type"] = "application/json"
+    return _http(urllib.request.Request(RETELL + path, data=data, method=method, headers=headers))
 
 def cal_slots(centre=None):
     url = CAL + GENERIC_PATH + (f"/{centre}" if centre else "")
@@ -54,15 +58,27 @@ def cal_health():
     return _http(urllib.request.Request(CAL + "/health"))
 
 def discover_inbound_agents():
-    seen = {}
-    for a in retell("/list-agents"):
-        nm = a.get("agent_name", "")
-        if nm.endswith("-Inbound") and not nm.startswith("[OFFBOARDED"):
-            seen[a["agent_id"]] = a            # de-dup version rows by agent_id
-    return sorted(seen.values(), key=lambda a: a["agent_name"])
+    # POST /v2/list-agents (legacy GET /list-agents removed 2026-07-31); items[] + pagination.
+    # NB: v2 list items are a slim projection (no response_engine/llm_id) — enrich each
+    # kept agent via /get-agent to recover response_engine.llm_id for llm_id_of().
+    seen, pag = {}, None
+    while True:
+        body = {"filter_criteria": {"channel": {"op": "eq", "type": "string", "value": "voice"}}, "limit": 1000}
+        if pag:
+            body["pagination_key"] = pag
+        resp = retell("/v2/list-agents", method="POST", body=body)
+        for a in resp.get("items", []):
+            nm = a.get("agent_name", "")
+            if nm.endswith("-Inbound") and not nm.startswith("[OFFBOARDED"):
+                seen[a["agent_id"]] = a        # de-dup by agent_id
+        pag = resp.get("pagination_key")
+        if not resp.get("has_more") or not pag:
+            break
+    enriched = [retell(f"/get-agent/{aid}") for aid in seen]
+    return sorted(enriched, key=lambda a: a["agent_name"])
 
 def llm_id_of(a):
-    # REST /list-agents nests it under response_engine; tolerate flattened shape too.
+    # v2/list-agents nests it under response_engine; tolerate flattened shape too.
     return a.get("llm_id") or (a.get("response_engine") or {}).get("llm_id")
 
 def slot_tool_url(llm_id):
