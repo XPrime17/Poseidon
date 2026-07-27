@@ -1,5 +1,9 @@
 # PAI Memory
 
+## ▶ Retell/Twilio Notices
+- [Retell CIDR 3.42.144.0/23 allowlist (Aug-2026)](retell-custom-telephony-cidr-2026-07-22.md) — NO ACTION for CNKB; our Twilio trunks auth by CredentialList not IP, Twilio brokers RTP. Keep CIDR on file only.
+- [GET /list-agents deprecation (removed 2026-07-31)](retell-list-agents-deprecation-2026-07-22.md) — NO LIVE BREAK; whole executed stack already on `POST /v2/list-agents` (migrated Jul 9). Only synced the poseidon-repo mirror (`dd92758`). v2 = paginated `items[]` slim projection → enrich via `/get-agent`.
+
 ## ▶ Active Transfer Doc
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
 - [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
@@ -13,6 +17,9 @@
 
 ## ▶ Refund/Billing "Not Handled" Fix (2026-07-20)
 - [Refund calls forced to "needs follow-up"](refund-nothandled-fix-2026-07-20.md) — ClickUp 868kebbvy: refund caller deflected fine but analysis LLM set handled_by_agent=true → "Handled by Agent: Yes" → staff (Jenn) unsure whether to call. Fixed inbound EOC `3oV7SpPKWmr3xJlQ` Format ClickUp Task: `STAFF_ONLY_TYPES=['billing_question']` in `needsFollowup` gate → billing/refund ALWAYS "No - needs follow-up" + Action Required, fleet-wide. Deploy `/root/deploy-refund-nothandled-2026-07-20.py`.
+
+## ▶ Leaside Inbound Double Greeting (2026-07-27)
+- [Double "hi" on forwarded calls → removed Stage 1 greeting dup + begin_message_delay](leaside-inbound-double-greeting-2026-07-27.md) — Sharmila live via Rogers \*741 no-answer forward. Cause: `begin_message` AND `## Stage 1` prompt both greet; forwarded-call clipping → caller "Hello?" → LLM re-greets (call_993603c9…). Fixed agent_50a754cd/llm_cfedf58f: Stage 1 rewritten (do-not-re-greet guard) + `begin_message_delay_ms=1500`. **FANNED OUT 2026-07-27 to all 4 other live inbound (EG/StCath/Burlington/Kanata) + future centres covered (EG is provision-inbound golden source, clone inherits fix+delay).** Backups saved. OPEN: Sharmila's "name is the agent" report NOT reproducible (says "Cimo" everywhere) — Scott asking her.
 
 ## ▶ Leaside Inbound Forward Target (2026-07-16)
 - [Busy signal = forwarding to outbound-only DID → RESOLVED](leaside-inbound-forward-target-2026-07-16.md) — Sharmila forwarded Leaside line to 647-584-1523 (was outbound-only in Retell) → busy. Both DIDs share one Twilio trunk routing inbound→Retell fine; only the Retell inbound-agent binding was missing. FIXED (Option B): bound agent_50a754cd… (CNKB-Leaside-Inbound) to 584-1523 → now inbound+outbound (single-number model); backfilled sheet F8. Sharmila keeps 584-1523. OPEN: live test call.
@@ -48,6 +55,15 @@
 
 ## ▶ Inbound Slot-Source EG Contamination (2026-06-18)
 - [Agents served EG's slots to other centres](inbound-slot-source-eg-contamination-2026-06-18.md) — StCath/Kanata/Burlington inbound `get_tour_slots` hit generic `/retell/get-slots` → `calendar_api.py` defaulted to east-gwillimbury → StCath offered closed-Friday slots (Louis 6/26). Fixed: all 5 live inbound centres added to `CENTRES` cache (Leaside slug `on-leaside`→`leaside-on-ca`), EG default removed (→safe "unavailable"), 4 inbound LLM tool URLs repointed to `/retell/get-slots/<centre>`. Backups saved. OPEN: re-contact Louis for a real StCath slot (Thu 6/25 5:30 PM).
+
+## ▶ Email Column Roles (2026-07-24)
+- [centre_email vs director_personal_email](email-columns-roles.md) — `centre_email` = send-to for ALL AI notifications (inbound+outbound, fallback Scott). `director_personal_email` = ClickUp-guest identity ONLY, zero runtime email use. Notifications hit only the @codeninjas centre inbox, never the personal address.
+
+## ▶ Testing Flag Scope (2026-07-24)
+- [`Testing` column is outbound-only](testing-flag-outbound-only.md) — sole runtime consumer is outbound `Phone Override` (`6sPwo7ngPyTWfmwM`): `Testing ? test_number : real lead`. Inbound EOC has 0 refs; inbound test-detect is caller-based. Kanata/Burlington `Testing=TRUE` (outbound not live) run inbound fully live.
+
+## ▶ Inbound EOC Notification Gaps (2026-07-24)
+- [Inbound EOC notif map + 2 gaps](inbound-eoc-notification-gaps-2026-07-24.md) — wf `3oV7SpPKWmr3xJlQ`: per-call ClickUp task→`clickup_inbound_list_id` + centre_email Gmail (urgent/message/needs-manual); booking Confirmed/Failed/Invalid emails hardcoded to Scott only. GAP1: `Create Cancel Task` hardcoded to EG list `901113422190` (cross-centre bug, all non-EG). GAP2: 3 centre Gmail nodes have no BCC Scott. `isTest`=caller-based, NOT the `Testing` column. NOT fixed.
 
 ## ▶ Booking Verification Dead-Branches (2026-06-18)
 - [Dead-branches + Skyvern Wait timeout fixed](booking-verif-deadbranch-fix-2026-06-18.md) — Booking Verification `dUEa8NI0z8vq2LSL` Row Found[false]→orphaned `no row` email (killed Scott's verif emails; inbound never matched MasterSheet). REAL root cause of dropped bookings: both EOC `Wait on Skyvern` nodes timed out at 15min but Skyvern takes ~20min→`body=null`→switch matched nothing. Fixed: Wait 15→30min (inbound+outbound `4p1V0wESn3kZySt6`), `fallbackOutput=extra` on both switches. Regression PASS. StCath 06/26 likely DID book (LineLeader notif 21:59) — confirm in LineLeader (ClickUp 868k1wwnp). OPEN: Resend confirm/fail nodes still test-mode.
@@ -130,7 +146,7 @@
 - [LLM Token Surcharge = prompt-size scaling](retell-llm-token-surcharge.md) — 3,500-tok limit; surcharge scales billed duration by prompt_tokens/3500. Static CNKB prompt ~6.6K tok (1.9× limit) is the driver, NOT KB injection (~1.4K). Was 56% of the May receipt. Trim prompt, not KB; validate vs Cekura 13260 first.
 
 ## CN HubSpot Migration (ANNOUNCED 2026-04-23)
-- [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide. Pilot end-of-May, full rollout June/July 2026. Invalidates CORE Gmail-trigger; ship HubSpot↔n8n bridge before pilot. Partner: SonaMation.
+- [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide; partner SonaMation. Invalidates CORE Gmail-trigger → need HubSpot→n8n lead bridge by EG cutover (date TBD). EG (7/26): landline 905-478-1664 = hostable, submit ITS bill; NEVER put Twilio DID 289-803-8797 on forms. Staff explainer sent 7/26 for Scott to forward.
 - [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
 
 ## Vinsi.ai Competitive Threat (2026-04-24)
