@@ -56,6 +56,9 @@
 ## ▶ Inbound Slot-Source EG Contamination (2026-06-18)
 - [Agents served EG's slots to other centres](inbound-slot-source-eg-contamination-2026-06-18.md) — StCath/Kanata/Burlington inbound `get_tour_slots` hit generic `/retell/get-slots` → `calendar_api.py` defaulted to east-gwillimbury → StCath offered closed-Friday slots (Louis 6/26). Fixed: all 5 live inbound centres added to `CENTRES` cache (Leaside slug `on-leaside`→`leaside-on-ca`), EG default removed (→safe "unavailable"), 4 inbound LLM tool URLs repointed to `/retell/get-slots/<centre>`. Backups saved. OPEN: re-contact Louis for a real StCath slot (Thu 6/25 5:30 PM).
 
+## ▶ KB Store Hours Source (2026-08-10)
+- [officeHours is authoritative; crawler fix SHIPPED 2026-08-11](kb-hours-upstream-cn-profile-2026-08-10.md) — public site renders ONLY officeHours (studentHours invisible→rots; EG wrong Wed). crawl.ts now uses officeHours w/ studentHours fallback; fleet crawl pushed (10 updated, EG verified). OPEN: Riverside API 400s; Sudbury/Riverside still no hours in KB.
+
 ## ▶ Email Column Roles (2026-07-24)
 - [centre_email vs director_personal_email](email-columns-roles.md) — `centre_email` = send-to for ALL AI notifications (inbound+outbound, fallback Scott). `director_personal_email` = ClickUp-guest identity ONLY, zero runtime email use. Notifications hit only the @codeninjas centre inbox, never the personal address.
 
