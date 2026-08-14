@@ -19,6 +19,6 @@ Deployed to outbound EOC `4p1V0wESn3kZySt6` via `/root/deploy-outbound-email-sub
 
 **4. BCC Scott baseline** added to all 6 centre-bound nodes (was missing on every one).
 
-**Gate:** `PipelineRegressionCheck.py` = FAIL, but on a **pre-existing unrelated item**: new centre `barrhaven-on-ca` (Barrhaven, Maurice, agent_78b3b359…, inbound 13432967200, Testing=TRUE, ClickUp lists 901114322298/9) has empty `clickup_user_ids` → inbound ClickUp tasks would be unassigned. Not caused by this deploy (Gmail-node-only change). OPEN: Scott to supply Maurice's ClickUp user ID; also WARN: Retell number 16474963276 has inbound agent bound but no sheet row.
+**Gate:** `PipelineRegressionCheck.py` = FAIL, but on a **pre-existing unrelated item**: new centre `barrhaven-on-ca` (Barrhaven, Maurice, agent_78b3b359…, inbound 13432967200, Testing=TRUE, ClickUp lists 901114322298/9) has empty `clickup_user_ids` → inbound ClickUp tasks would be unassigned. Not caused by this deploy (Gmail-node-only change). **Scott 2026-08-14: Barrhaven is being onboarded in a separate parallel session — IGNORE it from this workstream** (the gate FAIL + the 16474963276 WARN are expected mid-onboarding state; that session owns clickup_user_ids).
 
 **OPEN:** confirm first real send of each revived email renders correctly (esp. location_name + Skyvern fields in Manual Booking).

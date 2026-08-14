@@ -1,7 +1,7 @@
 # PAI Memory
 
 ## ▶ Outbound Email Overhaul (2026-08-14)
-- [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = pre-existing Barrhaven `clickup_user_ids` empty (new centre, Maurice). OPEN: Maurice's ClickUp ID; confirm first real sends.
+- [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = Barrhaven mid-onboarding in a PARALLEL session (Scott: ignore from this workstream; see barrhaven-onboarding-2026-08-14.md). OPEN: confirm first real sends.
 
 ## ▶ Centre Email CC Decision (2026-08-14)
 - [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes needed); commas not semicolons; To-line not true CC. Also marks eoc-centre-email-not-plumbed RESOLVED. OPEN: awaiting Shauna's address list, then pilot 1 centre.
@@ -15,6 +15,7 @@
 
 ## ▶ Active Transfer Doc
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
+- [Barrhaven onboarding 2026-08-14](barrhaven-onboarding-2026-08-14.md) — Maurice Loiselle's centre provisioned (+13432967200, row 16, testing=TRUE, both directions, Cekura cron 590); VM-text + slot-URL clone-inherit bugs fixed. OPEN: Maurice's email unknown, ChatDash, Hiya, KB share, forwarding, flip testing.
 - [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
 
 ## ▶ ClickUp +2-Day Due Dates (2026-06-30)
