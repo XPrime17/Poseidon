@@ -4,7 +4,9 @@ description: All 4 EOC notification nodes either hardcode scott.james@codeninjas
 type: project
 originSessionId: d29cfbb1-96b5-46a9-911c-1cfb225d76c2
 ---
-# EOC notification emails don't route to centres
+# EOC notification emails don't route to centres — RESOLVED (verified 2026-08-14)
+
+> **UPDATE 2026-08-14:** This is fixed in the live workflow. All outbound EOC `4p1V0wESn3kZySt6` email nodes now reference `centre_email` (via `Resolve Email` / `Lookup Centre SF` / `Fetch Lead Details` / `Format Email Data`) with Scott fallbacks where applicable; only booking Confirmed/Failed/Invalid remain intentionally Scott-only. Verified by pulling both EOC workflows live. Historical detail below kept for context. See [[centre-email-cc-comma-separated-2026-08-14]].
 
 The End Of Call workflow `4p1V0wESn3kZySt6` has 4 notification email nodes:
 - `Send Completed Email1` — hardcoded `scott.james@codeninjas.com`

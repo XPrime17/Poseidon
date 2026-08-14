@@ -1,5 +1,11 @@
 # PAI Memory
 
+## ▶ Centre Email CC Decision (2026-08-14)
+- [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes needed); commas not semicolons; To-line not true CC. Also marks eoc-centre-email-not-plumbed RESOLVED. OPEN: awaiting Shauna's address list, then pilot 1 centre.
+
+## ▶ Per-Centre Greeting — LIVE (2026-08-12)
+- [Built + Shauna self-serve pilot live](percentre-greeting-spec-2026-08-11.md) — cols S/T + `set-greeting.ts` + `greeting-sync.timer` (10min) + Shauna's doc (StCath+Burl allowlist, wf `6wXOMIw0uxmDZq56`). E2E proven apply/revert/reject. OPEN: Scott announces doc to Shauna.
+
 ## ▶ Retell/Twilio Notices
 - [Retell CIDR 3.42.144.0/23 allowlist (Aug-2026)](retell-custom-telephony-cidr-2026-07-22.md) — NO ACTION for CNKB; our Twilio trunks auth by CredentialList not IP, Twilio brokers RTP. Keep CIDR on file only.
 - [GET /list-agents deprecation (removed 2026-07-31)](retell-list-agents-deprecation-2026-07-22.md) — NO LIVE BREAK; whole executed stack already on `POST /v2/list-agents` (migrated Jul 9). Only synced the poseidon-repo mirror (`dd92758`). v2 = paginated `items[]` slim projection → enrich via `/get-agent`.
