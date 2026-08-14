@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Outbound Email Overhaul (2026-08-14)
+- [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = pre-existing Barrhaven `clickup_user_ids` empty (new centre, Maurice). OPEN: Maurice's ClickUp ID; confirm first real sends.
+
 ## ▶ Centre Email CC Decision (2026-08-14)
 - [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes needed); commas not semicolons; To-line not true CC. Also marks eoc-centre-email-not-plumbed RESOLVED. OPEN: awaiting Shauna's address list, then pilot 1 centre.
 

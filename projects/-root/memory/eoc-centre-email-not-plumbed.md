@@ -6,7 +6,7 @@ originSessionId: d29cfbb1-96b5-46a9-911c-1cfb225d76c2
 ---
 # EOC notification emails don't route to centres — RESOLVED (verified 2026-08-14)
 
-> **UPDATE 2026-08-14:** This is fixed in the live workflow. All outbound EOC `4p1V0wESn3kZySt6` email nodes now reference `centre_email` (via `Resolve Email` / `Lookup Centre SF` / `Fetch Lead Details` / `Format Email Data`) with Scott fallbacks where applicable; only booking Confirmed/Failed/Invalid remain intentionally Scott-only. Verified by pulling both EOC workflows live. Historical detail below kept for context. See [[centre-email-cc-comma-separated-2026-08-14]].
+> **UPDATE 2026-08-14 (evening):** NOW truly resolved. The morning's "resolved" note was premature — `Send Manual Booking Needed` (plus `Tentative Tour Alert` and one `No Booking Requested1` path) still referenced `centre_email` on items that never had it (MasterSheet has no such column) → those emails silently never sent (0 in 90d). Fixed by inserting `Lookup Centre TT/NB/MB` nodes; see [[outbound-email-overhaul-2026-08-14]]. Historical detail below kept for context. See also [[centre-email-cc-comma-separated-2026-08-14]].
 
 The End Of Call workflow `4p1V0wESn3kZySt6` has 4 notification email nodes:
 - `Send Completed Email1` — hardcoded `scott.james@codeninjas.com`
