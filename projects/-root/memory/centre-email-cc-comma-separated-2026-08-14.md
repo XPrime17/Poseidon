@@ -22,8 +22,6 @@ Shauna requested additional CC recipients on centre-bound notification emails. D
 - Cell format: `a@x.com, b@y.com` — commas only, no semicolons. Scott edits this column (Shauna's self-serve scope is greeting cols S/T only, [[percentre-greeting-spec-2026-08-11]]).
 - Unaffected: ClickUp guest identity ([[email-columns-roles]] — `director_personal_email`), booking Confirmed/Failed/Invalid emails (hardcoded to Scott).
 
-**Rollout plan:** pilot one centre (append Scott's address as 2nd recipient), confirm a real notification delivers to both, then apply Shauna's list fleet-wide.
-
-**Status:** OPEN — awaiting Shauna's CC address list; no cells edited yet.
+**Status: LIVE 2026-08-14.** Scott manually appended `, shauna.chan@codeninjas.com` to `centre_email` for **burlington-on-ca, st-catharines-on-ca, kanata-on-ca** (her 3 centres). Verified in-sheet same day: comma-separated, no semicolons, all other centres single-address. No workflow change was needed (as designed). OPEN: confirm Shauna receives the next real notification from one of those centres (duplicate delivery to centre inbox + her address).
 
 Supersedes the "not plumbed" claim in [[eoc-centre-email-not-plumbed]] (now resolved — see that file's update note).

@@ -3,8 +3,8 @@
 ## ▶ Outbound Email Overhaul (2026-08-14)
 - [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = Barrhaven mid-onboarding in a PARALLEL session (Scott: ignore from this workstream; see barrhaven-onboarding-2026-08-14.md). OPEN: confirm first real sends.
 
-## ▶ Centre Email CC Decision (2026-08-14)
-- [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes needed); commas not semicolons; To-line not true CC. Also marks eoc-centre-email-not-plumbed RESOLVED. OPEN: awaiting Shauna's address list, then pilot 1 centre.
+## ▶ Centre Email CC — LIVE (2026-08-14)
+- [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes). Scott appended shauna.chan to Burlington/StCath/Kanata cells; format verified in-sheet (commas ✓). OPEN: confirm her copy of the next real notification.
 
 ## ▶ Per-Centre Greeting — LIVE (2026-08-12)
 - [Built + Shauna self-serve pilot live](percentre-greeting-spec-2026-08-11.md) — cols S/T + `set-greeting.ts` + `greeting-sync.timer` (10min) + Shauna's doc (StCath+Burl allowlist, wf `6wXOMIw0uxmDZq56`). E2E proven apply/revert/reject. OPEN: Scott announces doc to Shauna.
@@ -14,6 +14,7 @@
 - [GET /list-agents deprecation (removed 2026-07-31)](retell-list-agents-deprecation-2026-07-22.md) — NO LIVE BREAK; whole executed stack already on `POST /v2/list-agents` (migrated Jul 9). Only synced the poseidon-repo mirror (`dd92758`). v2 = paginated `items[]` slim projection → enrich via `/get-agent`.
 
 ## ▶ Active Transfer Doc
+- [Sonamation scheduler migration 2026-08-14](sonamation-scheduler-migration-2026-08-14.md) — CN migrating tour calendars LineLeader→Sonamation; EG slot scrape dead since Aug 4 (silent "unavailable" fallback). FIXED via Sonamation JSON API in calendar_api (EG/Leaside/Barrhaven; guid=facilityId). OPEN-HIGH: Skyvern booking flow on migrated centres unvalidated; Leaside 304-slot sanity.
 - [Open follow-ups 2026-06-10](open-followups-2026-06-10.md) — resume from `/root/handoff-2026-06-10-followups.md`; Burlington/Riverside ClickUp guests, MED-3 awaiting Sharmila (task 868jzej5p), retire col N, deeper MED-1.
 - [Barrhaven onboarding 2026-08-14](barrhaven-onboarding-2026-08-14.md) — Maurice Loiselle's centre provisioned (+13432967200, row 16, testing=TRUE, both directions, Cekura cron 590); VM-text + slot-URL clone-inherit bugs fixed. OPEN: Maurice's email unknown, ChatDash, Hiya, KB share, forwarding, flip testing.
 - [Kanata + Burlington onboarding 2026-06-12](kanata-burlington-onboarding-2026-06-12.md) — Kanata fully provisioned (+16137028134, agent_aac096…, row 15, testing=TRUE); Burlington guest wired. Inbound provisioned for BOTH 2026-06-12 (Burlington agent_7950e8…, Kanata agent_c3d64f…, smoke PASS). OPEN: ChatDash+Hiya for Kanata, forward emails to Shauna, call forwarding, flip testing.
