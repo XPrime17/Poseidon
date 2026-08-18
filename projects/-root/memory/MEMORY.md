@@ -15,7 +15,7 @@
 
 ## ▶ Retell/Twilio Notices
 - [Retell CIDR 3.42.144.0/23 allowlist (Aug-2026)](retell-custom-telephony-cidr-2026-07-22.md) — NO ACTION for CNKB; our Twilio trunks auth by CredentialList not IP, Twilio brokers RTP. Keep CIDR on file only.
-- [GET /list-agents deprecation (removed 2026-07-31)](retell-list-agents-deprecation-2026-07-22.md) — NO LIVE BREAK; whole executed stack already on `POST /v2/list-agents` (migrated Jul 9). Only synced the poseidon-repo mirror (`dd92758`). v2 = paginated `items[]` slim projection → enrich via `/get-agent`.
+- [GET /list-agents deprecation (removed 2026-07-31)](retell-list-agents-deprecation-2026-07-22.md) — stack on v2 since Jul 9. 8/18: 2nd notice (1 GET, Aug 12 19:01 UTC) — droplet fully exonerated by sweep; caller is an external key-holder (ChatDash most likely, or stale laptop MCP). Never test-call the legacy GET.
 
 ## ▶ Active Transfer Doc
 - [Sonamation scheduler migration 2026-08-14](sonamation-scheduler-migration-2026-08-14.md) — CN migrating tour calendars LineLeader→Sonamation; EG slot scrape dead since Aug 4 (silent "unavailable" fallback). FIXED via Sonamation JSON API in calendar_api (EG/Leaside/Barrhaven; guid=facilityId). OPEN-HIGH: Skyvern booking flow on migrated centres unvalidated; Leaside 304-slot sanity.
