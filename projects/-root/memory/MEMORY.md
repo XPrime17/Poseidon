@@ -164,7 +164,7 @@
 - [LLM Token Surcharge = prompt-size scaling](retell-llm-token-surcharge.md) — 3,500-tok limit; surcharge scales billed duration by prompt_tokens/3500. Static CNKB prompt ~6.6K tok (1.9× limit) is the driver, NOT KB injection (~1.4K). Was 56% of the May receipt. Trim prompt, not KB; validate vs Cekura 13260 first.
 
 ## CN HubSpot Migration (ANNOUNCED 2026-04-23)
-- [HubSpot migration](hubspot-migration.md) — HQ replacing LineLeader system-wide; partner SonaMation. Invalidates CORE Gmail-trigger → need HubSpot→n8n lead bridge by EG cutover (date TBD). EG (7/26): landline 905-478-1664 = hostable, submit ITS bill; NEVER put Twilio DID 289-803-8797 on forms. Staff explainer sent 7/26 for Scott to forward.
+- [HubSpot migration](hubspot-migration.md) — EG LIVE on HubSpot leads 8/17. Notif email "New Request Info Form Fill" (wf G1.1) has NO phone/email/location but form REQUIRES them (template gap, not data gap) → ask Grayson Faircloth to add tokens. Form consent covers AI/autodial calls. NEVER put Twilio DID 289-803-8797 on forms.
 - [CRM-agnostic design rationale](crm-agnostic-design-rationale.md) — voice AI was built CRM-free on purpose (ActiveCampaign rumour at build time). Use for "should we wait for HubSpot?" objection-handling.
 
 ## Vinsi.ai Competitive Threat (2026-04-24)
