@@ -1,10 +1,14 @@
 # PAI Memory
 
+## ▶ Daily Audit LLM Ground Truth (2026-08-18)
+- [False HALLUCINATION on correct slot reads → SLOTS now fed to llm_review](audit-llm-slots-groundtruth-2026-08-18.md) — 8/17 audit's H+M were both false positives (StCath agent read injected slots verbatim, Aug 18 IS Tuesday); audit.py judge never saw SLOTS. Fixed + verified (clean ×2 w/ slots; control w/o slots still fires HIGH).
+- [Deferred-to-a-date lead follow-up = future feature lead-reactivation#64](deferred-lead-followup-feature-64.md) — "call me in September" leads exit pipeline w/ no re-contact; spec = ClickUp task due=deferred date OR scheduler re-dial. Not building yet per Scott 2026-08-18.
+
 ## ▶ Outbound Email Overhaul (2026-08-14)
-- [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = Barrhaven mid-onboarding in a PARALLEL session (Scott: ignore from this workstream; see barrhaven-onboarding-2026-08-14.md). OPEN: confirm first real sends.
+- [Killed "Outcome unsuccessfull" + centre in subjects + 3 silent-drop paths fixed](outbound-email-overhaul-2026-08-14.md) — outbound EOC `4p1V0wESn3kZySt6`: node disabled; location_name in 4 subjects (Shauna); Tentative Tour/No Booking/Manual Booking emails had 0 sends in 90d (centre_email never on item) → Lookup Centre TT/NB/MB inserted + BCC Scott on 6 nodes. 19/19 checks PASS. Gate FAIL = Barrhaven mid-onboarding in a PARALLEL session (Scott: ignore from this workstream; see barrhaven-onboarding-2026-08-14.md). 8/18: No Booking first real send CONFIRMED (exec 28014, msg 1a010d8590dccf04). OPEN: first real TT + MB sends.
 
 ## ▶ Centre Email CC — LIVE (2026-08-14)
-- [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes). Scott appended shauna.chan to Burlington/StCath/Kanata cells; format verified in-sheet (commas ✓). OPEN: confirm her copy of the next real notification.
+- [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes). Scott appended shauna.chan to Burlington/StCath/Kanata cells; format verified in-sheet (commas ✓). CONFIRMED 8/18: StCath No Booking email sent to centre + shauna.chan (msg 1a010d8590dccf04).
 
 ## ▶ Per-Centre Greeting — LIVE (2026-08-12)
 - [Built + Shauna self-serve pilot live](percentre-greeting-spec-2026-08-11.md) — cols S/T + `set-greeting.ts` + `greeting-sync.timer` (10min) + Shauna's doc (StCath+Burl allowlist, wf `6wXOMIw0uxmDZq56`). E2E proven apply/revert/reject. OPEN: Scott announces doc to Shauna.
