@@ -89,7 +89,8 @@
 ## ▶ Lead Program Expansion (2026-06-12)
 - [Create+Junior+Camp outbound](lead-program-expansion-2026-06-12.md) — trigger widened to subject:Inquiry, Classify Lead node (CORE→create, JUNIOR→junior, "New Inquiry for"→camp), lead_program col Z + dynamic var on both call paths, program-aware Stage 1 on all 7 outbound LLMs. OPEN: existing centres must drop their "New CORE Program Inquiry" forwarding filter.
 
-## ▶ Orphan Sweep Duplicate-lead_id Bug (2026-07-01)
+## ▶ Orphan Sweep Duplicate-lead_id Bug (2026-07-01) — FIXED 2026-08-18
+- [#62 SHIPPED + NANP guard](nanp-guard-orphan-rownumber-2026-08-18.md) — sweep heals by row_number (+ regression-test rows exhausted, never re-queued); Sanitize validatePhone now NANP-strict + normalizes to 10 digits (aligns lead_id w/ EOC). 12 stale rows closed first. EOC's own lead_id first-match write NOT fixed (sweep self-heals fallout 2h).
 - [Orphan Sweep no-ops on dup lead_ids](orphan-sweep-dup-leadid-2026-07-01.md) — `Fix Orphaned Leads` in `H7sxzNFsME4wkeJp` uses `appendOrUpdate` match=`lead_id` (not unique); detects all orphans (Find=8/Fix=8 for weeks) but updates only first-match row, so stuck `calling` rows (Chetan row 437 vs twin 425) never heal. Swept 8 orphans manually 7/1 (0 stuck now); filed lead-reactivation#62 (bug, priority-high). Fix (row_number batchUpdate + dedup guard) NOT shipped — awaiting Scott.
 
 ## ▶ Cekura Regression Traffic (2026-07-19)
