@@ -117,7 +117,8 @@ def main():
     inbound_bound = None
     if RETELL_KEY:
         rt = http("https://api.retellai.com/list-phone-numbers", {"Authorization": f"Bearer {RETELL_KEY}"})
-        inbound_bound = {digits(p.get("phone_number")) for p in rt if p.get("inbound_agent_id")}
+        # Retell moved bindings from singular inbound_agent_id -> inbound_agents[] (2026-03 deprecation); accept either
+        inbound_bound = {digits(p.get("phone_number")) for p in rt if p.get("inbound_agent_id") or p.get("inbound_agents")}
     else:
         WARN("[C] Retell binding check skipped (no RETELL_API_KEY in env)")
     sheet_inbound = {digits(r.get("inbound_number")) for r in rows if digits(r.get("inbound_number"))}
