@@ -1,5 +1,11 @@
 # PAI Memory
 
+## ▶ HubSpot Go-Live + Testing-Flag String Bug (2026-08-20)
+- [Text "FALSE" Testing cells = truthy → Burlington real lead dialed Scott](testing-flag-string-false-misdial-2026-08-20.md) — Shauna's 3 centres ARE live on HubSpot (real StCath/Burlington leads 8/20). Burlington's Amanda Kendall misdialed to test number; cells → real booleans, Phone Override string-hardened, row 504 repaired + redial queued. Verify flips w/ UNFORMATTED_VALUE.
+
+## ▶ n8n Brace-Escape Gotcha (2026-08-20)
+- [Literal {{ }} escapes in node text = runtime "invalid syntax"](n8n-brace-escape-invalid-syntax-2026-08-20.md) — dedupe alert in outbound `6sPwo7ngPyTWfmwM` crashed exec 28370 on first real duplicate (Jaclyn Blanchard echo, correctly dropped, no lead lost). Fixed live; word placeholders in prose + force-test error branches once.
+
 ## ▶ Daily Audit LLM Ground Truth (2026-08-18)
 - [False HALLUCINATION on correct slot reads → SLOTS now fed to llm_review](audit-llm-slots-groundtruth-2026-08-18.md) — 8/17 audit's H+M were both false positives (StCath agent read injected slots verbatim, Aug 18 IS Tuesday); audit.py judge never saw SLOTS. Fixed + verified (clean ×2 w/ slots; control w/o slots still fires HIGH).
 - [Deferred-to-a-date lead follow-up = future feature lead-reactivation#64](deferred-lead-followup-feature-64.md) — "call me in September" leads exit pipeline w/ no re-contact; spec = ClickUp task due=deferred date OR scheduler re-dial. Not building yet per Scott 2026-08-18.
