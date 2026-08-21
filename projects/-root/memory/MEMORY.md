@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Scrape Cache-First + Jitter — LIVE (2026-08-21)
+- [Cache-first /extract-calendar (108ms) + 0-30min 6:30pm jitter](scrape-cache-first-jitter-2026-08-21.md) — fixes 1-dial-per-tick starvation; zero n8n changes, fallback+requeue intact. OPEN: verify 8/21 staggered dials; Pickering/Riverside uncached; HubSpot scheduler API = lead-reactivation#66.
+
 ## ▶ HubSpot Go-Live + Testing-Flag String Bug (2026-08-20)
 - [Text "FALSE" Testing cells = truthy → Burlington real lead dialed Scott](testing-flag-string-false-misdial-2026-08-20.md) — Shauna's 3 centres ARE live on HubSpot (real StCath/Burlington leads 8/20). Burlington's Amanda Kendall misdialed to test number; cells → real booleans, Phone Override string-hardened, row 504 repaired. Redial stalled by scrape-lock (1 dial/tick) → 5 leads staggered across 8/21 ticks (Amanda 09:30 ET first). OPEN: confirm dials; scheduler should use slots cache. Verify flips w/ UNFORMATTED_VALUE.
 
