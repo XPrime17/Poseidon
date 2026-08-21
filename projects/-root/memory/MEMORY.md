@@ -1,7 +1,7 @@
 # PAI Memory
 
 ## ▶ HubSpot Go-Live + Testing-Flag String Bug (2026-08-20)
-- [Text "FALSE" Testing cells = truthy → Burlington real lead dialed Scott](testing-flag-string-false-misdial-2026-08-20.md) — Shauna's 3 centres ARE live on HubSpot (real StCath/Burlington leads 8/20). Burlington's Amanda Kendall misdialed to test number; cells → real booleans, Phone Override string-hardened, row 504 repaired + redial queued. Verify flips w/ UNFORMATTED_VALUE.
+- [Text "FALSE" Testing cells = truthy → Burlington real lead dialed Scott](testing-flag-string-false-misdial-2026-08-20.md) — Shauna's 3 centres ARE live on HubSpot (real StCath/Burlington leads 8/20). Burlington's Amanda Kendall misdialed to test number; cells → real booleans, Phone Override string-hardened, row 504 repaired. Redial stalled by scrape-lock (1 dial/tick) → 5 leads staggered across 8/21 ticks (Amanda 09:30 ET first). OPEN: confirm dials; scheduler should use slots cache. Verify flips w/ UNFORMATTED_VALUE.
 
 ## ▶ n8n Brace-Escape Gotcha (2026-08-20)
 - [Literal {{ }} escapes in node text = runtime "invalid syntax"](n8n-brace-escape-invalid-syntax-2026-08-20.md) — dedupe alert in outbound `6sPwo7ngPyTWfmwM` crashed exec 28370 on first real duplicate (Jaclyn Blanchard echo, correctly dropped, no lead lost). Fixed live; word placeholders in prose + force-test error branches once.
