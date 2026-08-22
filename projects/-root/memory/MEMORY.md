@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Centre-not-found Silent Drop (2026-08-22)
+- [Transient Centre Lookup miss on valid leaside slug dropped Mariem Ben Sayeh](centre-notfound-transient-lookup-2026-08-22.md) — 8/21 21:12 exec 28527; recovered row 513 + dialed; "Centre not found" email now carries slug/lead detail. Watch for repeat → add lookup retry before the gate.
+
 ## ▶ Scheduler Pairing Phantom Attempts — INCIDENT (2026-08-22)
 - [Merge positional pairing + unconfigured Pickering exhausted real leads with 0 calls](scheduler-pairing-phantom-attempts-2026-08-22.md) — cache-first exposed latent combineByPosition bug ("Multiple matches found" kills dial after attempt++); Pickering Sonamation guid added; 7 rows repaired to Retell truth; broken sheet-proxy no-oped the 8/21 stagger (ALWAYS re-read after Sheets writes). Structural fix = #67. Riverside unaudited.
 
