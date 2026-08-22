@@ -30,6 +30,22 @@ ClickUp, and FAILS on the class of break that took EG inbound offline silently f
 (May-31 2026). A change is **not shipped** until this returns PASS. WARNs flag centres
 provisioned-but-not-wired (fix before activating). See `Tools/PipelineRegressionCheck.py`.
 
+## E2E Gate — RUN AFTER BEHAVIOR-CHANGING RELEASES (added 2026-08-22)
+
+The static gate checks wiring, not behavior. For any change that alters **runtime behavior**
+of the lead pipeline (dial logic, scheduling/cadence, slot sourcing, calendar_api, EOC
+processing), ALSO fire the E2E harness — do not wait for the Thursday 19:00 ET canary:
+
+```bash
+set -a; . /root/.env; set +a
+python3 ~/.claude/skills/_N8N/Tools/E2ELeadFlowCheck.py   # injects synthetic lead → asserts real dial
+```
+
+**Announce first — it rings Scott's cell.** Lesson from 2026-08-22 (lead-reactivation#67):
+cache-first shipped hours after the weekly canary passed and a latent scheduler bug burned
+real leads' attempts for 2 days before the next check would have run. KNOWN GAP: the harness
+only covers ingest→Outbound dial; the Retry Scheduler path is untested (#67 tracks adding it).
+
 ## Workflow Registry
 
 | Name | ID | Purpose |

@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Scheduler Pairing Phantom Attempts — INCIDENT (2026-08-22)
+- [Merge positional pairing + unconfigured Pickering exhausted real leads with 0 calls](scheduler-pairing-phantom-attempts-2026-08-22.md) — cache-first exposed latent combineByPosition bug ("Multiple matches found" kills dial after attempt++); Pickering Sonamation guid added; 7 rows repaired to Retell truth; broken sheet-proxy no-oped the 8/21 stagger (ALWAYS re-read after Sheets writes). Structural fix = #67. Riverside unaudited.
+
 ## ▶ Scrape Cache-First + Jitter — LIVE (2026-08-21)
 - [Cache-first /extract-calendar (108ms) + 0-30min 6:30pm jitter](scrape-cache-first-jitter-2026-08-21.md) — fixes 1-dial-per-tick starvation; zero n8n changes, fallback+requeue intact. OPEN: verify 8/21 staggered dials; Pickering/Riverside uncached; HubSpot scheduler API = lead-reactivation#66.
 
