@@ -7,7 +7,7 @@ metadata:
 
 Scott's 8/21 "Centre not found" n8n email (body was literally just "Centre not found" — zero context): outbound exec 28527, 8/21 21:12 ET. HubSpot Zap lead **Mariem Ben Sayeh, +1 437-318-9340, myriambensayeh@gmail.com, Leaside** (`scott.james1717+leaside-on-ca@gmail.com`). `Extract Centre` parsed the slug fine; **`Lookup Centre` returned an empty item for a slug that exists** (row 8, exact match, worked 8/19 and 8/22) → transient Sheets lookup miss (mid-edit or API hiccup) → `Centre Found?` false → email → **lead consumed, never appended, never dialed**.
 
-Recovery 8/22 ~16:19 ET: appended row 513 per _SYSTEMCHECK runbook (`Mariem-4373189340`, retry_pending, attempts 0, `last_outcome=backlog_recovered`, lead_program=create), read-back verified; scheduler dials on next tick (Leaside cached).
+Recovery 8/22 ~16:19 ET: appended row 513 per _SYSTEMCHECK runbook (`Mariem-4373189340`, retry_pending, attempts 0, `last_outcome=backlog_recovered`, lead_program=create), read-back verified. **DIALED 17:37 ET same day** (`call_076ba355c8d40a7eb60fb18c7b5`, 23s, hit an uninitialized voicemail box — attempt 1 hangup per policy; EOC cadence continues, attempt 2 next evening leaves the static VM). Recovery loop closed ~20h after the drop.
 
 Also shipped: `Centre not found` Gmail node now includes slug/To/From/subject/snippet + recovery instruction (was a contentless one-liner — cost real diagnosis time). Backup `/root/n8n-backups/centre-notfound-email-2026-08-22-before.json`. No literal braces used (see [[n8n-brace-escape-invalid-syntax-2026-08-20]]).
 
