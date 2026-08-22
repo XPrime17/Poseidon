@@ -536,3 +536,4 @@
 | `tourforce-pricing.md` | 2-tier CAD-only (Base $99 / Pro $299), founding rate $199 Pro for first 5 centres, Vinsi intel — v9 2026-05-23 |
 | `customer-leaside-pickering-first-paying.md` | First paying customer — Sharmilla, Leaside + Pickering, $368.15 MRR, signed 2026-05-23 |
 | `feedback-ship-simple-when-decisions-oscillate.md` | When a decision keeps reversing, the gap is data not analysis — ship simplest defensible version |
+- [Chat-Dash agent gaps — Leaside/Burl/Kanata inbound unassigned](chatdash-agent-assignment-gaps-2026-08-22.md) — client dashboard shows half the service; fix before Shauna/Sharmila paid go-live; Pickering 1-agent is by design

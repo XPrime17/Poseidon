@@ -27,8 +27,11 @@ TourForce pricing is a 2-tier model (Base $99 CAD / Pro $299 CAD), $0 setup and 
 - Sharmilla (Leaside + Pickering) is centres 1 and 2. 3 founding slots remaining.
 - Rationale: founding discount is *expected* in early SaaS; it signals "you got in early," not "we mispriced." Preserves $299 list anchor for the open market.
 
-### Customer Data Point (NOT adopted)
-- Sharmilla's instinct on list pricing: **$149 / $249** (felt $99/$299 was wrong-shaped). Recorded as one prospect's preference. **Not yet a pattern** — re-evaluate list prices only if 3+ prospects independently push the same direction.
+### Customer Data Point — CORRECTED 2026-08-22 from WhatsApp primary source
+- Prior record ("Sharmilla counter-offered $149/$249, not adopted") was WRONG in attribution. The 2026-05-23 WhatsApp transcript (provided by Scott 2026-08-22) shows **Scott himself proposed Base $149 / Pro $249** and told Sharmilla: *"first 5 centres at 199 and then move 249."* Sharmilla's own suggestion was $149/$199; Scott rejected that as too close together.
+- **Customer-facing commitment:** Sharmilla's understanding is post-founding Pro list = **$249**, not $299. The $99/$299 list in this file was never communicated to her. Resolve the anchor before quoting list price to any prospect (Shauna transition, 2026-08-22).
+- **Value-prop line that closed the deal:** "$249 is a common charge for Create regular, so the agent pays for itself after just 1 conversion" — Sharmilla repeated it back approvingly. Reuse this framing.
+- Also from transcript: Pro includes everything but features can be disabled per centre (Pickering inbound example) — flexibility was part of the close.
 - **Setup fee:** $0
 - **Contracts:** Cancel anytime, month-to-month
 - **Multi-location:** 15% off each additional centre
