@@ -28,7 +28,7 @@ Env:
   RETELL_API_KEY (or RETELL_KEY)   — Retell API key (in ~/.claude/.env)
   CAL_API_BASE                     — calendar_api base (default http://localhost:5001)
 """
-import os, sys, json, urllib.request, urllib.error
+import os, re, sys, json, urllib.request, urllib.error
 
 RETELL = "https://api.retellai.com"
 RK = os.environ.get("RETELL_API_KEY") or os.environ.get("RETELL_KEY")
@@ -149,6 +149,17 @@ def main():
             fails.append(f"C1 {name}: get_tour_slots URL is GENERIC ({url!r}) -> will default to EG")
             lines.append(f"  [FAIL] C1 {tag}: generic slot URL {url!r}")
             continue
+        # A specific-but-WRONG centre must also fail C1: a clone that still points at
+        # /east-gwillimbury passed here 2026-08-22 (Pickering onboard), and C4 then
+        # skipped because the routed centre WAS EG. Compare against the agent's name.
+        m = re.match(r"CNKB-(.+?)-Inbound", name, re.I)
+        if m:
+            token = re.sub(r"[\s.\-]", "", m.group(1)).lower()
+            expected = {"eg": "eastgwillimbury"}.get(token, token)
+            if expected != re.sub(r"[\s.\-]", "", centre).lower():
+                fails.append(f"C1 {name}: slot URL routes to /{centre} but agent is for '{m.group(1)}' — cloned URL not repointed")
+                lines.append(f"  [FAIL] C1 {tag}: routes to /{centre}, expected /{m.group(1)} (clone leak)")
+                continue
         lines.append(f"  [PASS] C1 {tag}: routes to /{centre}")
 
         # C2 cached
