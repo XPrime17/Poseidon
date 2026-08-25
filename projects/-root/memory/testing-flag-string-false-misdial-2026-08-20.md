@@ -18,4 +18,6 @@ Fixes (all live):
 
 **Why it matters:** HubSpot go-live evidence — all 3 of Shauna's centres ARE live (StCath: Jaclyn Blanchard + Brianna Prasad real leads 8/20; Burlington: Amanda Kendall 8/20; Kanata: Zap wiring proven with Scott's test deal 8/19, no organic lead yet). Shauna believed otherwise — corrected.
 
+**OUTCOME 2026-08-23: Amanda BOOKED** — attempt 2 (19:07 ET) converted: tour Fri Aug 29 11:30 AM for Gabriel (12, Create), Skyvern completed + confirmation email sent. Misdial → repair → rescue → conversion, end to end.
+
 Gotcha for future flips: when toggling `Testing`, verify the cell is a real boolean (read with `valueRenderOption=UNFORMATTED_VALUE`), not typed text. Related: [[testing-flag-outbound-only]], [[n8n-brace-escape-invalid-syntax-2026-08-20]], [[eoc-rownumber-refactor-shipped-2026-08-19]].
