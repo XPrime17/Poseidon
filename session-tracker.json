@@ -786,6 +786,466 @@
       "description": "Unknown command: /_SYSTEMCHECK",
       "first_prompt": "/_SYSTEMCHECK",
       "started_at": "2026-06-16T01:07:04+00:00",
+      "ended_at": "2026-06-17T01:51:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "ae697aa6-0f77-4187-ad3e-74e5e086c9e8",
+      "description": "recall discussion about St. Catharines first booked tour",
+      "first_prompt": "recall discussion about St. Catharines first booked tour",
+      "started_at": "2026-06-17T01:51:42+00:00",
+      "ended_at": "2026-06-19T03:08:53+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "aed91157-7a6e-4df3-978c-bed9f62d7501",
+      "description": "I just looked at St. Catharine's dashboard on chatdash.  ...",
+      "first_prompt": "I just looked at St. Catharine's dashboard on chatdash.  It doesn't have any data on it",
+      "started_at": "2026-06-19T03:08:54+00:00",
+      "ended_at": "2026-06-21T14:48:25+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "c1d375be-3771-4b74-9000-53c4aa3a6fa1",
+      "description": "new feature.  Shauna is asking:  Side question - when the...",
+      "first_prompt": "new feature.  Shauna is asking:  Side question - when the AI answers calls after 3 rings and a parent is calling about waiting in the parking lot for their kid, or they are running late for their s...",
+      "started_at": "2026-06-19T16:28:04+00:00",
+      "ended_at": "2026-06-21T14:48:26+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "f1f935f2-cbfb-4678-b39f-90ef4fbd6aeb",
+      "description": "check calls over the last 3 days",
+      "first_prompt": "check calls over the last 3 days",
+      "started_at": "2026-06-21T14:48:26+00:00",
+      "ended_at": "2026-06-21T16:05:38+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "f505e22f-7522-4661-a481-d18444c78266",
+      "description": "why don't I see Nadine Gageiro in the leads mastersheet? ...",
+      "first_prompt": "why don't I see Nadine Gageiro in the leads mastersheet?  I have her in my EG lineleader CRM",
+      "started_at": "2026-06-21T16:05:39+00:00",
+      "ended_at": "2026-06-24T03:04:41+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "f8bfdd2b-0701-4ca3-bd14-646188c71cfb",
+      "description": "how did the pipeline backfill reactivation go today at 6p...",
+      "first_prompt": "how did the pipeline backfill reactivation go today at 6pm EST?",
+      "started_at": "2026-06-24T03:04:42+00:00",
+      "ended_at": "2026-06-27T03:13:04+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "e0a2d807-8a9a-40f7-b458-afe81ee530dd",
+      "description": "for call_id = call_dec5bf53f02b758fb9d438dd353, why didn'...",
+      "first_prompt": "for call_id = call_dec5bf53f02b758fb9d438dd353, why didn't the inbound agent try to book a tour for the caller?",
+      "started_at": "2026-06-25T00:03:57+00:00",
+      "ended_at": "2026-06-25T00:31:20+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "caed0409-59eb-41a4-87a7-56f7442d8497",
+      "description": "let's fix the skyvern booking flow.  if you recall, the t...",
+      "first_prompt": "let's fix the skyvern booking flow.  if you recall, the tours are actually getting booked but the skyvern webhook is returning failure.",
+      "started_at": "2026-06-25T00:40:19+00:00",
+      "ended_at": "2026-06-30T00:29:32+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "eac4b168-9bd1-450f-a05d-008a38796696",
+      "description": "daily audit reported that this call didn't have tour info...",
+      "first_prompt": "daily audit reported that this call didn't have tour info:  call_3f6d8c7d41fb8cd0d110c66e68a",
+      "started_at": "2026-06-27T03:13:06+00:00",
+      "ended_at": "2026-06-28T23:28:45+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6d2aa5f7-a237-40b5-9839-ea3eb0a6aa8b",
+      "description": "i got this email subject on 6/26:  ALERT: E2E lead-flow c...",
+      "first_prompt": "i got this email subject on 6/26:  ALERT: E2E lead-flow canary FAILED",
+      "started_at": "2026-06-28T23:28:47+00:00",
+      "ended_at": "2026-06-30T00:34:38+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "a7233f95-104b-46e8-bbef-6f3b23fc57bc",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-06-30T01:41:49+00:00",
+      "ended_at": "2026-07-01T02:17:21+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "623188d3-e6e9-413d-a5f6-29953b1cd7cf",
+      "description": "daily call audit caught LLM hallucination today.  https:/...",
+      "first_prompt": "daily call audit caught LLM hallucination today.  https://nam10.safelinks.protection.outlook.com/?url=https%3A%2F%2Fdashboard.retellai.com%2Fcall-history%3Fhistory%3Dcall_1befa6eee09ad775fd427067ef...",
+      "started_at": "2026-06-30T01:42:10+00:00",
+      "ended_at": "2026-06-30T02:37:00+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "961acda4-ccbb-424f-890d-dfaec9d06501",
+      "description": "I'm looking at Pickering's outbound clickup task list.  I...",
+      "first_prompt": "I'm looking at Pickering's outbound clickup task list.  I see half without an assignee and the other half without a due date",
+      "started_at": "2026-06-30T02:37:23+00:00",
+      "ended_at": "2026-06-30T04:16:47+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "2a94dc9c-cd9f-4bf8-ae3d-50c74f8e619f",
+      "description": "run system check",
+      "first_prompt": "run system check",
+      "started_at": "2026-07-01T01:38:18+00:00",
+      "ended_at": "2026-07-01T02:14:55+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "5b9e246c-1b7e-4c8e-9ffb-72caa7260be8",
+      "description": "i'm still getting emails from Retell about the usage of d...",
+      "first_prompt": "i'm still getting emails from Retell about the usage of deprecated APIs.  here's the email text:  \n\nAction required: we detected continued usage of deprecated Retell API functionality in your accou...",
+      "started_at": "2026-07-01T02:17:21+00:00",
+      "ended_at": "2026-07-01T02:51:37+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "593e5230-87db-4e3a-8cce-cd4d418713eb",
+      "description": "recall work to scrape Amplify Skool group",
+      "first_prompt": "recall work to scrape Amplify Skool group",
+      "started_at": "2026-07-01T03:05:24+00:00",
+      "ended_at": "2026-07-05T15:32:14+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "cc1422ef-1de2-4671-8489-dcadd50cfbd8",
+      "description": "Scott has noticed a lot of TourForce errors lately. As Po...",
+      "first_prompt": "Scott has noticed a lot of TourForce errors lately. As Poseidon, report: (1) what you have been working on in the last 2-3 weeks, (2) what errors or incidents you know about in the TourForce stack ...",
+      "started_at": "2026-07-02T00:57:58+00:00",
+      "ended_at": "2026-07-02T01:01:33+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "80bb979c-119d-4d25-940a-df871d3f766c",
+      "description": "In 10 bullet points: what have you worked on in the last ...",
+      "first_prompt": "In 10 bullet points: what have you worked on in the last 2 weeks, and what TourForce errors/incidents do you know about? No credential values.",
+      "started_at": "2026-07-02T01:09:46+00:00",
+      "ended_at": "2026-07-02T01:10:41+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "736d1ce0-66a0-4a18-ba09-64a1ec73ac3e",
+      "description": "Scott says 'Hermes agent is sending way too many alerts a...",
+      "first_prompt": "Scott says 'Hermes agent is sending way too many alerts again'. Do you know of any agent, bot, service, or automation named Hermes — on your machine or anywhere in Scott's setup? If yes: where does...",
+      "started_at": "2026-07-05T15:32:14+00:00",
+      "ended_at": "2026-07-05T15:33:01+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "180aa77a-77bc-45f5-b7ee-6c03576e1f8d",
+      "description": "Two tasks, security-critical rules: NEVER print any token...",
+      "first_prompt": "Two tasks, security-critical rules: NEVER print any token/credential value. 1) Find the Telegram bot token your alerting scripts (deadman-check.sh, daily-call-audit, alert@.service) use, then call ...",
+      "started_at": "2026-07-05T15:39:49+00:00",
+      "ended_at": "2026-07-05T15:44:04+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6e6841db-e28d-42ae-8a7f-75ac89910d87",
+      "description": "check calls over the last few days",
+      "first_prompt": "check calls over the last few days",
+      "started_at": "2026-07-05T16:12:55+00:00",
+      "ended_at": "2026-07-19T17:17:39+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "8fee3ada-2ef7-486d-b221-91f2cd2f3fdc",
+      "description": "analyze call_id = call_aef194102ebd50506f03746fddd.  I li...",
+      "first_prompt": "analyze call_id = call_aef194102ebd50506f03746fddd.  I listened to the transcript, it looks like a\n  transcription error caused the Retell agent to think the caller had the wrong number.  I don't l...",
+      "started_at": "2026-07-05T18:45:32+00:00",
+      "ended_at": "2026-07-05T21:38:50+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "166b127f-0d9e-4431-83a7-500b89423214",
+      "description": "Prepare me 2 separate emails to onboard Kananta and Burli...",
+      "first_prompt": "Prepare me 2 separate emails to onboard Kananta and Burlington for inbound agents.  Note that \"Kanata is Rogers and Burlington is Bell\"",
+      "started_at": "2026-07-09T04:49:58+00:00",
+      "ended_at": "2026-07-20T23:12:58+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "d3cae33c-6b8e-4603-8b58-fae55e7c2211",
+      "description": "I've been using Voip.ms plus Bria softphone to allow my s...",
+      "first_prompt": "I've been using Voip.ms plus Bria softphone to allow my staff to make customer calls from home.  Now that I'm using Twilio for Tourforce, I'm wondering if I can use Twilio instead to allow my staff...",
+      "started_at": "2026-07-13T23:36:13+00:00",
+      "ended_at": "2026-07-16T01:59:48+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "7ce5a28a-f717-42c9-b584-6a1ea3064ade",
+      "description": "I got this message from Sharmila regarding Leaside inboun...",
+      "first_prompt": "I got this message from Sharmila regarding Leaside inbound:  finally got access to call forwarding at Leaside ... I am trying to forward the leaside line, but it gets a busy signal\n\nLeaside: forwar...",
+      "started_at": "2026-07-16T01:59:48+00:00",
+      "ended_at": "2026-07-16T03:10:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "6473ff0a-0b96-4c84-ab86-16b1944896c9",
+      "description": "check call_id = call_ac4627d26570b56758f1c13b22c .  Why i...",
+      "first_prompt": "check call_id = call_ac4627d26570b56758f1c13b22c .  Why is the voice agent leaving the test number as a callback?  It should be using the centre landline",
+      "started_at": "2026-07-16T05:19:44+00:00",
+      "ended_at": "2026-07-19T17:17:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "db1a3853-2f45-40ef-b5ba-1b3901d106ea",
+      "description": "check calls over last week",
+      "first_prompt": "check calls over last week",
+      "started_at": "2026-07-19T17:17:40+00:00",
+      "ended_at": "2026-07-20T22:24:39+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "cdb81200-077e-408a-99e8-93a097662481",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-07-20T23:12:58+00:00",
+      "ended_at": "2026-07-22T03:52:07+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "d5c67067-03ae-4624-ad18-71262d68f1d2",
+      "description": "check out this clickup task:  https://app.clickup.com/t/9...",
+      "first_prompt": "check out this clickup task:  https://app.clickup.com/t/9011711565/868kebbvy?comment=90110253379495&utm_source=email-notifications&utm_type=1&utm_field=comment",
+      "started_at": "2026-07-20T23:24:46+00:00",
+      "ended_at": "2026-07-22T03:52:07+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "cbade75a-3e90-4c5d-9d6f-68ca38b2e53b",
+      "description": "I got this email from Retell:  Hey there 👋\nWe're updatin...",
+      "first_prompt": "I got this email from Retell:  Hey there 👋\nWe're updating our telephony infrastructure to improve reliability for customers using Custom Telephony.\n \nUpdate your Custom Telephony allowlist\nIf you ...",
+      "started_at": "2026-07-22T03:52:07+00:00",
+      "ended_at": "2026-07-24T17:58:35+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "491451ae-177c-4d0c-a7f0-f459b31c4009",
+      "description": "i got this email from retell:  Action required: we detect...",
+      "first_prompt": "i got this email from retell:  Action required: we detected continued usage of deprecated Retell API functionality in your account.\n\nUnless you update your integration, affected requests may stop w...",
+      "started_at": "2026-07-22T04:01:17+00:00",
+      "ended_at": "2026-07-24T17:58:35+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "814018ac-ff40-4831-899a-c195f263adda",
+      "description": "Burlington wants to add information about a custom progra...",
+      "first_prompt": "Burlington wants to add information about a custom program they have called Create Prep.  how should they format this in their knowledge base?  Have we discussed this before?",
+      "started_at": "2026-07-24T17:58:35+00:00",
+      "ended_at": "2026-07-26T15:50:22+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "18a76a86-3786-43ef-851f-032c9631ee14",
+      "description": "starting hubspot migration for my centre.  here is a tran...",
+      "first_prompt": "starting hubspot migration for my centre.  here is a transcript of a Sonamation video regarding phone numbers:  So one thing that will be important to discuss is phone numbers.\nSo there's two scena...",
+      "started_at": "2026-07-26T15:50:22+00:00",
+      "ended_at": "2026-07-29T19:16:43+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "a5b1349e-567c-4093-8f1e-cef5ea7cf114",
+      "description": "who are you?",
+      "first_prompt": "who are you?",
+      "started_at": "2026-07-29T19:16:43+00:00",
+      "ended_at": "2026-08-03T03:33:42+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "70851453-f8af-4d85-8394-a3e580ad8a20",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-08-03T03:33:42+00:00",
+      "ended_at": "2026-08-10T23:45:40+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "01fc7d3a-ac4b-4141-a77d-a3bd88a788d8",
+      "description": "how is the KB crawler getting student and office hours?",
+      "first_prompt": "how is the KB crawler getting student and office hours?",
+      "started_at": "2026-08-10T23:45:40+00:00",
+      "ended_at": "2026-08-11T01:01:47+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "79b5558c-4bf9-49dd-a16a-b8025ec6510c",
+      "description": "have we ever discussed having each centre customize their...",
+      "first_prompt": "have we ever discussed having each centre customize their greeting?",
+      "started_at": "2026-08-11T03:12:17+00:00",
+      "ended_at": "2026-08-14T02:14:20+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "6470eefe-d06d-4d1a-a433-ea81ae78ab9d",
+      "description": "for the emails notifications that go to the centre, I bel...",
+      "first_prompt": "for the emails notifications that go to the centre, I believe we're using the centre_email column from the centre lookup spreadsheet.  Shauna is requesting additional CC options.  Should we add a n...",
+      "started_at": "2026-08-14T02:14:20+00:00",
+      "ended_at": "2026-08-18T01:08:24+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "65a93970-0aa7-4862-ab9e-5daa7a1897f6",
+      "description": "Onboard new centre, name = Barrhaven (suburb of Ottawa). ...",
+      "first_prompt": "Onboard new centre, name = Barrhaven (suburb of Ottawa).  Owner = maurice loiselle (note that he's also a part owner of Kanata along with Shauna and Ian Chan).",
+      "started_at": "2026-08-14T02:38:43+00:00",
+      "ended_at": "2026-08-18T01:08:24+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "fcecc671-83dd-4f43-ad7f-1ded4a659eba",
+      "description": "Daily Call Audit — 2026-08-17 EDT — 2 issues (H:1 M:1 L:0)",
+      "first_prompt": "Daily Call Audit — 2026-08-17 EDT — 2 issues (H:1 M:1 L:0)",
+      "started_at": "2026-08-18T01:08:24+00:00",
+      "ended_at": "2026-08-18T02:08:28+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "eaad97cf-01c4-47b3-9fd8-6582832a70af",
+      "description": "Hi there,\n\nAction required: we detected continued usage o...",
+      "first_prompt": "Hi there,\n\nAction required: we detected continued usage of deprecated Retell API functionality in your account.\n\nUnless you update your integration, affected requests may stop working when this dep...",
+      "started_at": "2026-08-18T02:08:40+00:00",
+      "ended_at": "2026-08-20T21:52:56+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "e3c79643-001f-4f80-85a8-26d7373f0fab",
+      "description": "let's continue with hubspot migration.  I have the format...",
+      "first_prompt": "let's continue with hubspot migration.  I have the format of hubspot emails sent after lead inquiries.",
+      "started_at": "2026-08-18T02:45:18+00:00",
+      "ended_at": "2026-08-20T21:52:58+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "98c352d4-e211-462c-8cb6-310f21340ae3",
+      "description": "EOC row-number refactor",
+      "first_prompt": "EOC row-number refactor",
+      "started_at": "2026-08-19T01:33:54+00:00",
+      "ended_at": "2026-08-20T21:52:58+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "07c2f2da-2c13-43ca-8da2-a72b86302836",
+      "description": "WORKFLOW ERROR\n\nWorkflow: Outbound Call Flow - Multicentr...",
+      "first_prompt": "WORKFLOW ERROR\n\nWorkflow: Outbound Call Flow - Multicentre\nNode: Duplicate Lead Dropped\nMessage: invalid syntax (item 0)\nExecution: https://xprime17.app.n8n.cloud/workflow/6sPwo7ngPyTWfmwM/executio...",
+      "started_at": "2026-08-20T21:52:58+00:00",
+      "ended_at": "2026-08-22T19:35:43+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "635b9053-51af-4458-be62-3c9280a7e1ed",
+      "description": "it's time to transition Shauna's 3 centres to paying subs...",
+      "first_prompt": "it's time to transition Shauna's 3 centres to paying subscriptions.  Please dig up the prices and materials that we sent to Sharmila when we did the same for her centres.",
+      "started_at": "2026-08-22T19:35:43+00:00",
+      "ended_at": "2026-08-25T04:36:10+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "e0d42a6a-e981-48c0-a236-c6586e584ff1",
+      "description": "",
+      "first_prompt": "",
+      "started_at": "2026-08-25T04:36:10+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,

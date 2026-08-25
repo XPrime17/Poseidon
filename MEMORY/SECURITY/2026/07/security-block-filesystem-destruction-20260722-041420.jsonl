@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-07-22T04:14:20.315Z",
+  "session_id": "491451ae-177c-4d0c-a7f0-f459b31c4009",
+  "event_type": "block",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "rm -rf /root/poseidon-repo/skills/_N8N/Tools/__pycache__\ngit -C /root/poseidon-repo status --short skills/_N8N/Tools/",
+  "reason": "Filesystem destruction",
+  "action_taken": "Hard block - exit 2"
+}

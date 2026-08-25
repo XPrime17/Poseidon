@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-06-24T01:30:33.944Z",
+  "session_id": "f505e22f-7522-4661-a481-d18444c78266",
+  "event_type": "block",
+  "tool": "Write",
+  "category": "path_access",
+  "target": "/etc/systemd/system/e2e-leadflow-check.service",
+  "reason": "Read-only path: /etc/**",
+  "action_taken": "Hard block - exit 2"
+}

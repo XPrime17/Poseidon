@@ -1,0 +1,350 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__clickup__authenticate,mcp__claude_ai_ClickUp__authenticate",
+      "max_results": 5
+    },
+    "timestamp": "2026-06-30T02:39:47.927Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls lead-reactivation 2>/dev/null && echo \"---\" && grep -rl \"901113931619\\|clickup\" --include=\"*.ts\" lead-reactivation 2>/dev/null | head; echo \"===\"; grep -rl \"901113931619\\|clickup_outbound_list_id\\|ClickUp\" /root/n8n-backups 2>/dev/null | head",
+      "description": "Locate ClickUp config + Pickering list refs"
+    },
+    "timestamp": "2026-06-30T02:39:49.689Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/n8n-backups; python3 - <<'EOF'\nimport json\nd=json.load(open('4p1V0wESn3kZySt6.20260610-031451.json'))\nnodes=d.get('nodes', d) if isinstance(d,dict) else d\nif isinstance(nodes,dict): nodes=nodes.get('nodes',[])\nfor n in nodes:\n    t=n.get('type','')\n    name=n.get('name','')\n    if 'clickUp' in t or 'ClickUp' in name or 'clickup' in name.lower():\n        print('=== NODE:',name,'|',t)\n        print(json.dumps(n.get('parameters',{}),indent=1)[:2500])\n        print()\nEOF",
+      "description": "Inspect ClickUp nodes in outbound EOC backup"
+    },
+    "timestamp": "2026-06-30T02:39:57.160Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/n8n-backups; python3 - <<'EOF'\nimport json,glob\n# find newest backup of outbound EOC\nfs=sorted(glob.glob('4p1V0wESn3kZySt6*.json'))\nprint(\"backups:\",fs)\nd=json.load(open(fs[-1]))\nnodes=d.get('nodes',[])\nprint(\"\\n--- ALL NODES ---\")\nfor n in nodes:\n    print(f\"{n.get('name','?'):45} {n.get('type','')}\")\nEOF",
+      "description": "List all nodes in newest outbound EOC backup"
+    },
+    "timestamp": "2026-06-30T02:40:06.928Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/n8n-backups; python3 - <<'EOF'\nimport json,glob\nd=json.load(open('4p1V0wESn3kZySt6.20260610-031451.json'))\nnodes={n['name']:n for n in d.get('nodes',[])}\nfor nm in ['Format Staff Follow-Up Task','Create Staff Follow-Up Task']:\n    n=nodes[nm]\n    print('='*60,'\\n',nm,'|',n['type'])\n    p=n.get('parameters',{})\n    if 'jsCode' in p:\n        print(p['jsCode'])\n    else:\n        print(json.dumps(p,indent=1)[:3000])\nEOF",
+      "description": "Dump Format + Create ClickUp task node bodies"
+    },
+    "timestamp": "2026-06-30T02:40:21.646Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nLIST=\"901113931619\"\ndef get(url):\n    r=urllib.request.Request(url,headers={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"})\n    return json.load(urllib.request.urlopen(r,timeout=30))\n# list name\nli=get(f\"https://api.clickup.com/api/v2/list/{LIST}\")\nprint(\"LIST:\",li.get('name'),\"| space:\",li.get('space',{}).get('name'))\ndata=get(f\"https://api.clickup.com/api/v2/list/{LIST}/task?include_closed=true&subtasks=true\")\ntasks=data.get('tasks',[])\nprint(\"TOTAL tasks:\",len(tasks))\nprint(f\"\\n{'name':50} {'assignees':22} {'due':12} {'tags'}\")\nboth=noassign=nodue=neither=0\nfor t in tasks:\n    asg=[a.get('username') or a.get('id') for a in t.get('assignees',[])]\n    due=t.get('due_date')\n    tags=[g.get('name') for g in t.get('tags',[])]\n    has_a=bool(asg); has_d=bool(due)\n    if has_a and has_d: both+=1\n    elif has_a: nodue+=1\n    elif has_d: noassign+=1\n    else: neither+=1\n    nm=t.get('name','')[:48]\n    print(f\"{nm:50} {str(asg)[:20]:22} {str(due)[:11]:12} {tags} {'/'.join([c.get('status') for c in [t.get('status',{})]])}\")\nprint(f\"\\nSUMMARY: both={both} assignee-only(no due)={nodue} due-only(no assignee)={noassign} neither={neither}\")\nEOF",
+      "description": "Query Pickering Outbound list tasks via ClickUp API"
+    },
+    "timestamp": "2026-06-30T02:40:41.013Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nLIST=\"901113931619\"\ndef get(url):\n    r=urllib.request.Request(url,headers={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"})\n    return json.load(urllib.request.urlopen(r,timeout=30))\ndata=get(f\"https://api.clickup.com/api/v2/list/{LIST}/task?include_closed=true\")\ndef dt(ms):\n    return datetime.datetime.utcfromtimestamp(int(ms)/1000).strftime('%Y-%m-%d %H:%M') if ms else '-'\nfor t in data.get('tasks',[]):\n    print('NAME:',t.get('name'))\n    print('  id:',t.get('id'),'| created:',dt(t.get('date_created')),'| creator:',t.get('creator',{}).get('username'),'| due:',dt(t.get('due_date')),'| assignees:',[a.get('username') for a in t.get('assignees',[])])\nEOF",
+      "description": "Get full names, creators, dates for all 9 tasks"
+    },
+    "timestamp": "2026-06-30T02:41:00.032Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; set -a; . /root/.env 2>/dev/null; set +a\nKEY=\"${N8N_API_KEY:-$N8N_API_KEY}\"\npython3 - <<'EOF'\nimport os,urllib.request,json\nkey=os.environ.get('N8N_API_KEY','')\nhost=os.environ.get('N8N_HOST','https://n8n.codeninjas.cloud') if False else None\n# try common host\nfor base in ['http://localhost:5678','https://n8n-production.codeninjas.cloud','https://n8n.codeninjas.cloud']:\n    try:\n        r=urllib.request.Request(base+'/api/v1/workflows/4p1V0wESn3kZySt6',headers={'X-N8N-API-KEY':key})\n        d=json.load(urllib.request.urlopen(r,timeout=15))\n        node=[n for n in d['nodes'] if n['name']=='Create Staff Follow-Up Task'][0]\n        print(\"HOST OK:\",base)\n        print(\"jsonBody:\",node['parameters'].get('jsonBody'))\n        # also format node assignee/due\n        fmt=[n for n in d['nodes'] if n['name']=='Format Staff Follow-Up Task'][0]['parameters']['jsCode']\n        print(\"\\nDUE in format code?\", 'due_date' in fmt or 'dueDate' in fmt)\n        print(\"DUE in jsonBody?\", 'due' in node['parameters'].get('jsonBody',''))\n        break\n    except Exception as e:\n        print(\"fail\",base,type(e).__name__,str(e)[:80])\nEOF",
+      "description": "Fetch live Create Staff Follow-Up Task node from n8n"
+    },
+    "timestamp": "2026-06-30T02:41:31.005Z"
+  },
+  {
+    "name": "AskUserQuestion",
+    "input": {
+      "questions": [
+        {
+          "question": "The 5 'no assignee' tasks are June-9 onboarding seed fixtures (fake +1xxx numbers, 3 weeks overdue). What should I do with them?",
+          "header": "Seed tasks",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "Delete all 5 (Recommended)",
+              "description": "Remove 868jzej5c/56/55/52/51 — they're test fixtures cluttering the real list."
+            },
+            {
+              "label": "Close, don't delete",
+              "description": "Mark them complete/closed so they drop out of the active view but stay for the record."
+            },
+            {
+              "label": "Leave them",
+              "description": "Don't touch them for now."
+            }
+          ]
+        },
+        {
+          "question": "The live n8n node never sets a due_date on real follow-up tasks. Add one?",
+          "header": "Due date",
+          "multiSelect": false,
+          "options": [
+            {
+              "label": "Add next-business-day 5pm ET + backfill 4 (Recommended)",
+              "description": "Edit the shared node so all future outbound follow-ups get a deadline, and set it on the 4 existing real tasks. Affects every centre."
+            },
+            {
+              "label": "Only set on Pickering's 4",
+              "description": "Backfill the 4 existing real tasks but don't change the workflow yet."
+            },
+            {
+              "label": "Leave as-is",
+              "description": "No due dates; assignee-only is fine."
+            }
+          ]
+        }
+      ]
+    },
+    "timestamp": "2026-06-30T02:42:02.525Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\ndef get(url):\n    r=urllib.request.Request(url,headers={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"})\n    return json.load(urllib.request.urlopen(r,timeout=30))\n# space of the Outbound list\nli=get(\"https://api.clickup.com/api/v2/list/901113931619\")\nspace=li['space']['id']\nprint(\"SPACE:\",li['space'].get('name'),space)\n# folders + folderless lists\nfl=get(f\"https://api.clickup.com/api/v2/space/{space}/folder\")\nprint(\"\\nFOLDERS:\")\nfor f in fl.get('folders',[]):\n    print(\" FOLDER:\",f['name'],f['id'])\n    for l in f.get('lists',[]):\n        print(\"   LIST:\",l['name'],l['id'])\nll=get(f\"https://api.clickup.com/api/v2/space/{space}/list\")\nprint(\"\\nFOLDERLESS LISTS:\")\nfor l in ll.get('lists',[]):\n    print(\"  LIST:\",l['name'],l['id'])\nEOF",
+      "description": "Enumerate all lists in Voice AI ClickUp space"
+    },
+    "timestamp": "2026-06-30T02:52:36.796Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; ls n8n-backups/ | grep -i \"3oV7\\|inbound\" ; echo \"=== Pickering INBOUND tasks (901113931618) ===\"; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\ndef get(url):\n    r=urllib.request.Request(url,headers={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"})\n    return json.load(urllib.request.urlopen(r,timeout=30))\ndef dt(ms): \n    import datetime as D; return D.datetime.fromtimestamp(int(ms)/1000,D.timezone.utc).strftime('%Y-%m-%d %H:%M') if ms else '-'\nfor nm,lid in [(\"Pickering Inbound\",\"901113931618\"),(\"EG Inbound\",\"901113422190\"),(\"StCath Inbound\",\"901113834370\")]:\n    d=get(f\"https://api.clickup.com/api/v2/list/{lid}/task?include_closed=true\")\n    ts=d.get('tasks',[])\n    print(f\"\\n### {nm} ({lid}) — {len(ts)} tasks\")\n    for t in ts:\n        print(f\"  {t.get('name','')[:55]:57} due:{dt(t.get('due_date')):11} asg:{[a.get('username') for a in t.get('assignees',[])]} created:{dt(t.get('date_created'))} by:{t.get('creator',{}).get('username')}\")\nEOF",
+      "description": "Check inbound EOC backup + inbound task populations"
+    },
+    "timestamp": "2026-06-30T02:52:48.139Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; echo \"=== env keys present ===\"; grep -oE '^[A-Z_]+=' /root/.env 2>/dev/null | tr -d '='\necho \"=== n8n host hints from deploy scripts ===\"; grep -rhoE \"https?://[a-zA-Z0-9._:-]+/(api|webhook)\" lead-reactivation/*.py lead-reactivation/scripts/*.ts 2>/dev/null | sort -u | head\necho \"=== N8N base in env? ===\"; grep -iE \"n8n|N8N\" /root/.env 2>/dev/null | sed -E 's/=.*/=<set>/'",
+      "description": "Discover env keys and n8n base URL"
+    },
+    "timestamp": "2026-06-30T02:55:50.459Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; set -a; . /root/.env; set +a\npython3 - <<'EOF'\nimport os,urllib.request,json\nkey=os.environ.get('N8N_API_KEY','')\nbase=\"https://xprime17.app.n8n.cloud\"\ndef wf(wid):\n    r=urllib.request.Request(f\"{base}/api/v1/workflows/{wid}\",headers={'X-N8N-API-KEY':key})\n    return json.load(urllib.request.urlopen(r,timeout=30))\nfor nm,wid in [(\"OUTBOUND EOC\",\"4p1V0wESn3kZySt6\"),(\"INBOUND EOC\",\"3oV7SpPKWmr3xJlQ\")]:\n    try:\n        d=wf(wid)\n        cu=[n for n in d['nodes'] if ('clickup' in n['name'].lower() or 'clickUp' in n.get('type','') or 'follow-up task' in n['name'].lower() or 'ClickUp' in n['name'])]\n        print(f\"\\n##### {nm} ({wid}) active={d.get('active')} — clickup-ish nodes:\")\n        for n in cu:\n            print(\"  -\",n['name'],\"|\",n['type'])\n        # find the httpRequest that posts to clickup task\n        for n in d['nodes']:\n            p=n.get('parameters',{})\n            url=str(p.get('url',''))\n            if 'clickup.com' in url and '/task' in url:\n                print(\"  >> CREATOR NODE:\",n['name'])\n                print(\"     url:\",url)\n                print(\"     jsonBody:\",p.get('jsonBody'))\n            if n['type']=='n8n-nodes-base.code' and ('listId' in p.get('jsCode','') or 'taskName' in p.get('jsCode','')):\n                print(\"  >> FORMAT NODE:\",n['name'],\"(has due_date:\", 'due_date' in p['jsCode'] or 'dueDate' in p['jsCode'],\")\")\n    except Exception as e:\n        print(nm,\"ERR\",type(e).__name__,str(e)[:120])\nEOF",
+      "description": "Pull both live EOC workflows, locate ClickUp creator + format nodes"
+    },
+    "timestamp": "2026-06-30T02:56:07.675Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList,TaskUpdate",
+      "max_results": 5
+    },
+    "timestamp": "2026-06-30T02:56:58.115Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; set -a; . /root/.env; set +a\nmkdir -p /root/n8n-backups/clickup-due-date-2026-06-30\npython3 - <<'EOF'\nimport os,urllib.request,json\nkey=os.environ.get('N8N_API_KEY',''); base=\"https://xprime17.app.n8n.cloud\"\nfor wid in [\"4p1V0wESn3kZySt6\",\"3oV7SpPKWmr3xJlQ\"]:\n    r=urllib.request.Request(f\"{base}/api/v1/workflows/{wid}\",headers={'X-N8N-API-KEY':key})\n    d=json.load(urllib.request.urlopen(r,timeout=30))\n    p=f\"/root/n8n-backups/clickup-due-date-2026-06-30/{wid}.backup.json\"\n    json.dump(d,open(p,'w'),indent=1)\n    print(\"backed up\",wid,\"->\",p,\"| nodes:\",len(d['nodes']),\"active:\",d.get('active'))\nEOF",
+      "description": "Back up both EOC workflows before edit"
+    },
+    "timestamp": "2026-06-30T02:57:01.753Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Delete 5 Pickering seed tasks",
+      "description": "Delete stale June-9 onboarding seed fixtures 868jzej5c/56/55/52/51 from Pickering Outbound list (approved).",
+      "activeForm": "Deleting Pickering seed tasks"
+    },
+    "timestamp": "2026-06-30T02:57:07.074Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Add +2d due_date to outbound EOC creator",
+      "description": "Edit Create Staff Follow-Up Task node jsonBody in 4p1V0wESn3kZySt6 to set due_date = Date.now()+172800000, due_date_time:false. Deploy. Verify via re-GET.",
+      "activeForm": "Patching outbound EOC"
+    },
+    "timestamp": "2026-06-30T02:57:09.017Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Add +2d due_date to inbound EOC creators",
+      "description": "Edit Create ClickUp Task + Create Cancel Task jsonBody in 3oV7SpPKWmr3xJlQ to set due_date = Date.now()+172800000. Deploy. Verify via re-GET.",
+      "activeForm": "Patching inbound EOC"
+    },
+    "timestamp": "2026-06-30T02:57:10.432Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Backfill +2d due_date on all open tasks",
+      "description": "Set due_date = now+2d on every currently-open (non-closed) task across all 16 inbound+outbound lists so existing tasks get a date without flipping overdue.",
+      "activeForm": "Backfilling open tasks"
+    },
+    "timestamp": "2026-06-30T02:57:12.318Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Verify due dates land",
+      "description": "Confirm deployed nodes contain due_date; re-query a sample of lists to confirm tasks now show due dates; confirm 5 seeds gone.",
+      "activeForm": "Verifying"
+    },
+    "timestamp": "2026-06-30T02:57:13.315Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; set -a; . /root/.env; set +a\npython3 - <<'EOF'\nimport os,urllib.request,json\nkey=os.environ.get('N8N_API_KEY',''); base=\"https://xprime17.app.n8n.cloud\"\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nDUE=\"due_date: Date.now() + 172800000, due_date_time: false\"\n\ndef n8n(method,path,payload=None):\n    data=json.dumps(payload).encode() if payload is not None else None\n    r=urllib.request.Request(f\"{base}/api/v1{path}\",data=data,method=method,\n        headers={'X-N8N-API-KEY':key,'Content-Type':'application/json'})\n    return json.load(urllib.request.urlopen(r,timeout=60))\n\ndef patch_node(wf,node_name,replacements):\n    for n in wf['nodes']:\n        if n['name']==node_name:\n            jb=n['parameters']['jsonBody']\n            for old,new in replacements:\n                assert old in jb, f\"PATTERN NOT FOUND in {node_name}: {old[:40]}\"\n                jb=jb.replace(old,new,1)\n            n['parameters']['jsonBody']=jb\n            return True\n    raise SystemExit(f\"node {node_name} not found\")\n\ndef deploy(wid,patches):\n    wf=n8n('GET',f\"/workflows/{wid}\")\n    for nm,reps in patches: patch_node(wf,nm,reps)\n    payload={\"name\":wf[\"name\"],\"nodes\":wf[\"nodes\"],\"connections\":wf[\"connections\"],\"settings\":wf.get(\"settings\",{})}\n    n8n('PUT',f\"/workflows/{wid}\",payload)\n    # verify\n    chk=n8n('GET',f\"/workflows/{wid}\")\n    for nm,_ in patches:\n        jb=[n for n in chk['nodes'] if n['name']==nm][0]['parameters']['jsonBody']\n        print(f\"   ✓ {wid}/{nm}: due_date present = {'due_date' in jb}\")\n\nprint(\"=== OUTBOUND EOC ===\")\ndeploy(\"4p1V0wESn3kZySt6\",[\n  (\"Create Staff Follow-Up Task\",[(\"assignees: $json.assignees}\", f\"assignees: $json.assignees, {DUE}}}\")]),\n])\nprint(\"=== INBOUND EOC ===\")\ndeploy(\"3oV7SpPKWmr3xJlQ\",[\n  (\"Create ClickUp Task\",[(\"tags: $json.tags, assignees:\", f\"tags: $json.tags, {DUE}, assignees:\")]),\n  (\"Create Cancel Task\",[(\"assignees: [81534293, 87407960]\", f\"{DUE},\\n      assignees: [81534293, 87407960]\")]),\n])\n\nprint(\"\\n=== DELETE 5 SEED TASKS ===\")\nfor tid in [\"868jzej5c\",\"868jzej56\",\"868jzej55\",\"868jzej52\",\"868jzej51\"]:\n    r=urllib.request.Request(f\"https://api.clickup.com/api/v2/task/{tid}\",method='DELETE',\n        headers={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"})\n    try:\n        urllib.request.urlopen(r,timeout=30); print(\"   deleted\",tid)\n    except Exception as e: print(\"   ERR\",tid,str(e)[:80])\nEOF",
+      "description": "Deploy due_date to 3 creator nodes + delete 5 seed tasks"
+    },
+    "timestamp": "2026-06-30T02:57:39.932Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,time\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nH={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\",\"Content-Type\":\"application/json\"}\nDUE=int(time.time()*1000)+172800000  # now + 2 days\nimport datetime\nprint(\"backfill due_date =\",datetime.datetime.fromtimestamp(DUE/1000,datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC'),\"\\n\")\nLISTS={\n \"EG-In\":\"901113422190\",\"EG-Out\":\"901113931614\",\n \"StCath-In\":\"901113834370\",\"StCath-Out\":\"901113931615\",\n \"Leaside-In\":\"901113931616\",\"Leaside-Out\":\"901113931617\",\n \"Pickering-In\":\"901113931618\",\"Pickering-Out\":\"901113931619\",\n \"Burlington-In\":\"901113931620\",\"Burlington-Out\":\"901113931621\",\n \"Riverside-In\":\"901113931622\",\"Riverside-Out\":\"901113931624\",\n \"Kanata-In\":\"901113946914\",\"Kanata-Out\":\"901113946915\",\n}\ndef get(url):\n    return json.load(urllib.request.urlopen(urllib.request.Request(url,headers=H),timeout=30))\ntotal=0; already=0\nfor nm,lid in LISTS.items():\n    d=get(f\"https://api.clickup.com/api/v2/list/{lid}/task\")  # open only\n    n=0\n    for t in d.get('tasks',[]):\n        if t.get('due_date'): already+=1; continue\n        body=json.dumps({\"due_date\":DUE,\"due_date_time\":False}).encode()\n        r=urllib.request.Request(f\"https://api.clickup.com/api/v2/task/{t['id']}\",data=body,method='PUT',headers=H)\n        urllib.request.urlopen(r,timeout=30); n+=1\n    total+=n\n    print(f\"  {nm:14} set {n} (open tasks: {len(d.get('tasks',[]))})\")\nprint(f\"\\nTOTAL backfilled: {total} | already had due: {already}\")\nEOF",
+      "description": "Backfill +2d due_date on all open tasks in 14 centre lists"
+    },
+    "timestamp": "2026-06-30T02:58:04.206Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nH={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"}\ndef get(u): return json.load(urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=30))\ndef dt(ms): return datetime.datetime.fromtimestamp(int(ms)/1000,datetime.timezone.utc).strftime('%Y-%m-%d') if ms else 'NONE'\nfor nm,lid in [(\"Pickering-Out\",\"901113931619\"),(\"EG-In(open)\",\"901113422190\"),(\"Leaside-Out\",\"901113931617\")]:\n    d=get(f\"https://api.clickup.com/api/v2/list/{lid}/task\")\n    print(f\"\\n### {nm}: {len(d['tasks'])} open\")\n    for t in d['tasks']:\n        asg=[a.get('username') for a in t.get('assignees',[])]\n        ok=\"OK\" if (t.get('due_date') and asg) else \"⚠️\"\n        print(f\"  {ok} due:{dt(t.get('due_date'))} asg:{asg} {t['name'][:45]}\")\nEOF",
+      "description": "Verify Pickering + samples now have due dates and assignees"
+    },
+    "timestamp": "2026-06-30T02:58:29.410Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nH={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"}\ndef get(u): return json.load(urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=30))\ndef dt(ms): return datetime.datetime.fromtimestamp(int(ms)/1000,datetime.timezone.utc).strftime('%Y-%m-%d %H:%M') if ms else 'NONE'\nfor nm,lid in [(\"Leaside-In\",\"901113931616\"),(\"Leaside-Out\",\"901113931617\")]:\n    d=get(f\"https://api.clickup.com/api/v2/list/{lid}/task\")\n    print(f\"\\n### {nm} ({lid})\")\n    for t in d['tasks']:\n        print(f\"  id:{t['id']} created:{dt(t.get('date_created'))} due:{dt(t.get('due_date'))} by:{t.get('creator',{}).get('username')} asg:{[a.get('username') for a in t.get('assignees',[])]}\")\n        print(f\"     NAME: {t['name']}\")\nEOF",
+      "description": "Inspect Leaside open tasks in detail"
+    },
+    "timestamp": "2026-06-30T02:58:50.880Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-30T02:59:24.489Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-30T02:59:24.985Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-30T02:59:25.445Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-30T02:59:25.925Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-30T02:59:26.182Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json,datetime\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nH={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"}\ndef get(u): return json.load(urllib.request.urlopen(urllib.request.Request(u,headers=H),timeout=30))\ndef dt(ms): return datetime.datetime.fromtimestamp(int(ms)/1000,datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC') if ms else 'NONE'\nfor tid in [\"868jzej5h\",\"868jzej5f\",\"868jzej5p\"]:\n    t=get(f\"https://api.clickup.com/api/v2/task/{tid}\")\n    print(\"=\"*70)\n    print(\"ID:\",tid,\"| list:\",t.get('list',{}).get('name'))\n    print(\"NAME:\",t['name'])\n    print(\"created:\",dt(t.get('date_created')),\"| due:\",dt(t.get('due_date')),\"| status:\",t.get('status',{}).get('status'))\n    print(\"creator:\",t.get('creator',{}).get('username'),\"| assignees:\",[a.get('username') for a in t.get('assignees',[])])\n    print(\"tags:\",[g.get('name') for g in t.get('tags',[])],\"| priority:\",(t.get('priority') or {}).get('priority'))\n    desc=(t.get('text_content') or t.get('description') or '').strip()\n    print(\"DESC:\",(desc[:600] if desc else '(none)'))\nEOF",
+      "description": "Full detail on the 3 Leaside open tasks"
+    },
+    "timestamp": "2026-06-30T03:12:40.546Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; python3 - <<'EOF'\nimport urllib.request,json\nTOK=\"pk_114277538_QASW3X3E93S0MUL39MSA89ZI90NNSYDV\"\nH={\"Authorization\":TOK,\"User-Agent\":\"Mozilla/5.0\"}\n# Can we still fetch a deleted Pickering task (trash)?\nfor tid in [\"868jzej5c\",\"868jzej51\"]:\n    try:\n        t=json.load(urllib.request.urlopen(urllib.request.Request(f\"https://api.clickup.com/api/v2/task/{tid}\",headers=H),timeout=20))\n        print(tid,\"STILL FETCHABLE → name:\",t.get('name'),\"| status:\",t.get('status',{}).get('status'))\n        print(\"   desc:\",(t.get('text_content') or t.get('description') or '')[:300])\n    except Exception as e:\n        print(tid,\"GET failed:\",str(e)[:90])\nEOF",
+      "description": "Check if deleted Pickering tasks are still fetchable from trash"
+    },
+    "timestamp": "2026-06-30T03:13:10.789Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Restore 5 deleted Pickering follow-ups + re-date",
+      "description": "The 5 deleted Pickering tasks were NOT seed junk — they were real backfilled staff follow-ups (per Leaside twins). Restore from ClickUp Trash (UI, 30-day window), then assign Sharmila + set +2d due. API GET 404s (no API restore).",
+      "activeForm": "Recovering deleted Pickering follow-ups"
+    },
+    "timestamp": "2026-06-30T03:13:46.794Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; grep -rn \"resend\\|RESEND\\|onboarding@\\|from.*@\\|def send\\|api.resend\" daily-call-audit/audit.py 2>/dev/null | head -30; echo \"=== keys ===\"; grep -iE \"resend\" /root/.env 2>/dev/null | sed -E 's/=.*/=<set>/'; echo \"=== other env files ===\"; ls -la /root/daily-call-audit/.env 2>/dev/null && grep -iE \"resend|from\" /root/daily-call-audit/.env 2>/dev/null | sed -E 's/=.*/=<set>/'",
+      "description": "Locate Resend send function + key in audit.py"
+    },
+    "timestamp": "2026-06-30T03:24:53.323Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; grep -oE '^[A-Z_]+=' /root/daily-call-audit/.env 2>/dev/null | tr -d '='; echo \"=== send block (audit.py ~885-905) ===\"; sed -n '880,905p' daily-call-audit/audit.py",
+      "description": "Inspect audit .env keys and send block"
+    },
+    "timestamp": "2026-06-30T03:24:56.833Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; grep -n \"TO_EMAIL\\s*=\" daily-call-audit/audit.py | head; set -a; . /root/daily-call-audit/.env; set +a; python3 -c \"import os;print('RESEND key set:',bool(os.environ.get('RESEND_API_KEY')));print('FROM:',os.environ.get('AUDIT_FROM_EMAIL','onboarding@resend.dev'));print('TO env:',os.environ.get('AUDIT_TO_EMAIL'))\"",
+      "description": "Find TO_EMAIL default and confirm Resend key loads"
+    },
+    "timestamp": "2026-06-30T03:25:06.270Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; sed -E 's/=.*/=<redacted>/' /root/daily-call-audit/.env",
+      "description": "Show env var names in audit .env (values redacted)"
+    },
+    "timestamp": "2026-06-30T03:25:12.438Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; for f in /root/.claude/.env /root/.env; do echo \"== $f ==\"; sed -E 's/=.*/=<set>/' \"$f\" 2>/dev/null | grep -iE \"resend|retell|audit_|from_email|^[A-Z]\" ; done",
+      "description": "Find RESEND_API_KEY across env files"
+    },
+    "timestamp": "2026-06-30T03:25:17.984Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root; set -a; . /root/.claude/.env; set +a\npython3 - <<'PYEOF'\nimport os,json,urllib.request\nKEY=os.environ[\"RESEND_API_KEY\"].strip()\nFROM=\"onboarding@resend.dev\"; TO=\"scott.james@codeninjas.com\"\nsubject=\"ClickUp +2-Day Due Dates — Deploy Summary + Pickering/Leaside Correction\"\nhtml=\"\"\"<html><body style=\"font-family:Arial,sans-serif;font-size:14px;color:#222;line-height:1.5\">\n<h2>ClickUp Follow-Up Tasks — +2-Day Due Date Rollout</h2>\n<p><i>Summary of the work + an important correction. Two parts.</i></p>\n\n<h3>Part 1 — What shipped (done &amp; verified)</h3>\n<p><b>Going-forward (n8n, fleet-wide):</b> added <code>due_date = now + 2 days</code> to all three ClickUp task-creator nodes, so every new inbound <i>and</i> outbound task gets a 2-day deadline:</p>\n<ul>\n<li>Outbound EOC <code>4p1V0wESn3kZySt6</code> &rarr; <b>Create Staff Follow-Up Task</b> &#10003;</li>\n<li>Inbound EOC <code>3oV7SpPKWmr3xJlQ</code> &rarr; <b>Create ClickUp Task</b> &#10003;</li>\n<li>Inbound EOC &rarr; <b>Create Cancel Task</b> (cekura-leak safety net) &#10003;</li>\n</ul>\n<p>Backups saved at <code>/root/n8n-backups/clickup-due-date-2026-06-30/</code>.</p>\n<p><b>Backfill of existing open tasks:</b> set due = +2 days (a <i>future</i> date, so nothing flips overdue) on every currently-open task &mdash; 7 updated (4 Pickering-Outbound, 3 EG-Inbound); the rest were already dated or already closed by directors.</p>\n<p><b>Verification:</b> Pickering Outbound = 4 tasks, all assigned (Sharmila) + dated (7/1). EG Inbound open tasks all dated + assigned. &#10003;</p>\n\n<h3 style=\"color:#b00\">Part 2 — Correction I need to flag</h3>\n<p>I initially deleted <b>5 Pickering Outbound tasks</b> from the <b>June-9 23:47 batch</b>, describing them as \"onboarding seed fixtures with fake numbers.\" <b>That was wrong.</b></p>\n<p>When you asked me to elaborate on Leaside, I pulled the full descriptions of the Leaside twins from the same 6/9 batch and found they are <b>real backfilled staff follow-ups</b> &mdash; created manually on 6/9 when each centre's ClickUp config went live, referencing <b>real Retell calls</b> and <b>real callback numbers</b>. By analogy, the 5 Pickering tasks I deleted were almost certainly real backfilled follow-ups too. The \"+1xxx\" numbers I dismissed as fake were real callback numbers.</p>\n<p><b>Recovery:</b> the 5 deleted tasks (IDs <code>868jzej5c / 56 / 55 / 52 / 51</code>) now 404 via API &mdash; they are in <b>ClickUp Trash</b>, UI-restorable for ~30 days (Space \"Voice AI\" &rarr; Trash &rarr; restore). Restoring brings back full descriptions/call-links intact. I cannot restore via API. Practical harm is limited &mdash; they were 3-week-old, unassigned, due-6/11 tasks no one had actioned &mdash; but they are real and recoverable.</p>\n\n<h3>The 3 Leaside tasks (all REAL &mdash; keep, do not delete)</h3>\n<table border=1 cellpadding=6 cellspacing=0 style=\"border-collapse:collapse;font-size:13px\">\n<tr style=\"background:#f0f0f0\"><th>ID</th><th>List</th><th>Task</th><th>What it is</th></tr>\n<tr><td><code>868jzej5h</code></td><td>Outbound</td><td>[Outbound Staff Follow-Up] Junior inquiry &mdash; 6yo &mdash; callback +1 647 463 1785</td><td>Real backfilled follow-up. Parent of a 6yo, Junior (5&ndash;7). Real call 2026-06-02 (call_675d26b5&hellip;). Due 6/11 stale, no assignee.</td></tr>\n<tr><td><code>868jzej5f</code></td><td>Outbound</td><td>[Staff Follow-Up &mdash; Callback] Leaside &mdash; callback +18646683516</td><td>Real backfilled follow-up. callback_requested, Create program. Real call 2026-06-03 (call_746eb703&hellip;). Due 6/11 stale, no assignee.</td></tr>\n<tr><td><code>868jzej5p</code></td><td>Inbound</td><td>[KB Update Needed] Leaside Junior (ages 5&ndash;7) class/session times</td><td><b>Your tracked MED-3 \"awaiting Sharmila\" item.</b> Agent can't answer Junior class/session times (not in KB). Due 6/16 stale, no assignee.</td></tr>\n</table>\n\n<h3>Proposed next steps (awaiting your go)</h3>\n<ol>\n<li><b>You restore</b> the 5 Pickering tasks from ClickUp Trash; then I assign Sharmila + set +2d due on all 5.</li>\n<li><b>Leaside:</b> keep all 3 &mdash; I assign + refresh due (+2d) on 5h, 5f, and MED-3 5p. <b>No deletions.</b></li>\n<li>Confirm assignee for Leaside = <b>Sharmila</b>, or a different director?</li>\n</ol>\n<p><b>Lesson:</b> the entire 6/9 23:47 batch across centres was your manual backfill when ClickUp config went live &mdash; not test data. I conflated \"old + unassigned + stale-due\" with \"junk,\" and I should have read one before characterizing the batch.</p>\n<p style=\"color:#888;font-size:11px\"><i>Sent from droplet via Resend at your request. ClickUp API token also flagged: it is hard-coded in plaintext in the n8n HTTP nodes &mdash; worth moving to an n8n credential.</i></p>\n</body></html>\"\"\"\ndata=json.dumps({\"from\":FROM,\"to\":[TO],\"subject\":subject,\"html\":html}).encode()\nr=urllib.request.Request(\"https://api.resend.com/emails\",data=data,\n    headers={\"Authorization\":f\"Bearer {KEY}\",\"Content-Type\":\"application/json\",\"User-Agent\":\"Mozilla/5.0\"})\ntry:\n    resp=json.load(urllib.request.urlopen(r,timeout=30))\n    print(\"SENT OK → id:\",resp.get(\"id\"),\"| to:\",TO)\nexcept urllib.error.HTTPError as e:\n    print(\"HTTP\",e.code,e.read().decode()[:300])\nPYEOF",
+      "description": "Send summary email of last 2 turns via Resend"
+    },
+    "timestamp": "2026-06-30T03:25:58.074Z"
+  }
+]

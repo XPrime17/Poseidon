@@ -1,0 +1,290 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskCreate,TaskList",
+      "max_results": 5
+    },
+    "timestamp": "2026-06-24T23:19:06.270Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Confirm whether backfill ran today vs armed for 6/25",
+      "description": "Pull execution history for n8n workflow QdsKZXl5clf26jsd and determine actual fire time/status. Reconcile against memory note saying it fires 6/25 18:00 ET."
+    },
+    "timestamp": "2026-06-24T23:19:12.981Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Verify per-lead outcome of the 21 backfill leads",
+      "description": "If it ran, confirm how many of the 21 dropped CORE leads were re-classified and dialed; count successes/failures. If not run, report armed state + next fire."
+    },
+    "timestamp": "2026-06-24T23:19:16.307Z"
+  },
+  {
+    "name": "TaskList",
+    "input": {},
+    "timestamp": "2026-06-24T23:19:18.515Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\necho \"N8N_API_KEY set: $([ -n \"$N8N_API_KEY\" ] && echo yes || echo no)\"\necho \"N8N base candidates:\"\nenv | grep -iE 'n8n|N8N' | grep -iv key\necho \"---- grep skill tools for base url ----\"\ngrep -rhoE 'https?://[a-zA-Z0-9.:/_-]*n8n[a-zA-Z0-9.:/_-]*' /root/.claude/skills/_N8N/Tools/ 2>/dev/null | sort -u | head\ngrep -rhoE 'https?://[0-9.]+:5678[a-zA-Z0-9./_-]*' /root/.claude/skills/_N8N/Tools/ 2>/dev/null | sort -u | head",
+      "description": "Source env and find n8n base URL"
+    },
+    "timestamp": "2026-06-24T23:19:27.690Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\necho \"===== Workflow meta =====\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF\" \\\n | python3 -c 'import sys,json;d=json.load(sys.stdin);print(\"name:\",d.get(\"name\"));print(\"active:\",d.get(\"active\"));print(\"updatedAt:\",d.get(\"updatedAt\"));\nnodes=d.get(\"nodes\",[]);\n[print(\"  node:\",n.get(\"name\"),\"|\",n.get(\"type\"),\"|\",json.dumps(n.get(\"parameters\",{}).get(\"rule\",n.get(\"parameters\",{}).get(\"triggerTimes\",\"\")))[:200]) for n in nodes if \"trigger\" in n.get(\"type\",\"\").lower() or \"schedule\" in n.get(\"type\",\"\").lower() or \"cron\" in n.get(\"type\",\"\").lower()]'\necho\necho \"===== Recent executions =====\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$WF&limit=20&includeData=false\" \\\n | python3 -c 'import sys,json;d=json.load(sys.stdin);\nex=d.get(\"data\",[]);\nprint(\"count:\",len(ex));\n[print(f'\"'\"'{e.get(\"id\")} | mode={e.get(\"mode\")} | status={e.get(\"status\",e.get(\"finished\"))} | started={e.get(\"startedAt\")} | stopped={e.get(\"stoppedAt\")}'\"'\"') for e in ex]'",
+      "description": "Query backfill workflow meta and executions"
+    },
+    "timestamp": "2026-06-24T23:19:37.620Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\necho \"===== Workflow settings / timezone =====\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF\" \\\n | python3 -c 'import sys,json;d=json.load(sys.stdin);\ns=d.get(\"settings\",{});\nprint(\"workflow timezone:\",s.get(\"timezone\",\"(inherits instance default)\"));\nprint(\"createdAt:\",d.get(\"createdAt\"));\nprint(\"active:\",d.get(\"active\"));\n# show non-trigger node names to see what the backfill does\nprint(\"nodes:\");\n[print(\"  -\",n.get(\"name\"),\"|\",n.get(\"type\")) for n in d.get(\"nodes\",[])]'",
+      "description": "Check workflow timezone and node list"
+    },
+    "timestamp": "2026-06-24T23:19:57.306Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:TaskUpdate",
+      "max_results": 3
+    },
+    "timestamp": "2026-06-24T23:20:06.164Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "1",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-24T23:20:09.350Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "2",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-24T23:20:09.404Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Gate: confirm current ET hour is a sane calling window",
+      "description": "Attempt-1 dials ASAP. Verify now is reasonable calling time in America/Toronto before injecting. If late night, surface to Scott before firing."
+    },
+    "timestamp": "2026-06-24T23:25:59.130Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Identify trigger path for scheduleTrigger workflow",
+      "description": "n8n public API cannot run scheduleTrigger directly. Find skill-tool helper / webhook / manual-execution route for QdsKZXl5clf26jsd."
+    },
+    "timestamp": "2026-06-24T23:26:00.541Z"
+  },
+  {
+    "name": "TaskCreate",
+    "input": {
+      "subject": "Fire backfill and verify 21 injections + downstream classify",
+      "description": "Execute the backfill, confirm 21 Gmail injections succeeded, and that they classify as CORE and enter the dial pipeline. Report counts."
+    },
+    "timestamp": "2026-06-24T23:26:02.212Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "echo \"UTC now:   $(date -u '+%Y-%m-%d %H:%M:%S')\"\necho \"ET now:    $(TZ=America/Toronto date '+%Y-%m-%d %H:%M:%S %Z (%A)')\"\nH=$(TZ=America/Toronto date '+%-H')\nif [ \"$H\" -ge 9 ] && [ \"$H\" -lt 20 ]; then echo \"CALLING WINDOW: OK (9:00-20:00 ET)\"; else echo \"CALLING WINDOW: OUTSIDE 9-20 ET — flag before firing\"; fi\necho \"---- look for trigger/execute helpers in _N8N skill ----\"\nls /root/.claude/skills/_N8N/Tools/ 2>/dev/null\ngrep -rliE 'execute|trigger|run.*workflow|/run' /root/.claude/skills/_N8N/Tools/ 2>/dev/null",
+      "description": "Check current ET time and find trigger helper"
+    },
+    "timestamp": "2026-06-24T23:26:08.908Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nfor n in d.get(\"nodes\",[]):\n    t=n.get(\"type\",\"\")\n    name=n.get(\"name\")\n    p=n.get(\"parameters\",{})\n    if \"code\" in t.lower():\n        print(\"=== CODE NODE:\",name,\"===\")\n        print(p.get(\"jsCode\",p.get(\"functionCode\",\"\"))[:3000])\n        print(\"=== end code ===\\n\")\n    if \"gmail\" in t.lower():\n        print(\"=== GMAIL NODE:\",name,\"===\")\n        print(\"  operation:\",p.get(\"operation\"))\n        print(\"  sendTo:\",p.get(\"sendTo\"))\n        print(\"  subject:\",p.get(\"subject\"))\n        print(\"  message(first 300):\",str(p.get(\"message\",\"\"))[:300])\n        print(\"  options:\",json.dumps(p.get(\"options\",{}))[:300])\n        print()\n'",
+      "description": "Inspect backfill payload code and Gmail node"
+    },
+    "timestamp": "2026-06-24T23:26:34.925Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nfor n in d.get(\"nodes\",[]):\n    if \"code\" in n.get(\"type\",\"\").lower():\n        code=n.get(\"parameters\",{}).get(\"jsCode\",\"\")\n        print(\"FULL LEN:\",len(code))\n        print(code[2500:])  # tail after the truncation point\n'",
+      "description": "Read tail of backfill code node"
+    },
+    "timestamp": "2026-06-24T23:26:57.762Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\nmkdir -p /root/n8n-backups\nTS=$(date '+%Y%m%d-%H%M%S')\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF\" -o /root/n8n-backups/backfill-$WF-$TS.json\necho \"backup bytes: $(wc -c < /root/n8n-backups/backfill-$WF-$TS.json)\"\necho \"backup path: /root/n8n-backups/backfill-$WF-$TS.json\"",
+      "description": "Back up backfill workflow JSON"
+    },
+    "timestamp": "2026-06-24T23:27:41.020Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\nWF=\"QdsKZXl5clf26jsd\"\npython3 - \"$BASE\" \"$WF\" \"$N8N_API_KEY\" <<'PY'\nimport sys,json,urllib.request,datetime,zoneinfo\nbase,wf,key=sys.argv[1],sys.argv[2],sys.argv[3]\ndef req(method,path,body=None):\n    data=json.dumps(body).encode() if body is not None else None\n    r=urllib.request.Request(base+path,data=data,method=method,\n        headers={\"X-N8N-API-KEY\":key,\"Content-Type\":\"application/json\"})\n    with urllib.request.urlopen(r) as resp:\n        return json.loads(resp.read() or \"{}\")\n\nwfobj=req(\"GET\",f\"/workflows/{wf}\")\n\n# fire time: now ET + 2 min, rounded to upcoming minute\nnow=datetime.datetime.now(zoneinfo.ZoneInfo(\"America/Toronto\"))\nfire=(now+datetime.timedelta(minutes=2)).replace(second=0,microsecond=0)\ncron=f\"{fire.minute} {fire.hour} {fire.day} {fire.month} *\"\nprint(\"ET now:\",now.strftime(\"%H:%M:%S\"),\"-> fire cron:\",cron,f\"({fire.strftime('%H:%M')} ET)\")\n\nchanged_code=changed_cron=False\nfor n in wfobj[\"nodes\"]:\n    t=n.get(\"type\",\"\").lower()\n    if \"code\" in t:\n        c=n[\"parameters\"].get(\"jsCode\",\"\")\n        if \"now.day===25\" in c:\n            n[\"parameters\"][\"jsCode\"]=c.replace(\"now.day===25\",\"now.day===24\")\n            changed_code=True\n    if \"scheduletrigger\" in t:\n        rule=n[\"parameters\"].get(\"rule\",{})\n        for it in rule.get(\"interval\",[]):\n            if \"expression\" in it:\n                it[\"expression\"]=cron; changed_cron=True\nprint(\"changed_code:\",changed_code,\"changed_cron:\",changed_cron)\n\n# PUT only allowed fields\npayload={k:wfobj[k] for k in (\"name\",\"nodes\",\"connections\",\"settings\") if k in wfobj}\npayload.setdefault(\"settings\",{})\nreq(\"PUT\",f\"/workflows/{wf}\",payload)\n# ensure active\ntry:\n    req(\"POST\",f\"/workflows/{wf}/activate\")\n    print(\"activated OK\")\nexcept Exception as e:\n    print(\"activate note:\",e)\n# confirm\nchk=req(\"GET\",f\"/workflows/{wf}\")\nprint(\"active:\",chk.get(\"active\"))\nfor n in chk[\"nodes\"]:\n    if \"scheduletrigger\" in n.get(\"type\",\"\").lower():\n        print(\"live cron:\",n[\"parameters\"].get(\"rule\",{}).get(\"interval\"))\n    if \"code\" in n.get(\"type\",\"\").lower():\n        print(\"guard line present (day===24):\", \"now.day===24\" in n[\"parameters\"].get(\"jsCode\",\"\"))\nPY",
+      "description": "Edit guard+cron, PUT, activate"
+    },
+    "timestamp": "2026-06-24T23:27:54.524Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:Monitor",
+      "max_results": 2
+    },
+    "timestamp": "2026-06-24T23:28:04.038Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; WF=\"QdsKZXl5clf26jsd\"\n# Wait until an execution appears (fires 19:29 ET), max ~5 min\nuntil curl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$WF&limit=1\" | grep -q '\"id\"'; do sleep 5; done\necho \"EXECUTION DETECTED\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$WF&limit=3\" \\\n | python3 -c 'import sys,json;d=json.load(sys.stdin);[print(e.get(\"id\"),\"| status=\",e.get(\"status\"),\"| finished=\",e.get(\"finished\"),\"| started=\",e.get(\"startedAt\"),\"| stopped=\",e.get(\"stoppedAt\")) for e in d.get(\"data\",[])]'",
+      "description": "Wait for backfill execution to fire",
+      "run_in_background": true
+    },
+    "timestamp": "2026-06-24T23:28:12.029Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "3",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-24T23:28:16.311Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "4",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-24T23:28:16.927Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "in_progress"
+    },
+    "timestamp": "2026-06-24T23:28:16.973Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/tmp/claude-0/-root/f6731dab-ca98-4c2b-b81c-35f02e91227a/tasks/blzxyntkc.output"
+    },
+    "timestamp": "2026-06-24T23:29:41.508Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; WF=\"QdsKZXl5clf26jsd\"; EX=22020\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions/$EX?includeData=true\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nprint(\"status:\",d.get(\"status\"),\"| finished:\",d.get(\"finished\"))\nrd=d.get(\"data\",{}).get(\"resultData\",{})\nrun=rd.get(\"runData\",{})\nfor node,runs in run.items():\n    try:\n        items=runs[0].get(\"data\",{}).get(\"main\",[[]])[0]\n        n=len(items)\n    except Exception as e:\n        n=\"?\"\n    print(f\"  node \\\"{node}\\\": {n} output item(s)\")\nerr=rd.get(\"error\")\nif err: print(\"ERROR:\",str(err)[:300])\n# sample recipients from Build node\ntry:\n    items=run[\"Build 21 Inquiry Emails\"][0][\"data\"][\"main\"][0]\n    print(\"sample to/subject:\")\n    for it in items[:3]:\n        j=it[\"json\"]; print(\"   ->\",j.get(\"to\"),\"|\",j.get(\"subject\"),\"|\",j.get(\"_name\"))\n    print(\"   ... total built:\",len(items))\nexcept Exception as e:\n    print(\"build sample err:\",e)\n'",
+      "description": "Pull execution data and count injected items"
+    },
+    "timestamp": "2026-06-24T23:29:58.498Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; WF=\"QdsKZXl5clf26jsd\"\n# Deactivate the one-shot\ncurl -s -X POST -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows/$WF/deactivate\" \\\n | python3 -c 'import sys,json;d=json.load(sys.stdin);print(\"backfill active now:\",d.get(\"active\"))'\necho\necho \"===== Downstream: pipeline executions in last ~5 min (post-19:29 ET) =====\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?limit=40&includeData=false\" \\\n | python3 -c '\nimport sys,json,datetime\nd=json.load(sys.stdin)\ncut=datetime.datetime(2026,6,24,23,28,0,tzinfo=datetime.timezone.utc)  # 19:28 ET\nrows=[]\nfor e in d.get(\"data\",[]):\n    st=e.get(\"startedAt\",\"\")\n    try: t=datetime.datetime.fromisoformat(st.replace(\"Z\",\"+00:00\"))\n    except: continue\n    if t>=cut:\n        rows.append((e.get(\"workflowId\"),e.get(\"status\"),st,e.get(\"id\")))\nprint(\"recent executions since 19:28 ET:\",len(rows))\nfrom collections import Counter\nc=Counter(r[0] for r in rows)\nfor wf,n in c.most_common(): print(f\"  wf {wf}: {n} run(s)\")\nprint(\"--- detail ---\")\nfor r in rows[:30]: print(\"  \",r[3],\"| wf\",r[0],\"|\",r[1],\"|\",r[2])\n'",
+      "description": "Deactivate backfill and inspect downstream pipeline runs"
+    },
+    "timestamp": "2026-06-24T23:30:15.937Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\n# Find the main lead pipeline (workflow containing a 'Classify Lead' node and/or Gmail Trigger)\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/workflows?limit=250&active=true\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nfor w in d.get(\"data\",[]):\n    nodes=w.get(\"nodes\",[])\n    names=[n.get(\"name\") for n in nodes]\n    types=[n.get(\"type\",\"\") for n in nodes]\n    has_classify=any(\"classify\" in (nm or \"\").lower() for nm in names)\n    has_gtrig=any(\"gmailtrigger\" in t.lower() or (\"gmail\" in t.lower() and \"trigger\" in t.lower()) for t in types)\n    if has_classify or has_gtrig:\n        print(w.get(\"id\"),\"|\",w.get(\"name\"),\"| classify:\",has_classify,\"| gmailTrigger:\",has_gtrig)\n'",
+      "description": "Find main lead pipeline workflow"
+    },
+    "timestamp": "2026-06-24T23:30:39.757Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; PWF=\"6sPwo7ngPyTWfmwM\"\n# Poll up to ~6 min for pipeline executions since the injection\nend=$((SECONDS+360))\nwhile [ $SECONDS -lt $end ]; do\n  CNT=$(curl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$PWF&limit=50&includeData=false\" \\\n    | python3 -c '\nimport sys,json,datetime\nd=json.load(sys.stdin)\ncut=datetime.datetime(2026,6,24,23,29,0,tzinfo=datetime.timezone.utc)\nn=0\nfor e in d.get(\"data\",[]):\n    try:t=datetime.datetime.fromisoformat(e.get(\"startedAt\",\"\").replace(\"Z\",\"+00:00\"))\n    except:continue\n    if t>=cut:n+=1\nprint(n)')\n  if [ \"$CNT\" -ge 1 ]; then echo \"PIPELINE PICKED UP: $CNT execution(s) since 19:29 ET\"; break; fi\n  sleep 15\ndone\necho \"--- pipeline executions since 19:29 ET ---\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$PWF&limit=50&includeData=false\" \\\n | python3 -c '\nimport sys,json,datetime\nd=json.load(sys.stdin)\ncut=datetime.datetime(2026,6,24,23,29,0,tzinfo=datetime.timezone.utc)\nrows=[e for e in d.get(\"data\",[]) if (lambda t: t and t>=cut)(__import__(\"datetime\").datetime.fromisoformat(e.get(\"startedAt\",\"1970-01-01T00:00:00+00:00\".replace(\"Z\",\"+00:00\")).replace(\"Z\",\"+00:00\")) if e.get(\"startedAt\") else None)]\nprint(\"count:\",len(rows))\nfrom collections import Counter\nprint(\"by status:\",dict(Counter(e.get(\"status\") for e in rows)))\nfor e in rows[:30]: print(\"  \",e.get(\"id\"),\"|\",e.get(\"status\"),\"|\",e.get(\"startedAt\"))\n'",
+      "description": "Watch main pipeline for lead pickups",
+      "run_in_background": true
+    },
+    "timestamp": "2026-06-24T23:30:53.697Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/tmp/claude-0/-root/f6731dab-ca98-4c2b-b81c-35f02e91227a/tasks/boaup0qbi.output"
+    },
+    "timestamp": "2026-06-24T23:31:33.047Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; PWF=\"6sPwo7ngPyTWfmwM\"\necho \"=== pipeline executions since 19:29 ET (now) ===\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions?workflowId=$PWF&limit=80&includeData=false\" \\\n | python3 -c '\nimport sys,json,datetime\nd=json.load(sys.stdin)\ncut=datetime.datetime(2026,6,24,23,29,0,tzinfo=datetime.timezone.utc)\nrows=[]\nfor e in d.get(\"data\",[]):\n    s=e.get(\"startedAt\")\n    if not s: continue\n    t=datetime.datetime.fromisoformat(s.replace(\"Z\",\"+00:00\"))\n    if t>=cut: rows.append(e)\nfrom collections import Counter\nprint(\"pipeline runs since inject:\",len(rows),\"| status:\",dict(Counter(e.get(\"status\") for e in rows)))\nfor e in rows: print(\"  \",e.get(\"id\"),e.get(\"status\"),e.get(\"startedAt\"))\n'\necho\necho \"=== how many leads did exec 22021 process (items through Classify) ===\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions/22021?includeData=true\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nrun=d.get(\"data\",{}).get(\"resultData\",{}).get(\"runData\",{})\nfor node in (\"Gmail Trigger\",\"Classify Lead\"):\n    for k,v in run.items():\n        if k.lower().replace(\" \",\"\")==node.lower().replace(\" \",\"\"):\n            try:\n                items=v[0][\"data\"][\"main\"][0]; print(f\"  {k}: {len(items)} item(s)\")\n                for it in items[:25]:\n                    j=it.get(\"json\",{})\n                    print(\"     subj:\",str(j.get(\"subject\",j.get(\"Subject\",\"\")))[:40],\"| program:\",j.get(\"lead_program\"),\"| name:\",j.get(\"name\") or j.get(\"lead_name\"))\n            except Exception as e: print(f\"  {k}: parse err {e}\")\n'",
+      "description": "Final downstream count and per-lead classify check"
+    },
+    "timestamp": "2026-06-24T23:31:49.301Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions/22021?includeData=true\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nrun=d.get(\"data\",{}).get(\"resultData\",{}).get(\"runData\",{})\nprint(\"Per-node: runs / total output items\")\nfor node,runs in run.items():\n    total=0\n    for r in runs:\n        try: total+=len(r[\"data\"][\"main\"][0])\n        except: pass\n    print(f\"  {node:42s} runs={len(runs):3d} items={total}\")\nerr=d.get(\"data\",{}).get(\"resultData\",{}).get(\"error\")\nif err: print(\"EXEC ERROR:\",str(err)[:300])\n# program distribution across Classify Lead all runs\nprog={}\nfor r in run.get(\"Classify Lead\",[]):\n    try:\n        for it in r[\"data\"][\"main\"][0]:\n            p=it[\"json\"].get(\"lead_program\") or it[\"json\"].get(\"program\") or \"?\"\n            prog[p]=prog.get(p,0)+1\n    except: pass\nprint(\"Classify program distribution:\",prog)\n'",
+      "description": "Aggregate per-node runs/items for exec 22021"
+    },
+    "timestamp": "2026-06-24T23:32:10.650Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; set +a\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"\ncurl -s -H \"X-N8N-API-KEY: $N8N_API_KEY\" \"$BASE/executions/22021?includeData=true\" \\\n | python3 -c '\nimport sys,json\nd=json.load(sys.stdin)\nrun=d.get(\"data\",{}).get(\"resultData\",{}).get(\"runData\",{})\ndef items(node):\n    out=[]\n    for r in run.get(node,[]):\n        try: out+=r[\"data\"][\"main\"][0]\n        except: pass\n    return out\n# the 21 that entered\nprint(\"=== 21 entered (Extract Centre) ===\")\nfor it in items(\"Extract Centre\"):\n    j=it[\"json\"]; print(\"   \",j.get(\"to\") or j.get(\"centre\") or j.get(\"_centre\"), \"|\", (j.get(\"snippet\") or j.get(\"text\") or \"\")[:0])\nprint()\n# the 1 that proceeded through Classify -> Call\nprint(\"=== lead that PROCEEDED to dial ===\")\nfor node in (\"Classify Lead\",\"Get customer info1\",\"Append row in sheet\",\"Retell:  Call Prospect\"):\n    its=items(node)\n    if its:\n        j=its[0][\"json\"]\n        keys=[k for k in (\"lead_name\",\"name\",\"customer_name\",\"phone\",\"phone_number\",\"to_number\",\"lead_program\",\"centre\",\"centre_id\") if k in j]\n        print(f\"  [{node}] \"+\", \".join(f\"{k}={j[k]}\" for k in keys))\n'\necho\necho \"=== Retell: most recent outbound calls (last 15 min) ===\"\ncurl -s \"https://api.retellai.com/v2/list-calls\" -X POST \\\n -H \"Authorization: Bearer $RETELL_API_KEY\" -H \"Content-Type: application/json\" \\\n -d '{\"sort_order\":\"descending\",\"limit\":8}' 2>/dev/null \\\n | python3 -c '\nimport sys,json\ntry:\n  d=json.load(sys.stdin)\n  calls=d if isinstance(d,list) else d.get(\"calls\",d.get(\"items\",[]))\n  for c in calls[:8]:\n    print(\"  \",c.get(\"call_id\",\"\")[:18],\"|\",c.get(\"to_number\"),\"|\",c.get(\"call_status\"),\"|\",c.get(\"start_timestamp\"))\nexcept Exception as e: print(\"retell parse:\",e, \"(key set:\", bool(\"'$RETELL_API_KEY'\"),\")\")\n'",
+      "description": "Identify dialed lead and check recent Retell calls"
+    },
+    "timestamp": "2026-06-24T23:32:40.457Z"
+  },
+  {
+    "name": "TaskUpdate",
+    "input": {
+      "taskId": "5",
+      "status": "completed"
+    },
+    "timestamp": "2026-06-24T23:33:10.236Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/core-backfill-batch-collapse-2026-06-24.md",
+      "content": "---\nname: core-backfill-batch-collapse-2026-06-24\ndescription: Manual CORE backfill burst dialed only 1 of 21 — batch-collapse bug #61 confirmed in prod\nmetadata:\n  type: project\n---\n\n2026-06-24 ~19:29 ET: Scott had me fire the CORE-classifier backfill early (n8n `QdsKZXl5clf26jsd`, one-shot, normally armed 6/25 18:00 ET). Had to flip the in-code date guard `now.day===25 → 24` and bump the cron to fire (exec `22020`, success). All **21/21** synthetic `New CORE Program Inquiry` emails injected to `scott.james1717+<slug>@gmail.com`. Backfill then **deactivated** so the 6/25 cron can't double-fire. Backup: `/root/n8n-backups/backfill-QdsKZXl5clf26jsd-20260624-232741.json`.\n\n**BUT only 1 of 21 actually dialed.** Pipeline `6sPwo7ngPyTWfmwM` (Outbound Call Flow - Multicentre) exec `22021`: Gmail Trigger=21 items, Extract Centre=21, then **Classify Lead collapses 21→1** (node processes only the first item when a poll batches multiple). Lone survivor reached `Retell: Call Prospect` → +12896876082 = **Nadine Gageiro (EG)**. The other **20 were dropped** AND consumed from the inbox (Gmail trigger won't re-emit them).\n\nThis is the **batch-lead detection gap = GitHub lead-reactivation#61**, now confirmed in production. I warned Scott pre-fire and offered throttling; he said fire now.\n\n**Remediation:** re-inject the remaining 20 ONE AT A TIME, spaced > the Gmail-trigger poll interval so each lead gets its own pipeline execution. Dropped 20 = Pickering ×11, StCath ×5, Leaside ×3, EG ×1 (Jasmine Punni). Real fix for #61: make Classify Lead + downstream run per-item (loop/SplitInBatches) instead of first-item-only.\n\nSupersedes the \"21 backfill armed for 6/25\" line in [[core-classifier-drop-2026-06-24]].\n"
+    },
+    "timestamp": "2026-06-24T23:33:25.771Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "offset": 1,
+      "limit": 20
+    },
+    "timestamp": "2026-06-24T23:33:29.203Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/MEMORY.md",
+      "old_string": "## ▶ CORE Classifier Drop (2026-06-24)\n- [CORE leads dropped 6/12-6/23 + fixed](core-classifier-drop-2026-06-24.md) — `Classify Lead` regex `/New CORE Inquiry/` never matched real subject `New CORE Program Inquiry` → every CORE lead dropped (all centres) since 6/12; Nadine Gageiro was one. Fixed `/New CORE(\\s+Program)?\\s+Inquiry/i`, gate PASS. SUPERSEDES the StCath \"forwarding lapse\" theory below. 21 backfill armed (n8n `QdsKZXl5clf26jsd`, fires 6/25 18:00 ET); batch-lead detection = #61.",
+      "new_string": "## ▶ CORE Classifier Drop (2026-06-24)\n- [CORE leads dropped 6/12-6/23 + fixed](core-classifier-drop-2026-06-24.md) — `Classify Lead` regex `/New CORE Inquiry/` never matched real subject `New CORE Program Inquiry` → every CORE lead dropped (all centres) since 6/12; Nadine Gageiro was one. Fixed `/New CORE(\\s+Program)?\\s+Inquiry/i`, gate PASS. SUPERSEDES the StCath \"forwarding lapse\" theory below. 21 backfill armed (n8n `QdsKZXl5clf26jsd`, fires 6/25 18:00 ET); batch-lead detection = #61.\n- [Backfill fired early 6/24 — only 1/21 dialed](core-backfill-batch-collapse-2026-06-24.md) — Scott had me trigger the backfill manually 6/24 19:29 ET (guard→day24, cron bump, exec 22020). 21/21 injected but Classify Lead collapsed 21→1; only Nadine Gageiro (EG) dialed, **20 dropped + consumed**. Batch-collapse #61 confirmed in prod. Backfill now DEACTIVATED. OPEN: re-inject remaining 20 throttled (1/poll)."
+    },
+    "timestamp": "2026-06-24T23:33:40.573Z"
+  }
+]

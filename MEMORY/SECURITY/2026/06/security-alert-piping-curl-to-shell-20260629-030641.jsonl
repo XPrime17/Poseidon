@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-06-29T03:06:41.177Z",
+  "session_id": "6d2aa5f7-a237-40b5-9839-ea3eb0a6aa8b",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "set -a; . /root/.env 2>/dev/null; set +a\nAPI=\"https://n8n.tourforceai.com/api/v1\"\nH=\"X-N8N-API-KEY: $N8N_API_KEY\"\necho \"=== execution 22120 status ===\"\ncurl -s -H \"$H\" \"$API/executions/22120?includeData=false\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print('status:',d.get('status'),'| finished:',d.get('finished'),'| mode:',d.get('mode')); print('startedAt:',d.get('startedAt'),'| stoppedAt:',d.get('stoppedAt')); print('workflowId:',d.get('workflowId'))\" 2>&1 | head -20\necho \"=== exe",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

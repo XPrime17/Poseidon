@@ -1,0 +1,8 @@
+{
+  "rating": 3,
+  "summary": "Mild frustration—previous ClickUp guidance didn't work",
+  "detailed_context": "Scott was trying to locate the ClickUp Trash feature to restore a deleted item. Poseidon gave directional guidance (\"it's per-Space\"), but Scott followed those instructions and the Trash wasn't where indicated. The short, flat statement 'i don't see trash there' signals that the previous response was inaccurate or incomplete—not just unhelpful, but actively wrong. Root cause: Poseidon provided guidance without verifying the exact location or acknowledging uncertainty about ClickUp's UI layout. Scott's expectation is that AI assistance should give correct, tested paths rather than guesses. Trigger: the failed navigation attempt. Pattern: Scott has low tolerance for misdirection; he prefers either accurate detail or an honest 'I'm not certain—let me think through this' over a confident-sounding wrong answer. Poseidon should have either (a) provided the verified path to Trash, or (b) admitted uncertainty and offered to help him search systematically (e.g., \"ClickUp Trash is usually in Settings or Workspace Overflow; let's check both\").",
+  "session_id": "961acda4-ccbb-424f-890d-dfaec9d06501",
+  "captured_at": "2026-06-30T03:40:57.104Z",
+  "transcript_source": "961acda4-ccbb-424f-890d-dfaec9d06501.jsonl"
+}
