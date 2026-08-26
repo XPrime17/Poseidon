@@ -48,6 +48,7 @@
   },
   "promptQueueUseCount": 620,
   "btwUseCount": 1,
+  "showExpandedTodos": true,
   "cachedDynamicConfigs": {
     "tengu_1p_event_batch_config": {
       "scheduledDelayMillis": 5000,
@@ -1331,8 +1332,8 @@
       "lastUsedAt": 1773597990551
     },
     "_N8N": {
-      "usageCount": 3,
-      "lastUsedAt": 1786675460537
+      "usageCount": 4,
+      "lastUsedAt": 1787720582349
     },
     "_SYSTEMCHECK": {
       "usageCount": 4,
