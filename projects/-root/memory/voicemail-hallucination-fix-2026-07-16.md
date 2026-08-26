@@ -1,11 +1,13 @@
 ---
 name: voicemail-hallucination-fix-2026-07-16
-description: "Outbound agents invented voicemail callback numbers → pinned deterministic voicemail + prompt guard + audit rule, fleet-wide"
+description: "Outbound agents spoke test numbers on voicemail — ROOT CAUSE CORRECTED 2026-08-26 (not LLM hallucination; see vm-callback-test-number-2026-08-26)"
 metadata: 
   node_type: memory
   type: project
   originSessionId: 6473ff0a-0b96-4c84-ab86-16b1944896c9
 ---
+
+> **ROOT CAUSE CORRECTED 2026-08-26:** the "hallucination" theory below is WRONG. The number came deterministically from the Retry Scheduler's per-call `agent_override.agent.voicemail_option` static_text, whose template read col I `test_number` — a layer this investigation never checked. Proven by identical-template attempt-2 VMs on Jul 11/13, before this fix shipped. See [[vm-callback-test-number-2026-08-26]] for the real fix. The Options 1-3 mitigations below remain in place and rule 5K is what caught it.
 
 **call_ac4627d26570b56758f1c13b22c** (StCath outbound, Cimo→Candice, 2026-07-04): hit voicemail and spoke callback "905-220-0332" = the centre's **test_number** (Centre Lookup col I `9052200332`). Traced it through every layer — NOT in prompt, dynamic vars, KB, or voicemail_option. The LLM (gpt-4.1) **hallucinated** it: Retell streams the answering-machine greeting to the LLM as "user" speech; with no voicemail script the model improvised a whole VM message and pulled a plausible number from parametric memory (likely the centre's real/public listing). Same class as [[slot-weekday-hallucination-fix-2026-06-30]]. `voicemail_option` was `hangup` but the LLM spoke before detection completed.
 

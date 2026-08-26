@@ -1243,8 +1243,8 @@
     },
     {
       "session_id": "e0d42a6a-e981-48c0-a236-c6586e584ff1",
-      "description": "",
-      "first_prompt": "",
+      "description": "See daily call audit.  2 high priority issues reported",
+      "first_prompt": "See daily call audit.  2 high priority issues reported",
       "started_at": "2026-08-25T04:36:10+00:00",
       "ended_at": null,
       "status": "active",

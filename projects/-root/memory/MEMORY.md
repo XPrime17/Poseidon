@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Attempt-2 Voicemail Quoted Test Number — FIXED (2026-08-26)
+- [Retry Call VM static_text read col I test_number → 10 real leads told to call Scott's cell / test lines since ≤Jul 11](vm-callback-test-number-2026-08-26.md) — 8/25 audit's 2 HIGH (5K) = this; corrects 7/16 "hallucination" root cause (per-call agent_override was never checked). Fixed → centre_landline||DID, gate PASS. OPEN: backfill col E Pickering/Leaside/Riverside/Sudbury; confirm next attempt-2 VM.
+
 ## ▶ Centre-not-found Silent Drop (2026-08-22)
 - [Transient Centre Lookup miss on valid leaside slug dropped Mariem Ben Sayeh](centre-notfound-transient-lookup-2026-08-22.md) — 8/21 21:12 exec 28527; recovered row 513 + dialed; "Centre not found" email now carries slug/lead detail. Watch for repeat → add lookup retry before the gate.
 
@@ -61,7 +64,7 @@
 ## ▶ Slot-Weekday Hallucination Fix (2026-06-30)
 - [Agents fabricated tour weekdays → fixed at source+prompt+audit, fleet-wide](slot-weekday-hallucination-fix-2026-06-30.md) — SLOTS/get_tour_slots fed ISO dates only but prompts said "speak the day of week" (from the 6/1 trim; Cekura empty-var harness was blind). Fixed Format Slots in both n8n outbound wfs + calendar_api.py inbound + 7 outbound & 5 inbound prompts (read-exactly guard) + audit.py HALLUCINATION→HIGH floor. Backups in `/root/n8n-backups/slots-weekday-fix-2026-06-30/` + `/root/cnkb-slots-weekday-prompt-2026-06-30/`. OPEN: confirm next real call renders right; add real-slots assertion to the gate.
 
-## ▶ Voicemail Callback Hallucination Fix (2026-07-16)
+## ▶ Voicemail Callback Hallucination Fix (2026-07-16) — ROOT CAUSE CORRECTED → see vm-callback-test-number-2026-08-26
 - [Outbound agents invented VM callback numbers → deterministic voicemail + prompt guard + audit rule, fleet-wide](voicemail-hallucination-fix-2026-07-16.md) — StCath call_ac4627d2… left the centre TEST number (col I 9052200332) on voicemail; LLM hallucinated it (no VM script → improvised). Shipped to all 7 enabled outbound agents: `voicemail_option`=static_text (landline where col E set), `# Phone Number Rule` prompt guard, audit.py rule 5K (spoken # not in injected KB → HIGH). Landline=289-974-0871 (sheet col E = KB, no discrepancy). OPEN: backfill col E for Pickering/Leaside/Riverside; confirm next real VM.
 
 ## ▶ On-Site Callback Rev (2026-06-19)
