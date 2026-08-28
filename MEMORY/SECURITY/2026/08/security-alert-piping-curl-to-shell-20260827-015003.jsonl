@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-08-27T01:50:03.970Z",
+  "session_id": "635b9053-51af-4458-be62-3c9280a7e1ed",
+  "event_type": "alert",
+  "tool": "Bash",
+  "category": "bash_command",
+  "target": "curl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/drive-share-file\" -H \"Content-Type: application/json\" -d '{\"fileId\":\"1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw\",\"email\":\"me_loiselle@hotmail.com\",\"role\":\"writer\",\"sendNotification\":true}' | python3 -c \"import json,sys; d=json.load(sys.stdin); print('KB share status:', d.get('statusCode'), '| role:', d.get('body',{}).get('role'))\"",
+  "reason": "Piping curl to shell",
+  "action_taken": "Logged alert, allowed execution"
+}

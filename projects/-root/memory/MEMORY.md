@@ -1,7 +1,7 @@
 # PAI Memory
 
 ## ▶ Attempt-2 Voicemail Quoted Test Number — FIXED (2026-08-26)
-- [Retry Call VM static_text read col I test_number → 10 real leads told to call Scott's cell / test lines since ≤Jul 11](vm-callback-test-number-2026-08-26.md) — 8/25 audit's 2 HIGH (5K) = this; corrects 7/16 "hallucination" root cause (per-call agent_override was never checked). Fixed → centre_landline||DID, gate PASS. OPEN: backfill col E Pickering/Leaside/Riverside/Sudbury; confirm next attempt-2 VM.
+- [Retry Call VM static_text read col I test_number → 10 real leads told to call Scott's cell / test lines since ≤Jul 11](vm-callback-test-number-2026-08-26.md) — 8/25 audit's 2 HIGH (5K) = this; corrects 7/16 "hallucination" root cause (per-call agent_override was never checked). Fixed → centre_landline||DID, gate PASS. CONFIRMED 8/27: 3 attempt-2 VMs spoke correct landlines (Pick/Burl/StCath). Remaining: Riverside/Sudbury col E blank (not live).
 
 ## ▶ Centre-not-found Silent Drop (2026-08-22)
 - [Transient Centre Lookup miss on valid leaside slug dropped Mariem Ben Sayeh](centre-notfound-transient-lookup-2026-08-22.md) — 8/21 21:12 exec 28527; recovered row 513 + dialed; "Centre not found" email now carries slug/lead detail. Watch for repeat → add lookup retry before the gate.

@@ -28,13 +28,18 @@ metadata:
 2. **Inbound get_tour_slots URL cloned EG's endpoint** — provision-inbound slot gate caught it; repointed to `/retell/get-slots/barrhaven`. Also needed calendar_api CENTRES entry.
 3. begin_message_delay_ms=1500 DID inherit correctly (double-greeting fix in EG golden source).
 
+## Moe's two-asks reply (2026-08-27, via Scott)
+- Test number **613-668-4805** → written to Centre Lookup I16 (was Scott's cell). Personal email **me_loiselle@hotmail.com** → M16 + KB shared as editor (notification sent — needs Google-account association on his end).
+- ClickUp guest DONE 2026-08-27: Scott invited manually (API is Enterprise-gated, TEAM_110); Moe user_id **87469369** → N16 written (clears the PipelineRegressionCheck clickup_user_ids FAIL).
+- Carrier = **Freedom Mobile** (the "landline" 343-843-2033 is wireless). Go-live forwarding = GSM MMI codes: all-conditional `**004*13432967200#` (busy+no-answer+unreachable in one), disable `##004#`; no-answer-only `**61*13432967200#`. Include in go-live confirmation email; note possible per-min forwarding charges on Freedom.
+
 ## REMAINING MANUAL (before go-live) — same shape as Kanata
-1. ChatDash: create agent CNKB-Barrhaven + client (login maurice.barrhaven), forwarding URL → outbound EOC webhook
-2. Hiya branded caller ID for +13432967200 ("Code Ninjas Barrhaven")
+1. ~~ChatDash~~ ✅ DONE 2026-08-27 (Scott): BOTH agents wired — Retell-verified webhook_urls now api.chat-dash.com (outbound→ChatDash agent 6a8a0c59d7c9552b92034fd0, inbound→6a8a106a2effedaeaae6961e). ⚠️ inbound webhook now routes VIA ChatDash (was direct) — the pending test inbound call must confirm the summary email still arrives (proves ChatDash inbound forwarding URL → inbound-end-of-call is right)
+2. ~~Hiya~~ ✅ DONE 2026-08-27 (Scott): +13432967200 registered as "Code Ninjas Barrhaven"
 3. **2026-08-25: CONSOLIDATED v2 email sent to Scott's inbox (Resend 95b370f2…) — forward THIS one; supersedes v1 (732991ed…/01c16117…), original ad702090…, addendum 853eef35…. v2 REMOVES the LineLeader forwarding section (obsolete — Zap-era lead ingestion, nothing centre-side; Scott caught the stale ask 2026-08-25).** Covers: two-asks (test # + personal email), LineLeader forwarding (Outlook + Power Automate), KB with live link, inbound receptionist + star codes + don't-enable-yet. KB doc shared as EDITOR to barrhavenonca@codeninjas.com (silent, via drive-share-file webhook) — add Maurice's personal email as editor when he replies. Template fixes shipped same day: client email Step 4 inbound section; checklist email Cekura-429→per-centre-cron + ChatDash inbound-agent step
 4. Verify `barrhavenonca@codeninjas.com` real (it IS the KB/site contact email — likely fine)
-5. ~~CRM lead forwarding~~ → **Scott adds `barrhaven-on-ca` to the Zapier facility_slug filter** (Request-Info Zap, his seat) — safe immediately: Barrhaven is HubSpot-native, never had LineLeader (no dual-ingestion risk). Lead flow is DEAD until this is done. onboard-centre.ts checklist template now carries this as task #1 for future onboards (2026-08-25)
-6. Call forwarding (no-answer → +13432967200), then add to LIVE_INBOUND_CENTRE_IDS
+5. ~~CRM lead forwarding~~ → ✅ DONE 2026-08-27: Scott added `barrhaven-on-ca` to the Zap facility_slug filter — Barrhaven lead flow LIVE (Testing=TRUE → dials ring Moe's 6136684805)
+6. **Test-instructions email sent to Scott 2026-08-27 (Resend 5f72e48a…, forward to Moe):** Test 1 = dial +13432967200 (validates ChatDash inbound re-route: summary email to centre inbox + ClickUp task = PASS signal); Test 2 = Request-Info fill on barrhaven page → dial rings 6136684805 (validates Zap + outbound ChatDash forwarding); book-and-cancel tour encouraged. THEN: call forwarding (Freedom `**004*13432967200#`) + add to LIVE_INBOUND_CENTRE_IDS
 7. After E2E test lead: flip Testing=FALSE (H16)
 
 Related: [[kanata-burlington-onboarding-2026-06-12]], [[feedback-onboard-both-directions]], [[voicemail-hallucination-fix-2026-07-16]], [[inbound-slot-source-eg-contamination-2026-06-18]]

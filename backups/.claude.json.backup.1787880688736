@@ -1,5 +1,5 @@
 {
-  "numStartups": 154,
+  "numStartups": 155,
   "installMethod": "global",
   "autoUpdates": true,
   "hasSeenTasksHint": true,
@@ -48,6 +48,7 @@
   },
   "promptQueueUseCount": 620,
   "btwUseCount": 1,
+  "showExpandedTodos": true,
   "cachedDynamicConfigs": {
     "tengu_1p_event_batch_config": {
       "scheduledDelayMillis": 5000,
@@ -1342,8 +1343,8 @@
       "lastUsedAt": 1776526640801
     },
     "_DAILYCALLAUDIT": {
-      "usageCount": 9,
-      "lastUsedAt": 1787720277364
+      "usageCount": 10,
+      "lastUsedAt": 1787792192402
     },
     "_PORTALVERIFY": {
       "usageCount": 1,
@@ -1406,7 +1407,7 @@
   "hasUsedRemoteControl": true,
   "remoteDialogSeen": true,
   "agentPushNotifEnabled": true,
-  "closedIssuesLastChecked": 1787427341559,
+  "closedIssuesLastChecked": 1787803419221,
   "cachedExperimentFeatures": [
     "tengu_amber_prism",
     "tengu_basalt_spur",
@@ -1419,7 +1420,7 @@
   "seenNotifications": {},
   "hasResetAutoModeOptInForDefaultOffer": true,
   "routineFiredWatermark": "2026-05-15T13:30:09.383092Z",
-  "cachedGrowthBookFeaturesAt": 1787723108990,
+  "cachedGrowthBookFeaturesAt": 1787874309140,
   "tipLifetimeShownCounts": {
     "web-app": 4,
     "fotw-campaign-upsell": 2,

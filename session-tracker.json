@@ -1246,6 +1246,26 @@
       "description": "See daily call audit.  2 high priority issues reported",
       "first_prompt": "See daily call audit.  2 high priority issues reported",
       "started_at": "2026-08-25T04:36:10+00:00",
+      "ended_at": "2026-08-27T00:55:58+00:00",
+      "status": "completed",
+      "message_count": 0,
+      "synced": true
+    },
+    {
+      "session_id": "84d6f59c-d934-494e-8775-cec8606a97fc",
+      "description": "check calls for last 2 days",
+      "first_prompt": "check calls for last 2 days",
+      "started_at": "2026-08-27T00:56:00+00:00",
+      "ended_at": null,
+      "status": "active",
+      "message_count": 0,
+      "synced": false
+    },
+    {
+      "session_id": "1ff00659-1d22-4919-a5db-83843ebfd0b0",
+      "description": "EG is having a back-to-school open house.  If we add this...",
+      "first_prompt": "EG is having a back-to-school open house.  If we add this to MyStudio and it gets to our webpage, then will the crawler pick it up?  Is there a way we can explore adding a feature to the inbound/ou...",
+      "started_at": "2026-08-27T04:03:41+00:00",
       "ended_at": null,
       "status": "active",
       "message_count": 0,
