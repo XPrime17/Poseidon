@@ -1,5 +1,9 @@
 # PAI Memory
 
+## ▶ Audit Fleet Roster Gap + Kanata First Booking (2026-08-30)
+- [Audit blind to 13/28 calls: Kanata/Barrhaven outbound + 4 inbound missing — FIXED + inbound tool-slots to LLM judge](audit-fleet-roster-gap-2026-08-30.md) — commit 072de6c; add-agent-to-audit must join go-live checklists; SCHEDULER_LAG noise = day+1 cadence by design.
+- [Kanata 1st booking (Elena/Ivan Sept 12 10AM) verified thru Skyvern completed — closes 6/27 OPEN](kanata-first-booking-elena-dateswitch-2026-08-30.md) — OPEN: staff confirm date w/ Elena (asked Sept 5 10AM, got silent switch to Sept 12; separate Sept 5 "free demo" impression via inbound 8/29).
+
 ## ▶ Attempt-2 Voicemail Quoted Test Number — FIXED (2026-08-26)
 - [Retry Call VM static_text read col I test_number → 10 real leads told to call Scott's cell / test lines since ≤Jul 11](vm-callback-test-number-2026-08-26.md) — 8/25 audit's 2 HIGH (5K) = this; corrects 7/16 "hallucination" root cause (per-call agent_override was never checked). Fixed → centre_landline||DID, gate PASS. CONFIRMED 8/27: 3 attempt-2 VMs spoke correct landlines (Pick/Burl/StCath). Remaining: Riverside/Sudbury col E blank (not live).
 

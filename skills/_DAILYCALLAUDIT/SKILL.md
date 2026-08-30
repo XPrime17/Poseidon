@@ -33,7 +33,13 @@ Fetch calls from ALL 13 agents using `mcp__retell-voice-ai__list_calls`:
 | CNKB-Riverside | `agent_ee11bcfc9222c37df4de8bfe95` | outbound |
 | CNKB-Sudbury | `agent_ccad25c0d5aab5eac8ce8c2354` | outbound |
 | CNKB-StCatharines | `agent_c02bfb40888bba2275ea3a9f3a` | outbound |
+| CNKB-Kanata | `agent_aac09671305b8903483ceee6df` | outbound |
+| CNKB-Barrhaven | `agent_78b3b359c341d2a084a893f161` | outbound |
 | EG-Inbound | `agent_17d623c8a8f95fc674288d0e00` | inbound |
+| StCatharines-Inbound | `agent_fa924598caf3662856ac3cea3b` | inbound |
+| Burlington-Inbound | `agent_7950e8ff24a902abfd3d5b34cc` | inbound |
+| Kanata-Inbound | `agent_c3d64fc094dccb0fa486bde5f9` | inbound |
+| Leaside-Inbound | `agent_50a754cd5b9ba4ec988c764427` | inbound |
 
 For each agent, fetch up to 50 calls with `list_calls`. Filter to calls where `start_time` falls within the last 24 hours from current time.
 
