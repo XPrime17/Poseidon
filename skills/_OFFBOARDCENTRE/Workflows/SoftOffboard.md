@@ -34,7 +34,7 @@ Order matters — drain leads BEFORE flipping the lookup flag, so in-flight retr
    - GET `/get-agent/{agent_id}` to capture original name → save to inventory.json
    - PATCH `/update-agent/{agent_id}` with `agent_name = "[OFFBOARDED-YYYY-MM-DD] " + original_name`
 4. **Unbind Retell phone**:
-   - GET `/list-phone-numbers`, find row by `outbound_agent_id` OR `nickname`
+   - GET `/v2/list-phone-numbers` (rows under `items`), find row by `outbound_agent_id` OR `nickname`
    - Save original `outbound_agent_id` and `inbound_agent_id` to inventory.json
    - PATCH `/update-phone-number/{phone_number}` body `{"outbound_agent_id": null, "inbound_agent_id": null}`
 5. **Generate exit report** at `/root/offboard-archives/<centre_id>-YYYY-MM-DD/`:

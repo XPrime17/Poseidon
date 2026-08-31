@@ -116,9 +116,12 @@ def main():
     # Retell inbound bindings (optional — needs RETELL_API_KEY in env)
     inbound_bound = None
     if RETELL_KEY:
-        rt = http("https://api.retellai.com/list-phone-numbers", {"Authorization": f"Bearer {RETELL_KEY}"})
+        # Legacy GET /list-phone-numbers removed after the 2026-06-15 deprecation; v2 wraps the
+        # array in {items, pagination_key, has_more} — accept either shape during transition
+        rt = http("https://api.retellai.com/v2/list-phone-numbers", {"Authorization": f"Bearer {RETELL_KEY}"})
+        phones = rt.get("items", []) if isinstance(rt, dict) else rt
         # Retell moved bindings from singular inbound_agent_id -> inbound_agents[] (2026-03 deprecation); accept either
-        inbound_bound = {digits(p.get("phone_number")) for p in rt if p.get("inbound_agent_id") or p.get("inbound_agents")}
+        inbound_bound = {digits(p.get("phone_number")) for p in phones if p.get("inbound_agent_id") or p.get("inbound_agents")}
     else:
         WARN("[C] Retell binding check skipped (no RETELL_API_KEY in env)")
     sheet_inbound = {digits(r.get("inbound_number")) for r in rows if digits(r.get("inbound_number"))}

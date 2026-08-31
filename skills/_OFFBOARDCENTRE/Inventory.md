@@ -39,7 +39,7 @@ Each centre has up to 9 active touchpoints in the voice AI pipeline. This file i
 ## 4. Retell Phone Number
 
 - **What**: Twilio number bound to a Retell agent for outbound (and optionally inbound)
-- **API list**: `GET https://api.retellai.com/list-phone-numbers`
+- **API list**: `GET https://api.retellai.com/v2/list-phone-numbers` (results under `items`)
 - **API patch**: `PATCH https://api.retellai.com/update-phone-number/{phone_number}` body `{"outbound_agent_id": null, "inbound_agent_id": null}`
 - **API delete**: `DELETE https://api.retellai.com/delete-phone-number/{phone_number}` (releases Twilio number)
 - **Mutation on soft**: PATCH to clear `outbound_agent_id` (and `inbound_agent_id` if set). Number stays purchased.

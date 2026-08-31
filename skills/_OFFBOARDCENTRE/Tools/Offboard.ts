@@ -338,7 +338,9 @@ async function buildInventory(centreId: string): Promise<Inventory> {
   const agent = { agent_id: agentResp.agent_id, agent_name: agentResp.agent_name };
 
   log(`fetching Retell phone numbers…`);
-  const phones: any[] = await retellGet(`/list-phone-numbers`);
+  // v2 wraps the list in {items, ...} (legacy root-array endpoint removed after 2026-06-15)
+  const phonesResp: any = await retellGet(`/v2/list-phone-numbers`);
+  const phones: any[] = phonesResp?.items ?? phonesResp;
   // Retell deprecated singular *_agent_id (removal after 2026-03-31) for weighted
   // *_agents arrays. Read from the array, falling back to legacy fields, and resolve
   // to a single agent_id so the inventory snapshot schema stays unchanged.

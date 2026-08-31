@@ -43,7 +43,7 @@ Steps 1-5 are identical to soft offboard (drain leads, disable lookup, rename ag
 
 ## Verification
 
-- `curl -s https://api.retellai.com/list-phone-numbers -H "Authorization: Bearer $RETELL_API_KEY" | jq '.[] | select(.phone_number=="<PHONE>")'` — should return null (number released)
+- `curl -s https://api.retellai.com/v2/list-phone-numbers -H "Authorization: Bearer $RETELL_API_KEY" | jq '.items[] | select(.phone_number=="<PHONE>")'` — should return null (number released)
 - KB doc title in Drive starts with `[ARCHIVED-`
 - ClickUp folder shows `archived=true` in API response
 - Cekura scenarios moved to archive folder
