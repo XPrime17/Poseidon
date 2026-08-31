@@ -1,7 +1,7 @@
 # PAI Memory
 
 ## ▶ Audit Fleet Roster Gap + Kanata First Booking (2026-08-30)
-- [Audit blind to 13/28 calls: Kanata/Barrhaven outbound + 4 inbound missing — FIXED + inbound tool-slots to LLM judge](audit-fleet-roster-gap-2026-08-30.md) — commit 072de6c; add-agent-to-audit must join go-live checklists; SCHEDULER_LAG noise = day+1 cadence by design.
+- [Audit blind to 13/28 calls: Kanata/Barrhaven outbound + 4 inbound missing — FIXED + inbound tool-slots to LLM judge](audit-fleet-roster-gap-2026-08-30.md) — 072de6c + fail-visible 8/31 a9da475 (org-wide fetch, UNREGISTERED HIGH tripwire, AUDIT_DRY_RUN); onboard-centre.ts checklist Task 5 ace9230. SCHEDULER_LAG noise = day+1 cadence by design.
 - [Kanata 1st booking (Elena/Ivan Sept 12 10AM) verified thru Skyvern completed — closes 6/27 OPEN](kanata-first-booking-elena-dateswitch-2026-08-30.md) — OPEN: staff confirm date w/ Elena (asked Sept 5 10AM, got silent switch to Sept 12; separate Sept 5 "free demo" impression via inbound 8/29).
 
 ## ▶ Attempt-2 Voicemail Quoted Test Number — FIXED (2026-08-26)
