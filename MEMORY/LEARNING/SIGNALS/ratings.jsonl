@@ -1196,3 +1196,10 @@
 {"timestamp":"2026-08-31T01:36:10+00:00","rating":4,"session_id":"84d6f59c-d934-494e-8775-cec8606a97fc","source":"implicit","sentiment_summary":"Mild concern about missed onboarding step for agents","confidence":0.68}
 {"timestamp":"2026-08-31T01:39:15+00:00","rating":5,"session_id":"84d6f59c-d934-494e-8775-cec8606a97fc","source":"implicit","sentiment_summary":"Simple confirmation, no sentiment directed at Poseidon","confidence":0.95}
 {"timestamp":"2026-08-31T01:53:02+00:00","rating":5,"session_id":"84d6f59c-d934-494e-8775-cec8606a97fc","source":"implicit","sentiment_summary":"Neutral technical command, no sentiment","confidence":0.95}
+{"timestamp":"2026-08-31T02:13:33+00:00","rating":5,"session_id":"00b89bc0-52ac-48bd-8472-6d5b161e679a","source":"implicit","sentiment_summary":"System notification about pipeline mechanics, no sentiment","confidence":0.95}
+{"timestamp":"2026-08-31T23:34:47+00:00","rating":5,"session_id":"8efd58ab-7077-4d76-a6d0-abd66a720a3e","source":"implicit","sentiment_summary":"Direct command, no emotional content","confidence":0.95}
+{"timestamp":"2026-08-31T23:40:30+00:00","rating":5,"session_id":"00b89bc0-52ac-48bd-8472-6d5b161e679a","source":"implicit","sentiment_summary":"Neutral command directive, no sentiment","confidence":0.9}
+{"timestamp":"2026-08-31T23:43:55+00:00","rating":3,"session_id":"635b9053-51af-4458-be62-3c9280a7e1ed","comment":"chan centres want to only subscribe to base"}
+{"timestamp":"2026-08-31T23:53:52+00:00","rating":5,"session_id":"635b9053-51af-4458-be62-3c9280a7e1ed","source":"implicit","sentiment_summary":"Sharing client conversation context, no Poseidon sentiment","confidence":0.95}
+{"timestamp":"2026-08-31T23:56:42+00:00","rating":7,"session_id":"00b89bc0-52ac-48bd-8472-6d5b161e679a","source":"implicit","sentiment_summary":"Satisfied with fix, values pattern for reuse","confidence":0.88}
+{"timestamp":"2026-09-01T04:11:47+00:00","rating":5,"session_id":"635b9053-51af-4458-be62-3c9280a7e1ed","source":"implicit","sentiment_summary":"Technical command, no sentiment","confidence":0.95}

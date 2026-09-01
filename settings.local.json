@@ -56,7 +56,10 @@
       "Bash(python3 -m py_compile /root/poseidon-repo/skills/_N8N/Tools/E2ELeadFlowCheck.py /root/poseidon-repo/skills/_N8N/Tools/SlotRoutingCheck.py)",
       "Bash(git -C /root/poseidon-repo status --short skills/_N8N/Tools/)",
       "Bash(sed -i 's|^EMAIL_SEND_WEBHOOK_URL=\\\\\\(.*\\\\\\)$|EMAIL_SEND_WEBHOOK_URL=\"\\\\1\"|' /root/.claude/.env)",
-      "Bash(bash -c 'set -a; . /root/.claude/.env; set +a; echo \"sourcing clean, sig param present: $\\(echo $EMAIL_SEND_WEBHOOK_URL | grep -c sig=\\)\"')"
+      "Bash(bash -c 'set -a; . /root/.claude/.env; set +a; echo \"sourcing clean, sig param present: $\\(echo $EMAIL_SEND_WEBHOOK_URL | grep -c sig=\\)\"')",
+      "Bash(sed -i 's|api.retellai.com/list-phone-numbers -H \"Authorization: Bearer $RETELL_API_KEY\" \\\\| jq '\\\\''.\\\\[\\\\]|api.retellai.com/v2/list-phone-numbers -H \"Authorization: Bearer $RETELL_API_KEY\" \\\\| jq '\\\\''.items[]|' Workflows/HardOffboard.md)",
+      "Bash(sed -i 's|`GET https://api.retellai.com/list-phone-numbers`|`GET https://api.retellai.com/v2/list-phone-numbers` \\(results under `items`\\)|' Inventory.md)",
+      "Bash(sed -i 's|GET `/list-phone-numbers`, find row|GET `/v2/list-phone-numbers` \\(rows under `items`\\), find row|' Workflows/SoftOffboard.md)"
     ]
   }
 }

@@ -137,6 +137,12 @@ All COGS are USD; CAD revenue converted at ~1.37 USD/CAD for comparison.
 - **v8 (2026-05-23):** Switched to CAD-only pricing. Base $99 CAD / Pro $299 CAD. Triggered by Sharmilla pushback; optics-driven. US deferred. Base margin compresses (49% → 11% → negative at 600 min). First real-customer-driven pricing change.
 - **v9 (2026-05-23):** CURRENT — **Founding-member rate added: $199 CAD Pro for first 5 centres. First paying customer locked: Sharmilla (Leaside + Pickering), $368.15 MRR.** Sharmilla counter-offered $149/$249 list — recorded as data point, NOT adopted (one voice ≠ pattern; preserves $299 anchor for open market). The "provisional pending real signups" condition from v7 is now MET — v9 is no longer a theoretical lock. Closes Open Q #5 (founding rate). See [[customer-leaside-pickering-first-paying]].
 
+## Base-tier demand signal (2026-08-31) — FIRST real Base request
+- Shauna Chan's 3 centres (StCath/Burlington/Kanata) asked for **Base only** at paid-transition. First live demand for the lower tier; the 2-tier structure's "market arbitrates" moment.
+- Counter-data pulled from Retell (free period, Cekura/tester-filtered): **438 real calls handled, ~11 tours booked** (StCath 8, Burlington 1, Kanata 2), ~304 min. Booking = the Pro divider; her centres demonstrably use it.
+- Ops caveat: a "Base mode" configuration DOES NOT EXIST yet — all centres run full booking. First Base customer = engineering work to strip get_tour_slots/Skyvern/booking prompts from that centre's agents + conversion downgrade. Factor into whether to price-match instead.
+- Founding slots are Pro-only: Base×3 leaves all 3 remaining founding slots open.
+
 ## Open Questions (Resume Here)
 
 1. **Minute cap** — Need real inbound production data from EG before setting. Options discussed: 300 min (aggressive, $0.30 overage), 500 min (middle), 600 min (generous). Single cap across all tiers (tiers gate features, not volume).

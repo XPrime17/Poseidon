@@ -1,0 +1,973 @@
+[
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__claude_ai_Gmail__search_threads,mcp__claude_ai_Gmail__get_thread,mcp__claude_ai_Gmail__get_message",
+      "max_results": 3
+    },
+    "timestamp": "2026-08-22T19:37:19.412Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -ril -E \"subscription|pricing|invoice|per.month|/month|monthly fee\" /root/.claude/projects/-root/memory/ 2>/dev/null | head -20; echo ---; ls /root/*.md 2>/dev/null | head -30; echo ---; grep -ril -E \"sharmila\" /root --include=\"*.md\" --include=\"*.txt\" -r 2>/dev/null | grep -v memory | head -20",
+      "description": "Search memory and local docs for pricing/subscription materials"
+    },
+    "timestamp": "2026-08-22T19:37:21.568Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "to:sharmila subject:(subscription OR pricing OR billing OR pilot OR invoice)",
+      "pageSize": 20
+    },
+    "timestamp": "2026-08-22T19:37:53.373Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/customer-leaside-pickering-first-paying.md"
+    },
+    "timestamp": "2026-08-22T19:37:51.755Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/stripe-billing.md"
+    },
+    "timestamp": "2026-08-22T19:37:52.525Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rhoiE \"[a-z0-9._%+-]*sharmil[a-z0-9._%+-]*@[a-z0-9.-]+\" /root /root/.claude/projects/-root/memory 2>/dev/null | sort -u; echo ---; ls /root/.claude/projects/-root/memory/ | grep -iE \"pricing|founding|chatdash|tourforce\" ",
+      "description": "Find Sharmila's email address and pricing-related memory files"
+    },
+    "timestamp": "2026-08-22T19:38:03.653Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/tourforce-pricing.md"
+    },
+    "timestamp": "2026-08-22T19:39:50.898Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "{to:sharmila.mahendranathan@gmail.com to:sharmila.sivasankaran@codeninjas.com from:sharmila.mahendranathan@gmail.com from:sharmila.sivasankaran@codeninjas.com}",
+      "pageSize": 50
+    },
+    "timestamp": "2026-08-22T19:39:51.951Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "{to:sharmila.mahendranathan@gmail.com to:sharmila.sivasankaran@codeninjas.com} after:2026/04/15 before:2026/06/15 {pricing subscription founding pilot invoice payment stripe TourForce dashboard billing plan}",
+      "pageSize": 30
+    },
+    "timestamp": "2026-08-22T19:40:00.993Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "{to:sharmila.mahendranathan@gmail.com from:sharmila.mahendranathan@gmail.com}",
+      "pageSize": 50
+    },
+    "timestamp": "2026-08-22T19:40:18.573Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -la /root | grep -iE \"proposal|deck|founding|sow|pricing|tourforce\" ; find /root -maxdepth 3 -iname \"*proposal*\" -o -iname \"*deck*\" -o -iname \"*founding*\" -o -iname \"*pricing*\" -o -iname \"*sow*\" 2>/dev/null | grep -v node_modules | grep -v poseidon-repo | head -30",
+      "description": "Find local proposal/pricing/deck files"
+    },
+    "timestamp": "2026-08-22T19:40:20.200Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "{\"founding member\" \"founding rate\" \"$199\" \"199/mo\" \"per month\" AROUND 3 199} after:2026/04/15 before:2026/07/01",
+      "pageSize": 30
+    },
+    "timestamp": "2026-08-22T19:40:30.052Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -ril -iE \"founding\" /root --include=\"*.md\" --include=\"*.html\" --include=\"*.txt\" --include=\"*.ts\" -r 2>/dev/null | grep -vE \"node_modules|poseidon-repo|\\.cache\" | head; echo ---; ls /root/tourforce-ops/ 2>/dev/null; echo ---; ls /root/marketing/ 2>/dev/null | head -20",
+      "description": "Search local files for founding-rate materials"
+    },
+    "timestamp": "2026-08-22T19:40:31.784Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/playbook-chatdash-billing-recovery.md"
+    },
+    "timestamp": "2026-08-22T19:41:19.673Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "to:{sharmila.sivasankaran@codeninjas.com sharmila.mahendranathan@gmail.com} has:attachment",
+      "pageSize": 20
+    },
+    "timestamp": "2026-08-22T19:41:21.348Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls -la /root/marketing/ /root/sales-deck/ 2>/dev/null; stat -c \"%y %n\" /root/marketing/* 2>/dev/null | head",
+      "description": "Check marketing and sales-deck folder contents and dates"
+    },
+    "timestamp": "2026-08-22T19:41:21.711Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "find /root -maxdepth 2 -newermt \"2026-05-15\" ! -newermt \"2026-06-05\" -type f 2>/dev/null | grep -vE \"node_modules|\\.cache|poseidon-repo|Personal_AI|\\.claude/|\\.npm|\\.local|\\.config\" | head -40; echo ---; grep -rl -iE \"sharmil|founding\" /root --include=\"*.html\" --include=\"*.md\" --include=\"*.txt\" --include=\"*.pdf\" -r --max-count=1 2>/dev/null | grep -vE \"node_modules|\\.cache|poseidon-repo|Personal_AI|LEARNING\" | head",
+      "description": "Find files from the May 2026 signing window and any Sharmila/founding materials"
+    },
+    "timestamp": "2026-08-22T19:41:37.571Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/tourforce-pricing.md",
+      "old_string": "### Customer Data Point (NOT adopted)\n- Sharmilla's instinct on list pricing: **$149 / $249** (felt $99/$299 was wrong-shaped). Recorded as one prospect's preference. **Not yet a pattern** — re-evaluate list prices only if 3+ prospects independently push the same direction.",
+      "new_string": "### Customer Data Point — CORRECTED 2026-08-22 from WhatsApp primary source\n- Prior record (\"Sharmilla counter-offered $149/$249, not adopted\") was WRONG in attribution. The 2026-05-23 WhatsApp transcript (provided by Scott 2026-08-22) shows **Scott himself proposed Base $149 / Pro $249** and told Sharmilla: *\"first 5 centres at 199 and then move 249.\"* Sharmilla's own suggestion was $149/$199; Scott rejected that as too close together.\n- **Customer-facing commitment:** Sharmilla's understanding is post-founding Pro list = **$249**, not $299. The $99/$299 list in this file was never communicated to her. Resolve the anchor before quoting list price to any prospect (Shauna transition, 2026-08-22).\n- **Value-prop line that closed the deal:** \"$249 is a common charge for Create regular, so the agent pays for itself after just 1 conversion\" — Sharmilla repeated it back approvingly. Reuse this framing.\n- Also from transcript: Pro includes everything but features can be disabled per centre (Pickering inbound example) — flexibility was part of the close."
+    },
+    "timestamp": "2026-08-22T19:48:46.768Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -l -riE \"st.?cath\" /root/.claude/projects/-root/memory/ | head; echo ---; grep -riE \"live|onboard|launch|wired|provision\" /root/.claude/projects/-root/memory/stcatharines-chatdash-wired.md 2>/dev/null | head -5",
+      "description": "Find St. Catharines onboarding memory files"
+    },
+    "timestamp": "2026-08-22T20:06:44.682Z"
+  },
+  {
+    "name": "mcp__claude_ai_Gmail__search_threads",
+    "input": {
+      "query": "to:shauna.chan@codeninjas.com before:2026/06/01",
+      "pageSize": 10
+    },
+    "timestamp": "2026-08-22T20:06:45.580Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__retell-voice-ai__list_agents,mcp__retell-voice-ai__get_agent",
+      "max_results": 2
+    },
+    "timestamp": "2026-08-22T20:21:02.631Z"
+  },
+  {
+    "name": "mcp__retell-voice-ai__list_agents",
+    "input": {},
+    "timestamp": "2026-08-22T20:21:04.960Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/chatdash-agent-assignment-gaps-2026-08-22.md",
+      "content": "---\nname: chatdash-agent-assignment-gaps\ndescription: \"Chat-Dash agent assignments incomplete — Leaside/Burlington/Kanata inbound agents exist in Retell but were never wired into Chat-Dash; matters because Chat-Dash is the client-facing billing/visibility surface for the paid transition\"\nmetadata:\n  type: project\n---\n\n# Chat-Dash agent assignment gaps (found 2026-08-22, Shauna paid-transition prep)\n\nRetell fleet vs Chat-Dash assignments, verified live 2026-08-22:\n\n| Centre | Retell | Chat-Dash | Status |\n|---|---|---|---|\n| St. Catharines | 2 | 2 | complete (inbound wired Retell→ChatDash→n8n 2026-06-19) |\n| East Gwillimbury | 2 | 2 | complete ([[chatdash-eg-inbound-wired]]) |\n| Leaside | 2 | 1 | **inbound `agent_50a754cd…` not in Chat-Dash** |\n| Burlington | 2 | 1 | **inbound `agent_7950e8…` not in Chat-Dash** |\n| Kanata | 2 | 1 | **inbound `agent_c3d64f…` not in Chat-Dash** (was an OPEN item in [[kanata-burlington-onboarding-2026-06-12]]) |\n| Pickering | 1 | 1 | correct BY DESIGN — outbound only; Sharmila kept her other receptionist program (2026-05-23 WhatsApp) |\n| Barrhaven | 2 | ? | ChatDash still open in [[barrhaven-onboarding-2026-08-14]] |\n\n**Why:** inbound calls on the gap centres work fine — their webhooks go direct to n8n, bypassing Chat-Dash. Functional, but the client dashboard (billing surface for paying customers) shows only half the service.\n\n**How to apply:** Before/at Shauna + Sharmila paid go-live, assign the missing inbound agents in Chat-Dash. CAUTION: the StCath fix re-routed the webhook through Chat-Dash — check if assignment-without-rerouting is possible; if webhook must move, follow the StCath pattern and verify with a live test call per centre. Related: [[tourforce-pricing-model]], [[customer-leaside-pickering-first-paying]].\n"
+    },
+    "timestamp": "2026-08-22T20:21:45.899Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "printf -- '- [Chat-Dash agent gaps — Leaside/Burl/Kanata inbound unassigned](chatdash-agent-assignment-gaps-2026-08-22.md) — client dashboard shows half the service; fix before Shauna/Sharmila paid go-live; Pickering 1-agent is by design\\n' >> /root/.claude/projects/-root/memory/MEMORY.md",
+      "description": "Add memory index entry to MEMORY.md"
+    },
+    "timestamp": "2026-08-22T20:21:47.340Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "ls /root | grep -iE \"provision|onboard|clone\"; echo ---; find /root -maxdepth 2 -iname \"*provision*\" -o -iname \"*onboard*\" 2>/dev/null | grep -vE \"node_modules|\\.cache|poseidon-repo|Personal_AI|\\.claude-backup|offboard\" | head -15",
+      "description": "Locate provisioning/onboarding scripts"
+    },
+    "timestamp": "2026-08-22T20:34:16.214Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md"
+    },
+    "timestamp": "2026-08-22T20:34:17.169Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "find /root -maxdepth 3 \\( -iname \"*provision-inbound*\" -o -iname \"onboard-centre*\" \\) 2>/dev/null | grep -vE \"node_modules|\\.cache|poseidon-repo|backup\"; echo ---; ls /root/lead-reactivation/scripts/ 2>/dev/null | head -40",
+      "description": "Locate provision-inbound and onboard-centre scripts"
+    },
+    "timestamp": "2026-08-22T20:34:24.516Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "head -120 /root/lead-reactivation/scripts/provision-inbound.ts",
+      "description": "Read provision-inbound script header and usage"
+    },
+    "timestamp": "2026-08-22T20:34:27.252Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sed -n 120,260p /root/lead-reactivation/scripts/provision-inbound.ts",
+      "description": "Read remaining provision-inbound steps"
+    },
+    "timestamp": "2026-08-22T20:34:48.219Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 /root/sheet-read.py 2>/dev/null | head -3; python3 /root/sheet-read.py 2>/dev/null | grep -i pickering; echo ---; grep -rn \"CENTRES\" /root/calendar_api.py 2>/dev/null | head -5 || find / -maxdepth 4 -name \"calendar_api.py\" 2>/dev/null | grep -v proc",
+      "description": "Read Pickering row from Centre Lookup and locate calendar_api CENTRES"
+    },
+    "timestamp": "2026-08-22T20:34:49.669Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "head -30 /root/sheet-read.py; echo ---; sed -n 49,120p /root/calendar_api.py",
+      "description": "Check sheet-read usage and calendar_api CENTRES entries"
+    },
+    "timestamp": "2026-08-22T20:34:56.112Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env 2>/dev/null; . /root/.claude/.env 2>/dev/null; set +a; echo \"N8N: ${N8N_API_KEY:+SET} RETELL: ${RETELL_API_KEY:+SET}\"; cd /root/lead-reactivation/scripts && RETELL_API_KEY=\"$RETELL_API_KEY\" N8N_API_KEY=\"$N8N_API_KEY\" bun run provision-inbound.ts --centre pickering-on-ca --dry-run",
+      "description": "Dry-run Pickering inbound provisioning"
+    },
+    "timestamp": "2026-08-22T20:35:21.395Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s \"https://docs.google.com/spreadsheets/d/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/export?format=csv&gid=0\" | python3 -c \"\nimport sys, csv\nrows = list(csv.reader(sys.stdin))\nhdr = rows[0]\nfor r in rows[1:]:\n    if r and r[0] == 'pickering-on-ca':\n        for i, h in enumerate(hdr):\n            v = r[i] if i < len(r) else ''\n            if v or h in ('inbound_number','outbound_number','centre_landline'): print(f'{i:2} {h:28} = {v!r}')\n\"",
+      "description": "Show Pickering's full Centre Lookup row with column names"
+    },
+    "timestamp": "2026-08-22T20:35:32.373Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -sL \"https://docs.google.com/spreadsheets/d/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/export?format=csv&gid=0\" | python3 -c \"\nimport sys, csv\nrows = list(csv.reader(sys.stdin))\nhdr = rows[0]\nfor r in rows[1:]:\n    if r and r[0] == 'pickering-on-ca':\n        for i, h in enumerate(hdr):\n            v = r[i] if i < len(r) else ''\n            print(f'{i:2} {h:28} = {v!r}')\n\"",
+      "description": "Show Pickering's full Centre Lookup row"
+    },
+    "timestamp": "2026-08-22T20:35:38.642Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -sL \"https://docs.google.com/spreadsheets/d/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/export?format=csv&gid=0\" | python3 -c \"\nimport sys, csv\nrows = list(csv.reader(sys.stdin))\nfor i, r in enumerate(rows, start=1):\n    if r and r[0] == 'pickering-on-ca': print('sheet row:', i)\n\"",
+      "description": "Find Pickering's sheet row number"
+    },
+    "timestamp": "2026-08-22T20:35:53.281Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; set +a; python3 - <<'EOF'\nimport json,urllib.request,os,time\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; KEY=os.environ[\"N8N_API_KEY\"]\nSHEET=\"1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0\"\ndef req(method,path,body=None):\n    data=json.dumps(body).encode() if body is not None else None\n    r=urllib.request.Request(BASE+path,data=data,method=method,\n        headers={\"X-N8N-API-KEY\":KEY,\"Content-Type\":\"application/json\"})\n    with urllib.request.urlopen(r) as resp: return json.loads(resp.read())\nwf={\"name\":\"[TEMP] Sheet Write F3\",\"nodes\":[\n  {\"name\":\"Webhook\",\"type\":\"n8n-nodes-base.webhook\",\"typeVersion\":2,\"position\":[200,300],\n   \"parameters\":{\"path\":\"temp-sheet-write-f3\",\"httpMethod\":\"GET\",\"responseMode\":\"lastNode\"},\"id\":\"w1\",\"webhookId\":\"temp-sheet-write-f3\"},\n  {\"name\":\"Write\",\"type\":\"n8n-nodes-base.httpRequest\",\"typeVersion\":4.2,\"position\":[440,300],\n   \"parameters\":{\"method\":\"PUT\",\n     \"url\":f\"https://sheets.googleapis.com/v4/spreadsheets/{SHEET}/values/Sheet1!F3?valueInputOption=RAW\",\n     \"sendBody\":True,\"specifyBody\":\"json\",\n     \"jsonBody\":'{\"values\":[[\"16479516675\"]]}',\n     \"authentication\":\"predefinedCredentialType\",\"nodeCredentialType\":\"googleSheetsOAuth2Api\"},\n   \"credentials\":{\"googleSheetsOAuth2Api\":{\"id\":\"yjVHcEWrpyDmxkvv\",\"name\":\"Google Sheets account 3\"}},\"id\":\"h1\"}],\n \"connections\":{\"Webhook\":{\"main\":[[{\"node\":\"Write\",\"type\":\"main\",\"index\":0}]]}},\"settings\":{}}\nc=req(\"POST\",\"/workflows\",wf); wid=c[\"id\"]; req(\"POST\",f\"/workflows/{wid}/activate\"); time.sleep(2)\nwith urllib.request.urlopen(\"https://xprime17.app.n8n.cloud/webhook/temp-sheet-write-f3\",timeout=30) as r:\n    print(r.read().decode()[:300])\nreq(\"POST\",f\"/workflows/{wid}/deactivate\"); req(\"DELETE\",f\"/workflows/{wid}\")\nprint(\"F3 written + temp workflow cleaned up\")\nEOF",
+      "description": "Write inbound_number 16479516675 to Pickering row F3 via temp n8n workflow"
+    },
+    "timestamp": "2026-08-22T20:36:05.381Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; . /root/.claude/.env 2>/dev/null; set +a; cd /root/lead-reactivation/scripts && bun run provision-inbound.ts --centre pickering-on-ca --dry-run",
+      "description": "Dry-run Pickering inbound provisioning again"
+    },
+    "timestamp": "2026-08-22T20:36:14.486Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; . /root/.claude/.env 2>/dev/null; set +a; bun run provision-inbound.ts --centre pickering-on-ca",
+      "description": "Provision Pickering inbound agent (live run)"
+    },
+    "timestamp": "2026-08-22T20:36:20.974Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; . /root/.claude/.env 2>/dev/null; set +a; python3 - <<'EOF'\nimport json, urllib.request, os\nKEY = os.environ[\"RETELL_API_KEY\"]\ndef req(method, path, body=None):\n    data = json.dumps(body).encode() if body is not None else None\n    r = urllib.request.Request(\"https://api.retellai.com\"+path, data=data, method=method,\n        headers={\"Authorization\": f\"Bearer {KEY}\", \"Content-Type\": \"application/json\"})\n    with urllib.request.urlopen(r) as resp: return json.loads(resp.read())\n\nllm = req(\"GET\", \"/get-retell-llm/llm_744a8d1c9c052e9a7b09abf08f6b\")\ntools = llm.get(\"general_tools\") or []\nfor t in tools:\n    if \"url\" in t: print(\"TOOL:\", t.get(\"name\"), \"→\", t[\"url\"])\n# repoint any east-gwillimbury / generic get-slots URL to pickering\nchanged = False\nfor t in tools:\n    u = t.get(\"url\", \"\")\n    if \"get-slots\" in u and not u.endswith(\"/pickering\"):\n        t[\"url\"] = \"https://xprime17.app.n8n.cloud/webhook/retell/get-slots/pickering\" if \"xprime17\" in u else u.rsplit(\"/get-slots\",1)[0] + \"/get-slots/pickering\"\n        changed = True\n        print(\"REPOINTED:\", t.get(\"name\"), \"→\", t[\"url\"])\nif changed:\n    req(\"PATCH\", \"/update-retell-llm/llm_744a8d1c9c052e9a7b09abf08f6b\", {\"general_tools\": tools})\n    print(\"PATCHED\")\nelse:\n    print(\"no get-slots tool needed changing\")\n# also scan prompt for stray EG references\np = llm.get(\"general_prompt\",\"\")\nimport re\nstray = re.findall(r\".{40}Gwillimbury.{40}\", p)\nprint(\"stray EG refs in prompt:\", len(stray))\nfor s in stray[:5]: print(\"  …\"+s+\"…\")\nEOF",
+      "description": "Repoint Pickering inbound get_tour_slots URL and scan for stray EG references"
+    },
+    "timestamp": "2026-08-22T20:36:47.869Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; . /root/.claude/.env 2>/dev/null; set +a; python3 ~/.claude/skills/_N8N/Tools/SlotRoutingCheck.py --agent agent_eac2f0557671b9d15543a02a79; echo ===; curl -s --max-time 60 -X POST http://138.197.171.204:5001/retell/get-slots/pickering -H \"Content-Type: application/json\" -d '{}' | head -c 600",
+      "description": "Re-verify slot routing and fetch live Pickering slots"
+    },
+    "timestamp": "2026-08-22T20:36:55.899Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"east-gwillimbury\\|C1\\|C4\\|def check\\|expected\" ~/.claude/skills/_N8N/Tools/SlotRoutingCheck.py | head -30",
+      "description": "Inspect SlotRoutingCheck logic around C1/C4"
+    },
+    "timestamp": "2026-08-22T20:37:10.080Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sed -n 130,155p ~/.claude/skills/_N8N/Tools/SlotRoutingCheck.py",
+      "description": "Read C1 check logic in context"
+    },
+    "timestamp": "2026-08-22T20:37:12.966Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"^import\\|^from\" ~/.claude/skills/_N8N/Tools/SlotRoutingCheck.py",
+      "description": "Check imports in SlotRoutingCheck"
+    },
+    "timestamp": "2026-08-22T20:37:26.015Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/skills/_N8N/Tools/SlotRoutingCheck.py",
+      "old_string": "import os, sys, json, urllib.request, urllib.error",
+      "new_string": "import os, re, sys, json, urllib.request, urllib.error"
+    },
+    "timestamp": "2026-08-22T20:37:30.599Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/skills/_N8N/Tools/SlotRoutingCheck.py",
+      "old_string": "        if centre is None:\n            fails.append(f\"C1 {name}: get_tour_slots URL is GENERIC ({url!r}) -> will default to EG\")\n            lines.append(f\"  [FAIL] C1 {tag}: generic slot URL {url!r}\")\n            continue\n        lines.append(f\"  [PASS] C1 {tag}: routes to /{centre}\")",
+      "new_string": "        if centre is None:\n            fails.append(f\"C1 {name}: get_tour_slots URL is GENERIC ({url!r}) -> will default to EG\")\n            lines.append(f\"  [FAIL] C1 {tag}: generic slot URL {url!r}\")\n            continue\n        # A specific-but-WRONG centre must also fail C1: a clone that still points at\n        # /east-gwillimbury passed here 2026-08-22 (Pickering onboard), and C4 then\n        # skipped because the routed centre WAS EG. Compare against the agent's name.\n        m = re.match(r\"CNKB-(.+?)-Inbound\", name, re.I)\n        if m:\n            token = re.sub(r\"[\\s.\\-]\", \"\", m.group(1)).lower()\n            expected = {\"eg\": \"eastgwillimbury\"}.get(token, token)\n            if expected != re.sub(r\"[\\s.\\-]\", \"\", centre).lower():\n                fails.append(f\"C1 {name}: slot URL routes to /{centre} but agent is for '{m.group(1)}' — cloned URL not repointed\")\n                lines.append(f\"  [FAIL] C1 {tag}: routes to /{centre}, expected /{m.group(1)} (clone leak)\")\n                continue\n        lines.append(f\"  [PASS] C1 {tag}: routes to /{centre}\")"
+    },
+    "timestamp": "2026-08-22T20:39:00.417Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; . /root/.claude/.env 2>/dev/null; set +a; python3 ~/.claude/skills/_N8N/Tools/SlotRoutingCheck.py",
+      "description": "Run fleet-wide slot-routing check with hardened C1"
+    },
+    "timestamp": "2026-08-22T20:39:06.488Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rn \"LIVE_INBOUND_CENTRE_IDS\" /root/.claude/skills /root/*.py /root/lead-reactivation/scripts 2>/dev/null | grep -v Binary | head -5",
+      "description": "Locate LIVE_INBOUND_CENTRE_IDS definition"
+    },
+    "timestamp": "2026-08-22T20:39:20.215Z"
+  },
+  {
+    "name": "Write",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/pickering-inbound-provisioned-2026-08-22.md",
+      "content": "---\nname: pickering-inbound-provisioned\ndescription: \"Pickering inbound agent provisioned 2026-08-22 via provision-inbound.ts (EG clone) — agent_eac2f0557671b9d15543a02a79, slot gate PASS after clone-leak fix; SlotRoutingCheck C1 hole patched; awaiting Scott test call + Sharmila forwarding\"\nmetadata:\n  type: project\n---\n\n# Pickering inbound provisioned (2026-08-22)\n\nContext: Sharmila replacing her $169/mo third-party receptionist (30-day cancel notice) as part of paid transition. Closes the \"Pickering = outbound-only by design\" state.\n\n## Shipped\n- Centre Lookup **F3** (`inbound_number`) backfilled `16479516675` (= outbound DID, single-number model; was empty and 404'd provision-inbound)\n- LLM `llm_744a8d1c9c052e9a7b09abf08f6b` + agent `agent_eac2f0557671b9d15543a02a79` (CNKB-Pickering-Inbound), cloned from EG golden source (inherits double-greeting fix + delay); webhook → inbound-end-of-call direct (non-EG pattern, no ChatDash routing)\n- Phone +16479516675 wired (weighted `inbound_agents`), PHONE_TO_CENTRE += entry (wf `QFxDu1MBooL332PN`), KB smoke 2747 chars ✓\n- **Clone-leak caught AGAIN** (Barrhaven gotcha #2): get_tour_slots URL cloned EG's → repointed to `/retell/get-slots/pickering`. Pickering already in calendar_api CENTRES + SONAMATION_GUIDS (GUID found earlier 2026-08-22)\n- **SlotRoutingCheck C1 hole FIXED**: gate previously PASSed a specific-but-wrong URL (routed to /east-gwillimbury; C4 skipped because routed centre WAS EG). C1 now derives expected centre from agent name (CNKB-<X>-Inbound) and fails on mismatch. Fleet-wide re-run: all 7 inbound agents PASS (Pickering 22 slots, distinct from EG)\n\n## Remaining before Sharmila forwards\n1. Scott test-dials +1 647-951-6675 (live inbound answer, Pickering greeting/slots)\n2. ChatDash: assign CNKB-Pickering-Inbound to Sharmila's client (visibility; see [[chatdash-agent-assignment-gaps]])\n3. Sharmila: cancel other receptionist (30d notice) + set forwarding on Pickering landline → +16479516675\n4. After forwarding live: add `pickering-on-ca` to `LIVE_INBOUND_CENTRE_IDS` in `PipelineRegressionCheck.py` (currently only EG + StCath — Leaside/Burlington/Kanata missing too, separate gap)\n5. provision-inbound.ts still doesn't repoint the slot URL itself — third occurrence; consider adding the repoint to the script\n\nRelated: [[customer-leaside-pickering-first-paying]], [[barrhaven-onboarding-2026-08-14]], [[inbound-slot-source-eg-contamination-2026-06-18]]\n"
+    },
+    "timestamp": "2026-08-22T20:39:39.397Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "printf -- '- [Pickering inbound provisioned 2026-08-22](pickering-inbound-provisioned-2026-08-22.md) — agent_eac2f055…, slot gate PASS, SlotRoutingCheck C1 clone-leak hole patched; OPEN: test call, ChatDash assign, Sharmila forwarding, LIVE_INBOUND_CENTRE_IDS\\n' >> /root/.claude/projects/-root/memory/MEMORY.md",
+      "description": "Index the new memory in MEMORY.md"
+    },
+    "timestamp": "2026-08-22T20:39:40.930Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -rn -iE \"tier.?2.*cron|cron.*tier.?2\" /root/.claude/skills /root/lead-reactivation/scripts /root/*.md 2>/dev/null | grep -v Binary | head -10",
+      "description": "Find where \"Tier 2 cron\" appears as an instruction"
+    },
+    "timestamp": "2026-08-22T20:53:08.995Z"
+  },
+  {
+    "name": "ToolSearch",
+    "input": {
+      "query": "select:mcp__cekura__cron_jobs_list,mcp__cekura__cron_jobs_retrieve",
+      "max_results": 2
+    },
+    "timestamp": "2026-08-22T20:53:09.287Z"
+  },
+  {
+    "name": "mcp__cekura__cron_jobs_retrieve",
+    "input": {
+      "id": 590
+    },
+    "timestamp": "2026-08-22T20:53:18.003Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sed -n 95,135p /root/lead-reactivation/scripts/onboard-centre.help.md; echo ===; sed -n 951,985p /root/lead-reactivation/scripts/onboard-centre.ts",
+      "description": "Read the stale help doc section and script step 7"
+    },
+    "timestamp": "2026-08-22T20:53:30.444Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.help.md",
+      "old_string": "### Step 7: Cekura - Tier 2 Cron Update\nPrints instructions to add the new scenario IDs to Tier 2 cron job 429.",
+      "new_string": "### Step 7: Cekura - Tier 2 Cron (per-centre)\nPrints instructions to create a per-centre Tier 2 cron via the Cekura MCP (cron_jobs is\nnot reachable on Cekura's REST API, so the script can't do it itself — Poseidon runs the\nMCP call in-session during onboarding). Do NOT append scenarios to cron 429; that old\n\"shared\" cron is Canton-scoped. One cron per centre, staggered 5 min from 6:00 AM ET\nbi-weekly Wednesdays."
+    },
+    "timestamp": "2026-08-22T20:53:40.333Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"step10\\|Step 10\" /root/lead-reactivation/scripts/onboard-centre.ts | head -3; awk '/async function step10/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | head -120",
+      "description": "Read Step 10 onboarding email template"
+    },
+    "timestamp": "2026-08-22T20:56:19.853Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "awk '/function buildOnboardingEmailHtml/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | python3 -c \"\nimport sys, re, html as h\nt = sys.stdin.read()\n# strip html tags for a readable outline of the email content\ntext = re.sub(r'<[^>]+>', ' ', t)\ntext = re.sub(r'\\\\\\$\\{[^}]*\\}', '<VAR>', text)\nfor line in text.splitlines():\n    s = line.strip().strip('\\`+\\\";')\n    if s and not s.startswith(('const','function','return','//')) and len(s) > 3:\n        print(s[:150])\n\" | head -60",
+      "description": "Extract readable outline of onboarding email content"
+    },
+    "timestamp": "2026-08-22T20:56:26.244Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"buildOnboardingEmailHtml\\|Step 3: Knowledge Base\\|What You Can Customize\\|Questions?\\|</body>\" /root/lead-reactivation/scripts/onboard-centre.ts | head; awk '/function buildOnboardingEmailHtml/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | tail -40",
+      "description": "View end of onboarding email template"
+    },
+    "timestamp": "2026-08-22T20:56:51.613Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<hr style=\"border: none; border-top: 2px solid #1a73e8; margin: 30px 0;\">\n\n<p>That's everything! Once we have your test phone number and knowledge base link, we'll get your AI agent fully configured and ready for a live demo.</p>",
+      "new_string": "<!-- STEP 4: INBOUND RECEPTIONIST -->\n<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 4: 24/7 AI Receptionist (Inbound)</h2>\n<p>Your AI number ${code(\"+\" + fromNumber)} doesn't just make outbound calls &mdash; it also <strong>answers</strong> them. When a call comes in, the AI greets the caller as your centre, answers questions from your Knowledge Base (hours, programs, pricing), takes messages, and can book tours directly. You get an email summary of every call, and anything needing a human lands on your ClickUp task board.</p>\n\n<h4>How calls reach the AI</h4>\n<p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; staff answer as usual when available, and the AI catches everything else (busy lines, after hours, weekends).</p>\n<ol>\n<li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li>\n<li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li>\n<li>Other carriers: search \"call forwarding\" + your carrier name, or ask us</li>\n</ol>\n<p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p>\n\n<hr style=\"border: none; border-top: 2px solid #1a73e8; margin: 30px 0;\">\n\n<p>That's everything! Once we have your test phone number and knowledge base link, we'll get your AI agent fully configured and ready for a live demo.</p>"
+    },
+    "timestamp": "2026-08-22T20:57:15.400Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"RESEND_API_KEY\\|RESEND_FROM\\|ONBOARDING_EMAIL_TO\" /root/lead-reactivation/scripts/onboard-centre.ts | head -6",
+      "description": "Find Resend config in onboard script"
+    },
+    "timestamp": "2026-08-22T20:57:16.554Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'EOF'\nimport json, urllib.request\nhtml = \"\"\"\n<div style=\"font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #333;\">\n<div style=\"padding: 24px;\">\n<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Code Ninjas Barrhaven &mdash; Your 24/7 AI Receptionist</h2>\n<p>Hi Maurice,</p>\n<p>One more piece of your setup we wanted to walk you through: your AI number <code style=\"background:#f1f3f4;padding:2px 6px;border-radius:4px;\">+1 (343) 296-7200</code> doesn't just make outbound calls to new leads &mdash; it also <strong>answers</strong> calls. When someone calls in, the AI greets them as Code Ninjas Barrhaven, answers questions from your Knowledge Base (hours, programs, pricing), takes messages, and can book tours directly on your calendar. You'll get an email summary of every call, and anything that needs a human lands on your ClickUp task board.</p>\n<h4>How calls will reach the AI</h4>\n<p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline (343-843-2033)</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; your staff answer as usual when they're available, and the AI catches everything else (busy line, after hours, weekends).</p>\n<ol>\n<li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li>\n<li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li>\n<li>On a different carrier? Just reply and we'll send exact steps.</li>\n</ol>\n<p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p>\n<p>If you have any questions, just reply to this email.</p>\n<p>Best regards,<br><strong>Scott</strong></p>\n</div></div>\n\"\"\"\nbody = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"Code Ninjas Barrhaven — Your 24/7 AI Receptionist (Inbound)\",\n    \"html\": html,\n}\nr = urllib.request.Request(\"https://api.resend.com/emails\", data=json.dumps(body).encode(),\n    headers={\"Authorization\": \"Bearer REDACTED_RESEND_KEY\", \"Content-Type\": \"application/json\"}, method=\"POST\")\nwith urllib.request.urlopen(r) as resp:\n    print(resp.read().decode())\nEOF",
+      "description": "Send Barrhaven inbound addendum email to Scott via Resend"
+    },
+    "timestamp": "2026-08-22T20:57:33.020Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'EOF'\nimport json, urllib.request, urllib.error\nbody = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"test-probe\",\n    \"html\": \"<p>probe</p>\",\n}\nr = urllib.request.Request(\"https://api.resend.com/emails\", data=json.dumps(body).encode(),\n    headers={\"Authorization\": \"Bearer REDACTED_RESEND_KEY\", \"Content-Type\": \"application/json\"}, method=\"POST\")\ntry:\n    with urllib.request.urlopen(r) as resp: print(resp.read().decode())\nexcept urllib.error.HTTPError as e:\n    print(e.code, e.read().decode())\nEOF",
+      "description": "Probe Resend API for the 403 reason"
+    },
+    "timestamp": "2026-08-22T20:57:42.298Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/barrhaven-inbound-email.json <<'EOF'\n{\n  \"from\": \"Poseidon <onboarding@resend.dev>\",\n  \"to\": [\"scott.james@codeninjas.com\"],\n  \"subject\": \"Code Ninjas Barrhaven — Your 24/7 AI Receptionist (Inbound)\",\n  \"html\": \"<div style=\\\"font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #333;\\\"><div style=\\\"padding: 24px;\\\"><h2 style=\\\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\\\">Code Ninjas Barrhaven &mdash; Your 24/7 AI Receptionist</h2><p>Hi Maurice,</p><p>One more piece of your setup we wanted to walk you through: your AI number <code style=\\\"background:#f1f3f4;padding:2px 6px;border-radius:4px;\\\">+1 (343) 296-7200</code> doesn't just make outbound calls to new leads &mdash; it also <strong>answers</strong> calls. When someone calls in, the AI greets them as Code Ninjas Barrhaven, answers questions from your Knowledge Base (hours, programs, pricing), takes messages, and can book tours directly on your calendar. You'll get an email summary of every call, and anything that needs a human lands on your ClickUp task board.</p><h4>How calls will reach the AI</h4><p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline (343-843-2033)</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; your staff answer as usual when they're available, and the AI catches everything else (busy line, after hours, weekends).</p><ol><li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li><li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li><li>On a different carrier? Just reply and we'll send exact steps.</li></ol><p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p><p>If you have any questions, just reply to this email.</p><p>Best regards,<br><strong>Scott</strong></p></div></div>\"\n}\nEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/barrhaven-inbound-email.json; rm /tmp/barrhaven-inbound-email.json",
+      "description": "Send Barrhaven inbound addendum email via curl"
+    },
+    "timestamp": "2026-08-22T20:57:55.053Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "3. Scott forwards onboarding email (Resend ad702090…, in his inbox) to Maurice → get test #, personal email → ClickUp guest + KB share + col M/N",
+      "new_string": "3. Scott forwards onboarding email (Resend ad702090…, in his inbox) to Maurice → get test #, personal email → ClickUp guest + KB share + col M/N. **2026-08-22: inbound addendum email sent to Scott's inbox (Resend 853eef35…, addressed \"Hi Maurice\", forward alongside)** — original template had ZERO inbound content (predates dual-direction onboarding); onboard-centre.ts template now has a Step 4 \"24/7 AI Receptionist\" section (forwarding star codes, don't-enable-yet guard) for future onboards"
+    },
+    "timestamp": "2026-08-22T20:58:05.040Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "awk '/function step8_chatdash|async function step8/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts; echo ===STEP12===; awk '/function buildChecklistEmailHtml|async function step12/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | grep -iE \"chatdash|inbound|agent|forward\" | head -20",
+      "description": "Read ChatDash step 8 and checklist email step 12 content"
+    },
+    "timestamp": "2026-08-22T21:03:18.786Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n -i \"chatdash\" /root/lead-reactivation/scripts/onboard-centre.ts | head; echo ===; grep -n \"buildChecklistEmailHtml\\|step12\" /root/lead-reactivation/scripts/onboard-centre.ts | head",
+      "description": "Locate ChatDash step and checklist email functions"
+    },
+    "timestamp": "2026-08-22T21:03:24.216Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sed -n 983,1030p /root/lead-reactivation/scripts/onboard-centre.ts; echo ===CHECKLIST===; sed -n 1558,1650p /root/lead-reactivation/scripts/onboard-centre.ts",
+      "description": "Read ChatDash step 8 and checklist email step 12"
+    },
+    "timestamp": "2026-08-22T21:03:31.800Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"function buildInternalChecklistHtml\" /root/lead-reactivation/scripts/onboard-centre.ts; awk '/function buildInternalChecklistHtml/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | python3 -c \"\nimport sys, re\nt = sys.stdin.read()\ntext = re.sub(r'<[^>]+>', ' ', t)\ntext = re.sub(r'\\\\\\$\\{[^}]*\\}', '<VAR>', text)\nfor line in text.splitlines():\n    s = line.strip().strip('\\`+\\\";')\n    if s and not s.startswith(('const','function','return','//')) and len(s) > 3:\n        print(s[:160])\n\"",
+      "description": "Extract readable outline of internal checklist email"
+    },
+    "timestamp": "2026-08-22T21:03:37.547Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "sed -n 1480,1556p /root/lead-reactivation/scripts/onboard-centre.ts",
+      "description": "Read buildInternalChecklistHtml source"
+    },
+    "timestamp": "2026-08-22T21:03:51.710Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"inboundAgent\\|interface OnboardingState\" /root/lead-reactivation/scripts/onboard-centre.ts | head -8",
+      "description": "Check for inbound agent ID in OnboardingState"
+    },
+    "timestamp": "2026-08-22T21:03:59.356Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<!-- TASK 1: CEKURA CRON -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">1. Update Cekura Tier 2 Cron Job</h3>\n<p>Add the new scenario IDs to cron job ${code(String(CEKURA_TIER2_CRON_ID))}:</p>\n<ul>\n<li>Location Verification: ${code(locScenario)}</li>\n<li>Happy Path Smoke: ${code(hpScenario)}</li>\n</ul>\n<p style=\"font-size: 13px; color: #666;\">Via Cekura MCP: <code>cron_jobs_partial_update(${CEKURA_TIER2_CRON_ID}, { scenarios: [...existing, ${locScenario}, ${hpScenario}] })</code></p>\n</div>",
+      "new_string": "<!-- TASK 1: CEKURA CRON (per-centre; normally done in-session via MCP) -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">1. Verify Cekura Tier 2 Cron (per-centre)</h3>\n<p>Poseidon normally creates a <strong>per-centre</strong> Tier 2 cron via the Cekura MCP during onboarding (Cekura's REST API doesn't expose crons). Verify one exists named ${code(\"Tier 2 - \" + centreName + \" Smoke (Bi-Weekly Wed)\")} covering:</p>\n<ul>\n<li>Location Verification: ${code(locScenario)}</li>\n<li>Happy Path Smoke: ${code(hpScenario)}</li>\n</ul>\n<p style=\"font-size: 13px; color: #666;\">If missing, ask Poseidon to run <code>cron_jobs_create</code> (next free minute in the <code>&lt;min&gt; 6 1-7,15-21 * 3</code> US/Eastern stagger). Do <strong>NOT</strong> append scenarios to cron ${code(String(CEKURA_TIER2_CRON_ID))} &mdash; it is Canton-scoped.</p>\n</div>"
+    },
+    "timestamp": "2026-08-22T21:04:10.216Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<li><strong>Assign agent to client</strong></li>\n<li><strong>Verify Retell webhook</strong> &mdash; ChatDash auto-sets it when you connect. Check: <code>GET /get-agent/${agentId}</code></li>\n<li><strong>Set forwarding URL</strong> in ChatDash agent settings: ${code(N8N_WEBHOOK)}</li>\n</ol>\n</div>",
+      "new_string": "<li><strong>Assign agent to client</strong></li>\n<li><strong>Verify Retell webhook</strong> &mdash; ChatDash auto-sets it when you connect. Check: <code>GET /get-agent/${agentId}</code></li>\n<li><strong>Set forwarding URL</strong> in ChatDash agent settings: ${code(N8N_WEBHOOK)}</li>\n<li><strong>Also add the INBOUND agent</strong> ${code(\"CNKB-\" + centreName.replace(/\\s+/g, \"\") + \"-Inbound\")} and assign it to the same client &mdash; the client dashboard should show both directions of the service.\n  <ul>\n  <li>If ChatDash overwrote the inbound agent's Retell <code>webhook_url</code> when connecting, set the ChatDash forwarding URL for it to the <strong>inbound</strong> EOC webhook: ${code(\"https://xprime17.app.n8n.cloud/webhook/inbound-end-of-call\")} (StCath/EG pattern), then place a test inbound call to confirm the call summary email still arrives.</li>\n  <li>Skipping this step is why Leaside/Burlington/Kanata showed only 1 agent in ChatDash (gap found 2026-08-22).</li>\n  </ul>\n</li>\n</ol>\n</div>"
+    },
+    "timestamp": "2026-08-22T21:04:19.707Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "  5. Set forwarding URL in ChatDash agent settings:\n     ${N8N_WEBHOOK}\n\n  ${BOLD}TIP:${RESET} To discover the ChatDash agent ID programmatically, read the Retell\n  agent webhook_url — ChatDash embeds its agent ID in the path automatically.\n`);",
+      "new_string": "  5. Set forwarding URL in ChatDash agent settings:\n     ${N8N_WEBHOOK}\n\n  6. ALSO add the INBOUND agent (CNKB-${centreName.replace(/\\s+/g, \"\")}-Inbound) and\n     assign it to the same client — the client dashboard must show both directions.\n     If ChatDash overwrites the inbound agent's webhook_url on connect, set its\n     ChatDash forwarding URL to the INBOUND EOC webhook\n     (https://xprime17.app.n8n.cloud/webhook/inbound-end-of-call) and verify with\n     a test inbound call. Skipping this caused the Leaside/Burlington/Kanata\n     one-agent gap found 2026-08-22.\n\n  ${BOLD}TIP:${RESET} To discover the ChatDash agent ID programmatically, read the Retell\n  agent webhook_url — ChatDash embeds its agent ID in the path automatically.\n`);"
+    },
+    "timestamp": "2026-08-22T21:04:33.224Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cat > /tmp/barrhaven-checklist.json <<'EOF'\n{\n  \"from\": \"Poseidon <onboarding@resend.dev>\",\n  \"to\": [\"scott.james@codeninjas.com\"],\n  \"subject\": \"[ACTION] Code Ninjas Barrhaven — Manual Checklist (REFRESHED 2026-08-22)\",\n  \"html\": \"<div style=\\\"font-family: -apple-system, BlinkMacSystemFont, sans-serif; max-width: 680px; margin: 0 auto; color: #333; line-height: 1.6;\\\"><div style=\\\"background: #d97706; color: white; padding: 24px; border-radius: 8px 8px 0 0; text-align: center;\\\"><h1 style=\\\"margin: 0; font-size: 22px;\\\">INTERNAL &mdash; Barrhaven Manual Checklist (refreshed)</h1></div><div style=\\\"padding: 24px; border: 1px solid #ddd; border-top: none; border-radius: 0 0 8px 8px;\\\"><p>Supersedes the 2026-08-14 checklist email &mdash; that one had a stale Cekura instruction and was missing the inbound half of ChatDash. Current state:</p><table style=\\\"width:100%; border-collapse: collapse; margin: 20px 0;\\\"><tr style=\\\"background:#f8f9fa;\\\"><td style=\\\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;width:40%;\\\">Phone (both directions)</td><td style=\\\"padding:8px 14px;border:1px solid #ddd;\\\"><code>+13432967200</code></td></tr><tr><td style=\\\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\\\">Outbound agent</td><td style=\\\"padding:8px 14px;border:1px solid #ddd;\\\"><code>agent_78b3b359c341d2a084a893f161</code> (CNKB-Barrhaven)</td></tr><tr style=\\\"background:#f8f9fa;\\\"><td style=\\\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\\\">Inbound agent</td><td style=\\\"padding:8px 14px;border:1px solid #ddd;\\\"><code>agent_ed614e3ebcda137c3d07f796b0</code> (CNKB-Barrhaven-Inbound)</td></tr></table><div style=\\\"background:#dcfce7;border-left:4px solid #16a34a;padding:12px 20px;margin:16px 0;border-radius:0 8px 8px 0;\\\"><h3 style=\\\"margin:6px 0;color:#166534;\\\">&#10003; DONE &mdash; Cekura Tier 2 cron</h3><p style=\\\"margin:6px 0;\\\">Per-centre cron <strong>590</strong> (\\\"Tier 2 - Barrhaven Smoke (Bi-Weekly Wed)\\\") created 2026-08-14 via MCP, active, scenarios 320218 + 320219. <strong>No action.</strong> (Ignore the old email's \\\"append to cron 429\\\" &mdash; 429 is Canton-scoped.)</p></div><div style=\\\"background:#fef3c7;border-left:4px solid #d97706;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;\\\"><h3 style=\\\"margin-top:0;color:#92400e;\\\">1. ChatDash Setup (both agents)</h3><ol><li><strong>Create Agent</strong> at chat-dash.com &mdash; Name: <code>CNKB-Barrhaven</code>, Platform: Retell</li><li><strong>Create Client</strong> &mdash; Name: <code>Code Ninjas Barrhaven</code>, Member: <code>Maurice</code>, Login: <code>maurice.barrhaven</code>, Password: <code>CNBarrhaven2026</code> (email TBD &mdash; comes back from Maurice's reply to the onboarding email)</li><li><strong>Assign outbound agent to client</strong>; verify Retell webhook now contains chat-dash.com; set ChatDash forwarding URL to the outbound EOC webhook</li><li><strong>Also add the INBOUND agent</strong> <code>CNKB-Barrhaven-Inbound</code> to the same client &mdash; dashboard must show both directions. If ChatDash overwrites its Retell webhook_url, set that agent's ChatDash forwarding URL to <code>https://xprime17.app.n8n.cloud/webhook/inbound-end-of-call</code> and confirm with a test inbound call. (Skipping this is why Leaside/Burlington/Kanata show 1 agent.)</li></ol></div><div style=\\\"background:#fef3c7;border-left:4px solid #d97706;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;\\\"><h3 style=\\\"margin-top:0;color:#92400e;\\\">2. Hiya Branded Caller ID</h3><p>Register <code>+13432967200</code> as <strong>Code Ninjas Barrhaven</strong> at hiya.com/branded-caller-id</p></div><div style=\\\"background:#fef3c7;border-left:4px solid #d97706;padding:16px 20px;margin:16px 0;border-radius:0 8px 8px 0;\\\"><h3 style=\\\"margin-top:0;color:#92400e;\\\">3. Maurice loop</h3><p>Forward him the onboarding email (Resend ad702090&hellip;) <strong>plus the new inbound addendum</strong> (sent to you 2026-08-22) &rarr; get his test number + personal email &rarr; ClickUp guest, KB share, sheet cols M/N.</p></div><p style=\\\"color:#666;font-size:13px;\\\">Automated refresh generated by Poseidon 2026-08-22. Delete when complete.</p></div></div>\"\n}\nEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/barrhaven-checklist.json; rm /tmp/barrhaven-checklist.json",
+      "description": "Send refreshed Barrhaven manual checklist email to Scott"
+    },
+    "timestamp": "2026-08-22T21:05:01.107Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"Drive - Share\\|drive-share\\|hi9Y8BFC8cHaTyM6\\|shareKb\\|step9b\\|N8N_DRIVE_SHARE\" /root/lead-reactivation/scripts/onboard-centre.ts | head; awk '/async function step9b|function step9b/,/^}/' /root/lead-reactivation/scripts/onboard-centre.ts | grep -A8 \"fetch(\"",
+      "description": "Find Drive share webhook call signature"
+    },
+    "timestamp": "2026-08-22T21:21:40.752Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n -i \"share\" /root/lead-reactivation/scripts/onboard-centre.ts | head -12",
+      "description": "Find share-related code in onboard script"
+    },
+    "timestamp": "2026-08-22T21:21:44.882Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"hi9Y8BFC8cHaTyM6\\|Drive - Share\\|drive-share\\|sendNotificationEmail\" /root/lead-reactivation-github/scripts/onboard-centre.ts 2>/dev/null | head -6; grep -rn \"drive-share\\|Drive - Share\" /root/lead-reactivation/scripts/lib/ 2>/dev/null | head -3",
+      "description": "Find Drive share webhook in github copy"
+    },
+    "timestamp": "2026-08-22T21:21:51.321Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; set +a; curl -s \"https://xprime17.app.n8n.cloud/api/v1/workflows/hi9Y8BFC8cHaTyM6\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | python3 -c \"\nimport json,sys\nwf=json.load(sys.stdin)\nprint('name:', wf.get('name'), '| active:', wf.get('active'))\nfor n in wf.get('nodes',[]):\n    p=n.get('parameters',{})\n    if n['type'].endswith('webhook'): print('WEBHOOK path:', p.get('path'), '| method:', p.get('httpMethod'))\n    if 'url' in p: print('NODE:', n['name'], '→', str(p.get('url'))[:110])\n    if 'permissions' in str(p)[:200].lower() or 'drive' in n['type'].lower(): print('NODE:', n['name'], n['type'], json.dumps(p)[:300])\n\"",
+      "description": "Inspect Drive - Share File workflow webhook"
+    },
+    "timestamp": "2026-08-22T21:21:59.771Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; set +a; curl -s \"https://xprime17.app.n8n.cloud/api/v1/workflows/hi9Y8BFC8cHaTyM6\" -H \"X-N8N-API-KEY: $N8N_API_KEY\" | python3 -c \"\nimport json,sys\nwf=json.load(sys.stdin)\nfor n in wf.get('nodes',[]):\n    if n['name']=='Share Doc': print(json.dumps(n['parameters'], indent=1)[:900])\n\"",
+      "description": "Show Share Doc node full parameters"
+    },
+    "timestamp": "2026-08-22T21:22:08.174Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/drive-share-file\" -H \"Content-Type: application/json\" -d '{\"fileId\":\"1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw\",\"email\":\"barrhavenonca@codeninjas.com\",\"role\":\"writer\",\"sendNotification\":false}'",
+      "description": "Share Barrhaven KB doc to centre inbox as editor"
+    },
+    "timestamp": "2026-08-22T21:22:13.755Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'PYEOF'\nimport json\n\nkb = \"https://docs.google.com/document/d/1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw/edit\"\nh2 = 'style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\"'\ncodestyle = 'style=\"background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:monospace;\"'\ndef c(t): return f'<code {codestyle}>{t}</code>'\n\nhtml = f\"\"\"<div style=\"font-family: Arial, sans-serif; max-width: 660px; margin: 0 auto; color: #333; line-height: 1.55;\">\n<div style=\"padding: 24px;\">\n<h1 style=\"color:#1a73e8; font-size:24px;\">Code Ninjas Barrhaven &mdash; Getting Started</h1>\n<p>Hi Maurice,</p>\n<p>Welcome aboard! Your AI agent is fully set up on our side &mdash; it makes calls to new leads <em>and</em> answers your phone as a 24/7 receptionist. Below is your setup summary and the four steps to get everything connected.</p>\n\n<table style=\"width:100%; border-collapse:collapse; margin:20px 0;\">\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;width:40%;\">Centre</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">Code Ninjas Barrhaven</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Centre Code</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"barrhaven-on-ca\")}</td></tr>\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">AI Phone Number</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"+1 (343) 296-7200\")}</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Lead Forwarding Address</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"scott.james1717+barrhaven-on-ca@gmail.com\")}</td></tr>\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Knowledge Base</td><td style=\"padding:8px 14px;border:1px solid #ddd;\"><a href=\"{kb}\" style=\"color:#1a73e8;\">Open your KB document</a></td></tr>\n</table>\n\n<h2 {h2}>Step 1: Two Things to Reply With</h2>\n<p>Please reply to this email with:</p>\n<ol>\n<li><strong>A 10-digit test phone number</strong> &mdash; while we're in test mode, all AI calls ring this number instead of real leads. Your personal cell or a staff member's works great.</li>\n<li><strong>A personal (non-codeninjas.com) email address</strong> &mdash; we use this to give you access to your centre's task board in ClickUp (where the AI files anything needing human follow-up) and to add you as an editor on the Knowledge Base with your own account.</li>\n</ol>\n\n<h2 {h2}>Step 2: Lead Email Forwarding</h2>\n<p>We need LineLeader lead notification emails forwarded to our system so the AI knows when a new lead comes in. Forward <strong>all</strong> LineLeader emails (Create, Junior, and Camp inquiries) &mdash; our system identifies the inquiry type automatically.</p>\n<h4>Option A: Personal Email (Outlook)</h4>\n<ol>\n<li>Inbox &rarr; <strong>Rules</strong> (Home tab) &rarr; <strong>Manage Rules &amp; Alerts</strong> &rarr; <strong>New Rule</strong></li>\n<li><strong>\"Apply rule on messages I receive\"</strong> &rarr; Next &rarr; condition <strong>\"from people or public group\"</strong> &rarr; type {c(\"noreply@lineleader.com\")} &rarr; OK &rarr; Next</li>\n<li>Action <strong>\"forward it to people or public group\"</strong> &rarr; type {c(\"scott.james1717+barrhaven-on-ca@gmail.com\")} &rarr; OK &rarr; Next &rarr; Next &rarr; name it \"CRM Lead Forwarding\" &rarr; Finish</li>\n</ol>\n<h4>Option B: Shared Centre Inbox (Microsoft 365)</h4>\n<p><em>Choose this if LineLeader emails go to a shared mailbox that multiple staff access (shared mailboxes don't support simple rules).</em></p>\n<ol>\n<li>Go to <a href=\"https://flow.microsoft.com\" style=\"color:#1a73e8;\">flow.microsoft.com</a>, sign in with the Microsoft 365 account that has access to the shared inbox</li>\n<li><strong>Create</strong> &rarr; <strong>Automated cloud flow</strong> &rarr; trigger <strong>\"When a new email arrives in a shared mailbox (V2)\"</strong></li>\n<li>Original Mailbox Address = your shared inbox; under Advanced options set <strong>From</strong> = {c(\"noreply@lineleader.com\")}; leave Subject Filter empty</li>\n<li>Add step <strong>\"Send an email (V2)\"</strong>: To = {c(\"scott.james1717+barrhaven-on-ca@gmail.com\")}, Subject and Body = the dynamic values from the trigger</li>\n<li><strong>Save</strong> and confirm the flow shows as <strong>On</strong></li>\n</ol>\n\n<h2 {h2}>Step 3: Your Knowledge Base</h2>\n<p>The AI answers questions using your centre's Knowledge Base document:</p>\n<p style=\"margin:14px 0;\"><a href=\"{kb}\" style=\"background:#1a73e8;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold;\">&#128214; Open Your Knowledge Base</a></p>\n<p>Edit access is already granted to {c(\"barrhavenonca@codeninjas.com\")} &mdash; open the link while signed in with that account. Once you reply with your personal email (Step 1), we'll add it too.</p>\n<ol>\n<li>The document refreshes <strong>nightly</strong> with your latest hours, camps, and program info from your Code Ninjas website</li>\n<li>Scroll to the <strong>\"MANUAL NOTES\"</strong> section at the bottom &mdash; add centre-specific details there (pricing, policies, tour notes)</li>\n<li>The manual section is <strong>never overwritten</strong> by the nightly update &mdash; your edits are preserved</li>\n</ol>\n\n<h2 {h2}>Step 4: 24/7 AI Receptionist (Inbound)</h2>\n<p>Your AI number {c(\"+1 (343) 296-7200\")} doesn't just make outbound calls &mdash; it also <strong>answers</strong> them. Callers are greeted as Code Ninjas Barrhaven; the AI answers questions from your Knowledge Base, takes messages, and books tours directly on your calendar. You get an email summary of every call, and anything needing a human lands on your ClickUp board.</p>\n<h4>How calls will reach the AI</h4>\n<p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline (343-843-2033)</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; staff answer as usual when available, and the AI catches everything else (busy line, after hours, weekends).</p>\n<ol>\n<li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li>\n<li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li>\n<li>On a different carrier? Just reply and we'll send exact steps.</li>\n</ol>\n<p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p>\n\n<hr style=\"border:none;border-top:2px solid #1a73e8;margin:30px 0;\">\n<p>That's everything! Once we have your test number and personal email, we'll finish configuration and set up a live demo.</p>\n<p>If you have any questions, just reply to this email.</p>\n<p>Best regards,<br><strong>Scott</strong></p>\n</div></div>\"\"\"\n\npayload = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"Code Ninjas Barrhaven — Getting Started (Consolidated)\",\n    \"html\": html,\n}\nwith open(\"/tmp/maurice-consolidated.json\", \"w\") as f:\n    json.dump(payload, f)\nprint(\"payload built,\", len(html), \"chars of html\")\nPYEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/maurice-consolidated.json; rm /tmp/maurice-consolidated.json",
+      "description": "Build and send consolidated Maurice onboarding email to Scott"
+    },
+    "timestamp": "2026-08-22T21:22:58.295Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "3. Scott forwards onboarding email (Resend ad702090…, in his inbox) to Maurice → get test #, personal email → ClickUp guest + KB share + col M/N. **2026-08-22: inbound addendum email sent to Scott's inbox (Resend 853eef35…, addressed \"Hi Maurice\", forward alongside)** — original template had ZERO inbound content (predates dual-direction onboarding); onboard-centre.ts template now has a Step 4 \"24/7 AI Receptionist\" section (forwarding star codes, don't-enable-yet guard) for future onboards",
+      "new_string": "3. **2026-08-22: CONSOLIDATED onboarding email sent to Scott's inbox (Resend 732991ed…) — forward THIS one to Maurice; supersedes original ad702090… AND inbound addendum 853eef35….** Covers: two-asks (test # + personal email), LineLeader forwarding (Outlook + Power Automate), KB with live link, inbound receptionist + star codes + don't-enable-yet. KB doc shared as EDITOR to barrhavenonca@codeninjas.com (silent, via drive-share-file webhook) — add Maurice's personal email as editor when he replies. Template fixes shipped same day: client email Step 4 inbound section; checklist email Cekura-429→per-centre-cron + ChatDash inbound-agent step"
+    },
+    "timestamp": "2026-08-22T21:23:07.945Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/drive-share-file\" -H \"Content-Type: application/json\" -d '{\"fileId\":\"1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw\",\"email\":\"maurice.loiselle@codeninjas.com\",\"role\":\"writer\",\"sendNotification\":false}' | python3 -c \"import json,sys; d=json.load(sys.stdin); print('status:', d.get('statusCode'), '| role:', d.get('body',{}).get('role'), '| id:', d.get('body',{}).get('id'))\"",
+      "description": "Share Barrhaven KB doc to Maurice as editor"
+    },
+    "timestamp": "2026-08-24T03:09:40.953Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "**Barrhaven** (Ottawa suburb) onboarded 2026-08-14. Owner **Maurice Loiselle** — also part-owner of Kanata with Shauna + Ian Chan. Maurice's email UNKNOWN (not in Gmail history) — comes back via the two-asks onboarding email Scott forwards.",
+      "new_string": "**Barrhaven** (Ottawa suburb) onboarded 2026-08-14. Owner **Maurice \"Moe\" Loiselle** — also part-owner of Kanata with Shauna + Ian Chan. Email (from Scott 2026-08-24): **maurice.loiselle@codeninjas.com** — KB doc shared to it as editor same day (silent). Use it for the ChatDash client login email. Still need a PERSONAL (non-codeninjas) email via the two-asks reply for the ClickUp guest ([[email-columns-roles]])."
+    },
+    "timestamp": "2026-08-24T03:09:49.573Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'PYEOF'\nimport json\n\nkb = \"https://docs.google.com/document/d/1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw/edit\"\nh2 = 'style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\"'\ncodestyle = 'style=\"background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:monospace;\"'\ndef c(t): return f'<code {codestyle}>{t}</code>'\n\nhtml = f\"\"\"<div style=\"font-family: Arial, sans-serif; max-width: 660px; margin: 0 auto; color: #333; line-height: 1.55;\">\n<div style=\"padding: 24px;\">\n<h1 style=\"color:#1a73e8; font-size:24px;\">Code Ninjas Barrhaven &mdash; Getting Started</h1>\n<p>Hi Maurice,</p>\n<p>Welcome aboard! Your AI agent is fully set up on our side &mdash; it makes calls to new leads <em>and</em> answers your phone as a 24/7 receptionist. Below is your setup summary and the four steps to get everything connected.</p>\n\n<table style=\"width:100%; border-collapse:collapse; margin:20px 0;\">\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;width:40%;\">Centre</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">Code Ninjas Barrhaven</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Centre Code</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"barrhaven-on-ca\")}</td></tr>\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">AI Phone Number</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"+1 (343) 296-7200\")}</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Lead Forwarding Address</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"scott.james1717+barrhaven-on-ca@gmail.com\")}</td></tr>\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Knowledge Base</td><td style=\"padding:8px 14px;border:1px solid #ddd;\"><a href=\"{kb}\" style=\"color:#1a73e8;\">Open your KB document</a></td></tr>\n</table>\n\n<h2 {h2}>Step 1: Two Things to Reply With</h2>\n<p>Please reply to this email with:</p>\n<ol>\n<li><strong>A 10-digit test phone number</strong> &mdash; while we're in test mode, all AI calls ring this number instead of real leads. Your personal cell or a staff member's works great.</li>\n<li><strong>A personal (non-codeninjas.com) email address</strong> &mdash; we use this to give you access to your centre's task board in ClickUp (where the AI files anything needing human follow-up) and to add you as an editor on the Knowledge Base with your own account.</li>\n</ol>\n\n<h2 {h2}>Step 2: Lead Email Forwarding</h2>\n<p>We need LineLeader lead notification emails forwarded to our system so the AI knows when a new lead comes in. Forward <strong>all</strong> LineLeader emails (Create, Junior, and Camp inquiries) &mdash; our system identifies the inquiry type automatically.</p>\n<h4>Option A: Personal Email (Outlook)</h4>\n<ol>\n<li>Inbox &rarr; <strong>Rules</strong> (Home tab) &rarr; <strong>Manage Rules &amp; Alerts</strong> &rarr; <strong>New Rule</strong></li>\n<li><strong>\"Apply rule on messages I receive\"</strong> &rarr; Next &rarr; condition <strong>\"from people or public group\"</strong> &rarr; type {c(\"noreply@lineleader.com\")} &rarr; OK &rarr; Next</li>\n<li>Action <strong>\"forward it to people or public group\"</strong> &rarr; type {c(\"scott.james1717+barrhaven-on-ca@gmail.com\")} &rarr; OK &rarr; Next &rarr; Next &rarr; name it \"CRM Lead Forwarding\" &rarr; Finish</li>\n</ol>\n<h4>Option B: Shared Centre Inbox (Microsoft 365)</h4>\n<p><em>Choose this if LineLeader emails go to a shared mailbox that multiple staff access (shared mailboxes don't support simple rules).</em></p>\n<ol>\n<li>Go to <a href=\"https://flow.microsoft.com\" style=\"color:#1a73e8;\">flow.microsoft.com</a>, sign in with the Microsoft 365 account that has access to the shared inbox</li>\n<li><strong>Create</strong> &rarr; <strong>Automated cloud flow</strong> &rarr; trigger <strong>\"When a new email arrives in a shared mailbox (V2)\"</strong></li>\n<li>Original Mailbox Address = your shared inbox; under Advanced options set <strong>From</strong> = {c(\"noreply@lineleader.com\")}; leave Subject Filter empty</li>\n<li>Add step <strong>\"Send an email (V2)\"</strong>: To = {c(\"scott.james1717+barrhaven-on-ca@gmail.com\")}, Subject and Body = the dynamic values from the trigger</li>\n<li><strong>Save</strong> and confirm the flow shows as <strong>On</strong></li>\n</ol>\n\n<h2 {h2}>Step 3: Your Knowledge Base</h2>\n<p>The AI answers questions using your centre's Knowledge Base document:</p>\n<p style=\"margin:14px 0;\"><a href=\"{kb}\" style=\"background:#1a73e8;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold;\">&#128214; Open Your Knowledge Base</a></p>\n<p>Edit access is already granted to {c(\"maurice.loiselle@codeninjas.com\")} and {c(\"barrhavenonca@codeninjas.com\")}. Once you reply with your personal email (Step 1), we'll add it too.</p>\n<ol>\n<li>The document refreshes <strong>nightly</strong> with your latest hours, camps, and program info from your Code Ninjas website</li>\n<li>Scroll to the <strong>\"MANUAL NOTES\"</strong> section at the bottom &mdash; add centre-specific details there (pricing, policies, tour notes)</li>\n<li>The manual section is <strong>never overwritten</strong> by the nightly update &mdash; your edits are preserved</li>\n</ol>\n\n<h2 {h2}>Step 4: 24/7 AI Receptionist (Inbound)</h2>\n<p>Your AI number {c(\"+1 (343) 296-7200\")} doesn't just make outbound calls &mdash; it also <strong>answers</strong> them. Callers are greeted as Code Ninjas Barrhaven; the AI answers questions from your Knowledge Base, takes messages, and books tours directly on your calendar. You get an email summary of every call, and anything needing a human lands on your ClickUp board.</p>\n<h4>How calls will reach the AI</h4>\n<p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline (343-843-2033)</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; staff answer as usual when available, and the AI catches everything else (busy line, after hours, weekends).</p>\n<ol>\n<li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li>\n<li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li>\n<li>On a different carrier? Just reply and we'll send exact steps.</li>\n</ol>\n<p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p>\n\n<hr style=\"border:none;border-top:2px solid #1a73e8;margin:30px 0;\">\n<p>That's everything! Once we have your test number and personal email, we'll finish configuration and set up a live demo.</p>\n<p>If you have any questions, just reply to this email.</p>\n<p>Best regards,<br><strong>Scott</strong></p>\n</div></div>\"\"\"\n\npayload = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"Code Ninjas Barrhaven — Getting Started (Consolidated)\",\n    \"html\": html,\n}\nwith open(\"/tmp/maurice-consolidated2.json\", \"w\") as f:\n    json.dump(payload, f)\nprint(\"payload built\")\nPYEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/maurice-consolidated2.json; rm /tmp/maurice-consolidated2.json",
+      "description": "Re-send consolidated Barrhaven onboarding email to Scott"
+    },
+    "timestamp": "2026-08-24T03:13:09.052Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/.claude/projects/-root/memory/hubspot-migration.md"
+    },
+    "timestamp": "2026-08-25T05:29:02.064Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'PYEOF'\nimport json\n\nkb = \"https://docs.google.com/document/d/1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw/edit\"\nh2 = 'style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\"'\ncodestyle = 'style=\"background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:monospace;\"'\ndef c(t): return f'<code {codestyle}>{t}</code>'\n\nhtml = f\"\"\"<div style=\"font-family: Arial, sans-serif; max-width: 660px; margin: 0 auto; color: #333; line-height: 1.55;\">\n<div style=\"padding: 24px;\">\n<h1 style=\"color:#1a73e8; font-size:24px;\">Code Ninjas Barrhaven &mdash; Getting Started</h1>\n<p>Hi Maurice,</p>\n<p>Welcome aboard! Your AI agent is fully set up on our side &mdash; it calls new leads <em>and</em> answers your phone as a 24/7 receptionist. Below is your setup summary and three quick steps.</p>\n\n<table style=\"width:100%; border-collapse:collapse; margin:20px 0;\">\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;width:40%;\">Centre</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">Code Ninjas Barrhaven</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Centre Code</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"barrhaven-on-ca\")}</td></tr>\n<tr style=\"background:#f8f9fa;\"><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">AI Phone Number</td><td style=\"padding:8px 14px;border:1px solid #ddd;\">{c(\"+1 (343) 296-7200\")}</td></tr>\n<tr><td style=\"padding:8px 14px;border:1px solid #ddd;font-weight:bold;\">Knowledge Base</td><td style=\"padding:8px 14px;border:1px solid #ddd;\"><a href=\"{kb}\" style=\"color:#1a73e8;\">Open your KB document</a></td></tr>\n</table>\n\n<h2 {h2}>Step 1: Two Things to Reply With</h2>\n<p>Please reply to this email with:</p>\n<ol>\n<li><strong>A 10-digit test phone number</strong> &mdash; while we're in test mode, all AI calls ring this number instead of real leads. Your personal cell or a staff member's works great.</li>\n<li><strong>A personal (non-codeninjas.com) email address</strong> &mdash; we use this to give you access to your centre's task board in ClickUp (where the AI files anything needing human follow-up) and to add you as an editor on the Knowledge Base with your own account.</li>\n</ol>\n\n<h2 {h2}>New Leads: Nothing to Set Up</h2>\n<p>When a family fills out the Request Info form on your Code Ninjas website, the inquiry flows to our system automatically through the Code Ninjas CRM &mdash; there are <strong>no forwarding rules or email setup needed on your end</strong>. The AI calls each new lead within minutes during business hours (with up to 4 follow-up attempts and a voicemail), and you get an email summary of every conversation.</p>\n\n<h2 {h2}>Step 2: Your Knowledge Base</h2>\n<p>The AI answers questions using your centre's Knowledge Base document:</p>\n<p style=\"margin:14px 0;\"><a href=\"{kb}\" style=\"background:#1a73e8;color:#fff;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold;\">&#128214; Open Your Knowledge Base</a></p>\n<p>Edit access is already granted to {c(\"maurice.loiselle@codeninjas.com\")} and {c(\"barrhavenonca@codeninjas.com\")}. Once you reply with your personal email (Step 1), we'll add it too.</p>\n<ol>\n<li>The document refreshes <strong>nightly</strong> with your latest hours, camps, and program info from your Code Ninjas website</li>\n<li>Scroll to the <strong>\"MANUAL NOTES\"</strong> section at the bottom &mdash; add centre-specific details there (pricing, policies, tour notes)</li>\n<li>The manual section is <strong>never overwritten</strong> by the nightly update &mdash; your edits are preserved</li>\n</ol>\n\n<h2 {h2}>Step 3: 24/7 AI Receptionist (Inbound)</h2>\n<p>Your AI number {c(\"+1 (343) 296-7200\")} doesn't just make outbound calls &mdash; it also <strong>answers</strong> them. Callers are greeted as Code Ninjas Barrhaven; the AI answers questions from your Knowledge Base, takes messages, and books tours directly on your calendar. You get an email summary of every call, and anything needing a human lands on your ClickUp board.</p>\n<h4>How calls will reach the AI</h4>\n<p>When we're ready to go live, you'll set up <strong>call forwarding on your centre landline (343-843-2033)</strong> to the AI number. We recommend <em>no-answer forwarding</em> to start &mdash; staff answer as usual when available, and the AI catches everything else (busy line, after hours, weekends).</p>\n<ol>\n<li><strong>Bell:</strong> dial <strong>*92</strong> then the AI number to enable; <strong>*93</strong> to disable</li>\n<li><strong>Rogers:</strong> dial <strong>*741</strong> then the AI number for no-answer forwarding; <strong>*742</strong> to disable</li>\n<li>On a different carrier? Just reply and we'll send exact steps.</li>\n</ol>\n<p><strong>Please don't enable forwarding yet</strong> &mdash; we'll confirm with you once testing is complete and the receptionist is ready for live callers.</p>\n\n<hr style=\"border:none;border-top:2px solid #1a73e8;margin:30px 0;\">\n<p>That's everything! Once we have your test number and personal email, we'll finish configuration and set up a live demo.</p>\n<p>If you have any questions, just reply to this email.</p>\n<p>Best regards,<br><strong>Scott</strong></p>\n</div></div>\"\"\"\n\npayload = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"Code Ninjas Barrhaven — Getting Started (Consolidated v2)\",\n    \"html\": html,\n}\nwith open(\"/tmp/maurice-v2.json\", \"w\") as f:\n    json.dump(payload, f)\nprint(\"built\")\nPYEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/maurice-v2.json; rm /tmp/maurice-v2.json",
+      "description": "Send v2 consolidated Maurice email without LineLeader forwarding section"
+    },
+    "timestamp": "2026-08-25T05:29:59.882Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'PYEOF'\npath = \"/root/lead-reactivation/scripts/onboard-centre.ts\"\nsrc = open(path).read()\n\nstart = src.index('<!-- STEP 2: EMAIL FORWARDING -->') if '<!-- STEP 2: EMAIL FORWARDING -->' in src else src.index('<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 2: Email Forwarding</h2>')\nend = src.index('<!-- STEP 3: KNOWLEDGE BASE -->')\n\nreplacement = \"\"\"<!-- LEAD FLOW: ZAP-ERA, NOTHING CENTRE-SIDE (LineLeader forwarding retired 2026-08-25;\n     lead ingestion = HubSpot form -> Zapier facility_slug filter -> plus-address, Scott-side only) -->\n<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">New Leads: Nothing to Set Up</h2>\n<p>When a family fills out the Request Info form on your Code Ninjas website, the inquiry flows to our system automatically through the Code Ninjas CRM &mdash; there are <strong>no forwarding rules or email setup needed on your end</strong>. The AI calls each new lead within minutes during business hours (with up to 4 follow-up attempts and a voicemail), and you get an email summary of every conversation.</p>\n\n\"\"\"\nsrc = src[:start] + replacement + src[end:]\nsrc = src.replace('<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 3: Knowledge Base</h2>',\n                  '<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 2: Knowledge Base</h2>')\nsrc = src.replace('<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 4: 24/7 AI Receptionist (Inbound)</h2>',\n                  '<h2 style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\">Step 3: 24/7 AI Receptionist (Inbound)</h2>')\n\nopen(path, \"w\").write(src)\nprint(\"client email template: forwarding section replaced, steps renumbered\")\nPYEOF\ngrep -c \"Power Automate\\|Step 2: Email Forwarding\" /root/lead-reactivation/scripts/onboard-centre.ts",
+      "description": "Replace forwarding section in client email template"
+    },
+    "timestamp": "2026-08-25T05:30:24.361Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<!-- TASK 1: CEKURA CRON (per-centre; normally done in-session via MCP) -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">1. Verify Cekura Tier 2 Cron (per-centre)</h3>",
+      "new_string": "<!-- TASK 0: HUBSPOT ZAP FILTER (lead ingestion — Scott's Zapier seat) -->\n<div style=\"background: #fee2e2; border-left: 4px solid #dc2626; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #991b1b;\">1. Add centre to HubSpot Zap filter (lead ingestion)</h3>\n<p>In Zapier (Scott's seat), add ${code(centreCode)} to the facility_slug filter OR-groups on the Request-Info Zap. Without this, the centre receives <strong>zero outbound leads</strong> &mdash; there is no centre-side forwarding anymore (Zap-era architecture, 2026-08-19).</p>\n<p style=\"font-size: 13px; color: #666;\"><strong>Dual-ingestion guard:</strong> only add the slug once the centre's LineLeader notifications have stopped (or never existed &mdash; new centres are HubSpot-native). Adding while LineLeader still dual-writes causes double dials; the dedupe gate catches echoes but don't rely on it.</p>\n</div>\n\n<!-- TASK 1: CEKURA CRON (per-centre; normally done in-session via MCP) -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">2. Verify Cekura Tier 2 Cron (per-centre)</h3>"
+    },
+    "timestamp": "2026-08-25T05:30:36.297Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "grep -n \"TASK 1: CEKURA\\|TASK 2: CHATDASH\\|TASK 3: HIYA\\|>1\\. Verify Cekura\\|>2\\. ChatDash\\|>3\\. Register Hiya\" /root/lead-reactivation/scripts/onboard-centre.ts",
+      "description": "Locate checklist task anchors with line numbers"
+    },
+    "timestamp": "2026-08-25T05:30:39.365Z"
+  },
+  {
+    "name": "Read",
+    "input": {
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "offset": 1440,
+      "limit": 50
+    },
+    "timestamp": "2026-08-25T05:30:42.294Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<!-- TASK 1: CEKURA CRON (per-centre; normally done in-session via MCP) -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">1. Verify Cekura Tier 2 Cron (per-centre)</h3>",
+      "new_string": "<!-- TASK 1: HUBSPOT ZAP FILTER (lead ingestion — Scott's Zapier seat) -->\n<div style=\"background: #fee2e2; border-left: 4px solid #dc2626; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #991b1b;\">1. Add centre to HubSpot Zap filter (lead ingestion)</h3>\n<p>In Zapier (Scott's seat), add ${code(centreCode)} to the facility_slug filter OR-groups on the Request-Info Zap. Without this the centre gets <strong>zero outbound leads</strong> &mdash; there is no centre-side email forwarding anymore (Zap-era architecture, decision 2026-08-19).</p>\n<p style=\"font-size: 13px; color: #666;\"><strong>Dual-ingestion guard:</strong> only add the slug once the centre's LineLeader notifications have stopped (or never existed &mdash; new centres are HubSpot-native). Adding while LineLeader still dual-writes causes double ingestion; the dedupe gate drops echoes but don't rely on it.</p>\n</div>\n\n<!-- TASK 2: CEKURA CRON (per-centre; normally done in-session via MCP) -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">2. Verify Cekura Tier 2 Cron (per-centre)</h3>"
+    },
+    "timestamp": "2026-08-25T05:30:51.310Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<!-- TASK 2: CHATDASH -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">2. ChatDash Setup</h3>",
+      "new_string": "<!-- TASK 3: CHATDASH -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">3. ChatDash Setup</h3>"
+    },
+    "timestamp": "2026-08-25T05:30:54.137Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/lead-reactivation/scripts/onboard-centre.ts",
+      "old_string": "<!-- TASK 3: HIYA -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">3. Register Hiya Branded Caller ID</h3>",
+      "new_string": "<!-- TASK 4: HIYA -->\n<div style=\"background: #fef3c7; border-left: 4px solid #d97706; padding: 16px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;\">\n<h3 style=\"margin-top: 0; color: #92400e;\">4. Register Hiya Branded Caller ID</h3>"
+    },
+    "timestamp": "2026-08-25T05:30:56.189Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "3. **2026-08-22: CONSOLIDATED onboarding email sent to Scott's inbox (Resend 732991ed…) — forward THIS one to Maurice; supersedes original ad702090… AND inbound addendum 853eef35….**",
+      "new_string": "3. **2026-08-25: CONSOLIDATED v2 email sent to Scott's inbox (Resend 95b370f2…) — forward THIS one; supersedes v1 (732991ed…/01c16117…), original ad702090…, addendum 853eef35…. v2 REMOVES the LineLeader forwarding section (obsolete — Zap-era lead ingestion, nothing centre-side; Scott caught the stale ask 2026-08-25).**"
+    },
+    "timestamp": "2026-08-25T05:31:06.261Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "5. CRM lead forwarding to scott.james1717+barrhaven-on-ca@gmail.com",
+      "new_string": "5. ~~CRM lead forwarding~~ → **Scott adds `barrhaven-on-ca` to the Zapier facility_slug filter** (Request-Info Zap, his seat) — safe immediately: Barrhaven is HubSpot-native, never had LineLeader (no dual-ingestion risk). Lead flow is DEAD until this is done. onboard-centre.ts checklist template now carries this as task #1 for future onboards (2026-08-25)"
+    },
+    "timestamp": "2026-08-25T05:31:08.655Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "for d in /root/lead-reactivation /root/lead-reactivation-github /root/poseidon-repo; do echo \"=== $d\"; git -C $d status --short 2>&1 | head -15; git -C $d remote -v 2>/dev/null | head -1; done; echo \"=== memory dir repo?\"; git -C /root/.claude/projects/-root/memory status --short 2>&1 | head -3",
+      "description": "Check git status of all candidate repos"
+    },
+    "timestamp": "2026-08-25T05:48:44.805Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git -C /root/poseidon-repo diff --stat; echo ===; ls /root/poseidon-repo/skills/_N8N/Tools/ | grep -i slotrouting; diff -q /root/.claude/skills/_N8N/Tools/SlotRoutingCheck.py /root/poseidon-repo/skills/_N8N/Tools/SlotRoutingCheck.py 2>&1; echo ===; git -C /root/.claude status --short -- projects/-root/memory | head -20; git -C /root/.claude remote -v | head -1",
+      "description": "Diff poseidon-repo changes and check memory repo status"
+    },
+    "timestamp": "2026-08-25T05:49:08.096Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git -C /root/.claude ls-files projects/-root/memory | head -3; echo \"tracked count: $(git -C /root/.claude ls-files projects/-root/memory | wc -l)\"; grep -n \"projects\" /root/.claude/.gitignore 2>/dev/null; echo ===; git -C /root/.claude status --short | head -10; echo ===; git -C /root/poseidon-repo diff",
+      "description": "Check memory tracking, gitignore, and poseidon-repo diffs"
+    },
+    "timestamp": "2026-08-25T05:49:18.719Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/.claude && git diff --stat -- projects/-root/memory | tail -3; echo \"=== untracked in memory (ignored):\"; git status --porcelain --ignored -- projects/-root/memory 2>/dev/null | grep -c \"^!!\"; git log --oneline -3; echo ===; diff -q /root/.claude/skills/_N8N/Tools/PipelineRegressionCheck.py /root/poseidon-repo/skills/_N8N/Tools/PipelineRegressionCheck.py && echo \"PRC live==repo\" ; diff -q /root/.claude/skills/_CNKB/Tools/SyncPrompt.ts /root/poseidon-repo/skills/_CNKB/Tools/SyncPrompt.ts && echo \"SyncPrompt live==repo\"",
+      "description": "Inspect memory repo state and live-vs-repo skill copies"
+    },
+    "timestamp": "2026-08-25T05:49:37.035Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git status --porcelain -- projects/-root/memory; echo \"---cached:\"; git diff --cached --stat | tail -3; echo \"---MEMORY.md vs HEAD:\"; git diff HEAD -- projects/-root/memory/MEMORY.md | head -5; echo \"---tracked mtime check:\"; git log -1 --format=%ci -- projects/-root/memory/tourforce-pricing.md; git diff HEAD -- projects/-root/memory/tourforce-pricing.md | head -5",
+      "description": "Determine why memory edits show no diff"
+    },
+    "timestamp": "2026-08-25T05:49:46.857Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git log -3 --format=\"%h %ci %s\" ; echo ---; git log -2 --format=\"%h %ci %s\" -- projects/-root/memory/barrhaven-onboarding-2026-08-14.md; echo ---; git log --oneline --all --since=\"2026-08-23\" | head; echo \"---new files tracked?\"; git ls-files projects/-root/memory | grep -E \"pickering-inbound|chatdash-agent\"",
+      "description": "Check whether recent memory edits are committed"
+    },
+    "timestamp": "2026-08-25T05:49:55.655Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "echo \"=== /root/.claude\"; git -C /root/.claude branch -vv | head -3; echo \"=== /root/poseidon-repo\"; git -C /root/poseidon-repo branch -vv | head -3; echo \"=== cred scan of untracked memory files:\"; git status --porcelain --ignored -- projects/-root/memory | grep \"^!!\" | sed 's/^!! //' | while read f; do grep -lEi \"(sk-[a-zA-Z0-9]{20}|key_[a-zA-Z0-9]{20}|re_[a-zA-Z0-9]{20}|Bearer [a-zA-Z0-9]{20}|password[\\\"': ]+[^ *<{]{8}|AC[a-f0-9]{32})\" \"$f\" 2>/dev/null; done; echo \"(scan done)\"",
+      "description": "Check branches of both Poseidon clones and scan untracked memory for credentials"
+    },
+    "timestamp": "2026-08-25T05:50:17.250Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/lead-reactivation && git fetch -q origin && git add scripts/onboard-centre.ts scripts/onboard-centre.help.md && git commit -q -m \"onboard-centre: Zap-era onboarding templates\n\n- Client email: LineLeader forwarding section removed (lead ingestion is the\n  HubSpot Zap now — nothing centre-side); new 24/7 receptionist section with\n  forwarding star codes and don't-enable-yet guard; steps renumbered\n- Internal checklist: 'add centre to Zap facility_slug filter' is task #1\n  (with dual-ingestion guard); Cekura task corrected to per-centre cron via\n  MCP (do NOT append to Canton-scoped 429); ChatDash task now covers the\n  inbound agent (fixes the Leaside/Burlington/Kanata one-agent gap class)\n- Console step 8 mirrors the ChatDash inbound instructions\n- help.md: step 7 rewritten to match per-centre cron reality\n\nCo-Authored-By: Claude Fable 5 <noreply@anthropic.com>\" && git status -sb | head -1 && git push -q origin && echo \"lead-reactivation PUSHED\"",
+      "description": "Commit and push lead-reactivation template changes"
+    },
+    "timestamp": "2026-08-25T05:50:33.027Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cp /root/.claude/skills/_N8N/Tools/SlotRoutingCheck.py /root/poseidon-repo/skills/_N8N/Tools/SlotRoutingCheck.py && cd /root/poseidon-repo && git fetch -q origin && git stash -q && git rebase -q origin/master && git stash pop -q && git add skills/_N8N/Tools/SlotRoutingCheck.py skills/_N8N/Tools/PipelineRegressionCheck.py skills/_CNKB/Tools/SyncPrompt.ts && git commit -q -m \"skills: SlotRoutingCheck clone-leak gate + weighted inbound_agents + Barrhaven clone\n\n- SlotRoutingCheck C1: fail when a CNKB-<X>-Inbound agent's slot URL routes\n  to a specific-but-WRONG centre (the EG clone-leak passed C1 and skipped C4\n  during the 2026-08-22 Pickering onboard)\n- PipelineRegressionCheck: accept Retell's weighted inbound_agents[] binding\n  alongside deprecated singular inbound_agent_id\n- SyncPrompt CLONES += Barrhaven (onboarded 2026-08-14)\n\nCo-Authored-By: Claude Fable 5 <noreply@anthropic.com>\" && git push -q origin master && echo \"poseidon-repo PUSHED at $(git rev-parse --short HEAD)\"",
+      "description": "Sync, commit, push poseidon-repo skill fixes"
+    },
+    "timestamp": "2026-08-25T05:50:43.723Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "cd /root/.claude && git add -A -q && git add -f -q projects/-root/memory/ && git commit -q -m \"memory: Shauna paid-transition prep, Pickering inbound provisioned, Barrhaven onboarding corrections\n\n- Pickering inbound provisioned 2026-08-22 (agent_eac2f055…, slot gate PASS\n  after clone-leak repoint; SlotRoutingCheck C1 hole found+fixed)\n- ChatDash agent-assignment gap map (Leaside/Burlington/Kanata inbound missing)\n- tourforce-pricing corrected from WhatsApp primary source (Scott proposed\n  \\$149/\\$249; Sharmila was told founding-then-\\$249 — anchor decision open)\n- Barrhaven: Maurice email known, KB shared, consolidated v2 email (no\n  LineLeader section), Zap-filter open item; backfill of prior untracked\n  memory files\n\nCo-Authored-By: Claude Fable 5 <noreply@anthropic.com>\" && git pull -q --rebase origin master && git push -q origin master && echo \"claude/memory PUSHED at $(git rev-parse --short HEAD)\"; git status -sb | head -1",
+      "description": "Commit and push memory + housekeeping in .claude repo"
+    },
+    "timestamp": "2026-08-25T05:51:02.936Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "git add -A && git add -f projects/-root/memory/ && git commit -q -m \"memory: Shauna paid-transition prep, Pickering inbound provisioned, Barrhaven onboarding corrections\n\n- Pickering inbound provisioned 2026-08-22 (agent_eac2f055…, slot gate PASS\n  after clone-leak repoint; SlotRoutingCheck C1 hole found+fixed)\n- ChatDash agent-assignment gap map (Leaside/Burlington/Kanata inbound missing)\n- tourforce-pricing corrected from WhatsApp primary source (Scott proposed\n  \\$149/\\$249; Sharmila was told founding-then-\\$249 — anchor decision open)\n- Barrhaven: Maurice email known, KB shared, consolidated v2 email (no\n  LineLeader section), Zap-filter open item; backfill of prior untracked\n  memory files\n\nCo-Authored-By: Claude Fable 5 <noreply@anthropic.com>\" && git pull -q --rebase origin master && git push -q origin master && echo \"claude/memory PUSHED at $(git rev-parse --short HEAD)\"; git status -sb | head -1",
+      "description": "Commit and push memory changes (fixed add flags)"
+    },
+    "timestamp": "2026-08-25T05:51:09.043Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -sL \"https://docs.google.com/spreadsheets/d/1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0/export?format=csv&gid=0\" | python3 -c \"\nimport sys, csv\nrows = list(csv.reader(sys.stdin))\nhdr = rows[0]\nfor i, r in enumerate(rows, start=1):\n    if r and r[0] == 'barrhaven-on-ca':\n        print('sheet row:', i)\n        for j in (7,8,9,10,12,13):\n            v = r[j] if j < len(r) else ''\n            print(f'  col {chr(65+j)} {hdr[j]:26} = {v!r}')\n\"",
+      "description": "Verify Barrhaven row and current test/email columns"
+    },
+    "timestamp": "2026-08-27T01:49:41.673Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; set +a; python3 - <<'EOF'\nimport json,urllib.request,os,time\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; KEY=os.environ[\"N8N_API_KEY\"]\nSHEET=\"1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0\"\ndef req(method,path,body=None):\n    data=json.dumps(body).encode() if body is not None else None\n    r=urllib.request.Request(BASE+path,data=data,method=method,\n        headers={\"X-N8N-API-KEY\":KEY,\"Content-Type\":\"application/json\"})\n    with urllib.request.urlopen(r) as resp: return json.loads(resp.read())\nbatch={\"valueInputOption\":\"RAW\",\"data\":[\n    {\"range\":\"Sheet1!I16\",\"values\":[[\"6136684805\"]]},\n    {\"range\":\"Sheet1!M16\",\"values\":[[\"me_loiselle@hotmail.com\"]]}]}\nwf={\"name\":\"[TEMP] Sheet Write Barrhaven I16/M16\",\"nodes\":[\n  {\"name\":\"Webhook\",\"type\":\"n8n-nodes-base.webhook\",\"typeVersion\":2,\"position\":[200,300],\n   \"parameters\":{\"path\":\"temp-sheet-write-b16\",\"httpMethod\":\"GET\",\"responseMode\":\"lastNode\"},\"id\":\"w1\",\"webhookId\":\"temp-sheet-write-b16\"},\n  {\"name\":\"Write\",\"type\":\"n8n-nodes-base.httpRequest\",\"typeVersion\":4.2,\"position\":[440,300],\n   \"parameters\":{\"method\":\"POST\",\n     \"url\":f\"https://sheets.googleapis.com/v4/spreadsheets/{SHEET}/values:batchUpdate\",\n     \"sendBody\":True,\"specifyBody\":\"json\",\n     \"jsonBody\":json.dumps(batch),\n     \"authentication\":\"predefinedCredentialType\",\"nodeCredentialType\":\"googleSheetsOAuth2Api\"},\n   \"credentials\":{\"googleSheetsOAuth2Api\":{\"id\":\"yjVHcEWrpyDmxkvv\",\"name\":\"Google Sheets account 3\"}},\"id\":\"h1\"}],\n \"connections\":{\"Webhook\":{\"main\":[[{\"node\":\"Write\",\"type\":\"main\",\"index\":0}]]}},\"settings\":{}}\nc=req(\"POST\",\"/workflows\",wf); wid=c[\"id\"]; req(\"POST\",f\"/workflows/{wid}/activate\"); time.sleep(2)\nwith urllib.request.urlopen(\"https://xprime17.app.n8n.cloud/webhook/temp-sheet-write-b16\",timeout=30) as r:\n    out=json.loads(r.read())\nreq(\"POST\",f\"/workflows/{wid}/deactivate\"); req(\"DELETE\",f\"/workflows/{wid}\")\nprint(\"updated cells:\", out.get(\"totalUpdatedCells\"), \"| cleaned up temp workflow\")\nEOF",
+      "description": "Write Moe's test number and personal email to Centre Lookup row 16"
+    },
+    "timestamp": "2026-08-27T01:49:57.796Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "curl -s -X POST \"https://xprime17.app.n8n.cloud/webhook/drive-share-file\" -H \"Content-Type: application/json\" -d '{\"fileId\":\"1hJbXpqDv9oXGiCu9mMob7aBXFTSpiWfnU6aFUf8fwIw\",\"email\":\"me_loiselle@hotmail.com\",\"role\":\"writer\",\"sendNotification\":true}' | python3 -c \"import json,sys; d=json.load(sys.stdin); print('KB share status:', d.get('statusCode'), '| role:', d.get('body',{}).get('role'))\"",
+      "description": "Share KB to Moe's personal email with notification"
+    },
+    "timestamp": "2026-08-27T01:50:01.359Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.claude/.env; set +a; curl -s \"https://api.clickup.com/api/v2/team\" -H \"Authorization: $CLICKUP_PERSONAL_TOKEN\" | python3 -c \"import json,sys; d=json.load(sys.stdin); [print(t['id'], t['name']) for t in d.get('teams',[])]\"",
+      "description": "Get ClickUp team ID"
+    },
+    "timestamp": "2026-08-27T01:50:12.662Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.claude/.env; set +a; curl -s -X POST \"https://api.clickup.com/api/v2/team/9011711565/guest\" -H \"Authorization: $CLICKUP_PERSONAL_TOKEN\" -H \"Content-Type: application/json\" -d '{\"email\":\"me_loiselle@hotmail.com\",\"can_edit_tags\":false,\"can_see_time_spent\":false,\"can_see_time_estimated\":false,\"can_create_views\":false}' | head -c 400",
+      "description": "Invite Moe as ClickUp guest"
+    },
+    "timestamp": "2026-08-27T01:50:16.853Z"
+  },
+  {
+    "name": "Edit",
+    "input": {
+      "replace_all": false,
+      "file_path": "/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md",
+      "old_string": "## REMAINING MANUAL (before go-live) — same shape as Kanata",
+      "new_string": "## Moe's two-asks reply (2026-08-27, via Scott)\n- Test number **613-668-4805** → written to Centre Lookup I16 (was Scott's cell). Personal email **me_loiselle@hotmail.com** → M16 + KB shared as editor (notification sent — needs Google-account association on his end).\n- ClickUp guest invite via API BLOCKED (`TEAM_110: Team must be on enterprise plan`) — guest invites are UI-only on our plan; Scott invites me_loiselle@hotmail.com manually to Barrhaven Inbound/Outbound lists, then fill N16 with his user_id.\n- Carrier = **Freedom Mobile** (the \"landline\" 343-843-2033 is wireless). Go-live forwarding = GSM MMI codes: all-conditional `**004*13432967200#` (busy+no-answer+unreachable in one), disable `##004#`; no-answer-only `**61*13432967200#`. Include in go-live confirmation email; note possible per-min forwarding charges on Freedom.\n\n## REMAINING MANUAL (before go-live) — same shape as Kanata"
+    },
+    "timestamp": "2026-08-27T01:50:38.326Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.claude/.env; set +a; curl -s \"https://api.clickup.com/api/v2/team\" -H \"Authorization: $CLICKUP_PERSONAL_TOKEN\" | python3 -c \"\nimport json,sys\nd=json.load(sys.stdin)\nfor t in d.get('teams',[]):\n    for m in t.get('members',[]):\n        u=m.get('user',{})\n        if 'loiselle' in (u.get('email') or '').lower():\n            print('FOUND:', u.get('id'), u.get('email'), '| role:', u.get('role'), '| initials:', u.get('initials'))\n\" ; echo \"(lookup done)\"",
+      "description": "Check if Moe's ClickUp guest account exists yet"
+    },
+    "timestamp": "2026-08-27T02:16:48.375Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.env; set +a; python3 - <<'EOF'\nimport json,urllib.request,os,time\nBASE=\"https://xprime17.app.n8n.cloud/api/v1\"; KEY=os.environ[\"N8N_API_KEY\"]\nSHEET=\"1wQAdX3frfxCHK0HmGCKRpzmOx7SFaLP-3nn7AEc0GK0\"\ndef req(method,path,body=None):\n    data=json.dumps(body).encode() if body is not None else None\n    r=urllib.request.Request(BASE+path,data=data,method=method,\n        headers={\"X-N8N-API-KEY\":KEY,\"Content-Type\":\"application/json\"})\n    with urllib.request.urlopen(r) as resp: return json.loads(resp.read())\nwf={\"name\":\"[TEMP] Sheet Write N16\",\"nodes\":[\n  {\"name\":\"Webhook\",\"type\":\"n8n-nodes-base.webhook\",\"typeVersion\":2,\"position\":[200,300],\n   \"parameters\":{\"path\":\"temp-sheet-write-n16\",\"httpMethod\":\"GET\",\"responseMode\":\"lastNode\"},\"id\":\"w1\",\"webhookId\":\"temp-sheet-write-n16\"},\n  {\"name\":\"Write\",\"type\":\"n8n-nodes-base.httpRequest\",\"typeVersion\":4.2,\"position\":[440,300],\n   \"parameters\":{\"method\":\"PUT\",\n     \"url\":f\"https://sheets.googleapis.com/v4/spreadsheets/{SHEET}/values/Sheet1!N16?valueInputOption=RAW\",\n     \"sendBody\":True,\"specifyBody\":\"json\",\"jsonBody\":'{\"values\":[[\"87469369\"]]}',\n     \"authentication\":\"predefinedCredentialType\",\"nodeCredentialType\":\"googleSheetsOAuth2Api\"},\n   \"credentials\":{\"googleSheetsOAuth2Api\":{\"id\":\"yjVHcEWrpyDmxkvv\",\"name\":\"Google Sheets account 3\"}},\"id\":\"h1\"}],\n \"connections\":{\"Webhook\":{\"main\":[[{\"node\":\"Write\",\"type\":\"main\",\"index\":0}]]}},\"settings\":{}}\nc=req(\"POST\",\"/workflows\",wf); wid=c[\"id\"]; req(\"POST\",f\"/workflows/{wid}/activate\"); time.sleep(2)\nwith urllib.request.urlopen(\"https://xprime17.app.n8n.cloud/webhook/temp-sheet-write-n16\",timeout=30) as r:\n    print(json.loads(r.read()).get(\"updatedRange\"), \"written\")\nreq(\"POST\",f\"/workflows/{wid}/deactivate\"); req(\"DELETE\",f\"/workflows/{wid}\")\nEOF\npython3 - <<'EOF'\nimport re\np=\"/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md\"\ns=open(p).read()\ns=s.replace(\"ClickUp guest invite via API BLOCKED (`TEAM_110: Team must be on enterprise plan`) — guest invites are UI-only on our plan; Scott invites me_loiselle@hotmail.com manually to Barrhaven Inbound/Outbound lists, then fill N16 with his user_id.\",\n\"ClickUp guest DONE 2026-08-27: Scott invited manually (API is Enterprise-gated, TEAM_110); Moe user_id **87469369** → N16 written (clears the PipelineRegressionCheck clickup_user_ids FAIL).\")\ns=s.replace(\"5. ~~CRM lead forwarding~~ → **Scott adds `barrhaven-on-ca` to the Zapier facility_slug filter** (Request-Info Zap, his seat) — safe immediately: Barrhaven is HubSpot-native, never had LineLeader (no dual-ingestion risk). Lead flow is DEAD until this is done. onboard-centre.ts checklist template now carries this as task #1 for future onboards (2026-08-25)\",\n\"5. ~~CRM lead forwarding~~ → ✅ DONE 2026-08-27: Scott added `barrhaven-on-ca` to the Zap facility_slug filter — Barrhaven lead flow LIVE (Testing=TRUE → dials ring Moe's 6136684805)\")\nopen(p,\"w\").write(s)\nprint(\"memory updated\")\nEOF",
+      "description": "Write Moe's ClickUp user_id to N16 and update memory"
+    },
+    "timestamp": "2026-08-27T02:17:08.533Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "set -a; . /root/.claude/.env; set +a; python3 - <<'EOF'\nimport json, urllib.request, os\nKEY = os.environ[\"RETELL_API_KEY\"]\ndef get(path):\n    r = urllib.request.Request(\"https://api.retellai.com\"+path, headers={\"Authorization\": f\"Bearer {KEY}\"})\n    with urllib.request.urlopen(r) as resp: return json.loads(resp.read())\nfor label, aid in [(\"outbound\", \"agent_78b3b359c341d2a084a893f161\"), (\"inbound\", \"agent_ed614e3ebcda137c3d07f796b0\")]:\n    a = get(f\"/get-agent/{aid}\")\n    print(f\"{label}: webhook_url = {a.get('webhook_url')}\")\nEOF",
+      "description": "Verify Barrhaven agents' webhook URLs post-ChatDash"
+    },
+    "timestamp": "2026-08-27T02:33:06.060Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'EOF'\np=\"/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md\"\ns=open(p).read()\ns=s.replace(\"1. ChatDash: create agent CNKB-Barrhaven + client (login maurice.barrhaven), forwarding URL → outbound EOC webhook\",\n\"1. ~~ChatDash~~ ✅ DONE 2026-08-27 (Scott): BOTH agents wired — Retell-verified webhook_urls now api.chat-dash.com (outbound→ChatDash agent 6a8a0c59d7c9552b92034fd0, inbound→6a8a106a2effedaeaae6961e). ⚠️ inbound webhook now routes VIA ChatDash (was direct) — the pending test inbound call must confirm the summary email still arrives (proves ChatDash inbound forwarding URL → inbound-end-of-call is right)\")\ns=s.replace('2. Hiya branded caller ID for +13432967200 (\"Code Ninjas Barrhaven\")',\n'2. ~~Hiya~~ ✅ DONE 2026-08-27 (Scott): +13432967200 registered as \"Code Ninjas Barrhaven\"')\nopen(p,\"w\").write(s)\nprint(\"memory updated\")\nEOF",
+      "description": "Mark ChatDash and Hiya done in Barrhaven memory"
+    },
+    "timestamp": "2026-08-27T02:33:22.590Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'PYEOF'\nimport json\n\nh2 = 'style=\"color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px;\"'\ncodestyle = 'style=\"background:#f1f3f4;padding:2px 6px;border-radius:4px;font-family:monospace;\"'\ndef c(t): return f'<code {codestyle}>{t}</code>'\n\nhtml = f\"\"\"<div style=\"font-family: Arial, sans-serif; max-width: 660px; margin: 0 auto; color: #333; line-height: 1.55;\">\n<div style=\"padding: 24px;\">\n<h1 style=\"color:#1a73e8; font-size:24px;\">Barrhaven AI Agent &mdash; Two Quick Tests</h1>\n<p>Hi Maurice,</p>\n<p>Everything is configured and your centre is in <strong>test mode</strong> &mdash; nothing touches real families yet. Before we go live, please run these two tests (about 10 minutes total). You'll be playing the part of a parent both times, so feel free to have fun with it.</p>\n\n<h2 {h2}>Test 1: Call Your AI Receptionist</h2>\n<ol>\n<li>From any phone, call {c(\"+1 (343) 296-7200\")}.</li>\n<li>Act like a parent hearing about Code Ninjas for the first time. Good things to try:\n  <ul>\n  <li>Ask what programs you offer for a 9-year-old, and what it costs</li>\n  <li>Ask your centre's hours</li>\n  <li>Ask about tour times &mdash; and if you like, <strong>go ahead and book one</strong> (it books onto your real tour calendar; just cancel it afterwards)</li>\n  <li>Or ask something it can't handle and leave a message &mdash; see how that feels</li>\n  </ul>\n</li>\n<li><strong>Afterwards, check the {c(\"barrhavenonca@codeninjas.com\")} inbox</strong> &mdash; a call summary email should arrive within a few minutes. If you left a message or booked a tour, a task should also appear on your ClickUp board.</li>\n</ol>\n\n<h2 {h2}>Test 2: Be a New Lead</h2>\n<ol>\n<li>Go to your centre's page: <a href=\"https://www.codeninjas.com/barrhaven-on-ca\" style=\"color:#1a73e8;\">codeninjas.com/barrhaven-on-ca</a> and fill out the <strong>Request Info</strong> form. Use your real name and a made-up child (any age 5&ndash;14).</li>\n<li>Because we're in test mode, the AI will call <strong>your cell (613-668-4805)</strong> regardless of what phone number you enter on the form. Expect the call within roughly 15 minutes during business hours (a form filled after hours queues for 9:00 AM the next morning).</li>\n<li>Answer and chat like a curious parent &mdash; ask questions, and ideally book a tour so you see the whole flow (cancel it after).</li>\n<li>Afterwards, check the centre inbox again for the call outcome email.</li>\n</ol>\n\n<h2 {h2}>What We're Looking For</h2>\n<ul>\n<li>Did the AI greet you as <strong>Code Ninjas Barrhaven</strong> and get your centre's facts right (hours, programs, address)?</li>\n<li>Did the tour times it offered match your real calendar?</li>\n<li>Did the summary emails and ClickUp tasks show up?</li>\n</ul>\n<p>Reply with how it went &mdash; especially anything the AI got wrong about your centre. Small corrections can go straight into the <strong>MANUAL NOTES</strong> section of your Knowledge Base document (you have edit access), or just tell us and we'll handle it.</p>\n\n<p><strong>One reminder: please don't set up call forwarding on your centre line yet.</strong> Once these tests pass, we'll flip you live and send the exact forwarding steps for Freedom Mobile.</p>\n\n<p>Thanks Maurice &mdash; almost there!</p>\n<p>Best regards,<br><strong>Scott</strong></p>\n</div></div>\"\"\"\n\npayload = {\n    \"from\": \"Poseidon <onboarding@resend.dev>\",\n    \"to\": [\"scott.james@codeninjas.com\"],\n    \"subject\": \"Barrhaven AI Agent — Two Quick Tests Before Go-Live\",\n    \"html\": html,\n}\nwith open(\"/tmp/moe-tests.json\", \"w\") as f:\n    json.dump(payload, f)\nprint(\"built\")\nPYEOF\ncurl -s -X POST https://api.resend.com/emails -H \"Authorization: Bearer REDACTED_RESEND_KEY\" -H \"Content-Type: application/json\" -d @/tmp/moe-tests.json; rm /tmp/moe-tests.json",
+      "description": "Send test-instructions email for Moe to Scott's inbox"
+    },
+    "timestamp": "2026-08-27T02:57:41.072Z"
+  },
+  {
+    "name": "Bash",
+    "input": {
+      "command": "python3 - <<'EOF'\np=\"/root/.claude/projects/-root/memory/barrhaven-onboarding-2026-08-14.md\"\ns=open(p).read()\ns=s.replace(\"6. Call forwarding (no-answer → +13432967200), then add to LIVE_INBOUND_CENTRE_IDS\",\n\"6. **Test-instructions email sent to Scott 2026-08-27 (Resend 5f72e48a…, forward to Moe):** Test 1 = dial +13432967200 (validates ChatDash inbound re-route: summary email to centre inbox + ClickUp task = PASS signal); Test 2 = Request-Info fill on barrhaven page → dial rings 6136684805 (validates Zap + outbound ChatDash forwarding); book-and-cancel tour encouraged. THEN: call forwarding (Freedom `**004*13432967200#`) + add to LIVE_INBOUND_CENTRE_IDS\")\nopen(p,\"w\").write(s)\nprint(\"memory updated\")\nEOF",
+      "description": "Record test email in Barrhaven memory"
+    },
+    "timestamp": "2026-08-27T02:57:48.569Z"
+  }
+]
