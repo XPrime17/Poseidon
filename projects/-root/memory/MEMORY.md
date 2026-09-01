@@ -1,5 +1,12 @@
 # PAI Memory
 
+## ▶ Retell Legacy-List Deprecation (2026-08-31)
+- [Droplet migrated (list-phone-numbers→v2, gate PASS `6977a66`); residual 16× v2/list-calls = external caller](retell-legacy-list-migration-2026-08-31.md) — never use retell-sdk 4.x `.list()` (targets deprecated endpoints); fetch v3/list-calls + v2/list-phone-numbers directly, read `items`. ChatDash/laptop-MCP class (see list-agents saga).
+
+## ▶ After-Hours Attempt Burn (2026-08-30)
+- [RULE: re-read live state immediately before ANY hand-write repair](feedback-reread-before-manual-write.md) — never write from earlier-in-conversation reads (time jumps between turns); pre-read → write → post-read incl. neighbour fields. Per Scott 8/31 after the clobber near-miss.
+- [After-hours attempt burn FIXED 8/31 + stale-write clobber near-miss](offhours-attempt-burn-2026-08-30.md) — Off Hours node now decrements attempt_count (backup saved); Smruti dialed 2× 8/31 as attempts 2/3, attempt 4 = Sept 3 ~6:33 PM then exhausted. LESSON: re-read a row IMMEDIATELY before hand-writing — my 21h-stale 1→0 write clobbered live count 3, caught+restored in 4 min. OPEN: live-prove on next after-hours lead.
+
 ## ▶ Audit Fleet Roster Gap + Kanata First Booking (2026-08-30)
 - [Audit blind to 13/28 calls: Kanata/Barrhaven outbound + 4 inbound missing — FIXED + inbound tool-slots to LLM judge](audit-fleet-roster-gap-2026-08-30.md) — 072de6c + fail-visible 8/31 a9da475 (org-wide fetch, UNREGISTERED HIGH tripwire, AUDIT_DRY_RUN); onboard-centre.ts checklist Task 5 ace9230. SCHEDULER_LAG noise = day+1 cadence by design.
 - [Kanata 1st booking (Elena/Ivan Sept 12 10AM) verified thru Skyvern completed — closes 6/27 OPEN](kanata-first-booking-elena-dateswitch-2026-08-30.md) — OPEN: staff confirm date w/ Elena (asked Sept 5 10AM, got silent switch to Sept 12; separate Sept 5 "free demo" impression via inbound 8/29).
@@ -545,3 +552,4 @@
 | `feedback-ship-simple-when-decisions-oscillate.md` | When a decision keeps reversing, the gap is data not analysis — ship simplest defensible version |
 - [Chat-Dash agent gaps — Leaside/Burl/Kanata inbound unassigned](chatdash-agent-assignment-gaps-2026-08-22.md) — client dashboard shows half the service; fix before Shauna/Sharmila paid go-live; Pickering 1-agent is by design
 - [Pickering inbound provisioned 2026-08-22](pickering-inbound-provisioned-2026-08-22.md) — agent_eac2f055…, slot gate PASS, SlotRoutingCheck C1 clone-leak hole patched; OPEN: test call, ChatDash assign, Sharmila forwarding, LIVE_INBOUND_CENTRE_IDS
+- [Shauna Base×3 cutover 2026-08-31](shauna-base-tier-cutover-2026-08-31.md) — outbound OFF (enabled=FALSE r11-13, 7 queued rows closed, 6 real leads → staff), inbound booking → request-capture (3 LLMs, backups saved), Cekura 439/511 paused. OPEN: Scott removes 3 slugs from Zap; card same-day; HubSpot rollover = booking upsell
