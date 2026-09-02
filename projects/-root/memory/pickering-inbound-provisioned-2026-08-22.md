@@ -19,10 +19,13 @@ Context: Sharmila replacing her $169/mo third-party receptionist (30-day cancel 
 - **SlotRoutingCheck C1 hole FIXED**: gate previously PASSed a specific-but-wrong URL (routed to /east-gwillimbury; C4 skipped because routed centre WAS EG). C1 now derives expected centre from agent name (CNKB-<X>-Inbound) and fails on mismatch. Fleet-wide re-run: all 7 inbound agents PASS (Pickering 22 slots, distinct from EG)
 
 ## Remaining before Sharmila forwards
-1. Scott test-dials +1 647-951-6675 (live inbound answer, Pickering greeting/slots)
-2. ChatDash: assign CNKB-Pickering-Inbound to Sharmila's client (visibility; see [[chatdash-agent-assignment-gaps]])
-3. Sharmila: cancel other receptionist (30d notice) + set forwarding on Pickering landline → +16479516675
-4. After forwarding live: add `pickering-on-ca` to `LIVE_INBOUND_CENTRE_IDS` in `PipelineRegressionCheck.py` (currently only EG + StCath — Leaside/Burlington/Kanata missing too, separate gap)
-5. provision-inbound.ts still doesn't repoint the slot URL itself — third occurrence; consider adding the repoint to the script
+1. ~~Scott test-dials~~ DONE 8/22 (3 calls from 905-967-2357, 16:48)
+2. ~~ChatDash assign~~ DONE — agent webhook now → ChatDash `6a8a10cfd7c9552b9203824e` (import rewired it from direct-EOC; StCath pattern)
+3. ~~Sharmila forwarding~~ **LIVE Mon 2026-08-31** — 9 real inbound calls (Madhu 151s, Tahira 60s, Ahmed 79s + quick hangups), 0 booked; inbound EOC processed all (ChatDash→n8n verified, execs 31504–31569 success)
+4. STILL OPEN: add `pickering-on-ca` to `LIVE_INBOUND_CENTRE_IDS` in `PipelineRegressionCheck.py` (Leaside/Burlington/Kanata missing too)
+5. STILL OPEN: provision-inbound.ts doesn't repoint the slot URL itself (third occurrence)
+
+## Update 2026-09-01 — surfaced as "unknown agent", audit-registered
+Nobody recognized `agent_eac2f0557671` when the fail-visible audit tripwire ([[audit-fleet-roster-gap-2026-08-30]]) flagged it nightly from 8/31 — this memory existed but sat at the tail of the over-length MEMORY.md index, and investigation greps `head`-truncated past it. Registered in audit roster 9/1 (`c9f3689`: AGENTS + INBOUND_CENTRES + SKILL.md table; no Cekura agent, no INBOUND_WORKFLOWS entry). **Real HIGH found on first live day:** `call_576891277ca03b4df3aa0d47dc8` (Madhu, 8/31 10:47) — agent FABRICATED camp dates ("last week of summer camp runs August 31–September 4"); injected KB (2,207 chars) has no camp content, prompt requires deflect-to-team for camps not in KB. Prompt-side FIXED 2026-09-02 fleet-wide → [[date-fabrication-guard-2026-09-02]]. OPEN: staff correct camp info with Madhu; consider camp section in Pickering KB doc.
 
 Related: [[customer-leaside-pickering-first-paying]], [[barrhaven-onboarding-2026-08-14]], [[inbound-slot-source-eg-contamination-2026-06-18]]

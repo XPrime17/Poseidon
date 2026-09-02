@@ -40,6 +40,7 @@ Fetch calls from ALL 13 agents using `mcp__retell-voice-ai__list_calls`:
 | Burlington-Inbound | `agent_7950e8ff24a902abfd3d5b34cc` | inbound |
 | Kanata-Inbound | `agent_c3d64fc094dccb0fa486bde5f9` | inbound |
 | Leaside-Inbound | `agent_50a754cd5b9ba4ec988c764427` | inbound |
+| Pickering-Inbound | `agent_eac2f0557671b9d15543a02a79` | inbound |
 
 For each agent, fetch up to 50 calls with `list_calls`. Filter to calls where `start_time` falls within the last 24 hours from current time.
 
@@ -61,8 +62,10 @@ These are automated QA runs, not real leads. The automated daily `audit.py` addi
 For each `to_number` with multiple calls in the window:
 - Sort by `start_time` ascending
 - Read each call's `metadata.retry_attempt` — this is the canonical attempt counter
-- Expected cadence: 90 min between attempts (Retry Scheduler as of 2026-03-28)
-- Flag if attempt > 4 (cap breach) OR gap > 3h between attempts (scheduler lag) OR gap < 60min (premature fire)
+- Expected cadence (retry A/B live since 2026-06-10): attempt 1 ASAP, later attempts on the 6:30 PM ET day+1/+2/+3 tick — so **18–36h between attempts is BY DESIGN**, not lag
+- Flag if attempt > 4 (cap breach) OR gap 3–18h / >36h (scheduler lag: off-pattern or missed daily tick) OR gap < 60min (premature fire). Do NOT flag 18–36h gaps — that stale rule produced recurring false MEDIUMs through 2026-08-30.
+
+**Known-issues register (`known-issues.json`, next to `audit.py`, added 2026-09-01):** signatures listed there as `fixed` (with `fixed_date`) or `noise` get a ✓ "no action needed" note in the issue row and a subject-line count (e.g. "— all 3 known/fixed, no action needed") instead of the REPEAT escalation, so a scary subject always means something real. A `fixed` signature firing on a run >2 days past its `fixed_date` escalates as **⚠ RECURRED AFTER FIX** — a regression tripwire, never silence. When you fix a recurring audit finding, add its signature (`kind|last-10-digits-of-phone` or `kind|centre`) to the register in the same commit. `AUDIT_DRY_RUN=1` skips both the email and the issue-history write.
 
 When writing the report, NEVER say "X dialled [Name] N times" — say "X dialled [to_number] N times (lead name: [First])". If two different `to_number`s share the same First name, list them as separate chains.
 

@@ -1,5 +1,9 @@
 # PAI Memory
 
+## ▶ Pickering Inbound Live (2026-08-31)
+- [Pickering-Inbound agent_eac2f0557671 provisioned 8/22 by parallel session, forwarding live 8/31, audit-registered 9/1 c9f3689](pickering-inbound-provisioned-2026-08-22.md) — was the "unknown agent" tripwire hit; Madhu got fabricated camp dates (KB has none) — staff correct + KB camp section.
+- [Date-fabrication guard shipped fleet-wide 9/2: all 7 inbound LLMs incl. EG golden source](date-fabrication-guard-2026-09-02.md) — dates/camp weeks = KB-only, deflect otherwise; backups cnkb-camp-dates-guard-2026-09-02/. OPEN: outbound has no equivalent; Madhu staff correction.
+
 ## ▶ Retell Legacy-List Deprecation (2026-08-31)
 - [Droplet migrated (list-phone-numbers→v2, gate PASS `6977a66`); residual 16× v2/list-calls = external caller](retell-legacy-list-migration-2026-08-31.md) — never use retell-sdk 4.x `.list()` (targets deprecated endpoints); fetch v3/list-calls + v2/list-phone-numbers directly, read `items`. ChatDash/laptop-MCP class (see list-agents saga).
 
@@ -551,7 +555,6 @@
 | `customer-leaside-pickering-first-paying.md` | First paying customer — Sharmilla, Leaside + Pickering, $368.15 MRR, signed 2026-05-23 |
 | `feedback-ship-simple-when-decisions-oscillate.md` | When a decision keeps reversing, the gap is data not analysis — ship simplest defensible version |
 - [Chat-Dash agent gaps — Leaside/Burl/Kanata inbound unassigned](chatdash-agent-assignment-gaps-2026-08-22.md) — client dashboard shows half the service; fix before Shauna/Sharmila paid go-live; Pickering 1-agent is by design
-- [Pickering inbound provisioned 2026-08-22](pickering-inbound-provisioned-2026-08-22.md) — agent_eac2f055…, slot gate PASS, SlotRoutingCheck C1 clone-leak hole patched; OPEN: test call, ChatDash assign, Sharmila forwarding, LIVE_INBOUND_CENTRE_IDS
 - [Shauna Base×3 cutover 2026-08-31](shauna-base-tier-cutover-2026-08-31.md) — outbound OFF (enabled=FALSE r11-13, 7 queued rows closed, 6 real leads → staff), inbound booking → request-capture (3 LLMs, backups saved), Cekura 439/511 paused. OPEN: Scott removes 3 slugs from Zap; card same-day; HubSpot rollover = booking upsell
 - [Never promise staff response times](feedback-no-staff-response-time-promises.md) — agents/emails promise the ACTION, not the clock; "within 1 business day" removed from Base-tier capture flow 2026-09-01
 - [Resend key exposed in public Poseidon history](resend-key-exposure-2026-09-01.md) — send-only key, since Feb; Scott rotates in dashboard, then swap in n8n EOC + alert.env + onboard-centre.ts; use env vars in Bash, never literals
