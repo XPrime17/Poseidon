@@ -13,4 +13,4 @@ metadata:
 
 **Why (rule text):** dates/date-ranges/session weeks/start dates/schedule times = KB-only; never compute/infer/"recall"; clarify the question freely but deflect the answer ("Our team has the exact dates — I'll have someone reach out"). Audit's LLM HALLUCINATION HIGH remains the tripwire if it recurs.
 
-**OPEN:** (1) outbound agents dial camp-program leads ([[lead-program-expansion-2026-06-12]]) and have no equivalent date guard — consider fanning there if the audit ever flags outbound date fabrication. (2) live confirm: next inbound "when does camp run" question should deflect (Scott can test-dial Pickering). (3) Madhu still needs the staff correction call re the invented dates.
+**OPEN (updated 9/2 later same day):** (1) ~~outbound guard~~ SHIPPED — fanned to 9 outbound LLMs w/ {{SLOTS}} carve-out, see [[cekura-camp-date-regression-2026-09-02]]. (2) ~~live confirm~~ DONE on EG via Cekura scenario 335777 (run 839321 PASS — clean deflection under push); Pickering-specific test-dial optional. (3) Madhu still needs the staff correction call re the invented dates.

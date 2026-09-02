@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Cekura Camp-Date Regression Shipped (2026-09-02)
+- [Camp-date tests live: EG inbound 335777 (run 839321 PASS) + Cimo tier1 335843; outbound date guard fanned to 9 LLMs (KB+SLOTS); EG monthly cron 615](cekura-camp-date-regression-2026-09-02.md) — Cekura inbound calls → [CEKURA TEST]-labeled ClickUp/email (email still hits centre inbox); Cekura 13783 Burlington-old → deleted Retell agent; VM-callback class NOT Cekura-testable.
+
 ## ▶ Enabled-Column Text-FALSE Crash (2026-09-01)
 - [Text-FALSE crash → SHIPPED 9/2: col C=outbound_enabled, NEW col U=inbound_enabled (drives gate roster + set-greeting), vestigial Leaside DID 16474963276 retired (Retell+Twilio)](enabled-text-false-crash-2026-09-01.md) — pause was intentional per shauna-base-tier-cutover (grep memory dir before flagging unknowns!); gate PASS 0 WARN + E2E PASS; set-greeting.ts repo edit uncommitted.
 
