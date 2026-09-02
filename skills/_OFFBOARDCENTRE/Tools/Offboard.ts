@@ -45,7 +45,7 @@ type Mode = "soft" | "hard" | "reactivate";
 interface CentreRow {
   centre_id: string;
   timezone: string;
-  enabled: boolean;
+  outbound_enabled: boolean;
   location_name: string;
   from_number: string;
   testing: boolean;
@@ -178,7 +178,7 @@ const LEADS_COLUMNS = [
   "attempt_3_at", "attempt_3_outcome", "attempt_4_at", "attempt_4_outcome",
 ];
 const LOOKUP_COLUMNS = [
-  "centre_id", "timezone", "enabled", "location_name", "from_number", "Testing",
+  "centre_id", "timezone", "outbound_enabled", "location_name", "from_number", "Testing",
   "test_number", "centre_email", "Director", "agent_id", "knowledge_base",
 ];
 
@@ -322,7 +322,7 @@ async function buildInventory(centreId: string): Promise<Inventory> {
   const centre: CentreRow = {
     centre_id: row[idx("centre_id")],
     timezone: row[idx("timezone")],
-    enabled: row[idx("enabled")].toUpperCase() === "TRUE",
+    outbound_enabled: row[idx("outbound_enabled")].toUpperCase() === "TRUE",
     location_name: row[idx("location_name")],
     from_number: row[idx("from_number")],
     testing: row[idx("Testing")].toUpperCase() === "TRUE",
@@ -394,7 +394,7 @@ function printInventory(inv: Inventory) {
   hr();
   console.log(`  Director:        ${inv.centre.director} <${inv.centre.centre_email}>`);
   console.log(`  Timezone:        ${inv.centre.timezone}`);
-  console.log(`  Enabled (now):   ${inv.centre.enabled}`);
+  console.log(`  Enabled (now):   ${inv.centre.outbound_enabled}`);
   console.log(`  KB doc:          ${inv.centre.knowledge_base ? "yes" : "(none)"}`);
   console.log(`  Retell agent:    ${inv.agent.agent_name}  (${inv.agent.agent_id})`);
   console.log(`  Phone:           ${inv.phone.phone_number || "(unbound)"}  nick="${inv.phone.nickname}"`);
@@ -412,14 +412,14 @@ function printPlan(mode: Mode, inv: Inventory, followups: FollowupEntry[] = []) 
   console.log(`PROPOSED MUTATIONS  —  mode: ${mode}`);
   hr();
   if (mode === "reactivate") {
-    console.log(`  • Set Centre Lookup enabled=TRUE for ${inv.centre.centre_id}`);
+    console.log(`  • Set Centre Lookup outbound_enabled=TRUE for ${inv.centre.centre_id}`);
     console.log(`  • Strip [OFFBOARDED-…] prefix from agent name`);
     console.log(`  • Re-bind phone agent (from inventory.json snapshot)`);
     hr();
     return;
   }
   console.log(`  • Drain ${inv.active_leads.length} active leads → status=cancelled_offboard`);
-  console.log(`  • Set Centre Lookup enabled=FALSE for ${inv.centre.centre_id}`);
+  console.log(`  • Set Centre Lookup outbound_enabled=FALSE for ${inv.centre.centre_id}`);
   console.log(`  • Rename Retell agent → "[OFFBOARDED-${TODAY}] ${inv.agent.agent_name}"`);
   console.log(`  • Unbind phone ${inv.phone.phone_number} (clear outbound + inbound agent)`);
   if (mode === "hard") {
@@ -469,11 +469,11 @@ async function flipLookup(inv: Inventory, enabled: boolean): Promise<void> {
     sheetId: CENTRE_LOOKUP_ID,
     sheetName: "gid=0",
     matchColumn: "centre_id",
-    rows: [{ centre_id: inv.centre.centre_id, enabled: enabled ? "TRUE" : "FALSE" }],
+    rows: [{ centre_id: inv.centre.centre_id, outbound_enabled: enabled ? "TRUE" : "FALSE" }],
     allColumns: LOOKUP_COLUMNS,
-    writeColumns: ["centre_id", "enabled"],
+    writeColumns: ["centre_id", "outbound_enabled"],
   });
-  ok(`Centre Lookup: enabled=${enabled ? "TRUE" : "FALSE"}`);
+  ok(`Centre Lookup: outbound_enabled=${enabled ? "TRUE" : "FALSE"}`);
 }
 
 async function renameAgent(inv: Inventory, prefix: boolean): Promise<string> {

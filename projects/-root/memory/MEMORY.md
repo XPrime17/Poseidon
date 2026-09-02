@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Enabled-Column Text-FALSE Crash (2026-09-01)
+- [Text-FALSE crash → SHIPPED 9/2: col C=outbound_enabled, NEW col U=inbound_enabled (drives gate roster + set-greeting), vestigial Leaside DID 16474963276 retired (Retell+Twilio)](enabled-text-false-crash-2026-09-01.md) — pause was intentional per shauna-base-tier-cutover (grep memory dir before flagging unknowns!); gate PASS 0 WARN + E2E PASS; set-greeting.ts repo edit uncommitted.
+
 ## ▶ Pickering Inbound Live (2026-08-31)
 - [Pickering-Inbound agent_eac2f0557671 provisioned 8/22 by parallel session, forwarding live 8/31, audit-registered 9/1 c9f3689](pickering-inbound-provisioned-2026-08-22.md) — was the "unknown agent" tripwire hit; Madhu got fabricated camp dates (KB has none) — staff correct + KB camp section.
 - [Date-fabrication guard shipped fleet-wide 9/2: all 7 inbound LLMs incl. EG golden source](date-fabrication-guard-2026-09-02.md) — dates/camp weeks = KB-only, deflect otherwise; backups cnkb-camp-dates-guard-2026-09-02/. OPEN: outbound has no equivalent; Madhu staff correction.

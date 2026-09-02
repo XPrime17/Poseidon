@@ -26,7 +26,7 @@ MODES
   (default)     LIVE run. Injects ONE synthetic email -> WILL ring +19059672357.
                 Only run this when you intend to place a real test call.
   --selfcheck   NO injection, NO call. Structural validation only:
-                  webhook reachable, regression-test row present/enabled/Testing,
+                  webhook reachable, regression-test row present/outbound_enabled/Testing,
                   Retell key valid. Use this to validate the harness build.
 
 EXIT CODES   0 = PASS   1 = FAIL   2 = misconfig / missing keys
@@ -148,8 +148,8 @@ def selfcheck():
     if not row:
         FAIL(f"Centre Lookup has no '{TEST_CENTRE}' row")
     else:
-        if truthy(row.get("enabled")): OK("regression-test row enabled=TRUE")
-        else: FAIL(f"regression-test enabled={row.get('enabled')!r} (must be TRUE)")
+        if truthy(row.get("outbound_enabled")): OK("regression-test row outbound_enabled=TRUE")
+        else: FAIL(f"regression-test outbound_enabled={row.get('outbound_enabled')!r} (must be TRUE)")
         if truthy(row.get("Testing")): OK("regression-test Testing=TRUE (dials test_number)")
         else: FAIL(f"regression-test Testing={row.get('Testing')!r} (must be TRUE — else it dials a real lead)")
         if re.sub(r"\D", "", str(row.get("test_number"))) == TEST_NUMBER:

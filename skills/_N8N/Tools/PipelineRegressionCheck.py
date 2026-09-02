@@ -35,8 +35,10 @@ RETELL_KEY = os.environ.get("RETELL_API_KEY", "")  # set in ~/.claude/.env (giti
 UA = "Mozilla/5.0"
 
 # Centres whose inbound line is LIVE — these MUST be fully configured (Check C = FAIL).
-# Add a centre here the moment its inbound forwarding goes live.
-LIVE_INBOUND_CENTRE_IDS = {"east-gwillimbury-on-ca", "st-catharines-on-ca"}
+# Derived at runtime from the Centre Lookup `inbound_enabled` column (col U) — flip the
+# checkbox in the sheet when a centre's inbound forwarding goes live (2026-09-02 refactor;
+# the hardcoded set that lived here had drifted to 2 of the 6 actually-live centres).
+LIVE_INBOUND_CENTRE_IDS = set()  # populated in main() from inbound_enabled
 # Retell inbound-bound numbers to ignore in coverage (test/dev lines).
 EXCLUDE_INBOUND_NUMBERS = {"12899030611"}  # CNKB-Cekura test number
 # Lookup node name prefix used in expressions (both outbound "Lookup Centre" and inbound variant).
@@ -97,6 +99,12 @@ def main():
     cols, rows = load_sheet()
     headers = {c for c in cols if c and len(c) > 1}
     rows_by_cid = {r["centre_id"]: r for r in rows}
+    if "inbound_enabled" not in headers:
+        FAIL("[C] Centre Lookup has no 'inbound_enabled' column — cannot derive live inbound roster")
+    LIVE_INBOUND_CENTRE_IDS.update(
+        r["centre_id"] for r in rows
+        if str(r.get("inbound_enabled", "")).strip().lower() in ("true", "1")
+        and r["centre_id"] != "regression-test")
 
     # A. column existence
     wfs = load_pipeline_workflows()
@@ -143,9 +151,9 @@ def main():
 
     # D. outbound populated for enabled centres
     for r in rows:
-        en = str(r.get("enabled")).strip().lower() in ("true", "1")
+        en = str(r.get("outbound_enabled")).strip().lower() in ("true", "1")
         if en and not digits(r.get("outbound_number")):
-            FAIL(f"[D] enabled centre '{r['centre_id']}' has empty outbound_number")
+            FAIL(f"[D] outbound-enabled centre '{r['centre_id']}' has empty outbound_number")
 
     # E. clickup list validity for live inbound centres
     if CLICKUP:
