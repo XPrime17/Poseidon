@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ Calendar-API OOM Kill (2026-09-02)
+- [Global OOM killed calendar-api's chrome child + a 1.3GB pm2 bun (unidentified); self-healed 5s; Pickering 502 = transient Sonamation ~7% → retry-on-5xx SHIPPED 9/3](calendar-api-oom-kill-2026-09-02.md) — droplet swap 3.5/4GB (stale claude TTYs); watchdog 30min-stale restarts benign. pm2 300M guard SHIPPED 9/3 (all 5 apps, pm2 save'd). OPEN: close stale claude TTYs (swap 3.5/4GB).
+
 ## ▶ Cekura Camp-Date Regression Shipped (2026-09-02)
 - [Camp-date tests live: EG inbound 335777 (run 839321 PASS) + Cimo tier1 335843; outbound date guard fanned to 9 LLMs (KB+SLOTS); EG monthly cron 615](cekura-camp-date-regression-2026-09-02.md) — Cekura inbound calls → [CEKURA TEST]-labeled ClickUp/email (email still hits centre inbox); Cekura 13783 Burlington-old → deleted Retell agent; VM-callback class NOT Cekura-testable.
 
