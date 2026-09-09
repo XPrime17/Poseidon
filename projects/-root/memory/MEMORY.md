@@ -1,7 +1,7 @@
 # PAI Memory
 
 ## ▶ EOC Email Consolidation (2026-09-09)
-- [Dup NB+StaffFU emails fixed: NB gated off when staff_followup_needed; staff branch reordered task-BEFORE-email so ClickUp link in body; StaffFU email now superset (+transcript)](eoc-email-consolidation-2026-09-09.md) — gate fail-open; Create Task onError=continue; verify next real staff-FU call.
+- [Dup NB+StaffFU emails fixed: NB gated off when staff_followup_needed; staff branch reordered task-BEFORE-email so ClickUp link in body; StaffFU email now superset (+transcript)](eoc-email-consolidation-2026-09-09.md) — gate fail-open; Create Task onError=continue; VERIFIED LIVE exec 35008 (Sabrina/Pickering Jr): 1 email, link rendered, NB suppressed.
 
 ## ▶ Cekura Tier1 9/7 Triage — Junior Collision (2026-09-09)
 - [9/7 tier1 fully triaged: 3 "new" = Junior-launch collisions (test-side, fixed); chronic 5 = 2 harness artifacts (empty-KB var, ASR Cimo→"Seema") + 3 REAL prompt gaps → 3 rules fanned to all 9 outbound LLMs 9/9](cekura-tier1-junior-collision-2026-09-07.md) — KB var + weekday SLOTS on all 14 profiles; Create Lite=$185 not $175; EG JR price $185/mo SHIPPED to KB doc 9/9 (live at dial time via Get KB node; cloud kb-gdocs-* webhooks, _KB skill doc stale); Oct 5 cron verifies; CHECK Emma stale Supabase KB.
