@@ -1,5 +1,13 @@
 # PAI Memory
 
+## ▶ Cekura Tier1 9/7 Triage — Junior Collision (2026-09-09)
+- [9/7 tier1 fully triaged: 3 "new" = Junior-launch collisions (test-side, fixed); chronic 5 = 2 harness artifacts (empty-KB var, ASR Cimo→"Seema") + 3 REAL prompt gaps → 3 rules fanned to all 9 outbound LLMs 9/9](cekura-tier1-junior-collision-2026-09-07.md) — KB var + weekday SLOTS on all 14 profiles; Create Lite=$185 not $175; EG JR price $185/mo SHIPPED to KB doc 9/9 (live at dial time via Get KB node; cloud kb-gdocs-* webhooks, _KB skill doc stale); Oct 5 cron verifies; CHECK Emma stale Supabase KB.
+## ▶ n8n Two Instances (2026-09-09)
+- [PROD n8n = CLOUD xprime17.app.n8n.cloud (key in /root/.env, working); localhost:5678 = separate docker n8n, prod key 401s there](n8n-two-instances-gotcha.md) — use $N8N_BASE_URL, never hardcode localhost; droplet name "n8n-production" is the trap.
+
+## ▶ 9/7 Audit Triage — Cekura Cross-ref Leak (2026-09-09)
+- [9/7 audit: 7/8 issues = leaked Cekura tests (REPEAT ×11 source); cross-ref window widened −120s/+630s + inbound_number matching FIXED](audit-2026-09-07-cekura-crossref-leak.md) — real issue: Leaside weekend-drop-in KB gap (Andrew Scoon, task created ✓); inbound "to_number" col = our DID, read from_number.
+
 ## ▶ 9/6 Audit Triage — Leaside ANI False Positive (2026-09-09)
 - [9/6 HIGH = FP: agent read back caller's own ANI; 5K now whitelists ANI/DID/caller-dictated numbers + retry-chains skip inbound, dry run clean](audit-2026-09-06-leaside-ani-false-positive.md) — Catherine Murphy called Leaside 4x/40min, no human; tasks created but "to do" 3d later (staff gap) → escalation feature FILED as lead-reactivation#68 (email/SMS tiers, reuses #60 Staff-Alert infra).
 
@@ -62,7 +70,7 @@
 - [Comma-separated centre_email, no new column](centre-email-cc-comma-separated-2026-08-14.md) — Shauna's extra-CC ask: all 10 EOC Gmail nodes pass centre_email straight to sendTo (verified live, zero code changes). Scott appended shauna.chan to Burlington/StCath/Kanata cells; format verified in-sheet (commas ✓). CONFIRMED 8/18: StCath No Booking email sent to centre + shauna.chan (msg 1a010d8590dccf04).
 
 ## ▶ Per-Centre Greeting — LIVE (2026-08-12)
-- [Built + Shauna self-serve pilot live](percentre-greeting-spec-2026-08-11.md) — cols S/T + `set-greeting.ts` + `greeting-sync.timer` (10min) + Shauna's doc (StCath+Burl allowlist, wf `6wXOMIw0uxmDZq56`). E2E proven apply/revert/reject. OPEN: Scott announces doc to Shauna.
+- [Built + Shauna self-serve pilot live](percentre-greeting-spec-2026-08-11.md) — cols S/T + `set-greeting.ts` + `greeting-sync.timer` + Shauna's doc (wf `6wXOMIw0uxmDZq56`). Shauna adopted 8/26 (Lisa+framing): Burl greeting-bail 69%→24% = framing works, rename doesn't; framing applied to EG inbound 9/9. Retell numbers now use `inbound_agents[]` (null old field ≠ unbound). OPEN: fan to Leaside/Kanata?, fleet-default question.
 
 ## ▶ Retell/Twilio Notices
 - [Retell CIDR 3.42.144.0/23 allowlist (Aug-2026)](retell-custom-telephony-cidr-2026-07-22.md) — NO ACTION for CNKB; our Twilio trunks auth by CredentialList not IP, Twilio brokers RTP. Keep CIDR on file only.
