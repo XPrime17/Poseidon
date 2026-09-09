@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ EOC Email Consolidation (2026-09-09)
+- [Dup NB+StaffFU emails fixed: NB gated off when staff_followup_needed; staff branch reordered task-BEFORE-email so ClickUp link in body; StaffFU email now superset (+transcript)](eoc-email-consolidation-2026-09-09.md) — gate fail-open; Create Task onError=continue; verify next real staff-FU call.
+
 ## ▶ Cekura Tier1 9/7 Triage — Junior Collision (2026-09-09)
 - [9/7 tier1 fully triaged: 3 "new" = Junior-launch collisions (test-side, fixed); chronic 5 = 2 harness artifacts (empty-KB var, ASR Cimo→"Seema") + 3 REAL prompt gaps → 3 rules fanned to all 9 outbound LLMs 9/9](cekura-tier1-junior-collision-2026-09-07.md) — KB var + weekday SLOTS on all 14 profiles; Create Lite=$185 not $175; EG JR price $185/mo SHIPPED to KB doc 9/9 (live at dial time via Get KB node; cloud kb-gdocs-* webhooks, _KB skill doc stale); Oct 5 cron verifies; CHECK Emma stale Supabase KB.
 ## ▶ n8n Two Instances (2026-09-09)
@@ -31,7 +34,7 @@
 - [Date-fabrication guard shipped fleet-wide 9/2: all 7 inbound LLMs incl. EG golden source](date-fabrication-guard-2026-09-02.md) — dates/camp weeks = KB-only, deflect otherwise; backups cnkb-camp-dates-guard-2026-09-02/. OPEN: outbound has no equivalent; Madhu staff correction.
 
 ## ▶ Retell Legacy-List Deprecation (2026-08-31)
-- [Droplet migrated (list-phone-numbers→v2, gate PASS `6977a66`); residual 16× v2/list-calls = external caller](retell-legacy-list-migration-2026-08-31.md) — never use retell-sdk 4.x `.list()` (targets deprecated endpoints); fetch v3/list-calls + v2/list-phone-numbers directly, read `items`. ChatDash/laptop-MCP class (see list-agents saga).
+- [Droplet migrated (list-phone-numbers→v2, gate PASS `6977a66`); residual v2/list-calls = OUR ad-hoc triage one-liners, NOT external — corrected 9/9 (Sep-6 notice named "Lead Reactivation" key + IP 138.197.171.204 = our droplet); ALL deployed code is v3](retell-legacy-list-migration-2026-08-31.md) — never use retell-sdk 4.x `.list()` (targets deprecated endpoints); fetch v3/list-calls + v2/list-phone-numbers directly, read `items`. Use v3 in ad-hoc curls too. Production SAFE from removal.
 
 ## ▶ After-Hours Attempt Burn (2026-08-30)
 - [RULE: re-read live state immediately before ANY hand-write repair](feedback-reread-before-manual-write.md) — never write from earlier-in-conversation reads (time jumps between turns); pre-read → write → post-read incl. neighbour fields. Per Scott 8/31 after the clobber near-miss.
