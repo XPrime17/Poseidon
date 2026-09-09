@@ -1,5 +1,8 @@
 # PAI Memory
 
+## ▶ 9/6 Audit Triage — Leaside ANI False Positive (2026-09-09)
+- [9/6 HIGH = FP: agent read back caller's own ANI; 5K now whitelists ANI/DID/caller-dictated numbers + retry-chains skip inbound, dry run clean](audit-2026-09-06-leaside-ani-false-positive.md) — Catherine Murphy called Leaside 4x/40min, no human; tasks created but "to do" 3d later (staff gap) → escalation feature FILED as lead-reactivation#68 (email/SMS tiers, reuses #60 Staff-Alert infra).
+
 ## ▶ Junior Tour Support (2026-09-03)
 - [Junior tour E2E COMPLETE 9/8: wr_572197642610331836 completed 9m22s/17 actions, Oct-1 booking on EG Jr calendar; full chain proven form→dial→Junior offer→EOC→Skyvern v23](junior-tour-support-2026-09-03.md) — Skyvern gotchas: PUT strip output params + parameter_keys, timeout half-lands (v22 = 0 blocks), run dispatch takes `data` NOT `parameters` (silently ignored → defaults ran 2×). Fan-out + INBOUND (EG/Leaside/Pickering, junior_result-gated, zero EOC changes) + Cekura scenarios 342241/342242 ALL SHIPPED 9/9. OPEN: Scott delete Roger test booking; baseline-run Cekura scenarios; watch audits for first real Jr booking; Lisa Dean callback. Base-tier EOC gate SHIPPED 9/5.
 
