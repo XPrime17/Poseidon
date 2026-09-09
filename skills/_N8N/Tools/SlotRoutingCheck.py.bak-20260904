@@ -81,19 +81,13 @@ def llm_id_of(a):
     # v2/list-agents nests it under response_engine; tolerate flattened shape too.
     return a.get("llm_id") or (a.get("response_engine") or {}).get("llm_id")
 
-BASE_TIER_MARK = "Tour scheduling is handled by centre staff"  # base-tier prompt section (2026-08-31 cutover)
-
-def slot_tool_info(llm_id):
-    """Return (get_tour_slots url or None, base_tier: bool, prompt_refs_tool: bool)."""
+def slot_tool_url(llm_id):
     if not llm_id:
-        return None, False, False
-    llm = retell(f"/get-retell-llm/{llm_id}")
-    url = None
-    for t in llm.get("general_tools", []):
+        return None
+    for t in retell(f"/get-retell-llm/{llm_id}").get("general_tools", []):
         if t.get("name") == "get_tour_slots":
-            url = t.get("url", "")
-    prompt = llm.get("general_prompt", "") or ""
-    return url, BASE_TIER_MARK in prompt, "get_tour_slots" in prompt
+            return t.get("url", "")
+    return None
 
 def centre_from_url(url):
     """Return the centre segment after /retell/get-slots/, or None if generic/absent."""
@@ -147,32 +141,12 @@ def main():
 
     for a in agents:
         name = a["agent_name"]
-        url, base_tier, prompt_refs_tool = slot_tool_info(llm_id_of(a))
+        url = slot_tool_url(llm_id_of(a))
         centre = centre_from_url(url)
         tag = f"{name} ({a['agent_id']})"
 
-        # Base tier (2026-08-31 cutover): tool deliberately removed AND the prompt's
-        # "Tour scheduling is handled by centre staff" section forbids reading times.
-        # That tool<->prompt AGREEMENT is healthy — only a mismatch is a failure:
-        #   - no tool but prompt still references get_tour_slots (agent will promise
-        #     slots it can't fetch), or
-        #   - base-tier prompt but the tool is still attached (agent can read times
-        #     the tier forbids).
-        if url is None and base_tier and not prompt_refs_tool:
-            lines.append(f"  [PASS] C1 {tag}: base tier (no slot tool, no-times prompt — consistent)")
-            continue
-        if url is None and not base_tier:
-            fails.append(f"C1 {name}: no get_tour_slots tool and NO base-tier prompt section — "
-                         f"{'prompt still references the tool' if prompt_refs_tool else 'agent cannot serve or deflect tour times coherently'}")
-            lines.append(f"  [FAIL] C1 {tag}: slot tool missing without base-tier prompt")
-            continue
-        if url is not None and base_tier:
-            fails.append(f"C1 {name}: base-tier prompt but get_tour_slots tool still attached ({url!r})")
-            lines.append(f"  [FAIL] C1 {tag}: base-tier prompt/tool mismatch")
-            continue
-
         if centre is None:
-            fails.append(f"C1 {name}: get_tour_slots URL is GENERIC ({url!r})")
+            fails.append(f"C1 {name}: get_tour_slots URL is GENERIC ({url!r}) -> will default to EG")
             lines.append(f"  [FAIL] C1 {tag}: generic slot URL {url!r}")
             continue
         # A specific-but-WRONG centre must also fail C1: a clone that still points at

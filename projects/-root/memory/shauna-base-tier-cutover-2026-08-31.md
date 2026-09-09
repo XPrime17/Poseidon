@@ -17,6 +17,9 @@ metadata:
 3. **Inbound booking-disable on 3 LLMs** (StCath llm_769e0ba…, Burlington llm_fd20e83…, Kanata llm_7cd3dd9…): `get_tour_slots` tool REMOVED; sections replaced — "Tour Availability" (never offer/confirm times), 2D → "Tour Request Capture" (preference + staff callback, NO timeframe — [[feedback-no-staff-response-time-promises]], fixed 2026-09-01), 2E → "Fast-Track Tour Request" (record preferred time, never confirm availability), 2F close (request-recorded language). Verified: 0 get_tour_slots refs, tools=[end_call] on all 3. **Backups: `/root/cnkb-base-tier-cutover-2026-08-31/`** — restore = PATCH general_prompt+general_tools from backup JSON.
 4. **Cekura Tier-2 crons paused** (Happy-Path expects booking, would false-fail Wed Sep 2): Burlington 439 + Kanata 511 → crontab `0 6 31 2 *` (never fires) + [PAUSED] names. StCath has no Tier-2 cron. Un-pause = restore `20 6 1-7,15-21 * 3` / `40 6 1-7,15-21 * 3` US/Eastern (pause reset tz to US/Pacific — fix when restoring).
 
+## Addendum 2026-09-05 — EOC booking gate
+The cutover left a gap: inbound EOC still dispatched Skyvern for base-tier centres from agent-recorded time *preferences* (Burlington/Lisa Dean run `wr_570629689494400306`, saved only by terminate criterion). FIXED: `Base Tier?` IF in EOC `3oV7SpPKWmr3xJlQ` routes the trio to a staff-booking email instead ([[junior-tour-support-2026-09-03]]). **Tier upgrade checklist now: restore prompt+tools from backup, un-pause Cekura crons (fix tz), AND remove the centre from BASE_TIER in `/root/deploy-basetier-booking-gate-2026-09-05.py` + redeploy.**
+
 ## Open items
 - **Scott: remove 3 slugs from Zapier facility_slug filter** — else every real HubSpot lead for these centres fires a "Not Enabled" alert email to Scott (drop is safe, just noisy). StCath LineLeader dual-source echoes also land Not-Enabled (fine).
 - Billing: confirm Shauna adds card same-day (Sharmila sat past_due 14d); answer on per-centre cards pending.

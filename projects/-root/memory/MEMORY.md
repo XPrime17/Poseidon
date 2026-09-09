@@ -1,5 +1,11 @@
 # PAI Memory
 
+## ▶ Junior Tour Support (2026-09-03)
+- [Junior tour E2E COMPLETE 9/8: wr_572197642610331836 completed 9m22s/17 actions, Oct-1 booking on EG Jr calendar; full chain proven form→dial→Junior offer→EOC→Skyvern v23](junior-tour-support-2026-09-03.md) — Skyvern gotchas: PUT strip output params + parameter_keys, timeout half-lands (v22 = 0 blocks), run dispatch takes `data` NOT `parameters` (silently ignored → defaults ran 2×). Fan-out + INBOUND (EG/Leaside/Pickering, junior_result-gated, zero EOC changes) + Cekura scenarios 342241/342242 ALL SHIPPED 9/9. OPEN: Scott delete Roger test booking; baseline-run Cekura scenarios; watch audits for first real Jr booking; Lisa Dean callback. Base-tier EOC gate SHIPPED 9/5.
+
+## ▶ 9/2 Audit Triage — Barrhaven TEST Booking (2026-09-03)
+- [9/2 audit: both HIGHs false positives; Barrhaven call = TEST lead ("Rosa", phone==test_number 6136684805, Testing NOT flipped) yet Skyvern completed a REAL Sept-11 5pm calendar booking](audit-2026-09-02-triage-barrhaven-first-booking.md) — E2E-proves Sonamation-centre booking flow; SCHEDULER_LAG = 9/1 text-FALSE crash footprint. Test-dial filter SHIPPED 9/3 (audit.py 2c via greeting-centre-lookup bridge, fail-open; dry run 5→2 issues). OPEN: Scott/Maurice cancel fake booking; EG BOOKING_FUMBLE ×8 untriaged; Burlington name-echo prompt.
+
 ## ▶ Calendar-API OOM Kill (2026-09-02)
 - [Global OOM killed calendar-api's chrome child + a 1.3GB pm2 bun (unidentified); self-healed 5s; Pickering 502 = transient Sonamation ~7% → retry-on-5xx SHIPPED 9/3](calendar-api-oom-kill-2026-09-02.md) — droplet swap 3.5/4GB (stale claude TTYs); watchdog 30min-stale restarts benign. pm2 300M guard SHIPPED 9/3 (all 5 apps, pm2 save'd). OPEN: close stale claude TTYs (swap 3.5/4GB).
 
