@@ -9,7 +9,7 @@
 - [PROD n8n = CLOUD xprime17.app.n8n.cloud (key in /root/.env, working); localhost:5678 = separate docker n8n, prod key 401s there](n8n-two-instances-gotcha.md) — use $N8N_BASE_URL, never hardcode localhost; droplet name "n8n-production" is the trap.
 
 ## ▶ 9/7 Audit Triage — Cekura Cross-ref Leak (2026-09-09)
-- [9/7 audit: 7/8 issues = leaked Cekura tests (REPEAT ×11 source); cross-ref window widened −120s/+630s + inbound_number matching FIXED](audit-2026-09-07-cekura-crossref-leak.md) — real issue: Leaside weekend-drop-in KB gap (Andrew Scoon, task created ✓); inbound "to_number" col = our DID, read from_number.
+- [9/7 audit: 7/8 issues = leaked Cekura tests (REPEAT ×11 source); cross-ref window widened −120s/+630s + inbound_number matching FIXED](audit-2026-09-07-cekura-crossref-leak.md) — real issue (Andrew Scoon): agent conflated Create's DROP-IN scheduling w/ tour visit (Scott's catch); fix fanned to 9 outbound + 7 inbound LLMs 9/9 (menu wording + drop-in intent rule; EG-Inbound golden source inherits); OPEN: Scott post ClickUp note 868m2a6fv (classifier blocked).
 
 ## ▶ 9/6 Audit Triage — Leaside ANI False Positive (2026-09-09)
 - [9/6 HIGH = FP: agent read back caller's own ANI; 5K now whitelists ANI/DID/caller-dictated numbers + retry-chains skip inbound, dry run clean](audit-2026-09-06-leaside-ani-false-positive.md) — Catherine Murphy called Leaside 4x/40min, no human; tasks created but "to do" 3d later (staff gap) → escalation feature FILED as lead-reactivation#68 (email/SMS tiers, reuses #60 Staff-Alert infra).
